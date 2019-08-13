@@ -7,6 +7,7 @@ import { appName } from '../../helpers/defaults';
 const AuthPage = () => (
     <div className="authPage">
         <div className="leftSide">
+            <div className="overla" />
             <div className="container">
                 <div className="logo">
                     <h1 className="us-logo">{appName}</h1>
