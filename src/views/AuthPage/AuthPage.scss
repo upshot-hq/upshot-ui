@@ -1,0 +1,188 @@
+@import '../../assets/styles/colors';
+@import '../../assets/styles/defaults';
+
+.authPageg {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    font-family: $poppins;
+    .leftSide {
+        // border: 1px solid;
+        background-color: $white;
+        flex-basis: 30%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        .container {
+            width: 80%;
+            height: 80%;
+            // border: 1px solid gold;
+            margin: auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: flex;
+            flex-direction: column;
+            .logo {
+                // margin-bottom: 10px auto;
+                // border: 1px solid green;
+                flex-basis: 25%;
+            }
+            .msg {
+                // margin: 40px auto;
+                flex-basis: 55%;
+                // border: 1px solid blue;
+                font-size: 35px;
+                font-family: $poppins;
+                color: $secondary-color;
+            }
+            .auth-btn {
+                flex-basis: 20%;
+                // border: 1px solid red;
+                // margin: 40px auto;
+            }
+        }
+    }
+    .rightSide {
+        background-image: url("../../assets/04.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100%;
+        flex-basis: 70%;
+        clip-path: polygon(25% 0%, 100% 0, 100% 100%, 25% 100%, 0% 63%);
+        // border: 1px solid;
+    }
+}
+
+.us-logo {
+    font-family: $dancing-script;
+    font-size: 85px;
+    font-style: bold;
+    margin: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    color: $primary-color;
+    text-transform: capitalize;
+}
+
+.us-btn  {
+    width: auto;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: $primary-color;
+    color: $white;
+    font-family: $poppins;
+    padding: 0;
+    height: 50px;
+    width: 252px;
+    border-radius: 4px;
+    text-transform: capitalize;
+    -webkit-box-shadow: 0 5px 12px 0 rgba(0,0,0,.2);
+    box-shadow: 0 5px 12px 0 rgba(0,0,0,.2);
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    padding: 0 10px;
+    padding-left: 15px;
+    .icon {
+        flex-basis: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+    .text {
+        flex-basis: 70%;
+        text-align: center;
+        padding-top: 3px;
+
+    }
+}
+
+@media screen and (min-width: $iPad) {
+    .authPage {
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+        font-family: $poppins;
+        background-color: $white;
+        background-color: $secondary-color;
+        .leftSide {
+            background-color: $white;
+            background-color: $secondary-color;
+            flex-basis: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            .container {
+                width: 80%;
+                height: 80%;
+                margin: auto;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: flex;
+                flex-direction: column;
+                .logo {
+                    flex-basis: 25%;
+                }
+                .msg {
+                    flex-basis: 55%;
+                    font-size: 40px;
+                    font-family: $poppins;
+                    color: $secondary-color;
+                    color: $white;
+                }
+                .auth-btn {
+                    flex-basis: 20%;
+                }
+            }
+        }
+        .rightSide {
+            flex-basis: 50%;
+            background-image: url("../../assets/04.jpg");
+            background-color: $white;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100%;
+            clip-path: polygon(25% 0%, 100% 0, 100% 100%, 25% 100%, 0% 63%);
+        }
+    }
+}
+
+@media screen and (min-width: $iPadPro) {
+    .authPage {
+        .leftSide {
+            flex-basis: 40%;
+            .container {
+                height: 70%;
+                .msg {
+                    font-size: 45px;
+                }
+            }
+        }
+        .rightSide {
+            flex-basis: 60%;            
+        }
+    }
+}
+
+@media screen and (min-width: $laptop) {
+    .authPage {
+        .leftSide {
+            flex-basis: 30%;
+            .container {
+                .msg {
+                    font-size: 35px;
+                }
+            }
+        }
+        .rightSide {
+            flex-basis: 70%;
+        }
+    }
+}
