@@ -1,12 +1,12 @@
 import React from 'react';
-import './App.scss';
+
+import AuthPage from '../AuthPage/index';
 
 function App() {
   return (
-    <div className="App">
-      <h1>upshot</h1>
-      <span>Go Upshotters!!!</span>
-    </div>
+      <div className="App">
+        <AuthPage />
+      </div>
   );
 }
 

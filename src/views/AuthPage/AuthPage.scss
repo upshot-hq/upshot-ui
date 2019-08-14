@@ -1,0 +1,201 @@
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+.authPage {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    font-family: $primary-font;
+    .leftSide {
+        background-image: url("../../assets/04.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: $white;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .container {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(45, 40, 62, 0.9);
+            .logo {
+                flex-basis: 25%;
+                display: flex;
+                align-items: end;
+                .us-logo {
+                    font-size: 75px;
+                    margin: auto;
+                    text-align: center
+                }
+            }
+            .msg {
+                flex-basis: 55%;
+                text-align: center;
+                font-size: 35px;
+                font-family: $primary-font;
+                color: $white;
+            }
+            .auth-btn {
+                flex-basis: 20%;
+                margin: auto;
+            }
+        }
+    }
+    .rightSide {
+        display: none;
+        background-image: url("../../assets/04.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100%;
+        flex-basis: 70%;
+        clip-path: polygon(25% 0%, 100% 0, 100% 100%, 25% 100%, 2% 65%);
+        -webkit-clip-path: polygon(25% 0%, 100% 0, 100% 100%, 25% 100%, 2% 65%);
+    }
+}
+
+.us-logo {
+    font-family: $secondary-font;
+    font-size: 85px;
+    font-weight: bold;
+    margin: auto;
+    color: $primary-color;
+    text-transform: capitalize;
+}
+
+.us-btn  {
+    width: auto;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: $primary-color;
+    color: $white;
+    font-family: $primary-font;
+    padding: 0;
+    height: 50px;
+    width: 252px;
+    border-radius: 4px;
+    text-transform: capitalize;
+    -webkit-box-shadow: 0 5px 12px 0 rgba(0,0,0,.2);
+    box-shadow: 0 5px 12px 0 rgba(0,0,0,.2);
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    padding: 0 10px;
+    padding-left: 15px;
+    .icon {
+        flex-basis: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+    .text {
+        flex-basis: 70%;
+        text-align: center;
+        padding-top: 3px;
+
+    }
+}
+
+@media screen and (min-width: $iPad) {
+    .authPage {
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+        font-family: $primary-font;
+        background-color: $white;
+        background-color: $secondary-color;
+        .leftSide {
+            background-image: none;
+            background-color: $white;
+            background-color: $secondary-color;
+            flex-basis: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            .container {
+                width: 80%;
+                height: 80%;
+                margin: auto;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: flex;
+                flex-direction: column;
+                .logo {
+                    flex-basis: 25%;
+                    display: block;
+                    .us-logo {
+                        text-align: left;
+                    }
+                }
+                .msg {
+                    text-align: left;
+                    flex-basis: 55%;
+                    font-size: 40px;
+                    font-family: $primary-font;
+                    color: $secondary-color;
+                    color: $white;
+                }
+                .auth-btn {
+                    flex-basis: 20%;
+                    margin: 0;
+                }
+            }
+        }
+        .rightSide {
+            display: block;
+            flex-basis: 50%;
+            background-image: url("../../assets/04.jpg");
+            background-color: $white;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100%;
+            clip-path: polygon(25% 0%, 100% 0, 100% 100%, 25% 100%, 0% 63%);
+        }
+    }
+}
+
+@media screen and (min-width: $iPadPro) {
+    .authPage {
+        .leftSide {
+            flex-basis: 40%;
+            .container {
+                height: 70%;
+                .msg {
+                    font-size: 45px;
+                }
+            }
+        }
+        .rightSide {
+            flex-basis: 60%;            
+        }
+    }
+}
+
+@media screen and (min-width: $laptop) {
+    .authPage {
+        .leftSide {
+            flex-basis: 30%;
+            .container {
+                .msg {
+                    font-size: 35px;
+                }
+            }
+        }
+        .rightSide {
+            flex-basis: 70%;
+        }
+    }
+}
