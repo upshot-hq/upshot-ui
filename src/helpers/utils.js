@@ -1,4 +1,5 @@
 import jwtDecode from 'jwt-decode';
+import { createBrowserHistory } from 'history';
 
 import { jwtKey, networkErrorMessage, serverErrorMessage } from './defaults';
 
@@ -54,3 +55,5 @@ export const apiErrorHandler = (error) => {
   }
   return errorMessage;
 };
+
+export const history = createBrowserHistory();

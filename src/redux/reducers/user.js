@@ -9,7 +9,6 @@ const initialState = {
   errors: {
     message: '',
     errors: [],
-    state: false,
   },
   isLoading: false,
 };

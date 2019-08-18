@@ -1,8 +1,7 @@
 
 import { put, takeLatest, call } from 'redux-saga/effects';
 
-import { getUserDetails, apiErrorHandler } from '../../helpers/utils';
-// import * as NavigationService from '../../services/NavigationService';
+import { getUserDetails, apiErrorHandler, history } from '../../helpers/utils';
 import UserAPI from '../../services/UserAPI';
 
 import {
@@ -20,7 +19,7 @@ export function* authenticateUserSagaAsync(action) {
     const response = yield call(UserAPI.authenticateUser, action.userData);
     const userData = yield getUserDetails(response.data.token);
     yield put(authenticateUserSuccess(userData));
-    // NavigationService.navigate(ideaFeedsScreenName);
+    history.push('/home');
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
 

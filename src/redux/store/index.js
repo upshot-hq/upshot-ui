@@ -1,15 +1,18 @@
 
-import { createStore, applyMiddleware, compose } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import axios from 'axios';
+import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import createSagaMiddleware from 'redux-saga';
+import { routerMiddleware } from 'react-router-redux';
+import axios from 'axios';
 
 import rootReducer from '../reducers';
 import rootSaga from '../sagas';
 import { jwtKey } from '../../helpers/defaults';
+import { history } from '../../helpers/utils';
 
 const sagaMiddleware = createSagaMiddleware();
-const middleware = composeWithDevTools(applyMiddleware(sagaMiddleware));
+const reduxRouterMiddleware = routerMiddleware(history);
+const middleware = composeWithDevTools(applyMiddleware(sagaMiddleware, reduxRouterMiddleware));
 const store = createStore(rootReducer, middleware);
 
 const token = localStorage.getItem(jwtKey);
