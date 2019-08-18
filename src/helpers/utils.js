@@ -1,7 +1,8 @@
 import jwtDecode from 'jwt-decode';
 import { createBrowserHistory } from 'history';
 
-import { jwtKey, networkErrorMessage, serverErrorMessage } from './defaults';
+import { jwtKey } from './defaults';
+import lang from './en.default';
 
 export const isExpired = (expiredTimeInSec) => {
   const now = new Date();
@@ -38,7 +39,7 @@ export const apiErrorHandler = (error) => {
          */
     switch (error.response.status) {
       case 500:
-        errorMessage = serverErrorMessage;
+        errorMessage = lang.serverErrorMessage;
         break;
       case 422:
         validationErrors = error.response.data.errors
@@ -51,7 +52,7 @@ export const apiErrorHandler = (error) => {
     }
   } else {
     //  if server is down, client won't get a response
-    errorMessage = networkErrorMessage;
+    errorMessage = lang.networkErrorMessage;
   }
   return errorMessage;
 };

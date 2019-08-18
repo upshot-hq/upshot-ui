@@ -5,7 +5,8 @@ import FontAwesome from 'react-fontawesome';
 import GoogleLogin from 'react-google-login';
 
 import './AuthPage.scss';
-import { appName, authenticatonErrorMessage } from '../../helpers/defaults';
+import { appName } from '../../helpers/defaults';
+import lang from '../../helpers/en.default';
 import {
   authenticateUser,
   authenticateUserFailure,
@@ -14,8 +15,8 @@ import {
 export const AuthPage = (props) => {
   const handleAuth = (response) => {
     const {
-      familyName: firstname,
-      givenName: lastname,
+      familyName: lastname,
+      givenName: firstname,
       email,
       imageUrl,
     } = response.profileObj;
@@ -26,7 +27,7 @@ export const AuthPage = (props) => {
   };
 
   const handleAuthFailure = (response) => {
-    props.authenticateUserFailure({ ...response.error, message: authenticatonErrorMessage });
+    props.authenticateUserFailure({ ...response.error, message: lang.authenticatonErrorMessage });
   };
 
   const renderBtn = (renderProps) => (
