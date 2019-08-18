@@ -1,13 +1,14 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
-import AuthPage from '../AuthPage/index';
+import Routes from '../../routes';
 
-function App() {
-  return (
+const App = () => (
       <div className="App">
-        <AuthPage />
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
       </div>
-  );
-}
+);
 
 export default App;

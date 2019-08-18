@@ -20,7 +20,7 @@ const AuthPage = () => (
                         <div className="icon">
                             <FontAwesome name="google" size="2x" />
                         </div>
-                        <span className="text">Signup with google</span>
+                        <span className="text">Signin with google</span>
                     </button>
                 </div>
             </div>

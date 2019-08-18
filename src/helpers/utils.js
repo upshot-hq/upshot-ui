@@ -1,0 +1,56 @@
+import jwtDecode from 'jwt-decode';
+
+import { jwtKey, networkErrorMessage, serverErrorMessage } from './defaults';
+
+export const isExpired = (expiredTimeInSec) => {
+  const now = new Date();
+  const nowInSec = Math.floor(now.getTime() * 0.001); // Convert date to sec
+  return nowInSec > expiredTimeInSec;
+};
+
+export const getUserDetails = async (tokn) => {
+  const token = tokn || await localStorage.getItem(jwtKey);
+  const userData = token ? jwtDecode(token) : null;
+  const isAuthenticated = !!(userData && !isExpired(userData.exp));
+
+  if (tokn && isAuthenticated) {
+    await localStorage.setItem(jwtKey, tokn);
+  }
+
+  const data = {
+    isAuthenticated,
+    userData,
+  };
+
+  return data;
+};
+
+export const apiErrorHandler = (error) => {
+  let errorMessage;
+  let validationErrors;
+  // if server gets an error response, handle it
+  if (error.response) {
+    /**
+         * using a switch statement instead of if/else because there is
+         * a chance that we have to handle other error codes when we make
+         * requests like GET to the server
+         */
+    switch (error.response.status) {
+      case 500:
+        errorMessage = serverErrorMessage;
+        break;
+      case 422:
+        validationErrors = error.response.data.errors
+          .map((err) => err.msg || err.message)
+          .join(', ');
+        errorMessage = `${validationErrors}`;
+        break;
+      default:
+        errorMessage = error.response.data.error || error.response.data.message;
+    }
+  } else {
+    //  if server is down, client won't get a response
+    errorMessage = networkErrorMessage;
+  }
+  return errorMessage;
+};

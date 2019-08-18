@@ -33,6 +33,7 @@ module.exports = {
     "no-lone-blocks": 0,
     "func-names": 0,
     "no-undef": 1,
+		"max-len": ["error", 100],
     "no-use-before-define":0,
     "comma-dangle": 1,
     "jsx-quotes": 1,
@@ -68,5 +69,8 @@ module.exports = {
     "react/self-closing-comp": 1,
     "react/sort-comp": 1,
     "react/wrap-multilines": 0
+  },
+  "globals": {
+    "localStorage": true
   }
 }
