@@ -1,0 +1,13 @@
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+.not-found-page {
+    height: 100vh;
+    display: flex;
+    h3 {
+        margin: auto;
+    }
+    a {
+        color: $primary-color;
+    }
+}

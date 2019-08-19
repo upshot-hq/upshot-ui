@@ -33,6 +33,7 @@ module.exports = {
     "no-lone-blocks": 0,
     "func-names": 0,
     "no-undef": 1,
+		"max-len": ["error", 100],
     "no-use-before-define":0,
     "comma-dangle": 1,
     "jsx-quotes": 1,
@@ -45,7 +46,7 @@ module.exports = {
     "react/jsx-indent-props": 0,
     "react/jsx-key": 1,
     "react/jsx-max-props-per-line": 0,
-    "react/jsx-no-bind": 1,
+    "react/jsx-no-bind": 0,
     "react/jsx-no-duplicate-props": 1,
     "react/jsx-no-literals": 0,
     "react/jsx-no-undef": 1,
@@ -58,7 +59,7 @@ module.exports = {
     "react/no-did-mount-set-state": 1,
     "react/no-did-update-set-state": 1,
     "react/no-direct-mutation-state": 1,
-    "react/no-multi-comp": 1,
+    "react/no-multi-comp": 0,
     "react/no-set-state": 0,
     "react/no-unknown-property": 1,
     "react/prefer-es6-class": 1,
@@ -68,5 +69,8 @@ module.exports = {
     "react/self-closing-comp": 1,
     "react/sort-comp": 1,
     "react/wrap-multilines": 0
+  },
+  "globals": {
+    "localStorage": true
   }
 }
