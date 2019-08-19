@@ -22,7 +22,7 @@ const Layout = (props) => {
     const { title, icon, link } = lang.layoutSideNav[navItem];
 
     return (
-      <div className="nav-item" onClick={() => history.push(link)}>
+      <div key={index} className="nav-item" onClick={() => history.push(link)}>
         <div className="icon">
           <FontAwesome
             key={index}
@@ -46,23 +46,6 @@ const Layout = (props) => {
     );
   };
 
-  const renderSearchBar = () => (
-      <div className="searchbar">
-         <div className="icon back-btn">
-          <FontAwesome name="arrow-left" />
-         </div>
-         <div className="bar">
-           <div className="search-icon">
-            <FontAwesome name="search" />
-           </div>
-           <input type="text" name="search" className="search-input"/>
-         </div>
-         <div className="icon options-btn">
-           <FontAwesome name="ellipsis-h" />
-         </div>
-      </div>
-  );
-
   return (
     <div className="layout">
       <div className="layout-container">
@@ -77,23 +60,7 @@ const Layout = (props) => {
           </div>
         </div>
         <div className="layout__content-center">
-          <div className="header">
-            <div className="top">
-              {renderSearchBar()}
-            </div>
-            <div className="bottom">
-              <div className="nav__items">
-                <div className="nav__items-item">Top</div>
-                <div className="nav__items-item">latest</div>
-                <div className="nav__items-item">people</div>
-                <div className="nav__items-item">photos</div>
-                <div className="nav__items-item">videos</div>
-              </div>
-            </div>
-          </div>
-          <div className="content">
-            {children}
-          </div>
+          {children}
         </div>
         <div className="layout__content-rightside">
           <div className="content" />
