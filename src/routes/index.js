@@ -7,20 +7,15 @@ import HomePage from '../views/HomePage';
 
 const Routes = () => (
     <Switch>
-        {/* <Route
-            path={['/', '/signin', '/signup']}
-            exact
-            component={AuthPage}
-        /> */}
         <Route
             path={['/', '/signin', '/signup']}
             exact
-            component={HomePage}
+            component={AuthPage}
         />
         <Route
             path="/home"
             exact
-            component={AuthPage}
+            component={HomePage}
         />
         <Route component={NotFoundPage} />
     </Switch>
