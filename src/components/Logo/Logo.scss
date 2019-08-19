@@ -1,0 +1,10 @@
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+.logo {
+  font-size: 75px;
+  margin: auto;
+  text-align: center;
+  font-family: $secondary-font;
+  color: $primary-color;
+}

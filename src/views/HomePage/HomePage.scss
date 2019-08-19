@@ -3,11 +3,19 @@
 
 .homepage {
     height: 100vh;
-    display: flex;
     h3 {
         margin: auto;
     }
     a {
         color: $primary-color;
+    }
+    .dummy-card {
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        height: 60%;
+        width: 90%;
+        background-color: $primary-color;
+        border-radius: 5px;
     }
 }
