@@ -6,7 +6,7 @@
   .header {
     width: 100%;
     height: 12%;
-    border-bottom: 1px solid $secondary-color;
+    border-bottom: 1px solid $secondary-color-1;
     .top {
       height: 60%;
       .back-btn {
@@ -14,11 +14,14 @@
         flex-basis: 10%;
         display: flex;
         justify-content: center;
-        height: 40%;
+        height: 50%;
         align-items: center;
         &>span {
           font-size: 18px;
           cursor: pointer;
+        }
+        &:hover {
+          color: $secondary-color;
         }
       }
       .searchbar {
@@ -66,24 +69,34 @@
         &>span {
           font-size: 18px;
           cursor: pointer;
-
+        }
+        &:hover {
+          color: $secondary-color;
         }
       }
     }
     .bottom {
-      height: 50%;
+      height: 40%;
       .nav__items {
         width: 100%;
+        height: 100%;
         display: flex;
         justify-content: space-around;
         align-items: center;
         &-item {
+          height: 100%;
           text-transform: capitalize;
           color: $primary-color;
           font-family: $primary-font;
           font-size: 16px;
           font-weight: bold;
-
+          cursor: pointer;
+          flex-grow: 1;
+          text-align: center;
+          &:hover {
+            color: $secondary-color;
+            border-bottom: 3px solid $secondary-color;
+          }
         }
       }
     }
