@@ -27,9 +27,8 @@
           }
           .side__nav {
             height: 80%;
-            border: 0px solid pink;
-            padding-top: 10px;
             &-items {
+              margin-top: 20%;
               .nav-item {
                 width: 100%;
                 cursor: pointer;
@@ -51,7 +50,7 @@
                   width: 100%;
                   flex-basis: 20%;
                   display: flex;
-                  justify-content: center;
+                  justify-content: flex-start;
                   align-items: center;
                   font-weight: bold;
                   font-size: 25px;
