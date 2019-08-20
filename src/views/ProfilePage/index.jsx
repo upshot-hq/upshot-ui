@@ -1,33 +1,50 @@
 import React from 'react';
-import FontAwesome from 'react-fontawesome';
 
 import Layout from '../../components/Layout';
 import './ProfilePage.scss';
 
-const HomePage = () => {
-  const renderSearchBar = () => (
-		<div className="searchbar">
-			<div className="icon back-btn">
-			<FontAwesome name="arrow-left" />
-			</div>
-			<div className="bar">
-				<div className="search-icon">
-				<FontAwesome name="search" />
+const ProfilePage = () => {
+  const renderProfileCard = () => (
+			<div className="profile">
+				<div className="avatar">
+					<div className="image" />
 				</div>
-				<input type="text" name="search" className="search-input"/>
+				<div className="details">
+					<div className="name">
+						Akinola Ogooluwa
+						<span className="handle">@rovilay</span>
+					</div>
+					<div className="description">
+						Software developer @andela @omaze.
+							#javascript #python #golang #react #redux #nodejs
+					</div>
+				</div>
 			</div>
-			<div className="icon options-btn">
-				<FontAwesome name="ellipsis-h" />
+  );
+
+  const renderStatCard = () => (
+			<div className="stat">
+				<div className="content">
+					<div className="text events">
+						<span className="count">72</span> events
+					</div>
+					<div className="text posts">
+						<span className="count">500</span> posts
+					</div>
+					<div className="text likes">
+						<span className="count">1873</span> likes
+					</div>
+				</div>
 			</div>
-		</div>
   );
 
   return (
-		<Layout>
-			<div className="homepage">
+		<Layout centerContainerStyles={{ paddingTop: 0 }}>
+			<div className="profilepage">
 				<div className="header">
 					<div className="top">
-						{renderSearchBar()}
+						{renderProfileCard()}
+						{renderStatCard()}
 					</div>
 					<div className="bottom">
 						<div className="nav__items">
@@ -52,4 +69,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default ProfilePage;

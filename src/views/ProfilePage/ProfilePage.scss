@@ -1,93 +1,91 @@
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
 
-.homepage {
+.profilepage {
   height: 100%;
   .header {
     width: 100%;
-    height: 12%;
+    height: 40%;
     border-bottom: 1px solid $gray-3;
     .top {
-      height: 60%;
-      .back-btn {
-        color: $primary-color;
-        flex-basis: 10%;
+      padding-top: 4%;
+      padding-left: 10px;
+      padding-right: 10px;
+      background-color: $primary-color-1;
+      height: 73%;
+      .profile {
+        width: 80%;
+        height: 60%;
+        background-color: $white;
+        border-radius: 5px;
         display: flex;
-        justify-content: center;
-        height: 50%;
         align-items: center;
-        &>span {
-          font-size: 18px;
-          cursor: pointer;
+        justify-content: space-between;
+        font-family: $primary-font;
+        .avatar {
+          width: 25%;
+          height: 100%;
+          // border: 1px solid $secondary-color-2;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .image {
+            width: 72px;
+            height: 72px;
+            border: 1px solid $secondary-color-2;
+            border-radius: 50%;
+            background-color: $gray-1;
+            background-image: url("../../assets/avatar.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+          }
         }
-        &:hover {
-          color: $secondary-color;
+        .details {
+          width: 72%;
         }
       }
-      .searchbar {
+      .stat {
+        height: 40%;
+        width: 60%;
+        // border: 1px solid red;
+        padding-top: 15px;
         display: flex;
-        height: 100%;
-        justify-content: space-between;
         align-items: flex-start;
-        .bar {
-          flex-basis: 80%;
-          height: 30px;
+        justify-content: space-between;
+        .content {
+          height: 40%;
+          background-color: $white;
           border-radius: 5px;
-          background-color: $gray-3;
           display: flex;
-          .search-icon {
-            flex-basis: 8%;
-            color: $white-1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            &>span {
-              font-size: 18px;
-              color: $white-1;
+          align-items: center;
+          justify-content: space-evenly;
+          .text {
+            font-family: $primary-font;
+            .count {
+              font-weight: bold;
+              text-transform: capitalize;
             }
           }
-          .search-input {
-            flex-basis: 92%;
-            height: 100%;
-            background-color: transparent;
-            color: $primary-color;
-            border: none;
-            outline: none;
-            font-family: $primary-font;
-            font-size: 15px;
-            font-weight: 500;
-          }
-        }
-      }
-      .options-btn {
-        color: $primary-color;
-        flex-basis: 10%;
-        display: flex;
-        justify-content: center;
-        height: 50%;
-        align-items: center;
-        &>span {
-          font-size: 18px;
-          cursor: pointer;
-        }
-        &:hover {
-          color: $secondary-color;
         }
       }
     }
     .bottom {
-      height: 40%;
+      height: 20%;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-end;
+      // background-color: $white;
+      // border: 1px solid blue;
       .nav__items {
+      // border: 1px solid red;
         width: 80%;
         height: 100%;
         display: flex;
         justify-content: space-around;
-        align-items: center;
+        align-items: flex-end;
         &-item {
-          height: 100%;
+          height: 60%;
           text-transform: capitalize;
           color: $primary-color;
           font-family: $primary-font;
