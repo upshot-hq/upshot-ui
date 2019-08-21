@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import authenticateView from '../components/Hoc/authenticateView.jsx';
 import NotFoundPage from '../views/NotFoundPage';
 import AuthPage from '../views/AuthPage';
 import HomePage from '../views/HomePage';
@@ -21,7 +22,7 @@ const Routes = () => (
         <Route
             path="/profile"
             exact
-            component={ProfilePage}
+            component={authenticateView(ProfilePage)}
         />
         <Route component={NotFoundPage} />
     </Switch>

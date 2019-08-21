@@ -1,18 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Layout from '../../components/Layout';
-import AuthenticatedView from '../../components/Auth';
-import avatar from '../../assets/avatar.jpg';
 import './ProfilePage.scss';
 
-export const ProfilePage = () => {
+export const ProfilePage = (props) => {
+  const { user: { userData } } = props;
+
   const renderProfileCard = () => {
     const imageStyle = {
-      backgrounImage: `url(${avatar})`,
+      backgroundImage: `url(${userData.imageUrl})`,
     };
 
     return (
-				<div className="profile">
+				<div className="profile" key={userData.id}>
 					<div className="avatar">
 						<div className="image" style={imageStyle} />
 					</div>
@@ -20,14 +22,16 @@ export const ProfilePage = () => {
 					<div className="details">
 						<div className="name">
 							<div className="title">
-								<div className="text">Akinola Ogooluwa</div>
+								<div className="text">
+									{`${userData.firstname} ${userData.lastname}`}
+								</div>
 								<div className="edit-btn">
 									<button className="btn">
 										edit profile
 									</button>
 								</div>
 							</div>
-							<p className="handle">@rovilay</p>
+							<p className="handle">{`@${userData.username}`}</p>
 						</div>
 						<div className="description">
 							Software developer @andela @omaze.
@@ -55,7 +59,6 @@ export const ProfilePage = () => {
   );
 
   return (
-		<AuthenticatedView>
 			<Layout centerContainerStyles={{ paddingTop: 0 }}>
 				<div className="profilepage">
 					<div className="header">
@@ -81,8 +84,19 @@ export const ProfilePage = () => {
 					</div>
 				</div>
 			</Layout>
-		</AuthenticatedView>
   );
 };
 
-export default ProfilePage;
+ProfilePage.propTypes = {
+  user: PropTypes.object.isRequired,
+};
+
+ProfilePage.defaultProps = {
+  children: null,
+};
+
+const mapStateToProps = ({ auth }) => ({
+  user: auth.user,
+});
+
+export default connect(mapStateToProps, {})(ProfilePage);
