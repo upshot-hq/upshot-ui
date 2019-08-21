@@ -1,7 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import AuthenticatedView from '../Auth';
 
 import { getUserDetails, history } from '../../helpers/utils';
 import * as UserActions from '../../redux/actionCreators/userActions';
