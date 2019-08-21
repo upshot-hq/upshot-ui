@@ -2,6 +2,7 @@ import React from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import Layout from '../../components/Layout';
+import AuthenticatedView from '../../components/Auth';
 import './HomePage.scss';
 
 const HomePage = () => {
@@ -23,32 +24,34 @@ const HomePage = () => {
   );
 
   return (
-		<Layout>
-			<div className="homepage">
-				<div className="header">
-					<div className="top">
-						{renderSearchBar()}
-					</div>
-					<div className="bottom">
-						<div className="nav__items">
-							<div key={1} className="nav__items-item">Top</div>
-							<div key={2} className="nav__items-item">latest</div>
-							<div key={3} className="nav__items-item">people</div>
-							<div key={4} className="nav__items-item">photos</div>
-							<div key={5} className="nav__items-item">videos</div>
+		<AuthenticatedView>
+			<Layout>
+				<div className="homepage">
+					<div className="header">
+						<div className="top">
+							{renderSearchBar()}
+						</div>
+						<div className="bottom">
+							<div className="nav__items">
+								<div key={1} className="nav__items-item">Top</div>
+								<div key={2} className="nav__items-item">latest</div>
+								<div key={3} className="nav__items-item">people</div>
+								<div key={4} className="nav__items-item">photos</div>
+								<div key={5} className="nav__items-item">videos</div>
+							</div>
 						</div>
 					</div>
+					<div className="content">
+						<div className="dummy-card" />
+						<div className="dummy-card" />
+						<div className="dummy-card" />
+						<div className="dummy-card" />
+						<div className="dummy-card" />
+						<div className="dummy-card" />
+					</div>
 				</div>
-				<div className="content">
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-				</div>
-			</div>
-		</Layout>
+			</Layout>
+		</AuthenticatedView>
   );
 };
 

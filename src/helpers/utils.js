@@ -33,10 +33,10 @@ export const apiErrorHandler = (error) => {
   // if server gets an error response, handle it
   if (error.response) {
     /**
-         * using a switch statement instead of if/else because there is
-         * a chance that we have to handle other error codes when we make
-         * requests like GET to the server
-         */
+     * using a switch statement instead of if/else because there is
+     * a chance that we have to handle other error codes when we make
+     * requests like GET to the server
+     */
     switch (error.response.status) {
       case 500:
         errorMessage = lang.serverErrorMessage;

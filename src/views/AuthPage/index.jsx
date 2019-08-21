@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
@@ -6,6 +6,7 @@ import GoogleLogin from 'react-google-login';
 
 import './AuthPage.scss';
 import { appName } from '../../helpers/defaults';
+import { getUserDetails, history } from '../../helpers/utils';
 import lang from '../../helpers/en.default';
 import {
   authenticateUser,
@@ -13,6 +14,17 @@ import {
 } from '../../redux/actionCreators/userActions';
 
 export const AuthPage = (props) => {
+  const authenticate = async () => {
+    const { isAuthenticated } = await getUserDetails();
+    if (isAuthenticated) {
+      history.push('/home');
+    }
+  };
+
+  useEffect(() => {
+    authenticate();
+  }, []);
+
   const handleAuth = (response) => {
     const {
       familyName: lastname,
@@ -76,7 +88,7 @@ AuthPage.propTypes = {
   authenticateUserFailure: PropTypes.func.isRequired,
 };
 
-export const mapStateToProps = ({ auth }) => ({
+const mapStateToProps = ({ auth }) => ({
   isLoading: auth.isLoading,
   authError: auth.errors,
 });

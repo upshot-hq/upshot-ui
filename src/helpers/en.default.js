@@ -29,7 +29,7 @@ export default {
     },
     profile: {
       title: 'profile',
-      link: '/',
+      link: '/profile',
       icon: {
         name: 'user',
         size: '2x',
