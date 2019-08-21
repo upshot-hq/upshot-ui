@@ -1,0 +1,103 @@
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+.layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  &-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    .layout__content {
+      &-leftside {
+        flex-basis: 25%;
+        padding-top: 2%;
+        .content {
+          height: 100%;
+          padding-left: 30%;
+          padding-right: 10px;
+          .layout__logo {
+            height: 6%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+          }
+          .side__nav {
+            height: 80%;
+            &-items {
+              margin-top: 20%;
+              .nav-item {
+                width: 100%;
+                cursor: pointer;
+                display: flex;
+                margin-bottom: 22px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                white-space: nowrap; 
+                overflow: hidden;
+                text-overflow: ellipsis;
+                &:hover {
+                  color: $secondary-color;
+                  .icon, .title {
+                    color: $secondary-color;
+                  }
+                }
+                .icon {
+                  width: 100%;
+                  flex-basis: 20%;
+                  display: flex;
+                  justify-content: flex-start;
+                  align-items: center;
+                  font-weight: bold;
+                  font-size: 25px;
+                  font-family: $primary-font;
+                  color: $primary-color;
+                }
+                .title {
+                  width: 100%;
+                  height: 100%;
+                  text-transform: capitalize;
+                  font-weight: 900;
+                  font-size: 18px;
+                  font-family: $primary-font;
+                  color: $primary-color;
+                  &:hover {
+                    color: $secondary-color;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      &-center {
+        padding-top: 2%;
+        border: 1px solid $gray-3;
+        border-top: 0;
+        border-bottom: 0;
+        flex-basis: 40%;
+      }
+      &-rightside {
+        padding-top: 2%;
+        flex-basis: 35%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+            width: 0 !important
+        }
+        .content {
+          margin: auto 10px;
+          height: 60%;
+          width: 70%;
+          background-color: $primary-color;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+}
