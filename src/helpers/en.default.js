@@ -5,7 +5,7 @@ export default {
   layoutSideNav: {
     home: {
       title: 'home',
-      link: '/',
+      link: '/home',
       icon: {
         name: 'home',
         size: '2x',

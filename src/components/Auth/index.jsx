@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -7,24 +7,27 @@ import * as UserActions from '../../redux/actionCreators/userActions';
 
 const AuthenticatedView = (props) => {
   const { children, authenticateUserSuccess, logoutUser } = props;
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const authenticate = async () => {
-      const { isAuthenticated, userData } = await getUserDetails();
+    const authenticate = () => {
+      const { isAuthenticated, userData } = getUserDetails();
       if (!isAuthenticated) {
         logoutUser();
         history.push('/');
       } else {
         authenticateUserSuccess({ isAuthenticated, userData });
+        setIsLoading(false);
       }
     };
 
+    setIsLoading(true);
     authenticate();
-  }, [logoutUser, authenticateUserSuccess]);
+  });
 
   return (
     <Fragment>
-      {children}
+      {isLoading ? null : children}
     </Fragment>
   );
 };
@@ -39,8 +42,9 @@ AuthenticatedView.defaultProps = {
   children: null,
 };
 
-export default connect('',
-  {
-    logoutUser: UserActions.logoutUser,
-    authenticateUserSuccess: UserActions.authenticateUserSuccess,
-  })(AuthenticatedView);
+const actionCreators = {
+  logoutUser: UserActions.logoutUser,
+  authenticateUserSuccess: UserActions.authenticateUserSuccess,
+};
+
+export default connect('', actionCreators)(AuthenticatedView);

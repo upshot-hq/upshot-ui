@@ -10,13 +10,13 @@ export const isExpired = (expiredTimeInSec) => {
   return nowInSec > expiredTimeInSec;
 };
 
-export const getUserDetails = async (tokn) => {
-  const token = tokn || await localStorage.getItem(jwtKey);
+export const getUserDetails = (tokn) => {
+  const token = tokn || localStorage.getItem(jwtKey);
   const userData = token ? jwtDecode(token) : null;
   const isAuthenticated = !!(userData && !isExpired(userData.exp));
 
   if (tokn && isAuthenticated) {
-    await localStorage.setItem(jwtKey, tokn);
+    localStorage.setItem(jwtKey, tokn);
   }
 
   const data = {

@@ -6,24 +6,15 @@ import GoogleLogin from 'react-google-login';
 
 import './AuthPage.scss';
 import { appName } from '../../helpers/defaults';
-import { getUserDetails, history } from '../../helpers/utils';
 import lang from '../../helpers/en.default';
-import {
-  authenticateUser,
-  authenticateUserFailure,
-} from '../../redux/actionCreators/userActions';
+import * as userActions from '../../redux/actionCreators/userActions';
 
 export const AuthPage = (props) => {
-  useEffect(() => {
-    const authenticate = async () => {
-      const { isAuthenticated } = await getUserDetails();
-      if (isAuthenticated) {
-        history.push('/home');
-      }
-    };
+  const { authenticateUser, authenticateUserFailure, logoutUser } = props;
 
-    authenticate();
-  }, []);
+  useEffect(() => {
+    logoutUser();
+  }, [logoutUser]);
 
   const handleAuth = (response) => {
     const {
@@ -33,13 +24,13 @@ export const AuthPage = (props) => {
       imageUrl,
     } = response.profileObj;
 
-    props.authenticateUser({
+    authenticateUser({
       firstname, lastname, email, imageUrl,
     });
   };
 
   const handleAuthFailure = (response) => {
-    props.authenticateUserFailure({ ...response.error, message: lang.authenticatonErrorMessage });
+    authenticateUserFailure({ ...response.error, message: lang.authenticatonErrorMessage });
   };
 
   const renderBtn = (renderProps) => (
@@ -86,6 +77,7 @@ export const AuthPage = (props) => {
 AuthPage.propTypes = {
   authenticateUser: PropTypes.func.isRequired,
   authenticateUserFailure: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ auth }) => ({
@@ -94,8 +86,9 @@ const mapStateToProps = ({ auth }) => ({
 });
 
 const mapDispatchToProps = {
-  authenticateUser,
-  authenticateUserFailure,
+  authenticateUser: userActions.authenticateUser,
+  authenticateUserFailure: userActions.authenticateUserFailure,
+  logoutUser: userActions.logoutUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthPage);
