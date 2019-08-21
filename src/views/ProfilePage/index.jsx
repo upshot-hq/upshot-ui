@@ -63,8 +63,10 @@ export const ProfilePage = (props) => {
 			<div className="profilepage">
 				<div className="header">
 					<div className="top">
-						{renderProfileCard()}
-						{renderStatCard()}
+						<div className="content">
+							{renderProfileCard()}
+							{renderStatCard()}
+						</div>
 					</div>
 					<div className="bottom">
 						<div className="nav__items">

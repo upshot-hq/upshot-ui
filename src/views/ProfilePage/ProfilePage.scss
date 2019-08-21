@@ -8,139 +8,146 @@
     height: 40%;
     border-bottom: 1px solid $gray-3;
     .top {
-      padding-top: 4%;
       padding-left: 10px;
       padding-right: 10px;
       background-color: $primary-color-1;
       height: 73%;
-      .profile {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      .content {
         width: 80%;
-        height: 60%;
-        background-color: $white;
-        border-radius: 5px;
-        box-shadow: 1px 1px 4px 0px $primary-color-2;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-family: $primary-font;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        .avatar {
-          width: 25%;
-          height: 100%;
+        .profile {
+          width: 100%;
+          height: 60%;
+          background-color: $white;
+          border-radius: 5px;
+          box-shadow: 1px 1px 4px 0px $primary-color-2;
           display: flex;
-          justify-content: center;
           align-items: center;
-          .image {
-            width: 72px;
-            height: 72px;
-            border: 1px solid $secondary-color-3;
-            border-radius: 50%;
-            background-color: $gray-1;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-          }
-        }
-        .details {
-          width: 72%;
-          height: 80%;
+          justify-content: space-between;
+          font-family: $primary-font;
+          text-overflow: ellipsis;
           overflow: hidden;
-          padding: 0 10px;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-around;
-          align-items: center;
-          color: $primary-color;
-          .name {
-            width: 100%;
-            height: 40%;
-            .title {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              .text {
-                font-size: 16px;
-                font-weight: bold;
-                flex-grow: 2;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
-              }
-              .edit-btn {
-                flex-grow: 1;
+          .avatar {
+            width: 25%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .image {
+              width: 72px;
+              height: 72px;
+              border: 1px solid $secondary-color-3;
+              border-radius: 50%;
+              background-color: $gray-1;
+              background-size: cover;
+              background-position: center;
+              background-repeat: no-repeat;
+            }
+          }
+          .details {
+            width: 72%;
+            height: 80%;
+            overflow: hidden;
+            padding: 0 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            color: $primary-color;
+            .name {
+              width: 100%;
+              height: 40%;
+              .title {
                 display: flex;
-                justify-content: center;
                 align-items: center;
-                .btn {
-                  border: 1px solid $secondary-color-3;
-                  border-radius: 5px;
-                  padding: 5px 10px;
-                  font-family: $primary-font;
-                  font-size: 9px;
-                  font-weight: normal;
+                justify-content: space-between;
+                .text {
+                  font-size: 16px;
+                  font-weight: bold;
+                  flex-grow: 2;
                   text-overflow: ellipsis;
                   overflow: hidden;
                   white-space: nowrap;
-                  text-transform: capitalize;
-                  cursor: pointer;
-                  outline: none;
-                  &:active {
-                    background-color: $secondary-color;
-                    color: $white;
+                }
+                .edit-btn {
+                  flex-grow: 1;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  .btn {
+                    border: 1px solid $secondary-color-3;
+                    border-radius: 5px;
+                    padding: 5px 10px;
+                    font-family: $primary-font;
+                    font-size: 11px;
+                    font-weight: normal;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-transform: capitalize;
+                    cursor: pointer;
+                    outline: none;
+                    &:active {
+                      background-color: $secondary-color;
+                      color: $white;
+                    }
                   }
                 }
               }
+              .handle {
+                font-size: 11px;
+                font-weight: normal;
+                color: $secondary-color;
+              }
             }
-            .handle {
-              font-size: 11px;
+            .description {
+              width: 100%;
+              height: 35%;
+              font-family: $primary-font;
+              font-size: 12px;
               font-weight: normal;
-              color: $secondary-color;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: pre-wrap;
             }
-          }
-          .description {
-            width: 100%;
-            height: 35%;
-            font-family: $primary-font;
-            font-size: 12px;
-            font-weight: normal;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: pre-wrap;
           }
         }
-      }
-      .stat {
-        height: 40%;
-        height: auto;
-        width: 60%;
-        padding-top: 15px;
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        .content {
-          box-shadow: 1px 1px 4px 0px $primary-color-2;
+        .stat {
           height: 40%;
-          width: 80%;
-          padding:  5px 10px;
-          background-color: $white;
-          border-radius: 5px;
+          height: auto;
+          width: 60%;
+          padding-top: 15px;
           display: flex;
-          align-items: center;
-          justify-content: space-evenly;
-          overflow: hidden;
-          .text {
-            font-family: $primary-font;
-            text-transform: capitalize;
-            font-size: 15px;
-            text-overflow: ellipsis;
+          align-items: flex-start;
+          justify-content: space-between;
+          .content {
+            box-shadow: 1px 1px 4px 0px $primary-color-2;
+            height: 40%;
+            width: 80%;
+            padding:  5px 10px;
+            background-color: $white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
             overflow: hidden;
-            white-space: nowrap;
-            flex-grow: 1;
-            width: 30%;
-            .count {
-              font-weight: bold;
+            .text {
+              font-family: $primary-font;
               text-transform: capitalize;
+              font-size: 14px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              flex-grow: 1;
+              width: 30%;
+              text-align: center;
+              .count {
+                font-weight: bold;
+                font-size: 15px;
+                text-transform: capitalize;
+              }
             }
           }
         }
