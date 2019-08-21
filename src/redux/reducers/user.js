@@ -5,7 +5,7 @@ import {
 } from '../constants/actionTypes';
 
 const initialState = {
-  currentUser: {},
+  user: {},
   errors: {
     message: '',
     errors: [],

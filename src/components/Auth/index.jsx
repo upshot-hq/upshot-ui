@@ -3,19 +3,24 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getUserDetails, history } from '../../helpers/utils';
+import * as UserActions from '../../redux/actionCreators/userActions';
 
 const AuthenticatedView = (props) => {
-  const { children } = props;
-  const authenticate = async () => {
-    const { isAuthenticated } = await getUserDetails();
-    if (!isAuthenticated) {
-      history.push('/');
-    }
-  };
+  const { children, authenticateUserSuccess, logoutUser } = props;
 
   useEffect(() => {
+    const authenticate = async () => {
+      const { isAuthenticated, userData } = await getUserDetails();
+      if (!isAuthenticated) {
+        logoutUser();
+        history.push('/');
+      } else {
+        authenticateUserSuccess({ isAuthenticated, userData });
+      }
+    };
+
     authenticate();
-  }, []);
+  }, [logoutUser, authenticateUserSuccess]);
 
   return (
     <Fragment>
@@ -26,20 +31,16 @@ const AuthenticatedView = (props) => {
 
 AuthenticatedView.propTypes = {
   children: PropTypes.node.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  authenticateUserSuccess: PropTypes.func.isRequired,
 };
 
 AuthenticatedView.defaultProps = {
   children: null,
 };
 
-const mapStateToProps = ({ auth }) => ({
-  isLoading: auth.isLoading,
-  authError: auth.errors,
-});
-
-const mapDispatchToProps = {
-  authenticateUser,
-  authenticateUserFailure,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AuthenticatedView);
+export default connect('',
+  {
+    logoutUser: UserActions.logoutUser,
+    authenticateUserSuccess: UserActions.authenticateUserSuccess,
+  })(AuthenticatedView);

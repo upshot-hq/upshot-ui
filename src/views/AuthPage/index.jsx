@@ -14,14 +14,14 @@ import {
 } from '../../redux/actionCreators/userActions';
 
 export const AuthPage = (props) => {
-  const authenticate = async () => {
-    const { isAuthenticated } = await getUserDetails();
-    if (isAuthenticated) {
-      history.push('/home');
-    }
-  };
-
   useEffect(() => {
+    const authenticate = async () => {
+      const { isAuthenticated } = await getUserDetails();
+      if (isAuthenticated) {
+        history.push('/home');
+      }
+    };
+
     authenticate();
   }, []);
 
