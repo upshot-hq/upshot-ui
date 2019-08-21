@@ -59,31 +59,31 @@ export const ProfilePage = (props) => {
   );
 
   return (
-			<Layout centerContainerStyles={{ paddingTop: 0 }}>
-				<div className="profilepage">
-					<div className="header">
-						<div className="top">
-							{renderProfileCard()}
-							{renderStatCard()}
-						</div>
-						<div className="bottom">
-							<div className="nav__items">
-								<div key={1} className="nav__items-item">events</div>
-								<div key={2} className="nav__items-item">posts</div>
-								<div key={3} className="nav__items-item">likes</div>
-							</div>
-						</div>
+		<Layout centerContainerStyles={{ paddingTop: 0 }}>
+			<div className="profilepage">
+				<div className="header">
+					<div className="top">
+						{renderProfileCard()}
+						{renderStatCard()}
 					</div>
-					<div className="content">
-						<div className="dummy-card" />
-						<div className="dummy-card" />
-						<div className="dummy-card" />
-						<div className="dummy-card" />
-						<div className="dummy-card" />
-						<div className="dummy-card" />
+					<div className="bottom">
+						<div className="nav__items">
+							<div key={1} className="nav__items-item">events</div>
+							<div key={2} className="nav__items-item">posts</div>
+							<div key={3} className="nav__items-item">likes</div>
+						</div>
 					</div>
 				</div>
-			</Layout>
+				<div className="content">
+					<div className="dummy-card" />
+					<div className="dummy-card" />
+					<div className="dummy-card" />
+					<div className="dummy-card" />
+					<div className="dummy-card" />
+					<div className="dummy-card" />
+				</div>
+			</div>
+		</Layout>
   );
 };
 

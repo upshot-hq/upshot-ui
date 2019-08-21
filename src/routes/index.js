@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import authenticateView from '../components/Hoc/authenticateView.jsx';
-import AuthenticatedView from '../components/Auth';
 import NotFoundPage from '../views/NotFoundPage';
 import AuthPage from '../views/AuthPage';
 import HomePage from '../views/HomePage';
