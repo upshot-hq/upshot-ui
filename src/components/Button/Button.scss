@@ -1,0 +1,33 @@
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+.up-button {
+  &>button {
+    width: 140px;
+    margin-top: 20px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid $gray-1;
+    background-color: $white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    text-transform: capitalize;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    color: $primary-color;
+    font-family: $primary-font;
+    font-size: 14px;
+    font-weight: 700;
+    &:active {
+      background-color: $primary-color;
+      border: 1px solid $primary-color;
+      color: $white;
+    }
+    &:disabled {
+      color: $gray-1;
+    }
+  }
+}

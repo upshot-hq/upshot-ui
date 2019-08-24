@@ -19,7 +19,7 @@ const Modal = (props) => {
   );
 
   return (
-    <div className="modal">
+    <div className="up-modal">
       {isModalVisible && renderModal()}
     </div>
   );
@@ -35,6 +35,5 @@ Modal.defaultProps = {
   children: null,
   isModalVisible: false,
 };
-
 
 export default Modal;
