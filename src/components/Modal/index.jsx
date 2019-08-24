@@ -5,7 +5,7 @@ import FontAwesome from 'react-fontawesome';
 import './Modal.scss';
 
 const Modal = (props) => {
-  const { isModalVisible, handleModalClose } = props;
+  const { children, isModalVisible, handleModalClose } = props;
 
   const renderModal = () => (
 		<div className="modal__container">
@@ -13,7 +13,7 @@ const Modal = (props) => {
 				<FontAwesome name="times" />
 			</div>
 			<div className="content">
-        {props.children}
+        {children}
       </div>
 		</div>
   );
