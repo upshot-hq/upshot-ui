@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Layout from '../../components/Layout';
 import './ProfilePage.scss';
+import Layout from '../../components/Layout';
+import Modal from '../../components/Modal/index';
 
 export const ProfilePage = (props) => {
   const { user: { userData } } = props;
+  const [showModal, setShowModal] = useState(false);
 
   const renderProfileCard = () => {
     const imageStyle = {
@@ -26,7 +28,7 @@ export const ProfilePage = (props) => {
 									{`${userData.firstname} ${userData.lastname}`}
 								</div>
 								<div className="edit-btn">
-									<button className="btn">
+									<button className="btn" onClick={() => setShowModal(true)}>
 										edit profile
 									</button>
 								</div>
@@ -58,34 +60,41 @@ export const ProfilePage = (props) => {
 			</div>
   );
 
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
   return (
-		<Layout centerContainerStyles={{ paddingTop: 0 }}>
-			<div className="profilepage">
-				<div className="header">
-					<div className="top">
-						<div className="content">
-							{renderProfileCard()}
-							{renderStatCard()}
+		<Fragment>
+			<Layout centerContainerStyles={{ paddingTop: 0 }}>
+				<div className="profilepage">
+					<div className="header">
+						<div className="top">
+							<div className="content">
+								{renderProfileCard()}
+								{renderStatCard()}
+							</div>
+						</div>
+						<div className="bottom">
+							<div className="nav__items">
+								<div key={1} className="nav__items-item">events</div>
+								<div key={2} className="nav__items-item">posts</div>
+								<div key={3} className="nav__items-item">likes</div>
+							</div>
 						</div>
 					</div>
-					<div className="bottom">
-						<div className="nav__items">
-							<div key={1} className="nav__items-item">events</div>
-							<div key={2} className="nav__items-item">posts</div>
-							<div key={3} className="nav__items-item">likes</div>
-						</div>
+					<div className="content">
+						<div className="dummy-card" />
+						<div className="dummy-card" />
+						<div className="dummy-card" />
+						<div className="dummy-card" />
+						<div className="dummy-card" />
+						<div className="dummy-card" />
 					</div>
 				</div>
-				<div className="content">
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-				</div>
-			</div>
-		</Layout>
+			</Layout>
+			<Modal isModalVisible={showModal} handleModalClose={handleModalClose} />
+		</Fragment>
   );
 };
 
