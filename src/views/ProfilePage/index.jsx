@@ -9,6 +9,7 @@ import Layout from '../../components/Layout';
 import Modal from '../../components/Modal/index';
 import { addStylesToHashTags } from '../../helpers/utils';
 import UserProfileForm from '../../components/UserProfileForm/index';
+import Button from '../../components/Button';
 
 export const ProfilePage = (props) => {
   const { user: { userData }, profileUpdateSuccess } = props;
@@ -87,21 +88,29 @@ export const ProfilePage = (props) => {
 			<div className="profile__form-content">
 				<div className="form-input">
 					<div className="title">firstname</div>
-					<input type="text" name="firstname" id="firstname" className="text-input"/>
+					<input type="text" name="firstname"
+						id="firstname" className="text-input" placeholder="firstname"
+					/>
 				</div>
 				<div className="form-input">
 					<div className="title">lastname</div>
-					<input type="text" name="lastname" id="lastname" className="text-input"/>
+					<input type="text" name="lastname"
+						id="lastname" className="text-input" placeholder="lastname" />
 				</div>
 				<div className="form-input">
 					<div className="title">username</div>
-					<input type="text" name="username" id="username" className="text-input"/>
+					<input type="text" name="username"
+						id="username" className="text-input" placeholder="username" />
 				</div>
 				<div className="form-input">
 					<div className="title">description</div>
-					<input type="text" name="description" id="description" className="text-input"/>
+					<input type="text" name="description"
+						id="description" className="text-input" placeholder="description" />
 				</div>
-				<button type="submit" className="form-button">save</button>
+				<Button
+					title="save"
+					disabled
+				/>
 			</div>
 		</div>
   );
