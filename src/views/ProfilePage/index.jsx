@@ -79,9 +79,32 @@ export const ProfilePage = (props) => {
 			</div>
   );
 
-  const handleModalClose = () => {
-    setShowModal(false);
-  };
+  const renderProfileForm = () => (
+		<div className="profile__form">
+			<div className="profile__form-header">
+				<div className="title">edit form</div>
+			</div>
+			<div className="profile__form-content">
+				<div className="form-input">
+					<div className="title">firstname</div>
+					<input type="text" name="firstname" id="firstname" className="text-input"/>
+				</div>
+				<div className="form-input">
+					<div className="title">lastname</div>
+					<input type="text" name="lastname" id="lastname" className="text-input"/>
+				</div>
+				<div className="form-input">
+					<div className="title">username</div>
+					<input type="text" name="username" id="username" className="text-input"/>
+				</div>
+				<div className="form-input">
+					<div className="title">description</div>
+					<input type="text" name="description" id="description" className="text-input"/>
+				</div>
+				<button type="submit" className="form-button">save</button>
+			</div>
+		</div>
+  );
 
   return (
 		<Fragment>
