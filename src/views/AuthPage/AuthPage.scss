@@ -92,7 +92,7 @@
     display: flex;
     padding: 0 10px;
     padding-left: 15px;
-    &:hover {
+    &:active {
         background-color: $secondary-color-1;
     }
     .icon {

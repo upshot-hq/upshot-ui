@@ -9,7 +9,11 @@ import lang from '../../helpers/en.default';
 import { history } from '../../helpers/utils';
 
 const Layout = (props) => {
-  const { children } = props;
+  const {
+    children, leftContainerStyles,
+    centerContainerStyles, rightContainerStyles,
+  } = props;
+
   const logoStyles = {
     fontSize: '36px',
     fontWeight: 'bold',
@@ -49,7 +53,7 @@ const Layout = (props) => {
   return (
     <div className="layout">
       <div className="layout-container">
-        <div className="layout__content-leftside">
+        <div className="layout__content-leftside" style={leftContainerStyles}>
           <div className="content">
             <div className="layout__logo">
               <Logo customStyles={logoStyles} />
@@ -59,10 +63,10 @@ const Layout = (props) => {
             </div>
           </div>
         </div>
-        <div className="layout__content-center">
+        <div className="layout__content-center" style={centerContainerStyles}>
           {children}
         </div>
-        <div className="layout__content-rightside">
+        <div className="layout__content-rightside" style={rightContainerStyles}>
           <div className="content" />
         </div>
       </div>
@@ -72,6 +76,9 @@ const Layout = (props) => {
 
 Layout.propTypes = {
   children: PropTypes.node,
+  leftContainerStyles: PropTypes.object,
+  centerContainerStyles: PropTypes.object,
+  rightContainerStyles: PropTypes.object,
 };
 
 Layout.defaultProps = {

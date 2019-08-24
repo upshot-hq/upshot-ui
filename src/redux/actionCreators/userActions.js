@@ -14,3 +14,7 @@ export const authenticateUserFailure = (error) => ({
   type: types.AUTHENTICATE_USER_FAILURE,
   error,
 });
+
+export const logoutUser = () => ({
+  type: types.LOG_OUT,
+});

@@ -1,0 +1,25 @@
+@import '../../assets/partials/defaults';
+
+* {    
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing:border-box;
+  font-family: $primary-font;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: $primary-font;
+}
+
+.App {
+  height: 100vh;
+  overflow: hidden;
+}
+

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
@@ -7,12 +7,15 @@ import GoogleLogin from 'react-google-login';
 import './AuthPage.scss';
 import { appName } from '../../helpers/defaults';
 import lang from '../../helpers/en.default';
-import {
-  authenticateUser,
-  authenticateUserFailure,
-} from '../../redux/actionCreators/userActions';
+import * as userActions from '../../redux/actionCreators/userActions';
 
 export const AuthPage = (props) => {
+  const { authenticateUser, authenticateUserFailure, logoutUser } = props;
+
+  useEffect(() => {
+    logoutUser();
+  }, [logoutUser]);
+
   const handleAuth = (response) => {
     const {
       familyName: lastname,
@@ -21,13 +24,13 @@ export const AuthPage = (props) => {
       imageUrl,
     } = response.profileObj;
 
-    props.authenticateUser({
+    authenticateUser({
       firstname, lastname, email, imageUrl,
     });
   };
 
   const handleAuthFailure = (response) => {
-    props.authenticateUserFailure({ ...response.error, message: lang.authenticatonErrorMessage });
+    authenticateUserFailure({ ...response.error, message: lang.authenticatonErrorMessage });
   };
 
   const renderBtn = (renderProps) => (
@@ -74,16 +77,18 @@ export const AuthPage = (props) => {
 AuthPage.propTypes = {
   authenticateUser: PropTypes.func.isRequired,
   authenticateUserFailure: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
 };
 
-export const mapStateToProps = ({ auth }) => ({
+const mapStateToProps = ({ auth }) => ({
   isLoading: auth.isLoading,
   authError: auth.errors,
 });
 
 const mapDispatchToProps = {
-  authenticateUser,
-  authenticateUserFailure,
+  authenticateUser: userActions.authenticateUser,
+  authenticateUserFailure: userActions.authenticateUserFailure,
+  logoutUser: userActions.logoutUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthPage);

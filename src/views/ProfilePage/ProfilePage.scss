@@ -1,0 +1,205 @@
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+.profilepage {
+  height: 100%;
+  .header {
+    width: 100%;
+    height: 37%;
+    border-bottom: 1px solid $gray-3;
+    .top {
+      padding-left: 10px;
+      padding-right: 10px;
+      background-color: $primary-color-1;
+      height: 80%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      .content {
+        width: 80%;
+        .profile {
+          width: 100%;
+          height: 60%;
+          background-color: $white;
+          border-radius: 5px;
+          box-shadow: 1px 1px 4px 0px $primary-color-2;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-family: $primary-font;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          .avatar {
+            width: 25%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .image {
+              width: 72px;
+              height: 72px;
+              border: 1px solid $secondary-color-3;
+              border-radius: 50%;
+              background-color: $gray-1;
+              background-size: cover;
+              background-position: center;
+              background-repeat: no-repeat;
+            }
+          }
+          .details {
+            width: 72%;
+            height: 80%;
+            overflow: hidden;
+            padding: 0 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            color: $primary-color;
+            .name {
+              width: 100%;
+              height: 40%;
+              .title {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .text {
+                  font-size: 16px;
+                  font-weight: bold;
+                  flex-grow: 2;
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                  white-space: nowrap;
+                }
+                .edit-btn {
+                  flex-grow: 1;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  .btn {
+                    border: 1px solid $secondary-color-3;
+                    border-radius: 5px;
+                    padding: 5px 10px;
+                    font-family: $primary-font;
+                    font-size: 11px;
+                    font-weight: normal;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-transform: capitalize;
+                    cursor: pointer;
+                    outline: none;
+                    &:active {
+                      background-color: $secondary-color;
+                      color: $white;
+                    }
+                  }
+                }
+              }
+              .handle {
+                font-size: 11px;
+                font-weight: normal;
+                color: $secondary-color;
+              }
+            }
+            .description {
+              width: 100%;
+              height: 35%;
+              font-family: $primary-font;
+              font-size: 12px;
+              font-weight: normal;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: pre-wrap;
+            }
+          }
+        }
+        .stat {
+          height: 40%;
+          height: auto;
+          width: 60%;
+          padding-top: 15px;
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          .content {
+            box-shadow: 1px 1px 4px 0px $primary-color-2;
+            height: 40%;
+            width: 100%;
+            padding:  5px 10px;
+            background-color: $white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            overflow: hidden;
+            .text {
+              font-family: $primary-font;
+              text-transform: capitalize;
+              font-size: 14px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              flex-grow: 1;
+              width: 30%;
+              text-align: center;
+              .count {
+                font-weight: bold;
+                font-size: 15px;
+                text-transform: capitalize;
+              }
+            }
+          }
+        }
+      }
+    }
+    .bottom {
+      height: 20%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      .nav__items {
+        width: 80%;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-end;
+        &-item {
+          height: 60%;
+          text-transform: capitalize;
+          color: $primary-color;
+          font-family: $primary-font;
+          font-size: 16px;
+          font-weight: bold;
+          cursor: pointer;
+          flex-grow: 1;
+          text-align: center;
+          &:hover {
+            color: $secondary-color;
+            border-bottom: 3px solid $secondary-color;
+          }
+        }
+      }
+    }
+  }
+  .content {
+    width: 100%;
+    height: 88%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        width: 0 !important
+    }
+    .dummy-card {
+      margin: auto;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      height: 60%;
+      width: 90%;
+      background-color: $primary-color;
+      border-radius: 5px;
+    }
+  }
+}
+
