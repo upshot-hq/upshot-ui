@@ -79,6 +79,10 @@ export const ProfilePage = (props) => {
 			</div>
   );
 
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
   return (
 		<Fragment>
 			<Layout centerContainerStyles={{ paddingTop: 0 }}>
