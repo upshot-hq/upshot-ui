@@ -1,4 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, {
+  Fragment, useState, useEffect, useRef,
+} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -10,9 +12,38 @@ import Button from '../../components/Button';
 export const ProfilePage = (props) => {
   const { user: { userData } } = props;
   const [showModal, setShowModal] = useState(true);
+  const [profileForm, setProfileForm] = useState({
+    firstname: userData.firstname,
+    lastname: userData.lastname,
+    username: userData.username,
+    description: userData.description || '',
+  });
+  const isInitialMount = useRef(true);
+
+  const [disableEditFormBtn, setDisableEditFormBtn] = useState(true);
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      const handleDisalbleEditFormBtn = () => {
+        const {
+          firstname, lastname, username,
+        } = profileForm;
+        const disableBtn = !firstname || !lastname || !username;
+        setDisableEditFormBtn(disableBtn);
+      };
+
+      handleDisalbleEditFormBtn();
+    }
+  }, [profileForm]);
 
   const handleModalClose = () => {
     setShowModal(false);
+  };
+
+  const handleFormFieldChange = (event) => {
+    const { value, name } = event.target;
+    setProfileForm({ ...profileForm, [name]: value });
   };
 
   const renderProfileCard = () => {
@@ -68,33 +99,42 @@ export const ProfilePage = (props) => {
   const renderProfileForm = () => (
 		<div className="profile__form">
 			<div className="profile__form-header">
-				<div className="title">edit form</div>
+				<div className="title">edit profile</div>
 			</div>
 			<div className="profile__form-content">
 				<div className="form-input">
 					<div className="title">firstname</div>
 					<input type="text" name="firstname"
-						id="firstname" className="text-input" placeholder="firstname"
+						id="firstname" className="text-input" placeholder="firstname *"
+						onChange={handleFormFieldChange} value={profileForm.firstname}
 					/>
 				</div>
 				<div className="form-input">
 					<div className="title">lastname</div>
 					<input type="text" name="lastname"
-						id="lastname" className="text-input" placeholder="lastname" />
+						id="lastname" className="text-input" placeholder="lastname *"
+						onChange={handleFormFieldChange} value={profileForm.lastname}
+					/>
 				</div>
 				<div className="form-input">
 					<div className="title">username</div>
 					<input type="text" name="username"
-						id="username" className="text-input" placeholder="username" />
+						id="username" className="text-input" placeholder="username *"
+						onChange={handleFormFieldChange} value={profileForm.username}
+					/>
 				</div>
 				<div className="form-input">
 					<div className="title">description</div>
-					<input type="text" name="description"
-						id="description" className="text-input" placeholder="description" />
+					<textarea type="text" name="description"
+						id="description" className="text-input textarea"
+						placeholder="enter a short description..."
+						maxLength={150} rows={3}
+						onChange={handleFormFieldChange} value={profileForm.description}
+					/>
 				</div>
 				<Button
 					title="save"
-					disabled
+					disabled={disableEditFormBtn}
 				/>
 			</div>
 		</div>
