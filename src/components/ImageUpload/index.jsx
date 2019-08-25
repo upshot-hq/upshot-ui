@@ -1,14 +1,31 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+// import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 
 import './ImageUpload.scss';
 import { defaultImageSizeLimit } from '../../helpers/defaults';
 
 const ImageUpload = (props) => {
-  const { imageElementId, sizeLimit } = props;
+  const {
+    imageElementId, sizeLimit, isUploading, startUploading,
+    handleUpload,
+  } = props;
+
   const [imageError, setImageError] = useState('');
   const imageInputRef = useRef(null);
+  const isInitialMount = useRef(true);
+
+  console.log(imageInputRef);
+
+  useEffect(() => {
+    const imageFile = imageInputRef.current.files[0];
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else if (startUploading) {
+      handleUpload(imageFile);
+    }
+  }, [startUploading, handleUpload]);
 
   const handleImageFileChange = () => {
     const imageFile = imageInputRef.current.files[0];
@@ -16,6 +33,7 @@ const ImageUpload = (props) => {
       setImageError('image too large');
     } else {
       setImageError('');
+      console.log(imageInputRef.current.files[0]);
     }
   };
 
@@ -23,7 +41,7 @@ const ImageUpload = (props) => {
     <div className="image">
       <input type="file" name="picture-input" id={imageElementId} ref={imageInputRef}
         className="picture-input" accept="image/png, image/jpeg, image/jpg"
-        onChange={handleImageFileChange}
+        onChange={handleImageFileChange} disabled={isUploading}
       />
       <div className="icon">
         <FontAwesome name="image" size="2x" />
@@ -44,12 +62,16 @@ const ImageUpload = (props) => {
 ImageUpload.propTypes = {
   imageElementId: PropTypes.string.isRequired,
   sizeLimit: PropTypes.number,
+  isUploading: PropTypes.bool.isRequired,
+  startUploading: PropTypes.bool.isRequired,
+  handleUpload: PropTypes.func.isRequired,
 };
 
 ImageUpload.defaultProps = {
-  children: null,
   imageElementId: '1',
   sizeLimit: defaultImageSizeLimit,
+  isUploading: false,
+  startUploading: false,
 };
 
 export default ImageUpload;

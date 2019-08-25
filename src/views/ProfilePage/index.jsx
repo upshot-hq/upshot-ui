@@ -10,10 +10,12 @@ import Modal from '../../components/Modal/index';
 import Button from '../../components/Button';
 import { addStylesToHashTags } from '../../helpers/utils';
 import ImageUpload from '../../components/ImageUpload';
+import * as imageUploadActions from '../../redux/actionCreators/imageUploadActions';
 
 export const ProfilePage = (props) => {
-  const { user: { userData } } = props;
+  const { user: { userData }, uploadImage } = props;
   const [showModal, setShowModal] = useState(true);
+  const [startImageUpload, setStartImageUpload] = useState(false);
   const [profileForm, setProfileForm] = useState({
     firstname: userData.firstname,
     lastname: userData.lastname,
@@ -39,6 +41,21 @@ export const ProfilePage = (props) => {
     }
   }, [profileForm]);
 
+  // useEffect(() => {
+  //   if (isInitialMount.current) {
+  //     isInitialMount.current = false;
+  //   } else {
+  //     setStartImageUpload(image.isUploading);
+  //   }
+  // }, [image]);
+
+  const handleImageUpload = (imageFile) => {
+    // setStartImageUpload(true);
+    console.log('i was asked to start');
+    uploadImage(imageFile);
+    setStartImageUpload(false);
+  };
+
   const handleModalClose = () => {
     setShowModal(false);
   };
@@ -49,6 +66,10 @@ export const ProfilePage = (props) => {
     //   console.log(addStylesToHashTags(value));
     // }
     setProfileForm({ ...profileForm, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    setStartImageUpload(true);
   };
 
   const renderProfileCard = () => {
@@ -110,7 +131,9 @@ export const ProfilePage = (props) => {
 			</div>
 			<div className="profile__form-content">
 				<div className="form-input">
-					<ImageUpload />
+					<ImageUpload
+						handleUpload={handleImageUpload} startUploading={startImageUpload}
+					/>
 				</div>
 				<div className="form-input">
 					<div className="title">firstname</div>
@@ -145,6 +168,7 @@ export const ProfilePage = (props) => {
 				<Button
 					title="save"
 					disabled={disableEditFormBtn}
+					handleClick={handleSubmit}
 				/>
 			</div>
 		</div>
@@ -188,14 +212,21 @@ export const ProfilePage = (props) => {
 
 ProfilePage.propTypes = {
   user: PropTypes.object.isRequired,
+  image: PropTypes.object.isRequired,
+  uploadImage: PropTypes.func.isRequired,
 };
 
 ProfilePage.defaultProps = {
   children: null,
 };
 
-const mapStateToProps = ({ auth }) => ({
+const mapStateToProps = ({ auth, image }) => ({
   user: auth.user,
+  image,
 });
 
-export default connect(mapStateToProps, {})(ProfilePage);
+const actionCreators = {
+  uploadImage: imageUploadActions.uploadImage,
+};
+
+export default connect(mapStateToProps, actionCreators)(ProfilePage);
