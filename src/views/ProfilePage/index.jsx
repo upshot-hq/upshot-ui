@@ -12,12 +12,12 @@ import { addStylesToHashTags } from '../../helpers/utils';
 
 export const ProfilePage = (props) => {
   const { user: { userData } } = props;
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [profileForm, setProfileForm] = useState({
     firstname: userData.firstname,
     lastname: userData.lastname,
     username: userData.username,
-    description: userData.description || '',
+    description: userData.description || 'enter description...',
   });
   const isInitialMount = useRef(true);
 
@@ -44,9 +44,9 @@ export const ProfilePage = (props) => {
 
   const handleFormFieldChange = (event) => {
     const { value, name } = event.target;
-    if (name === 'description') {
-      console.log(addStylesToHashTags(value));
-    }
+    // if (name === 'description') {
+    //   console.log(addStylesToHashTags(value));
+    // }
     setProfileForm({ ...profileForm, [name]: value });
   };
 
@@ -75,10 +75,12 @@ export const ProfilePage = (props) => {
 							</div>
 							<p className="handle">{`@${userData.username}`}</p>
 						</div>
-						<div className="description">
-							Software developer @andela @omaze.
-								#javascript #python #golang #react #redux #nodejs
-						</div>
+						<div className="description"
+							// eslint-disable-next-line
+							dangerouslySetInnerHTML={
+								{ __html: addStylesToHashTags(profileForm.description) }
+							}
+						/>
 					</div>
 				</div>
     );

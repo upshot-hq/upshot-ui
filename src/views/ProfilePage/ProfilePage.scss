@@ -105,13 +105,16 @@
             }
             .description {
               width: 100%;
-              height: 35%;
+              height: 40%;
               font-family: $primary-font;
               font-size: rem(12px);
               font-weight: normal;
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: pre-wrap;
+              .hashtag {
+                color: $secondary-color;
+              }
             }
           }
         }

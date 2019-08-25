@@ -1,7 +1,10 @@
 import jwtDecode from 'jwt-decode';
+import bcrypt from 'bcryptjs';
 import { createBrowserHistory } from 'history';
 
-import { jwtKey, hashTagPrefix, handlePrefix } from './defaults';
+import {
+  jwtKey, hashTagPrefix, handlePrefix, saltRounds,
+} from './defaults';
 import lang from './en.default';
 
 export const isExpired = (expiredTimeInSec) => {
@@ -72,4 +75,9 @@ export const addStylesToHashTags = (text) => {
   });
 
   return updatedText.join(' ');
+};
+
+export const hashData = async (data) => {
+  const hashedData = await bcrypt.hash(data, saltRounds);
+  return hashedData;
 };
