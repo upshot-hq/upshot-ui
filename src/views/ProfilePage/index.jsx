@@ -9,10 +9,11 @@ import Layout from '../../components/Layout';
 import Modal from '../../components/Modal/index';
 import Button from '../../components/Button';
 import { addStylesToHashTags } from '../../helpers/utils';
+import ImageUpload from '../../components/ImageUpload';
 
 export const ProfilePage = (props) => {
   const { user: { userData } } = props;
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [profileForm, setProfileForm] = useState({
     firstname: userData.firstname,
     lastname: userData.lastname,
@@ -108,6 +109,9 @@ export const ProfilePage = (props) => {
 				<div className="title">edit profile</div>
 			</div>
 			<div className="profile__form-content">
+				<div className="form-input">
+					<ImageUpload />
+				</div>
 				<div className="form-input">
 					<div className="title">firstname</div>
 					<input type="text" name="firstname"

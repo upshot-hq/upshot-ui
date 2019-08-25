@@ -4,3 +4,4 @@ export const jwtKey = 'jwtToken';
 export const hashTagPrefix = '#';
 export const handlePrefix = '@';
 export const saltRounds = 10;
+export const defaultImageSizeLimit = 2000000;
