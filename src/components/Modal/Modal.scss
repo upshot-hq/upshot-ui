@@ -1,3 +1,4 @@
+@import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
 
@@ -19,7 +20,7 @@
       background-color: transparent;
       max-width: 80%;
       max-height: 600px;
-      border-radius: 5px;
+      border-radius: rem(5px);
       margin: auto;
       overflow: scroll;
     }
@@ -28,8 +29,8 @@
       position: fixed;
       z-index: 4;
       top: 0;
-      right: 25px;
-      font-size: 35px;
+      right: rem(25px);
+      font-size: rem(35px);
       cursor: pointer;
     }
   }

@@ -8,6 +8,7 @@ import './ProfilePage.scss';
 import Layout from '../../components/Layout';
 import Modal from '../../components/Modal/index';
 import Button from '../../components/Button';
+import { addStylesToHashTags } from '../../helpers/utils';
 
 export const ProfilePage = (props) => {
   const { user: { userData } } = props;
@@ -43,6 +44,9 @@ export const ProfilePage = (props) => {
 
   const handleFormFieldChange = (event) => {
     const { value, name } = event.target;
+    if (name === 'description') {
+      console.log(addStylesToHashTags(value));
+    }
     setProfileForm({ ...profileForm, [name]: value });
   };
 

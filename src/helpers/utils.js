@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import { createBrowserHistory } from 'history';
 
-import { jwtKey } from './defaults';
+import { jwtKey, hashTagPrefix, handlePrefix } from './defaults';
 import lang from './en.default';
 
 export const isExpired = (expiredTimeInSec) => {
@@ -58,3 +58,18 @@ export const apiErrorHandler = (error) => {
 };
 
 export const history = createBrowserHistory();
+
+export const addStylesToHashTags = (text) => {
+  const textArray = text.split(' ');
+
+  const updatedText = textArray.map((word) => {
+    if (word.startsWith(hashTagPrefix) || word.startsWith(handlePrefix)) {
+      const newWord = `<span class="hashtag">${word}</span>`;
+      return newWord;
+    }
+
+    return word;
+  });
+
+  return updatedText.join(' ');
+};
