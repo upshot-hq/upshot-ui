@@ -18,3 +18,18 @@ export const authenticateUserFailure = (error) => ({
 export const logoutUser = () => ({
   type: types.LOG_OUT,
 });
+
+export const updateUserProfile = (userData) => ({
+  type: types.UPDATE_USER_PROFILE,
+  userData,
+});
+
+export const updateUserProfileSuccess = (updatedData) => ({
+  type: types.UPDATE_USER_PROFILE_SUCCESS,
+  updatedData,
+});
+
+export const updateUserProfileFailure = (error) => ({
+  type: types.UPDATE_USER_PROFILE_FAILURE,
+  error,
+});

@@ -8,6 +8,9 @@ import {
   authenticateUser,
   authenticateUserSuccess,
   authenticateUserFailure,
+  updateUserProfile,
+  updateUserProfileFailure,
+  updateUserProfileSuccess,
 } from '../actionCreators/userActions';
 
 export function* watchAuthenticateUserSagaAsync() {
@@ -22,7 +25,21 @@ export function* authenticateUserSagaAsync(action) {
     history.push('/home');
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
-
     yield put(authenticateUserFailure(errorMessage));
+  }
+}
+
+export function* watchUpdateUserProfileSagaAsync() {
+  yield takeLatest(updateUserProfile().type, updateUserProfileSagaAsync);
+}
+
+export function* updateUserProfileSagaAsync(action) {
+  try {
+    const response = yield call(UserAPI.updateUserProfile, action.userData);
+    const userData = yield getUserDetails(response.data.token);
+    yield put(updateUserProfileSuccess(userData));
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(updateUserProfileFailure(errorMessage));
   }
 }
