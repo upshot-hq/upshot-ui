@@ -43,8 +43,12 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.0.5",
+<<<<<<< HEAD
     "sass-rem": "^2.0.1",
     "toastr": "^2.1.4"
+=======
+    "sass-rem": "^2.0.1"
+>>>>>>> - update all 'px' to 'rem'
   },
   "devDependencies": {
     "eslint": "^6.1.0",
