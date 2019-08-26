@@ -1,0 +1,20 @@
+@import "~sass-rem";
+@import '../../assets/partials/colors';
+
+.fab-container {
+  position: absolute;
+  bottom: rem(50px);
+  right: rem(50px);
+  background-color: $primary-color;
+  color: $white;
+  height: rem(60px);
+  width: rem(60px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.fab-container:hover {
+  cursor: pointer;
+}

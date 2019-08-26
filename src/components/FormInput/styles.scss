@@ -1,0 +1,70 @@
+@import "~sass-rem";
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+.form-input {
+  width: 100%;
+  margin: rem(20px 0px);
+  .title {
+    text-transform: capitalize;
+    font-family: $primary-font;
+    color: $primary-color;
+    font-size: rem(14px);
+    display: none;
+  }
+  .text-input {
+    width: 100%;
+    height: rem(30px);
+    border: rem(0px);
+    border-bottom: rem(1px) solid $gray-1;
+    border-radius: rem(0px);
+    outline: none;
+    font-family: $primary-font;
+    font-size: rem(14px);
+    color: $primary-color;
+    padding: rem(2px 4px);
+    &.textarea {
+      height: rem(60px);
+    }
+    &:focus {
+      border-color: $primary-color;
+    }
+  }
+  .info {
+    font-size: rem(12px);
+    color: $gray-1;
+  }
+  .error {
+    font-size: rem(12px);
+    color: $red;
+  }
+  .multiselector {
+    position: relative;
+    &__selections {
+      margin-bottom: rem(6px);
+      .option {
+        background-color: $white;
+        color: $primary-color;
+        margin: rem(5px);
+        padding: rem(5px);
+        border-radius: rem(8px);
+        font-size: rem(10px);
+        border: solid rem(1px) $primary-color;
+      }
+      .option:hover {
+        cursor: pointer;
+      }
+      .selected {
+        background-color: $primary-color;
+        color: $white;
+      }
+    }
+    &__selector {
+      display: flex;
+      justify-content: space-between;
+      border: solid rem(1px);
+      padding: rem(5px);
+    }
+  }
+}
+
