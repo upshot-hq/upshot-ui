@@ -66,6 +66,7 @@
                 justify-content: space-between;
                 .text {
                   font-size: rem(16px);
+                  text-transform: capitalize;
                   font-weight: bold;
                   flex-grow: 2;
                   text-overflow: ellipsis;

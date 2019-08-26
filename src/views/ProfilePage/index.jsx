@@ -11,7 +11,6 @@ import Button from '../../components/Button';
 import { addStylesToHashTags, createFormData } from '../../helpers/utils';
 import ImageUpload from '../../components/ImageUpload';
 import * as userActions from '../../redux/actionCreators/userActions';
-// import * as imageUploadActions from '../../redux/actionCreators/imageUploadActions';
 
 export const ProfilePage = (props) => {
   const {
