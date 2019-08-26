@@ -172,7 +172,7 @@ export const ProfilePage = (props) => {
 					title="save"
 					disabled={disableEditFormBtn}
 					handleClick={handleSubmit}
-					showLoader={true || userIsLoading}
+					showLoader={userIsLoading}
 				/>
 			</div>
 		</div>
