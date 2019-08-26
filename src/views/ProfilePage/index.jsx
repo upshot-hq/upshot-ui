@@ -26,8 +26,8 @@ export const ProfilePage = (props) => {
     image: {},
   });
   const isInitialMount = useRef(true);
-
   const [disableEditFormBtn, setDisableEditFormBtn] = useState(true);
+
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
@@ -172,7 +172,7 @@ export const ProfilePage = (props) => {
 					title="save"
 					disabled={disableEditFormBtn}
 					handleClick={handleSubmit}
-					showLoader={userIsLoading}
+					showLoader={true || userIsLoading}
 				/>
 			</div>
 		</div>

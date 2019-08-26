@@ -29,6 +29,10 @@
     }
     &:disabled {
       color: $gray-1;
+      .up-loader {
+        border-color: $gray-1;
+        border-top-color: $white;
+      }
     }
   }
 }
