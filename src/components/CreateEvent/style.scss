@@ -1,0 +1,16 @@
+@import "~sass-rem";
+@import '../../assets/partials/colors';
+
+.create-event {
+  background-color: $white;
+  width: rem(600px);
+  max-width: rem(600px);
+  padding: rem(20px);
+
+  &__title {
+    text-align: left;
+    color: $primary-color;
+    font-size: rem(24px);
+    font-weight: bold;
+  }
+}
