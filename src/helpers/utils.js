@@ -81,3 +81,10 @@ export const hashData = async (data) => {
   const hashedData = await bcrypt.hash(data, saltRounds);
   return hashedData;
 };
+
+export const createFormData = (data) => {
+  const formData = new FormData(); // eslint-disable-line
+  Object.keys(data).forEach((key) => formData.append(key, data[key]));
+
+  return formData;
+};

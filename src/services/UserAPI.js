@@ -8,7 +8,7 @@ class UserAPI {
   }
 
   static updateUserProfile(userData) {
-    return axios.put(`${baseUrl}/users/profile`, userData);
+    return axios.put(`${baseUrl}/users/auth`, userData);
   }
 }
 

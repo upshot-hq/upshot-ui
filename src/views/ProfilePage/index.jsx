@@ -8,19 +8,23 @@ import './ProfilePage.scss';
 import Layout from '../../components/Layout';
 import Modal from '../../components/Modal/index';
 import Button from '../../components/Button';
-import { addStylesToHashTags } from '../../helpers/utils';
+import { addStylesToHashTags, createFormData } from '../../helpers/utils';
 import ImageUpload from '../../components/ImageUpload';
-import * as imageUploadActions from '../../redux/actionCreators/imageUploadActions';
+import * as userActions from '../../redux/actionCreators/userActions';
+// import * as imageUploadActions from '../../redux/actionCreators/imageUploadActions';
 
 export const ProfilePage = (props) => {
-  const { user: { userData }, uploadImage } = props;
-  const [showModal, setShowModal] = useState(true);
-  const [startImageUpload, setStartImageUpload] = useState(false);
+  const {
+    user: { userData }, userIsLoading,
+    updateUserProfile, profileUpdateSuccess,
+  } = props;
+  const [showModal, setShowModal] = useState(false);
   const [profileForm, setProfileForm] = useState({
     firstname: userData.firstname,
     lastname: userData.lastname,
     username: userData.username,
     description: userData.description || 'enter description...',
+    image: {},
   });
   const isInitialMount = useRef(true);
 
@@ -33,27 +37,27 @@ export const ProfilePage = (props) => {
         const {
           firstname, lastname, username,
         } = profileForm;
-        const disableBtn = !firstname || !lastname || !username;
+        const disableBtn = !firstname || !lastname || !username || userIsLoading;
         setDisableEditFormBtn(disableBtn);
       };
 
       handleDisalbleEditFormBtn();
     }
-  }, [profileForm]);
+  }, [profileForm, userIsLoading]);
 
-  // useEffect(() => {
-  //   if (isInitialMount.current) {
-  //     isInitialMount.current = false;
-  //   } else {
-  //     setStartImageUpload(image.isUploading);
-  //   }
-  // }, [image]);
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else if (profileUpdateSuccess) {
+      setShowModal(false);
+    }
+  }, [profileUpdateSuccess]);
 
-  const handleImageUpload = (imageFile) => {
-    // setStartImageUpload(true);
-    console.log('i was asked to start');
-    uploadImage(imageFile);
-    setStartImageUpload(false);
+  const handleImageFileChange = (imageFile) => {
+    setProfileForm({
+      ...profileForm,
+      image: imageFile,
+    });
   };
 
   const handleModalClose = () => {
@@ -62,14 +66,13 @@ export const ProfilePage = (props) => {
 
   const handleFormFieldChange = (event) => {
     const { value, name } = event.target;
-    // if (name === 'description') {
-    //   console.log(addStylesToHashTags(value));
-    // }
     setProfileForm({ ...profileForm, [name]: value });
   };
 
   const handleSubmit = () => {
-    setStartImageUpload(true);
+    profileForm.description = addStylesToHashTags(profileForm.description);
+    const userdata = createFormData(profileForm);
+    updateUserProfile(userdata);
   };
 
   const renderProfileCard = () => {
@@ -132,7 +135,8 @@ export const ProfilePage = (props) => {
 			<div className="profile__form-content">
 				<div className="form-input">
 					<ImageUpload
-						handleUpload={handleImageUpload} startUploading={startImageUpload}
+						handleImageFileChange={handleImageFileChange}
+						containerBackgroundImage={userData.imageUrl}
 					/>
 				</div>
 				<div className="form-input">
@@ -169,6 +173,7 @@ export const ProfilePage = (props) => {
 					title="save"
 					disabled={disableEditFormBtn}
 					handleClick={handleSubmit}
+					showLoader={userIsLoading}
 				/>
 			</div>
 		</div>
@@ -212,21 +217,19 @@ export const ProfilePage = (props) => {
 
 ProfilePage.propTypes = {
   user: PropTypes.object.isRequired,
-  image: PropTypes.object.isRequired,
-  uploadImage: PropTypes.func.isRequired,
+  userIsLoading: PropTypes.bool.isRequired,
+  profileUpdateSuccess: PropTypes.bool.isRequired,
+  updateUserProfile: PropTypes.func.isRequired,
 };
 
-ProfilePage.defaultProps = {
-  children: null,
-};
-
-const mapStateToProps = ({ auth, image }) => ({
+const mapStateToProps = ({ auth }) => ({
   user: auth.user,
-  image,
+  userIsLoading: auth.isLoading,
+  profileUpdateSuccess: auth.updateSuccess,
 });
 
 const actionCreators = {
-  uploadImage: imageUploadActions.uploadImage,
+  updateUserProfile: userActions.updateUserProfile,
 };
 
 export default connect(mapStateToProps, actionCreators)(ProfilePage);

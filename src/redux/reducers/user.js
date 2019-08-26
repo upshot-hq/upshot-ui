@@ -6,6 +6,7 @@ const initialState = {
     message: '',
     errors: [],
   },
+  updateSuccess: false,
   isLoading: false,
 };
 
@@ -28,11 +29,12 @@ const user = (state = initialState, action) => {
         errors: action.error,
       };
     case types.UPDATE_USER_PROFILE:
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: true, updateSuccess: false };
     case types.UPDATE_USER_PROFILE_SUCCESS:
       return {
         ...state,
         isLoading: false,
+        updateSuccess: true,
         user: action.updatedData,
         errors: initialState.errors,
       };
@@ -40,6 +42,7 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        updateSuccess: false,
         errors: action.error,
       };
     default:

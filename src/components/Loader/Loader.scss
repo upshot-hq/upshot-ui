@@ -1,0 +1,17 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+.up-loader {
+  border: rem(3px) solid $primary-color;
+  border-top: rem(3px) solid $white;
+  border-radius: 50%;
+  width: rem(5px);
+  height: rem(5px);
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

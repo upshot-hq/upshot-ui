@@ -12,6 +12,7 @@ import {
   updateUserProfileFailure,
   updateUserProfileSuccess,
 } from '../actionCreators/userActions';
+import { jwtKey } from '../../helpers/defaults';
 
 export function* watchAuthenticateUserSagaAsync() {
   yield takeLatest(authenticateUser().type, authenticateUserSagaAsync);
@@ -37,6 +38,7 @@ export function* updateUserProfileSagaAsync(action) {
   try {
     const response = yield call(UserAPI.updateUserProfile, action.userData);
     const userData = yield getUserDetails(response.data.token);
+    localStorage.setItem(jwtKey, response.data.token);
     yield put(updateUserProfileSuccess(userData));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);

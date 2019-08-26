@@ -115,6 +115,10 @@
               .hashtag {
                 color: $secondary-color;
               }
+              .no-description {
+                color: $gray-2;
+                font-style: italic;
+              }
             }
           }
         }
