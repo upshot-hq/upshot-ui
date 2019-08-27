@@ -88,6 +88,10 @@ const CreateEvent = () => {
     setCurrentPage(page);
   };
 
+  const goBack = (page) => {
+    setCurrentPage(page);
+  };
+
   const renderGetStarted = () => (
     <div>
       <p className="create-event__title">Let's get started</p>
