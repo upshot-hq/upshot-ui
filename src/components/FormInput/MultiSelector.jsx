@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './styles.scss';
 
-const MultiSelector = ({ options, handleSelect, selectedOptions = [], info, error }) => {
-  return (
+const MultiSelector = ({
+  options, handleSelect, selectedOptions = [], info, error,
+}) => (
     <div>
       <div className="form-input">
         <div className="multiselector">
@@ -31,8 +32,7 @@ const MultiSelector = ({ options, handleSelect, selectedOptions = [], info, erro
         </div>
       </div>
     </div>
-  );
-};
+);
 
 // proptypes
 MultiSelector.propTypes = {

@@ -21,7 +21,7 @@ const options = [
 
 const CreateEvent = () => {
   const [inputs, setInputs] = useState({ competitions: [], errors: {} });
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  // const [selectedOptions, setSelectedOptions] = useState([]);
   const [currentPage, setCurrentPage] = useState(2);
 
   const handleChange = (event) => {
@@ -57,17 +57,17 @@ const CreateEvent = () => {
     // page B
 
     // page C
-  }
+  };
 
   const renderGetStarted = () => (
     <div>
       <p className="create-event__title">Let's get started</p>
       <div className="create-event__form">
         <div className="create-event__form-input">
-          <Textbox id="hashtag" value={inputs.hashtag} name="hashtag"
+          <Textbox id="hashtag" value={inputs.hashtag || ''} name="hashtag"
           title="hashtag" placeholder="#hashtag" type="text" onChange={handleChange}
           info="the hashtag you'd like to use for the event"
-          error={inputs.errors.hashtag} required />
+          error={inputs.errors.hashtag || ''} required />
         </div>
         <div className="create-event__form-input">
           <MultiSelector options={options} selectedOptions={inputs.competitions}
@@ -83,10 +83,10 @@ const CreateEvent = () => {
       <p className="create-event__title">Almost there, tell us more :)</p>
       <div className="create-event__form">
         <div className="create-event__form-input">
-          <Textbox id="name" value={inputs.name} name="name"
+          <Textbox id="name" value={inputs.name || ''} name="name"
           title="name" placeholder="event name" type="text" onChange={handleChange}
           info="the name your event will be called"
-          error={inputs.errors.name} required />
+          error={inputs.errors.name || ''} required />
         </div>
         <div className="create-event__form-input">
           <Textarea />
@@ -100,7 +100,7 @@ const CreateEvent = () => {
     if (currentPage === 1) return renderGetStarted();
     if (currentPage === 2) return renderAlmostThere();
     return renderGetStarted();
-  }
+  };
 
   return (
     <div className="create-event">

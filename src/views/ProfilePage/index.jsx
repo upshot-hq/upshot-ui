@@ -11,19 +11,33 @@ import Button from '../../components/Button';
 import { addStylesToHashTags, createFormData } from '../../helpers/utils';
 import ImageUpload from '../../components/ImageUpload';
 import * as userActions from '../../redux/actionCreators/userActions';
+import { Textbox } from '../../components/FormInput';
 
 export const ProfilePage = (props) => {
   const {
     user: { userData }, userIsLoading,
     updateUserProfile, profileUpdateSuccess,
   } = props;
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [profileForm, setProfileForm] = useState({
-    firstname: userData.firstname,
-    lastname: userData.lastname,
-    username: userData.username,
-    description: userData.description || 'enter description...',
+    firstname: {
+      value: userData.firstname,
+      required: true,
+    },
+    lastname: {
+      value: userData.lastname,
+      required: true,
+    },
+    username: {
+      value: userData.username,
+      required: true,
+    },
+    description: {
+      value: userData.description || 'enter description...',
+      required: false,
+    },
     image: {},
+    errors: {},
   });
   const isInitialMount = useRef(true);
   const [disableEditFormBtn, setDisableEditFormBtn] = useState(true);
@@ -36,7 +50,9 @@ export const ProfilePage = (props) => {
         const {
           firstname, lastname, username,
         } = profileForm;
-        const disableBtn = !firstname || !lastname || !username || userIsLoading;
+        const disableBtn = !firstname.value || !lastname.value
+					|| !username.value || userIsLoading;
+
         setDisableEditFormBtn(disableBtn);
       };
 
@@ -65,12 +81,41 @@ export const ProfilePage = (props) => {
 
   const handleFormFieldChange = (event) => {
     const { value, name } = event.target;
-    setProfileForm({ ...profileForm, [name]: value });
+    let { errors } = profileForm;
+
+    if (!value && profileForm[name].required) {
+      errors = {
+        ...profileForm.errors,
+        [name]: `${name} is required`,
+      };
+    } else {
+      errors = {
+        ...profileForm.errors,
+        [name]: '',
+      };
+    }
+
+    setProfileForm({
+      ...profileForm,
+      [name]: {
+        ...profileForm[name],
+        value,
+      },
+      errors,
+    });
   };
 
   const handleSubmit = () => {
-    profileForm.description = addStylesToHashTags(profileForm.description);
-    const userdata = createFormData(profileForm);
+    profileForm.description.value = addStylesToHashTags(profileForm.description.value);
+    const data = {
+      firstname: profileForm.firstname.value,
+      lastname: profileForm.lastname.value,
+      username: profileForm.username.value,
+      description: profileForm.description.value,
+      image: profileForm.image,
+    };
+
+    const userdata = createFormData(data);
     updateUserProfile(userdata);
   };
 
@@ -102,7 +147,7 @@ export const ProfilePage = (props) => {
 						<div className="description"
 							// eslint-disable-next-line
 							dangerouslySetInnerHTML={
-								{ __html: addStylesToHashTags(profileForm.description) }
+								{ __html: addStylesToHashTags(userData.description) }
 							}
 						/>
 					</div>
@@ -138,41 +183,48 @@ export const ProfilePage = (props) => {
 						containerBackgroundImage={userData.imageUrl}
 					/>
 				</div>
-				<div className="form-input">
-					<div className="title">firstname</div>
-					<input type="text" name="firstname"
-						id="firstname" className="text-input" placeholder="firstname *"
-						onChange={handleFormFieldChange} value={profileForm.firstname}
-					/>
-				</div>
-				<div className="form-input">
-					<div className="title">lastname</div>
-					<input type="text" name="lastname"
-						id="lastname" className="text-input" placeholder="lastname *"
-						onChange={handleFormFieldChange} value={profileForm.lastname}
-					/>
-				</div>
-				<div className="form-input">
-					<div className="title">username</div>
-					<input type="text" name="username"
-						id="username" className="text-input" placeholder="username *"
-						onChange={handleFormFieldChange} value={profileForm.username}
-					/>
-				</div>
+				<Textbox
+					name="firstname"
+					placeholder="firstname"
+					required={profileForm.firstname.required}
+					value={profileForm.firstname.value}
+					onChange={handleFormFieldChange}
+					error={profileForm.errors.firstname}
+					type="text"
+				/>
+				<Textbox
+					name="lastname"
+					placeholder="lastname"
+					required={profileForm.lastname.required}
+					value={profileForm.lastname.value}
+					onChange={handleFormFieldChange}
+					error={profileForm.errors.lastname}
+					type="text"
+				/>
+				<Textbox
+					name="username"
+					placeholder="username"
+					required={profileForm.username.required}
+					value={profileForm.username.value}
+					onChange={handleFormFieldChange}
+					error={profileForm.errors.username}
+					type="text"
+				/>
 				<div className="form-input">
 					<div className="title">description</div>
 					<textarea type="text" name="description"
 						id="description" className="text-input textarea"
 						placeholder="enter a short description..."
 						maxLength={150} rows={3}
-						onChange={handleFormFieldChange} value={profileForm.description}
+						onChange={handleFormFieldChange}
+						value={profileForm.description.value}
 					/>
 				</div>
 				<Button
 					title="save"
 					disabled={disableEditFormBtn}
 					handleClick={handleSubmit}
-					showLoader={userIsLoading}
+					showLoader={userIsLoading}s
 				/>
 			</div>
 		</div>

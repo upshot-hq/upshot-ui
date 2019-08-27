@@ -2,7 +2,7 @@ import React from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import Layout from '../../components/Layout';
-import Fab from '../../components/Fab';
+// import Fab from '../../components/Fab';
 import './HomePage.scss';
 
 const HomePage = () => {
