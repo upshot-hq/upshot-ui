@@ -13,4 +13,18 @@
     font-size: rem(24px);
     font-weight: bold;
   }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+
+    .go-back {
+      text-decoration: underline;
+      font-size: rem(12px);
+      margin-left: rem(4px);
+    }
+    .go-back:hover {
+      cursor: pointer;
+    }
+  }
 }

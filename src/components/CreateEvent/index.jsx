@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Textbox, MultiSelector, Textarea } from '../FormInput';
 import Button from '../Button';
-import { validateCreateEventA } from '../../validators/validateCreateEvent';
+import { validateGettingStarted, validateAlmostThere } from '../../validators/validateCreateEvent';
 import './style.scss';
 
 const options = [
@@ -19,14 +19,32 @@ const options = [
   },
 ];
 
+const pages = {
+  gettingStarted: 1,
+  almostThere: 2,
+  lastThing: 3,
+};
+
 const CreateEvent = () => {
-  const [inputs, setInputs] = useState({ competitions: [], errors: {} });
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  const [currentPage, setCurrentPage] = useState(2);
+  const [inputs, setInputs] = useState({ competitions: [], about: '', errors: {} });
+  const [currentPage, setCurrentPage] = useState(3);
 
   const handleChange = (event) => {
     event.persist();
     setInputs((prevInputs) => ({ ...prevInputs, [event.target.name]: event.target.value }));
+  };
+
+  const handleQuillChange = (content, delta, source, editor) => {
+    const text = editor.getText(content);
+    const event = {
+      persist: () => {},
+      target: {
+        name: 'about',
+        value: content,
+      },
+    };
+
+    handleChange(event);
   };
 
   const handleSelect = (event) => {
@@ -43,21 +61,33 @@ const CreateEvent = () => {
     setInputs({ ...inputs, competitions: newSelectedOptions });
   };
 
-  const handleSubmit = (formStep) => {
+  const handleSubmit = (page) => {
     // page A
-    if (formStep === 1) {
-      const { isValid, errors } = validateCreateEventA(inputs);
+    if (page === pages.gettingStarted) {
+      const { isValid, errors } = validateGettingStarted(inputs);
       console.log('errors: ', errors);
       setInputs({ ...inputs, errors });
       if (isValid) {
-        setCurrentPage(2);
+        setCurrentPage(pages.almostThere);
       }
     }
 
     // page B
+    if (page === pages.almostThere) {
+      const { isValid, errors } = validateAlmostThere(inputs);
+      console.log('errors: ', errors);
+      setInputs({ ...inputs, errors });
+      if (isValid) {
+        setCurrentPage(pages.lastThing);
+      }
+    }
 
     // page C
   }
+
+  const goBack = (page) => {
+    setCurrentPage(page);
+  };
 
   const renderGetStarted = () => (
     <div>
@@ -71,10 +101,11 @@ const CreateEvent = () => {
         </div>
         <div className="create-event__form-input">
           <MultiSelector options={options} selectedOptions={inputs.competitions}
-          handleSelect={handleSelect} info="select competitions users can enter for" error={inputs.errors.competitions} />
+          handleSelect={handleSelect}
+          info="select competitions users can enter for" error={inputs.errors.competitions} />
         </div>
       </div>
-      <Button title="continue" handleClick={() => (handleSubmit(1))} />
+      <Button title="continue" handleClick={() => (handleSubmit(pages.gettingStarted))} />
     </div>
   );
 
@@ -89,18 +120,53 @@ const CreateEvent = () => {
           error={inputs.errors.name} required />
         </div>
         <div className="create-event__form-input">
-          <Textarea />
+          <Textarea name="about" value={inputs.about}
+          onChange={handleQuillChange} placeholder="about..."
+          info="give us more infomation about your event"
+          error={inputs.errors.about} required />
         </div>
       </div>
-      <Button title="continue" handleClick={() => (handleSubmit(2))} />
+      <div className="buttons">
+        <Button title="continue" handleClick={() => (handleSubmit(pages.almostThere))} />
+        <span onClick={() => goBack(pages.gettingStarted)} className="go-back">go back</span>
+      </div>
+    </div>
+  );
+
+  const renderLastThing = () => (
+    <div>
+      <p className="create-event__title">One last thing</p>
+      <div className="create-event__form">
+        <div className="create-event__form-input">
+          <Textbox id="startDate" value={inputs.startDate} name="startDate"
+          title="startDate" placeholder="start date and time" type="datetime-local" onChange={handleChange}
+          info="select the date and time the event will commence"
+          error={inputs.errors.startDate} required />
+        </div>
+        <div className="create-event__form-input">
+          <Textbox id="endDate" value={inputs.endDate} name="endDate"
+          title="endDate" placeholder="end date and time" type="datetime-local" onChange={handleChange}
+          info="select the date and time the event will end"
+          error={inputs.errors.endDate} required />
+        </div>
+      </div>
+      <br/>
+      <span className="info">this helps us know when to allow upshotters upload images</span>
+      <br/>
+      <br/>
+      <div className="buttons">
+        <Button title="finish" handleClick={() => (handleSubmit(pages.lastThing))} />
+        <span onClick={() => goBack(pages.almostThere)} className="go-back">go back</span>
+      </div>
     </div>
   );
 
   const renderPage = () => {
     if (currentPage === 1) return renderGetStarted();
     if (currentPage === 2) return renderAlmostThere();
+    if (currentPage === 3) return renderLastThing();
     return renderGetStarted();
-  }
+  };
 
   return (
     <div className="create-event">

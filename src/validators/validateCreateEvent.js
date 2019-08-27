@@ -1,6 +1,6 @@
 import { isEmpty } from 'lodash';
 
-const validateCreateEventA = (values) => {
+const validateGettingStarted = (values) => {
   const errors = {};
   // hashtag cannot be empty
   if (!values.hashtag || (values.hashtag && !values.hashtag.trim())) {
@@ -23,7 +23,33 @@ const validateCreateEventA = (values) => {
   };
 };
 
+const validateAlmostThere = (values) => {
+  const errors = {};
+
+  if (!values.name || (values.name && !values.name.trim())) {
+    errors.name = 'event name cannot be empty';
+  }
+
+  if ((values.name && values.name.trim()) && values.name.trim().length > 50) {
+    errors.name = 'event name cannot have more than 50 characters';
+  }
+
+  if (!values.about || (values.about && !values.about.trim())) {
+    errors.about = 'about cannot be empty';
+  }
+
+  if ((values.about && values.about.trim()) && values.about.trim().length > 200) {
+    errors.about = 'about cannot have more than 200 characters';
+  }
+
+  return {
+    isValid: isEmpty(errors),
+    errors,
+  };
+};
+
 
 export {
-  validateCreateEventA,
+  validateGettingStarted,
+  validateAlmostThere,
 };
