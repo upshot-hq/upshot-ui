@@ -91,6 +91,7 @@ const UserProfileForm = (props) => {
 
   const handleSubmit = () => {
     profileForm.description.value = addStylesToHashTags(profileForm.description.value);
+
     const data = {
       firstname: profileForm.firstname.value,
       lastname: profileForm.lastname.value,

@@ -2,6 +2,7 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 
 import { getUserDetails, apiErrorHandler, history } from '../../helpers/utils';
+import { notifyError } from '../../helpers/notify';
 import UserAPI from '../../services/UserAPI';
 
 import {
@@ -43,5 +44,6 @@ export function* updateUserProfileSagaAsync(action) {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(updateUserProfileFailure(errorMessage));
+    notifyError(errorMessage);
   }
 }
