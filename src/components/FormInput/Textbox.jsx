@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import './styles.scss';
 
 const Textbox = ({
-  id, name, value, title, type, placeholder, onChange, info, error, required,
+  id, name, value, title, type, placeholder,
+  onChange, info, error, required,
 }) => {
   const newPlaceholder = (required) ? `${placeholder} *` : placeholder;
   return (

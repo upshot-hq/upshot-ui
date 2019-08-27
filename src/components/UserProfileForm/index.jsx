@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import './UserProfileForm.scss';
 import ImageUpload from '../ImageUpload';
-import { Textbox } from '../FormInput';
+import { Textbox, Textarea } from '../FormInput';
 import Button from '../Button';
 import * as userActions from '../../redux/actionCreators/userActions';
 import { addStylesToHashTags, createFormData } from '../../helpers/utils';
@@ -29,7 +29,7 @@ const UserProfileForm = (props) => {
       required: true,
     },
     description: {
-      value: userData.description || 'enter description...',
+      value: userData.description,
       required: false,
     },
     image: '',
@@ -144,7 +144,7 @@ const UserProfileForm = (props) => {
           error={profileForm.errors.username}
           type="text"
         />
-        <div className="form-input">
+        {/* <div className="form-input">
           <div className="title">description</div>
           <textarea type="text" name="description"
             id="description" className="text-input textarea"
@@ -153,7 +153,16 @@ const UserProfileForm = (props) => {
             onChange={handleFormFieldChange}
             value={profileForm.description.value}
           />
-        </div>
+        </div> */}
+        <Textarea
+          name="description"
+          placeholder="enter a short description..."
+          required={profileForm.description.required}
+          value={profileForm.description.value}
+          onChange={handleFormFieldChange}
+          error={profileForm.errors.description}
+          type="text"
+        />
         <Button
           title="save"
           disabled={disableEditFormBtn}
