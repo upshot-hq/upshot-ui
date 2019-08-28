@@ -1,12 +1,10 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import auth from './user';
-import image from './image';
 import { LOG_OUT } from '../constants/actionTypes';
 
 const appReducers = combineReducers({
   auth,
-  image,
   router: routerReducer,
 });
 
