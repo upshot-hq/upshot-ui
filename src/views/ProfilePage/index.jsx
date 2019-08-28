@@ -12,7 +12,7 @@ import UserProfileForm from '../../components/UserProfileForm/index';
 
 export const ProfilePage = (props) => {
   const { user: { userData }, profileUpdateSuccess } = props;
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const isInitialMount = useRef(true);
 
   useEffect(() => {
