@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 
 import './UserProfileForm.scss';
 import ImageUpload from '../ImageUpload';
-import { Textbox, Textarea } from '../FormInput';
+import { Textbox, CustomTextarea } from '../FormInput';
 import Button from '../Button';
 import * as userActions from '../../redux/actionCreators/userActions';
-import { addStylesToHashTags, createFormData } from '../../helpers/utils';
+import { createFormData } from '../../helpers/utils';
+import { profileDescriptionMaxLength } from '../../helpers/defaults';
 
 const UserProfileForm = (props) => {
   const {
@@ -34,7 +35,12 @@ const UserProfileForm = (props) => {
     },
     image: '',
     imageUrl: userData.imageUrl,
-    errors: {},
+    errors: {
+      firstname: '',
+      lastname: '',
+      username: '',
+      description: '',
+    },
   });
   const [disableEditFormBtn, setDisableEditFormBtn] = useState(true);
 
@@ -90,8 +96,6 @@ const UserProfileForm = (props) => {
   };
 
   const handleSubmit = () => {
-    profileForm.description.value = addStylesToHashTags(profileForm.description.value);
-
     const data = {
       firstname: profileForm.firstname.value,
       lastname: profileForm.lastname.value,
@@ -144,24 +148,16 @@ const UserProfileForm = (props) => {
           error={profileForm.errors.username}
           type="text"
         />
-        {/* <div className="form-input">
-          <div className="title">description</div>
-          <textarea type="text" name="description"
-            id="description" className="text-input textarea"
-            placeholder="enter a short description..."
-            maxLength={150} rows={3}
-            onChange={handleFormFieldChange}
-            value={profileForm.description.value}
-          />
-        </div> */}
-        <Textarea
+        <CustomTextarea
           name="description"
           placeholder="enter a short description..."
           required={profileForm.description.required}
           value={profileForm.description.value}
           onChange={handleFormFieldChange}
           error={profileForm.errors.description}
+          info={`description should not be more than ${profileDescriptionMaxLength} characters`}
           type="text"
+          maxLength={profileDescriptionMaxLength}
         />
         <Button
           title="save"

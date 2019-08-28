@@ -5,3 +5,4 @@ export const hashTagPrefix = '#';
 export const handlePrefix = '@';
 export const saltRounds = 10;
 export const defaultImageSizeLimit = 2000000;
+export const profileDescriptionMaxLength = 140;

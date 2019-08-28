@@ -35,7 +35,6 @@ const CreateEvent = () => {
   };
 
   const handleQuillChange = (content, delta, source, editor) => {
-    const text = editor.getText(content);
     const event = {
       persist: () => {},
       target: {

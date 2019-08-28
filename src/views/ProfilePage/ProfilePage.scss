@@ -20,6 +20,7 @@
         width: 80%;
         .profile {
           width: 100%;
+          width: rem(436px);
           height: 60%;
           background-color: $white;
           border-radius: rem(5px);
@@ -113,6 +114,7 @@
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: pre-wrap;
+              word-break: break-all;
               .hashtag {
                 color: $secondary-color;
               }
