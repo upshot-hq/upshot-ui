@@ -6,7 +6,7 @@
   .image {
     width: rem(72px);
     height: rem(72px);
-    border: 1px solid $gray-1;
+    border: rem(1px) solid $gray-1;
     border-radius: 50%;
     background-color: $gray-2;
     background-size: cover;
@@ -21,7 +21,7 @@
       opacity: 0;
       top: 0;
       left: 0;
-      font-size: 44px;
+      font-size: rem(44px);
       z-index: 2;
       cursor: pointer;
     }
@@ -35,8 +35,8 @@
   }
   .error {
     font-family: $primary-font;
-    font-size: 12px;
+    font-size: rem(12px);
     color: $red;
-    margin: 4px 0;
+    margin: rem(4px) 0;
   }
 }
