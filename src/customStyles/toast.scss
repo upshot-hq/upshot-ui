@@ -17,12 +17,12 @@
 }
 .toast-message a,
 .toast-message label {
-  color: #FFFFFF;
-  color: #4F4F4F;
+  color: $white;
+  color: $gray-4;
 }
 .toast-message a:hover {
-  color: #CCCCCC;
-  color: #4F4F4F;
+  color: $gray-5;
+  color: $gray-4;
   text-decoration: none;
 }
 .toast-close-button {
@@ -32,10 +32,10 @@
   float: right;
   font-size: rem(20px);
   font-weight: bold;
-  color: #FFFFFF;
-  color: #4F4F4F;
-  -webkit-text-shadow: rem(0 1px 0) #ffffff;
-  text-shadow: rem(0 1px 0) #ffffff;
+  color: $white;
+  color: $gray-4;
+  -webkit-text-shadow: rem(0 1px 0) $white;
+  text-shadow: rem(0 1px 0) $white;
   opacity: 1;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   filter: alpha(opacity=80);
@@ -44,8 +44,8 @@
 }
 .toast-close-button:hover,
 .toast-close-button:focus {
-  color: #000000;
-  color: #4F4F4F;
+  color: $black;
+  color: $gray-4;
   text-decoration: none;
   cursor: pointer;
   opacity: 0.4;
@@ -128,11 +128,11 @@ button.toast-close-button {
   border-radius: rem(4px);
   background-position: rem(15px) center;
   background-repeat: no-repeat;
-  -moz-box-shadow: rem(0 0 12px) #999999;
-  -webkit-box-shadow: rem(0 0 12px) #999999;
+  -moz-box-shadow: rem(0 0 12px) $gray-6;
+  -webkit-box-shadow: rem(0 0 12px) $gray-6;
   box-shadow: rem(0 2px 10px 0) rgba(0,0,0,0.15);
-  color: #FFFFFF;
-  color: #4F4F4F;
+  color: $white;
+  color: $gray-4;
   opacity: 1;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   filter: alpha(opacity=80);
@@ -140,7 +140,7 @@ button.toast-close-button {
 #toast-container > div.rtl {
   direction: rtl;
   padding: rem(15px 50px 15px 15px);
-  background-position: right 15px center;
+  background-position: right rem(15px) center;
 }
 #toast-container > div:hover {
   opacity: 1;
@@ -177,16 +177,14 @@ button.toast-close-button {
   margin-right: auto;
 }
 .toast {
-  background-color: #030303;
+  background-color: $black-2;
 }
 .toast-success {
   background-color: $green;
-  background-color: $green-2;
 }
 .toast-error {
-  background-color: #FF5359;
   background-color: $red;
-  color: #ffffff !important;
+  color: $white !important;
 }
 
 .custom-close-btn {
@@ -202,17 +200,17 @@ button.toast-close-button {
 }
 
 .toast-info {
-  background-color: #2F96B4;
+  background-color: $blue;
 }
 .toast-warning {
-  background-color: #F6D280;
+  background-color: $yellow;
 }
 .toast-progress {
   position: absolute;
   left: 0;
   bottom: 0;
   height: rem(4px);
-  background-color: #000000;
+  background-color: $black;
   opacity: 0.4;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
   filter: alpha(opacity=40);

@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 
 import './ImageUpload.scss';

@@ -156,7 +156,6 @@ const UserProfileForm = (props) => {
           onChange={handleFormFieldChange}
           error={profileForm.errors.description}
           info={`description should not be more than ${profileDescriptionMaxLength} characters`}
-          type="text"
           maxLength={profileDescriptionMaxLength}
         />
         <Button
