@@ -66,5 +66,12 @@
       padding: rem(5px);
     }
   }
+  .date-picker {
+    width: 100%;
+    .react-datetime-picker__wrapper {
+      border: none;
+      border-bottom: rem(1px) solid $gray-1;
+    }
+  }
 }
 

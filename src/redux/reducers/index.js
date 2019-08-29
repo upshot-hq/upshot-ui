@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import auth from './user';
+import competitions from './competition';
 import { LOG_OUT } from '../constants/actionTypes';
 
 const appReducers = combineReducers({
   auth,
+  competitions,
   router: routerReducer,
 });
 

@@ -1,4 +1,5 @@
 import { isEmpty } from 'lodash';
+import moment from 'moment';
 
 const validateGettingStarted = (values) => {
   const errors = {};
@@ -48,8 +49,36 @@ const validateAlmostThere = (values) => {
   };
 };
 
+const validateLastThing = (values) => {
+  const errors = {};
+
+  if (!values.startDate) {
+    errors.startDate = 'start date cannot be empty';
+  }
+
+  if (!values.endDate) {
+    errors.endDate = 'end date cannot be empty';
+  }
+
+  // start date must be ahead of today
+  if (values.startDate && (moment(values.startDate).isSameOrBefore(moment(), 'day'))) {
+    errors.startDate = 'start date must be after today';
+  }
+
+  // end date must be ahead of today
+  if (values.endDate && (moment(values.endDate).isSameOrBefore(moment(), 'day'))) {
+    errors.endDate = 'end date must be after today';
+  }
+
+  return {
+    isValid: isEmpty(errors),
+    errors,
+  };
+}
+
 
 export {
   validateGettingStarted,
   validateAlmostThere,
+  validateLastThing,
 };

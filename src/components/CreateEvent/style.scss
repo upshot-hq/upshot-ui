@@ -27,4 +27,12 @@
       cursor: pointer;
     }
   }
+  .last-thing-info {
+    font-size: rem(14px);
+    color: $gray-1;
+  }
+  .progress-bar {
+    margin-top: rem(50px);
+    text-align: center;
+  }
 }

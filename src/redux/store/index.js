@@ -17,7 +17,7 @@ const store = createStore(rootReducer, middleware);
 
 const token = localStorage.getItem(jwtKey);
 
-axios.defaults.headers.common.authorization = `${token}`;
+axios.defaults.headers.common.authorization = token;
 
 sagaMiddleware.run(rootSaga);
 
