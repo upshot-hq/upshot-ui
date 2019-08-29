@@ -8,6 +8,7 @@ import './AuthPage.scss';
 import { appName } from '../../helpers/defaults';
 import lang from '../../helpers/en.default';
 import * as userActions from '../../redux/actionCreators/userActions';
+import * as utils from '../../helpers/utils';
 
 export const AuthPage = (props) => {
   const { authenticateUser, authenticateUserFailure, logoutUser } = props;
@@ -16,7 +17,8 @@ export const AuthPage = (props) => {
     logoutUser();
   }, [logoutUser]);
 
-  const handleAuth = (response) => {
+  const handleAuth = async (response) => {
+    const ups = await utils.hashData(process.env.REACT_APP_AUTH_SECRET);
     const {
       familyName: lastname,
       givenName: firstname,
@@ -25,7 +27,7 @@ export const AuthPage = (props) => {
     } = response.profileObj;
 
     authenticateUser({
-      firstname, lastname, email, imageUrl,
+      firstname, lastname, email, imageUrl, ups,
     });
   };
 

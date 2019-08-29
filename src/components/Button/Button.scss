@@ -1,0 +1,37 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+.up-button {
+  padding: rem(4px 2px);
+  &>button {
+    width: rem(140px);
+    height: rem(40px);
+    border-radius: rem(5px);
+    border: rem(1px) solid $gray-1;
+    background-color: $white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    text-transform: capitalize;
+    cursor: pointer;
+    outline: none;
+    color: $primary-color;
+    font-family: $primary-font;
+    font-size: rem(14px);
+    font-weight: 700;
+    &:active {
+      background-color: $secondary-color;
+      border: rem(1px) solid $secondary-color;
+      color: $white;
+    }
+    &:disabled {
+      color: $gray-1;
+      .up-loader {
+        border-color: $gray-1;
+        border-top-color: $white;
+      }
+    }
+  }
+}

@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import './Layout.scss';
 import Logo from '../Logo';
 import lang from '../../helpers/en.default';
+import Fab from '../Fab';
+import Modal from '../../components/Modal/index';
+import CreateEvent from '../CreateEvent';
 
 import { history } from '../../helpers/utils';
 
+
 const Layout = (props) => {
+  const [showModal, setShowModal] = useState(false);
   const {
     children, leftContainerStyles,
     centerContainerStyles, rightContainerStyles,
@@ -20,6 +25,10 @@ const Layout = (props) => {
     textAlign: 'left',
     width: '100%',
     margin: 0,
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
   };
 
   const renderSideNavItem = (navItem, index) => {
@@ -50,6 +59,10 @@ const Layout = (props) => {
     );
   };
 
+  const renderCreateEventModal = () => {
+    setShowModal(true);
+  };
+
   return (
     <div className="layout">
       <div className="layout-container">
@@ -70,6 +83,10 @@ const Layout = (props) => {
           <div className="content" />
         </div>
       </div>
+      <Fab onClickFunction={renderCreateEventModal} />
+      <Modal isModalVisible={showModal} handleModalClose={handleModalClose}>
+        <CreateEvent />
+      </Modal>
     </div>
   );
 };

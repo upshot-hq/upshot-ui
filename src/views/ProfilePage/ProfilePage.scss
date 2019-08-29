@@ -1,3 +1,4 @@
+@import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
 
@@ -6,10 +7,10 @@
   .header {
     width: 100%;
     height: 37%;
-    border-bottom: 1px solid $gray-3;
+    border-bottom: rem(1px) solid $gray-3;
     .top {
-      padding-left: 10px;
-      padding-right: 10px;
+      padding-left: rem(10px);
+      padding-right: rem(10px);
       background-color: $primary-color-1;
       height: 80%;
       display: flex;
@@ -19,10 +20,11 @@
         width: 80%;
         .profile {
           width: 100%;
+          width: rem(436px);
           height: 60%;
           background-color: $white;
-          border-radius: 5px;
-          box-shadow: 1px 1px 4px 0px $primary-color-2;
+          border-radius: rem(5px);
+          box-shadow: rem(1px 1px 4px 0px) $primary-color-2;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -36,8 +38,8 @@
             justify-content: center;
             align-items: center;
             .image {
-              width: 72px;
-              height: 72px;
+              width: rem(72px);
+              height: rem(72px);
               border: 1px solid $secondary-color-3;
               border-radius: 50%;
               background-color: $gray-1;
@@ -50,7 +52,7 @@
             width: 72%;
             height: 80%;
             overflow: hidden;
-            padding: 0 10px;
+            padding: rem(0px 10px);
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -64,7 +66,8 @@
                 align-items: center;
                 justify-content: space-between;
                 .text {
-                  font-size: 16px;
+                  font-size: rem(16px);
+                  text-transform: capitalize;
                   font-weight: bold;
                   flex-grow: 2;
                   text-overflow: ellipsis;
@@ -77,11 +80,11 @@
                   justify-content: center;
                   align-items: center;
                   .btn {
-                    border: 1px solid $secondary-color-3;
-                    border-radius: 5px;
-                    padding: 5px 10px;
+                    border: rem(1px) solid $secondary-color-3;
+                    border-radius: rem(5px);
+                    padding: rem(5px 10px);
                     font-family: $primary-font;
-                    font-size: 11px;
+                    font-size: rem(11px);
                     font-weight: normal;
                     text-overflow: ellipsis;
                     overflow: hidden;
@@ -97,20 +100,28 @@
                 }
               }
               .handle {
-                font-size: 11px;
+                font-size: rem(11px);
                 font-weight: normal;
                 color: $secondary-color;
               }
             }
             .description {
               width: 100%;
-              height: 35%;
+              height: 40%;
               font-family: $primary-font;
-              font-size: 12px;
+              font-size: rem(12px);
               font-weight: normal;
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: pre-wrap;
+              word-break: break-all;
+              .hashtag {
+                color: $secondary-color;
+              }
+              .no-description {
+                color: $gray-2;
+                font-style: italic;
+              }
             }
           }
         }
@@ -118,17 +129,17 @@
           height: 40%;
           height: auto;
           width: 60%;
-          padding-top: 15px;
+          padding-top: rem(15px);
           display: flex;
           align-items: flex-start;
           justify-content: space-between;
           .content {
-            box-shadow: 1px 1px 4px 0px $primary-color-2;
+            box-shadow: rem(1px 1px 4px 0px) $primary-color-2;
             height: 40%;
             width: 100%;
-            padding:  5px 10px;
+            padding:  rem(5px 10px);
             background-color: $white;
-            border-radius: 5px;
+            border-radius: rem(5px);
             display: flex;
             align-items: center;
             justify-content: space-evenly;
@@ -136,7 +147,7 @@
             .text {
               font-family: $primary-font;
               text-transform: capitalize;
-              font-size: 14px;
+              font-size: rem(14px);
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: nowrap;
@@ -145,7 +156,7 @@
               text-align: center;
               .count {
                 font-weight: bold;
-                font-size: 15px;
+                font-size: rem(15px);
                 text-transform: capitalize;
               }
             }
@@ -169,14 +180,14 @@
           text-transform: capitalize;
           color: $primary-color;
           font-family: $primary-font;
-          font-size: 16px;
+          font-size: rem(16px);
           font-weight: bold;
           cursor: pointer;
           flex-grow: 1;
           text-align: center;
           &:hover {
             color: $secondary-color;
-            border-bottom: 3px solid $secondary-color;
+            border-bottom: rem(3px) solid $secondary-color;
           }
         }
       }
@@ -193,13 +204,12 @@
     }
     .dummy-card {
       margin: auto;
-      margin-top: 20px;
-      margin-bottom: 20px;
+      margin-top: rem(20px);
+      margin-bottom: rem(20px);
       height: 60%;
       width: 90%;
       background-color: $primary-color;
-      border-radius: 5px;
+      border-radius: rem(5px);
     }
   }
 }
-
