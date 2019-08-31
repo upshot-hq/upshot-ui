@@ -27,7 +27,8 @@
       color: $white;
     }
     &:disabled {
-      color: $gray-1;
+      color: $gray-1 !important;
+      border-color: $gray-1 !important;
       .up-loader {
         border-color: $gray-1;
         border-top-color: $white;

@@ -1,0 +1,46 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+.us-search {
+  flex-basis: 100%;
+  width: 100%;
+  height: rem(30px);
+  border-radius: rem(5px);
+  background-color: $gray-3;
+  display: flex;
+  &__icon {
+    flex-basis: 8%;
+    color: $white-1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &>span {
+      font-size: rem(18px);
+      color: $white-1;
+    }
+  }
+  &__input {
+    flex-basis: 92%;
+    height: 100%;
+    background-color: transparent;
+    color: $primary-color;
+    border: none;
+    outline: none;
+    font-family: $primary-font;
+    font-size: rem(15px);
+    font-weight: 500;
+    &::-webkit-input-placeholder { /* Edge */
+      color: red;
+    }
+    
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color: red;
+    }
+    
+    &::placeholder {
+      color: red;
+    }
+  }
+}
+
