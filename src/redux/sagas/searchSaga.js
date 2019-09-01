@@ -14,7 +14,7 @@ export function* watchSearchSagaAsync() {
 
 export function* searchSagaAsync(action) {
   try {
-    const response = yield call(SearchAPI.authenticateUser, action.payload);
+    const response = yield call(SearchAPI.search, action.payload);
     yield put(searchSuccess(response.data));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);

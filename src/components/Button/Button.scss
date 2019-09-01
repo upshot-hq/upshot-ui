@@ -29,6 +29,7 @@
     &:disabled {
       color: $gray-1 !important;
       border-color: $gray-1 !important;
+      cursor: default;
       .up-loader {
         border-color: $gray-1;
         border-top-color: $white;

@@ -1,56 +1,118 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 // import FontAwesome from 'react-fontawesome';
 
 import './PostToEvent.scss';
+import lang from '../../helpers/en.default';
 import Button from '../Button';
 import CustomTextarea from '../FormInput/CustomTextarea';
 import Dropdown from '../FormInput/Dropdown';
 import Capsule from '../Capsule';
 import SearchBar from '../SearchBar';
 import ImageUpload from '../ImageUpload/index';
-
-const competitions = [
-  { title: 'Best dancer', value: 1 },
-  { title: 'Best caption', value: '2' },
-];
+import * as competitionActions from '../../redux/actionCreators/competitionActions';
+import Loader from '../Loader';
 
 const PostToEvent = (props) => {
   const [selectedCompetition, setSelectedCompetition] = useState('');
-  const postToEventForm = () => (
-    <div className="post-to-event__container">
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [eventCompetitions, setEventCompetitions] = useState([]);
+  const [imageFile, setImageFile] = useState('');
+  const [caption, setCaption] = useState('');
+  const [disableFormBtn, setDisableFormBtn] = useState(true);
+  const {
+    competitions, isLoading, fetchAllCompetitions,
+    competitionError,
+  } = props;
+
+  useEffect(() => {
+    fetchAllCompetitions();
+  }, [fetchAllCompetitions]);
+
+  useEffect(() => {
+    if (selectedEvent && competitions.length) {
+      const comp = competitions.filter((comptn) => selectedEvent.competitions.includes(comptn.id));
+      setEventCompetitions(comp);
+    }
+  }, [selectedEvent, competitions]);
+
+  useEffect(() => {
+    const disableBtn = !selectedEvent || !selectedCompetition || !imageFile;
+    setDisableFormBtn(disableBtn);
+  }, [selectedEvent, selectedCompetition, imageFile]);
+
+  const handleEventSelection = (event) => {
+    setSelectedEvent(event);
+  };
+
+  const handleDropdownSelect = (event) => {
+    const { value } = event.target;
+    setSelectedCompetition(value);
+  };
+
+  const handleImageChange = (image) => {
+    setImageFile(image);
+  };
+
+  const handleCaptionChange = (event) => {
+    const { value } = event.target;
+    setCaption(value);
+  };
+
+  const handleFormSubmit = () => {
+    if (!disableFormBtn) {
+      console.log('form submit', {
+        caption,
+        imageFile,
+        selectedEvent,
+        selectedCompetition,
+      });
+    }
+  };
+
+  const postToEventForm = () => {
+    const dropdownInfo = selectedEvent
+      ? lang.postToEvent.competitionDropdownInfo : lang.postToEvent.eventSearchInfo;
+
+    return (
       <div className="form-content">
         <div className="search">
           <SearchBar
-            handleChange={() => { console.log('search'); }}
+            searchScope="events"
+            searchResultTitleProperty="hashtag"
+            searchResultValueProperty="id"
+            handleSearchResultClick={handleEventSelection}
+            placeholder="search events here"
           />
         </div>
-        <div className="event">
-          <Capsule
-            title="#theCrib"
-            handleClose={() => { console.log('close'); }}
-            handleSelect={() => { console.log('select'); }}
-          />
-        </div>
+        {selectedEvent
+          && <div className="event">
+              <Capsule
+                title={selectedEvent.hashtag}
+                id={selectedEvent.id}
+                handleClose={() => { console.log('close'); }}
+                handleSelect={() => { console.log('select'); }}
+              />
+          </div>
+        }
         <div className="competitions">
           <Dropdown
             name="competition"
-            options={competitions}
+            options={eventCompetitions}
+            optionsTitleProperty="name"
+            optionsValueProperty="id"
             value={selectedCompetition}
             error=""
-            info="select competition you would like to enter"
-            onChange={(event) => {
-              console.log(event.target.value);
-              const { value } = event.target;
-              setSelectedCompetition(value);
-            }}
+            info={dropdownInfo}
+            onChange={handleDropdownSelect}
             placeholder="select a competition"
-            disabled
+            disabled={!selectedEvent}
           />
         </div>
         <div className="post-image">
           <ImageUpload
-            handleImageFileChange={() => { console.log('file changed'); }}
+            handleImageFileChange={handleImageChange}
             containerStyles={{
               width: '100%',
               height: '216px',
@@ -66,33 +128,60 @@ const PostToEvent = (props) => {
             placeholder="enter caption"
             styles={{ fontWeight: '600' }}
             name="caption"
-            onChange={() => {}}
-            value=""
+            onChange={handleCaptionChange}
+            value={caption}
             error=""
           />
         </div>
         <div className="form-button">
           <Button
-            handleClick={() => { console.log('clicked'); }}
+            handleClick={handleFormSubmit}
             title="post"
             customStyles={{ height: '42px', width: '122px', borderColor: '#2d283e' }}
-            disabled
+            disabled={disableFormBtn}
           />
         </div>
       </div>
-    </div>
+    );
+  };
+
+  const renderPostToEventForm = () => (
+    <Fragment>
+      {competitionError
+        ? <div className="error">{competitionError}</div>
+        : postToEventForm()
+      }
+    </Fragment>
   );
 
   return (
     <div className="post-to-event">
-      {postToEventForm()}
+      <div className="post-to-event__container">
+        {isLoading
+          ? <Loader customStyles={{ width: '30px', height: '30px' }} />
+          : renderPostToEventForm()
+        }
+      </div>
     </div>
   );
 };
 
 PostToEvent.propTypes = {
   children: PropTypes.node,
+  competitions: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  fetchAllCompetitions: PropTypes.func.isRequired,
+  competitionError: PropTypes.string.isRequired,
 };
 
+const mapStateToProps = ({ competition }) => ({
+  competitions: competition.competitions,
+  isLoading: competition.isLoading,
+  competitionError: competition.error.message,
+});
 
-export default PostToEvent;
+const actionCreators = {
+  fetchAllCompetitions: competitionActions.fetchAllCompetitions,
+};
+
+export default connect(mapStateToProps, actionCreators)(PostToEvent);

@@ -7,6 +7,7 @@ import './styles.scss';
 const Dropdown = ({
   name, value, placeholder, onChange, info,
   error, required, styles, options, disabled,
+  optionsValueProperty, optionsTitleProperty,
 }) => {
   const iconClassName = disabled ? 'chevy disabled' : 'chevy';
 
@@ -20,10 +21,10 @@ const Dropdown = ({
         {options.map(
           (option, index) => (
             <option
-              value={option.value}
+              value={option[optionsValueProperty]}
               key={index}
             >
-              {option.title}
+              {option[optionsTitleProperty]}
             </option>),
         )}
       </select>
@@ -47,15 +48,9 @@ Dropdown.propTypes = {
   onChange: PropTypes.func.isRequired,
   styles: PropTypes.object,
   disabled: PropTypes.bool,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-      ]).isRequired,
-    }).isRequired,
-  ).isRequired,
+  options: PropTypes.array.isRequired,
+  optionsTitleProperty: PropTypes.string.isRequired,
+  optionsValueProperty: PropTypes.string.isRequired,
 };
 
 Dropdown.defaultProps = {

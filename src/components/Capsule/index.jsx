@@ -7,7 +7,7 @@ const Capsule = ({
   title, handleClose, id, key, handleSelect,
   capsuleStyle, textStyle, closeBtnStyle,
 }) => (
-    <div id={id} key={key} className="us-capsule" style={capsuleStyle}>
+    <div id={id} key={id} className="us-capsule" style={capsuleStyle}>
       <div className="us-capsule__text" onClick={handleSelect} style={textStyle}>
         {title}
       </div>
@@ -22,7 +22,6 @@ Capsule.propTypes = {
   handleClose: PropTypes.func.isRequired,
   id: PropTypes.string,
   handleSelect: PropTypes.func,
-  key: PropTypes.string,
   closeBtnStyle: PropTypes.object,
   textStyle: PropTypes.object,
   capsuleStyle: PropTypes.object,

@@ -14,7 +14,7 @@ export function* watchFetchCompetitionsSagaAsync() {
 
 export function* fetchCompetitionsSagaAsync(action) {
   try {
-    const response = yield call(CompetitionAPI.authenticateUser, action.userData);
+    const response = yield call(CompetitionAPI.getCompetitions);
     yield put(fetchAllCompetitionsSuccess(response.data));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);

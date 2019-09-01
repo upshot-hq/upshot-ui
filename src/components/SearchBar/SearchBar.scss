@@ -3,44 +3,107 @@
 @import '../../assets/partials/defaults';
 
 .us-search {
-  flex-basis: 100%;
+  position: relative;
   width: 100%;
-  height: rem(30px);
-  border-radius: rem(5px);
-  background-color: $gray-3;
-  display: flex;
-  &__icon {
-    flex-basis: 8%;
-    color: $white-1;
+  &__bar {
+    flex-basis: 100%;
+    width: 100%;
+    height: rem(30px);
+    border-radius: rem(5px);
+    background-color: $gray-3;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    &>span {
-      font-size: rem(18px);
+    &-icon {
+      flex-basis: 8%;
       color: $white-1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &>span {
+        font-size: rem(18px);
+        color: $white-1;
+      }
+    }
+    &-input {
+      flex-basis: 92%;
+      height: 100%;
+      background-color: transparent;
+      color: $primary-color;
+      border: none;
+      outline: none;
+      font-family: $primary-font;
+      font-size: rem(15px);
+      font-weight: 500;
+      &::-webkit-input-placeholder { /* Edge */
+        color: $white;
+      }
+      
+      &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: $white;
+      }
+      
+      &::placeholder {
+        color: $white;
+      }
     }
   }
-  &__input {
-    flex-basis: 92%;
-    height: 100%;
-    background-color: transparent;
-    color: $primary-color;
-    border: none;
-    outline: none;
-    font-family: $primary-font;
-    font-size: rem(15px);
-    font-weight: 500;
-    &::-webkit-input-placeholder { /* Edge */
-      color: red;
+  &__result {
+    position: absolute;
+    margin-left: rem(1px);
+    z-index: 99;
+    background-color: $white;
+    position: absolute;
+    top: 110%;
+    width: 99%;
+    min-height: rem(50px);
+    max-height: rem(300px);
+    border-radius: rem(5px) rem(5px);
+    border: 1px solid $gray-7;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    .row {
+      width: 100%;
+      padding: rem(10px) rem(20px);
+      border-bottom: rem(1px) solid $gray-7;
+      color: $primary-color;
+      font-size: rem(16px);
+      max-height: rem(50px);
+      cursor: pointer;
+      &:hover {
+        background-color: $gray-3;
+      }
+      .text {
+        cursor: pointer;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 90%;
+        &>span {
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      &:last-child {
+        border-bottom: 0;
+      }
     }
-    
-    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
-      color: red;
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: rem(-15px);
+      cursor: default;
+      &:hover {
+        background-color: $white;
+      }
     }
-    
-    &::placeholder {
-      color: red;
+    .message {
+      color: $gray-1;
+      font-size: rem(14px);
+      cursor: default;
+      &:hover {
+        background-color: $white;
+      }
     }
   }
 }
-

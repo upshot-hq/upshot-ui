@@ -29,7 +29,7 @@ const competition = (state = initialState, action) => {
         ...state,
         success: false,
         isLoading: false,
-        error: action.error,
+        error: { ...initialState.error, message: action.error },
       };
     default:
       return state;
