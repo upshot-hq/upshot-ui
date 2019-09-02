@@ -10,7 +10,6 @@ import Modal from '../../components/Modal/index';
 import { addStylesToHashTags } from '../../helpers/utils';
 import UserProfileForm from '../../components/UserProfileForm/index';
 import Button from '../../components/Button';
-import { addStylesToHashTags } from '../../helpers/utils';
 
 export const ProfilePage = (props) => {
   const { user: { userData } } = props;

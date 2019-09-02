@@ -13,9 +13,20 @@ const validateGettingStarted = (values) => {
     errors.hashtag = 'hashtag must begin with "#"';
   }
 
+  // hashtag must have no space
+  const regex = /\s/;
+  if (!errors.hashtag && regex.test(values.hashtag.trim())) {
+    errors.hashtag = 'hashtag cannot contain spaces';
+  }
+
   // hashtag cannot be more that 10 characters
   if ((values.hashtag && values.hashtag.trim()) && values.hashtag.trim().length > 10) {
     errors.hashtag = 'hashtag cannot have more than 10 characters';
+  }
+
+  // ensure at least one competition is selected
+  if (!values.competitions.length) {
+    errors.competitions = 'atleast one competition must be selected';
   }
 
   return {
@@ -35,11 +46,11 @@ const validateAlmostThere = (values) => {
     errors.name = 'event name cannot have more than 50 characters';
   }
 
-  if (!values.about || (values.about && !values.about.trim())) {
+  if (!values.aboutText || (values.aboutText && !values.aboutText.trim())) {
     errors.about = 'about cannot be empty';
   }
 
-  if ((values.about && values.about.trim()) && values.about.trim().length > 200) {
+  if ((values.aboutText && values.aboutText.trim()) && values.aboutText.trim().length > 200) {
     errors.about = 'about cannot have more than 200 characters';
   }
 

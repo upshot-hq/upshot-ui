@@ -42,7 +42,19 @@
     position: relative;
     &__selections {
       margin-bottom: rem(6px);
+      display: flex;
+      overflow: scroll;
+      &::-webkit-scrollbar { 
+        display: none; 
+      }
       .option {
+        display: flex;
+        justify-content: space-between;
+        min-width: rem(80px);
+        max-width: rem(180px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         background-color: $white;
         color: $primary-color;
         margin: rem(5px);

@@ -50,6 +50,9 @@ export const apiErrorHandler = (error) => {
           .join(', ');
         errorMessage = `${validationErrors}`;
         break;
+      case 400:
+        errorMessage = error.response.data.message || error.response.statusText;
+        break;
       default:
         errorMessage = error.response.data.error || error.response.data.message;
     }

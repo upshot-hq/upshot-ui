@@ -10,7 +10,6 @@ const DatePickerInput = ({
   const handleChange = (datetime) => {
     const dateFormat = 'YYYY-MM-DDTHH:mm:ss';
     const formattedDate = moment(datetime).format(dateFormat);
-    console.log('formattedDate', formattedDate);
     const event = {
       persist: () => {},
       target: {

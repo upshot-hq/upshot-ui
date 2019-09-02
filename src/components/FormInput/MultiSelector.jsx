@@ -23,12 +23,9 @@ const MultiSelector = ({
                 className="option">{option.name} <span>&#43;</span></span>
               );
             })}
-            <span className="option">Best dressed <span>&#43;</span></span>
-            <span className="option selected">Best angle <span>&times;</span></span>
-            <span className="option selected">Funniest caption <span>&times;</span></span>
           </div>
-          <span className="info">{info}</span>
-          <span className="error">{error}</span>
+          {!error && <span className="info">{info}</span>}
+          {error && <span className="error">{error}</span>}
         </div>
       </div>
     </div>

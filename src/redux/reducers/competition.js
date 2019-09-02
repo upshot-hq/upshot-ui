@@ -10,7 +10,6 @@ const initialState = {
 };
 
 const competitions = (state = initialState, action) => {
-  console.log('action: ', action);
   switch (action.type) {
     case types.GET_COMPETITIONS:
       return { ...state, isLoading: true };
@@ -18,7 +17,7 @@ const competitions = (state = initialState, action) => {
     case types.GET_COMPETITIONS_SUCCESS:
       return {
         ...state,
-        competitions: action.data,
+        competitions: action.competitionsData.competitions,
         isLoading: false,
         errors: {
           message: '',

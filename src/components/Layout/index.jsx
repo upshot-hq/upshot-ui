@@ -85,7 +85,7 @@ const Layout = (props) => {
       </div>
       <Fab onClickFunction={renderCreateEventModal} />
       <Modal isModalVisible={showModal} handleModalClose={handleModalClose}>
-        <CreateEvent />
+        <CreateEvent handleModalClose={handleModalClose} />
       </Modal>
     </div>
   );
