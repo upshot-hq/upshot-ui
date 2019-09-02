@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import FontAwesome from 'react-fontawesome';
 
 import './PostToEvent.scss';
 import lang from '../../helpers/en.default';
@@ -12,7 +11,9 @@ import Capsule from '../Capsule';
 import SearchBar from '../SearchBar';
 import ImageUpload from '../ImageUpload/index';
 import * as competitionActions from '../../redux/actionCreators/competitionActions';
+import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
 import Loader from '../Loader';
+import { createFormData } from '../../helpers/utils';
 
 const PostToEvent = (props) => {
   const [selectedCompetition, setSelectedCompetition] = useState('');
@@ -22,8 +23,8 @@ const PostToEvent = (props) => {
   const [caption, setCaption] = useState('');
   const [disableFormBtn, setDisableFormBtn] = useState(true);
   const {
-    competitions, isLoading, fetchAllCompetitions,
-    competitionError,
+    competitions, competitionIsLoading, fetchAllCompetitions,
+    competitionError, postToEvent, isPostingToEvent,
   } = props;
 
   useEffect(() => {
@@ -38,9 +39,9 @@ const PostToEvent = (props) => {
   }, [selectedEvent, competitions]);
 
   useEffect(() => {
-    const disableBtn = !selectedEvent || !selectedCompetition || !imageFile;
+    const disableBtn = !selectedEvent || !selectedCompetition || !imageFile || isPostingToEvent;
     setDisableFormBtn(disableBtn);
-  }, [selectedEvent, selectedCompetition, imageFile]);
+  }, [selectedEvent, selectedCompetition, imageFile, isPostingToEvent]);
 
   const handleEventSelection = (event) => {
     setSelectedEvent(event);
@@ -62,12 +63,13 @@ const PostToEvent = (props) => {
 
   const handleFormSubmit = () => {
     if (!disableFormBtn) {
-      console.log('form submit', {
+      const payload = createFormData({
         caption,
-        imageFile,
-        selectedEvent,
-        selectedCompetition,
+        image: imageFile,
+        competitionId: selectedCompetition,
       });
+
+      postToEvent(selectedEvent.id, payload);
     }
   };
 
@@ -139,6 +141,7 @@ const PostToEvent = (props) => {
             title="post"
             customStyles={{ height: '42px', width: '122px', borderColor: '#2d283e' }}
             disabled={disableFormBtn}
+            showLoader={isPostingToEvent}
           />
         </div>
       </div>
@@ -157,7 +160,7 @@ const PostToEvent = (props) => {
   return (
     <div className="post-to-event">
       <div className="post-to-event__container">
-        {isLoading
+        {competitionIsLoading
           ? <Loader customStyles={{ width: '30px', height: '30px' }} />
           : renderPostToEventForm()
         }
@@ -169,19 +172,23 @@ const PostToEvent = (props) => {
 PostToEvent.propTypes = {
   children: PropTypes.node,
   competitions: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  competitionIsLoading: PropTypes.bool.isRequired,
+  isPostingToEvent: PropTypes.bool.isRequired,
   fetchAllCompetitions: PropTypes.func.isRequired,
+  postToEvent: PropTypes.func.isRequired,
   competitionError: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({ competition }) => ({
+const mapStateToProps = ({ competition, eventPost }) => ({
   competitions: competition.competitions,
-  isLoading: competition.isLoading,
+  competitionIsLoading: competition.isLoading,
   competitionError: competition.error.message,
+  isPostingToEvent: eventPost.isLoading,
 });
 
 const actionCreators = {
   fetchAllCompetitions: competitionActions.fetchAllCompetitions,
+  postToEvent: eventPostActions.postToEvent,
 };
 
 export default connect(mapStateToProps, actionCreators)(PostToEvent);
