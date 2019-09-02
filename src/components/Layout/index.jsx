@@ -13,7 +13,7 @@ import { history } from '../../helpers/utils';
 
 const Layout = (props) => {
   const [showCreateEventModal, setShowCreateEventModal] = useState(false);
-  const [showPostToEventModal, setShowPostToEventModal] = useState(true);
+  const [showPostToEventModal, setShowPostToEventModal] = useState(false);
   const {
     children, leftContainerStyles,
     centerContainerStyles, rightContainerStyles,
@@ -103,7 +103,7 @@ const Layout = (props) => {
       <Modal isModalVisible={showPostToEventModal}
         handleModalClose={handlePostToEventModalClose}
       >
-        <PostToEvent />
+        <PostToEvent handleModalClose={handlePostToEventModalClose} />
       </Modal>
     </div>
   );

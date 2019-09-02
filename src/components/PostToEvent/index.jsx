@@ -1,4 +1,6 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, {
+  useState, useEffect, Fragment, useRef,
+} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -22,25 +24,44 @@ const PostToEvent = (props) => {
   const [imageFile, setImageFile] = useState('');
   const [caption, setCaption] = useState('');
   const [disableFormBtn, setDisableFormBtn] = useState(true);
+  const isInitialMount = useRef(true);
   const {
     competitions, competitionIsLoading, fetchAllCompetitions,
     competitionError, postToEvent, isPostingToEvent,
+    eventPostSuccess, handleModalClose,
   } = props;
 
   useEffect(() => {
-    fetchAllCompetitions();
+    if (isInitialMount.current) {
+      fetchAllCompetitions();
+      isInitialMount.current = false;
+    }
   }, [fetchAllCompetitions]);
 
   useEffect(() => {
-    if (selectedEvent && competitions.length) {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else if (eventPostSuccess) {
+      handleModalClose();
+    }
+  }, [handleModalClose, eventPostSuccess]);
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else if (selectedEvent && competitions.length) {
       const comp = competitions.filter((comptn) => selectedEvent.competitions.includes(comptn.id));
       setEventCompetitions(comp);
     }
   }, [selectedEvent, competitions]);
 
   useEffect(() => {
-    const disableBtn = !selectedEvent || !selectedCompetition || !imageFile || isPostingToEvent;
-    setDisableFormBtn(disableBtn);
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      const disableBtn = !selectedEvent || !selectedCompetition || !imageFile || isPostingToEvent;
+      setDisableFormBtn(disableBtn);
+    }
   }, [selectedEvent, selectedCompetition, imageFile, isPostingToEvent]);
 
   const handleEventSelection = (event) => {
@@ -73,6 +94,12 @@ const PostToEvent = (props) => {
     }
   };
 
+  const handleRemoveSelectedEvent = (eventId) => {
+    if (selectedEvent && selectedEvent.id === eventId) {
+      setSelectedEvent(null);
+    }
+  };
+
   const postToEventForm = () => {
     const dropdownInfo = selectedEvent
       ? lang.postToEvent.competitionDropdownInfo : lang.postToEvent.eventSearchInfo;
@@ -93,8 +120,7 @@ const PostToEvent = (props) => {
               <Capsule
                 title={selectedEvent.hashtag}
                 id={selectedEvent.id}
-                handleClose={() => { console.log('close'); }}
-                handleSelect={() => { console.log('select'); }}
+                handleClose={handleRemoveSelectedEvent}
               />
           </div>
         }
@@ -176,7 +202,9 @@ PostToEvent.propTypes = {
   isPostingToEvent: PropTypes.bool.isRequired,
   fetchAllCompetitions: PropTypes.func.isRequired,
   postToEvent: PropTypes.func.isRequired,
+  handleModalClose: PropTypes.func.isRequired,
   competitionError: PropTypes.string.isRequired,
+  eventPostSuccess: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = ({ competition, eventPost }) => ({
@@ -184,6 +212,7 @@ const mapStateToProps = ({ competition, eventPost }) => ({
   competitionIsLoading: competition.isLoading,
   competitionError: competition.error.message,
   isPostingToEvent: eventPost.isLoading,
+  eventPostSuccess: eventPost.success,
 });
 
 const actionCreators = {

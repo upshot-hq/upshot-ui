@@ -35,6 +35,11 @@ const SearchBar = ({
     setSearchQuery(value);
   };
 
+  const handleRowClick = (rowValue) => {
+    handleSearchResultClick(rowValue);
+    setShowResultContainer(false);
+  };
+
   const renderSearchBar = () => (
     <div className="us-search__bar">
       <div className="us-search__bar-icon" style={iconStyle}>
@@ -60,24 +65,18 @@ const SearchBar = ({
 
   const renderSearchResult = () => (
     <Fragment>
-      {/* {
+      {
         searchResult.map((result, index) => (
-          <div className="row" key={index} id={result[searchResultValueProperty]}>
+          <div className="row" key={index}
+            id={result[searchResultValueProperty]}
+            onClick={() => handleRowClick(result)}
+          >
             <div className="text">
               <span>{result[searchResultTitleProperty]}</span>
             </div>
           </div>))
 
-      } */}
-      <div className="row" key="1" id="2"
-        onClick={() => handleSearchResultClick({
-          hashtag: '#theCrib', id: '2', competitions: [1, 2],
-        })}
-      >
-        <div className="text">
-          <span>#theCrib</span>
-        </div>
-      </div>
+      }
     </Fragment>
   );
 
@@ -85,7 +84,6 @@ const SearchBar = ({
     <Fragment>
       {
         searchResult.length
-        // true
           ? renderSearchResult()
           : renderMessage()
       }
@@ -96,7 +94,6 @@ const SearchBar = ({
     <div className="us-search__result">
     {
       searchIsLoading
-      // true
         ? <div className="row loading">
             <Loader customStyles={{ width: '15px', height: '15px' }} />
           </div>
