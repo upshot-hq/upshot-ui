@@ -100,9 +100,9 @@
   }
   &>span.chevy {
     position: absolute;
-    right: 5px;
-    top: 10px;
-    font-size: 12px;
+    right: rem(5px);
+    top: rem(10px);
+    font-size: rem(12px);
     color: $primary-color;
     &.disabled {
       color: $gray-1;
