@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import './SearchBar.scss';
-import { useDebounce } from '../../helpers/hooks-utils';
+import { useDebounce } from '../../helpers/hooksUtils';
 import lang from '../../helpers/en.default';
 import * as searchActions from '../../redux/actionCreators/searchActions';
 import Loader from '../Loader';

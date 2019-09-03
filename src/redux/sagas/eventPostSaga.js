@@ -18,7 +18,7 @@ export function* postToEventSagaAsync(action) {
     const { eventId, payload } = action;
     const response = yield call(EventAPI.postToAnEvent, { eventId, payload });
     yield put(postToEventSuccess(response.data));
-    notifySuccess('post successful');
+    notifySuccess('post to event successful');
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(postToEventFailure(errorMessage));

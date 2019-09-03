@@ -13,9 +13,9 @@ const initialState = {
 
 const competition = (state = initialState, action) => {
   switch (action.type) {
-    case types.FETCH_ALL_COMPETIONS:
+    case types.FETCH_ALL_COMPETITIONS:
       return { ...state, isLoading: true, success: false };
-    case types.FETCH_ALL_COMPETIONS_SUCCESS:
+    case types.FETCH_ALL_COMPETITIONS_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -24,7 +24,7 @@ const competition = (state = initialState, action) => {
         competitions: action.response.competitions,
         error: initialState.error,
       };
-    case types.FETCH_ALL_COMPETIONS_FAILURE:
+    case types.FETCH_ALL_COMPETITIONS_FAILURE:
       return {
         ...state,
         success: false,
