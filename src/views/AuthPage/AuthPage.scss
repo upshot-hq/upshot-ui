@@ -4,7 +4,7 @@
 
 .authPage {
     display: flex;
-    height: 100vh;
+    height: 100%;
     overflow: hidden;
     font-family: $primary-font;
     .leftSide {
@@ -113,7 +113,7 @@
 @media screen and (min-width: $iPad) {
     .authPage {
         display: flex;
-        height: 100vh;
+        height: 100%;
         overflow: hidden;
         font-family: $primary-font;
         background-color: $primary-color;

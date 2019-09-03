@@ -4,9 +4,9 @@
 
 .layout {
   display: flex;
-  height: rem(900px);
+  height: 100%;
   width: 100vw;
-  overflow: hidden;
+  overflow: scroll;
   &-container {
     display: flex;
     height: 100%;
@@ -77,11 +77,12 @@
         }
       }
       &-center {
-        padding-top: 2%;
+        height: 100%;
         border: rem(1px) solid $gray-3;
         border-top: 0;
         border-bottom: 0;
         flex-basis: 40%;
+        overflow-x: hidden;
       }
       &-rightside {
         padding-top: 2%;

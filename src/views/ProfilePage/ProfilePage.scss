@@ -4,24 +4,24 @@
 
 .profilepage {
   height: 100%;
-  .header {
+  &__header {
     width: 100%;
     height: 37%;
+    overflow: hidden;
     border-bottom: rem(1px) solid $gray-3;
-    .top {
-      padding-left: rem(10px);
-      padding-right: rem(10px);
+    &-top {
       background-color: $primary-color-1;
       height: 80%;
+      width: 100%;
       display: flex;
       justify-content: center;
-      align-items: flex-end;
-      .content {
+      align-items: center;
+      &__content {
         width: 80%;
+        height: 80%;
         .profile {
           width: 100%;
-          width: rem(436px);
-          height: 60%;
+          height: 70%;
           background-color: $white;
           border-radius: rem(5px);
           box-shadow: rem(1px 1px 4px 0px) $primary-color-2;
@@ -60,7 +60,8 @@
             color: $primary-color;
             .name {
               width: 100%;
-              height: 40%;
+              height: 50%;
+              padding: rem(4px) 0;
               .title {
                 display: flex;
                 align-items: center;
@@ -107,7 +108,7 @@
             }
             .description {
               width: 100%;
-              height: 40%;
+              height: 50%;
               font-family: $primary-font;
               font-size: rem(12px);
               font-weight: normal;
@@ -115,6 +116,7 @@
               overflow: hidden;
               white-space: pre-wrap;
               word-break: break-all;
+              overflow-wrap: break-word;
               .hashtag {
                 color: $secondary-color;
               }
@@ -126,8 +128,8 @@
           }
         }
         .stat {
-          height: 40%;
           height: auto;
+          max-height: 30%;
           width: 60%;
           padding-top: rem(15px);
           display: flex;
@@ -164,12 +166,12 @@
         }
       }
     }
-    .bottom {
+    &-bottom {
       height: 20%;
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      .nav__items {
+      &__nav__items {
         width: 80%;
         height: 100%;
         display: flex;
@@ -193,9 +195,9 @@
       }
     }
   }
-  .content {
+  &__content {
     width: 100%;
-    height: 88%;
+    height: 63%;
     overflow-y: scroll;
     overflow-x: hidden;
     -ms-overflow-style: none;
