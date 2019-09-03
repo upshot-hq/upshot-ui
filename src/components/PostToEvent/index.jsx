@@ -165,7 +165,7 @@ const PostToEvent = (props) => {
           <Button
             handleClick={handleFormSubmit}
             title="post"
-            customStyles={{ height: '42px', width: '122px', borderColor: '#2d283e' }}
+            customStyles={{ height: '42px', width: '122px' }}
             disabled={disableFormBtn}
             showLoader={isPostingToEvent}
           />
