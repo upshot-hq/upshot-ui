@@ -9,7 +9,7 @@ const initialState = {
   isLoading: false,
 };
 
-const competitions = (state = initialState, action) => {
+const competition = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_COMPETITIONS:
       return { ...state, isLoading: true };
@@ -40,4 +40,4 @@ const competitions = (state = initialState, action) => {
   }
 };
 
-export default competitions;
+export default competition;

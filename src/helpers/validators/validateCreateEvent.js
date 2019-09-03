@@ -19,8 +19,8 @@ const validateGettingStarted = (values) => {
     errors.hashtag = 'hashtag cannot contain spaces';
   }
 
-  // hashtag cannot be more that 10 characters
-  if ((values.hashtag && values.hashtag.trim()) && values.hashtag.trim().length > 10) {
+  // hashtag cannot be more that 20 characters
+  if ((values.hashtag && values.hashtag.trim()) && values.hashtag.trim().length > 20) {
     errors.hashtag = 'hashtag cannot have more than 10 characters';
   }
 
