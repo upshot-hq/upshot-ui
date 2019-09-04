@@ -52,11 +52,7 @@ const CreateEvent = (props) => {
   }, []);
 
   useEffect(() => {
-    const formattedCompetitions = competitions.map((competition) => ({
-      id: competition.id,
-      name: competition.name,
-    }));
-    setInputs({ ...inputs, competitionList: formattedCompetitions });
+    setInputs({ ...inputs, competitionList: competitions });
   }, [competitions]);
 
   useEffect(() => {

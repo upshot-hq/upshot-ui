@@ -39,7 +39,10 @@ const DatePickerInput = ({
 
 DatePickerInput.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.instanceOf(Date),
+    PropTypes.string,
+  ]).isRequired,
   title: PropTypes.string,
   info: PropTypes.string,
   error: PropTypes.string,
