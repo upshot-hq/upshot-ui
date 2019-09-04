@@ -1,16 +1,28 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
+import PropTypes from 'prop-types';
+
 import './styles.scss';
 
-const fab = ({ onClickFunction }) => (
-  <div className="fab-container" onClick={onClickFunction}>
+const Fab = ({ onClickFunction, styles, name }) => (
+  <div className="fab-container" onClick={onClickFunction} style={styles}>
     <FontAwesome
             key="plus"
-            name="plus"
+            name={name}
             size="2x"
             style={{ fontSize: '25px' }}
           />
   </div>
 );
 
-export default fab;
+Fab.propTypes = {
+  styles: PropTypes.object,
+  name: PropTypes.string,
+  onClickFunction: PropTypes.func,
+};
+
+Fab.defaultProps = {
+  name: 'plus',
+};
+
+export default Fab;

@@ -1,0 +1,66 @@
+@import "~sass-rem";
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+.post-to-event {
+  &__container {
+    background-color: $white;
+    height: rem(600px);
+    width: rem(533px);
+    border-radius: rem(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .form-content {
+      background-color: $white;
+      width: 80%;
+      height: 90%;
+      overflow: hidden;
+      .search {
+        width: 100%;
+        height: 7%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .event {
+        width: auto;
+        height: 10%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin: rem(5px) 0;
+        max-width: 100%;
+        overflow: scroll;
+        &::-webkit-scrollbar {
+          width: 0 !important
+        }
+      }
+      .competitions {
+        height: 10%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .post-image {
+        height: 40%;
+        width: 100%;
+        margin: rem(20px) 0;
+      }
+      .caption {
+        height: 15%;
+        width: 100%;
+        margin-top: rem(10px);
+      }
+      .form-button {
+        height: 10%;
+        width: 100%;
+      }
+    }
+    .error {
+      color: $gray-2;
+      text-align: center;
+    }
+  }
+}

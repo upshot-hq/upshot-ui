@@ -44,4 +44,9 @@ export default {
       },
     },
   },
+  emptySearchResultMessage: "Your search didn't return any result",
+  postToEvent: {
+    competitionDropdownInfo: 'select a competition you would like to enter',
+    eventSearchInfo: 'search and select an event',
+  },
 };

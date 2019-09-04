@@ -8,12 +8,12 @@ import lang from '../../helpers/en.default';
 import Fab from '../Fab';
 import Modal from '../../components/Modal/index';
 import CreateEvent from '../CreateEvent';
-
+import PostToEvent from '../PostToEvent';
 import { history } from '../../helpers/utils';
 
-
 const Layout = (props) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showCreateEventModal, setShowCreateEventModal] = useState(false);
+  const [showPostToEventModal, setShowPostToEventModal] = useState(false);
   const {
     children, leftContainerStyles,
     centerContainerStyles, rightContainerStyles,
@@ -27,8 +27,12 @@ const Layout = (props) => {
     margin: 0,
   };
 
-  const handleModalClose = () => {
-    setShowModal(false);
+  const handleEventModalClose = () => {
+    setShowCreateEventModal(false);
+  };
+
+  const handlePostToEventModalClose = () => {
+    setShowPostToEventModal(false);
   };
 
   const renderSideNavItem = (navItem, index) => {
@@ -60,7 +64,11 @@ const Layout = (props) => {
   };
 
   const renderCreateEventModal = () => {
-    setShowModal(true);
+    setShowCreateEventModal(true);
+  };
+
+  const renderPostToEventModal = () => {
+    setShowPostToEventModal(true);
   };
 
   return (
@@ -84,8 +92,18 @@ const Layout = (props) => {
         </div>
       </div>
       <Fab onClickFunction={renderCreateEventModal} />
-      <Modal isModalVisible={showModal} handleModalClose={handleModalClose}>
+      <Fab
+        onClickFunction={renderPostToEventModal}
+        styles={{ bottom: '150px' }}
+        name="camera"
+      />
+      <Modal isModalVisible={showCreateEventModal} handleModalClose={handleEventModalClose}>
         <CreateEvent />
+      </Modal>
+      <Modal isModalVisible={showPostToEventModal}
+        handleModalClose={handlePostToEventModalClose}
+      >
+        <PostToEvent handleModalClose={handlePostToEventModalClose} />
       </Modal>
     </div>
   );

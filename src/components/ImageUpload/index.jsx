@@ -7,8 +7,8 @@ import { defaultImageSizeLimit } from '../../helpers/defaults';
 
 const ImageUpload = (props) => {
   const {
-    key, sizeLimit, isUploading,
-    handleImageFileChange, containerBackgroundImage,
+    key, sizeLimit, isUploading, containerStyles, inputStyles,
+    handleImageFileChange, containerBackgroundImage, iconStyles,
   } = props;
 
   const [imageError, setImageError] = useState('');
@@ -19,7 +19,7 @@ const ImageUpload = (props) => {
   useEffect(() => {
     if (isInitialMount.current) {
       if (containerBackgroundImage) {
-        imageContainerRef.current.style = `background-image: url("${containerBackgroundImage}")`;
+        imageContainerRef.current.style.backgroundImage = `url("${containerBackgroundImage}")`;
       }
       isInitialMount.current = false;
     }
@@ -28,12 +28,13 @@ const ImageUpload = (props) => {
   const handleFileChange = () => {
     const imageFile = imageInputRef.current.files[0];
     if (imageFile.size > sizeLimit) {
-      setImageError('image too large');
+      const sizeLimitInMb = sizeLimit / 1000000;
+      setImageError(`image size should not be more than ${sizeLimitInMb}mb`);
     } else {
       setImageError('');
       const reader = new FileReader(); // eslint-disable-line
       reader.addEventListener('load', () => {
-        imageContainerRef.current.style = `background-image: url("${reader.result}")`;
+        imageContainerRef.current.style.backgroundImage = `url("${reader.result}")`;
       }, false);
 
       if (imageFile) {
@@ -45,19 +46,20 @@ const ImageUpload = (props) => {
   };
 
   const renderImage = () => (
-    <div className="image" ref={imageContainerRef}>
+    <div className="us-upload__image" ref={imageContainerRef} style={containerStyles}>
       <input type="file" name="picture-input" ref={imageInputRef}
         className="picture-input" accept="image/png, image/jpeg, image/jpg"
         onChange={handleFileChange} disabled={isUploading}
+        style={inputStyles}
       />
-      <div className="icon">
+      <div className="icon" style={iconStyles}>
         <FontAwesome name="image" size="2x" />
       </div>
     </div>
   );
 
   return (
-    <div className="up-image-upload" key={key}>
+    <div className="us-upload" key={key}>
       {renderImage()}
       <div className="error">
         {imageError}
@@ -69,9 +71,12 @@ const ImageUpload = (props) => {
 ImageUpload.propTypes = {
   key: PropTypes.string,
   sizeLimit: PropTypes.number,
-  isUploading: PropTypes.bool.isRequired,
+  isUploading: PropTypes.bool,
   handleImageFileChange: PropTypes.func.isRequired,
   containerBackgroundImage: PropTypes.string,
+  containerStyles: PropTypes.object,
+  inputStyles: PropTypes.object,
+  iconStyles: PropTypes.object,
 };
 
 ImageUpload.defaultProps = {
