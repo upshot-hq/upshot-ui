@@ -9,7 +9,7 @@ const MultiSelector = ({
       <div className="form-input">
         <div className="multiselector">
           <div className="multiselector__selections">
-            {(options.length) && options.map((option) => {
+            {(options.length > 0) && options.map((option) => {
               const isSelected = selectedOptions
                 .find((selectedOption) => (selectedOption === option.id.toString()));
               if (isSelected) {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import {
   Textbox, MultiSelector, Textarea, DatePicker,
 } from '../FormInput';
@@ -49,15 +50,18 @@ const CreateEvent = (props) => {
 
   useEffect(() => {
     getCompetitions();
-  }, []);
+  }, [getCompetitions]);
 
   useEffect(() => {
-    setInputs({ ...inputs, competitionList: competitions });
-  }, [competitions]);
+    if (!_.isEqual(inputs.competitionList, competitions)) {
+      setInputs({ ...inputs, competitionList: competitions });
+    }
+  }, [competitions, inputs]);
 
   useEffect(() => {
     // update error state if there's error from server
-    if (Object.keys(createEventError.errors).length) {
+    if (Object.keys(createEventError.errors).length && formSubmitted.current) {
+      formSubmitted.current = false;
       const serverErrors = {
         ...createEventError.errors,
         startDate: createEventError.errors.start_time,
@@ -72,13 +76,12 @@ const CreateEvent = (props) => {
       } else if (serverErrors.startDate || serverErrors.endDate) {
         setCurrentPage(3);
       }
-      formSubmitted.current = false;
     }
     if (!Object.keys(createEventError.errors).length && formSubmitted.current) {
       handleModalClose();
       formSubmitted.current = false;
     }
-  }, [createEventError]);
+  }, [createEventError, handleModalClose, inputs]);
 
   const handleChange = (event) => {
     event.persist();

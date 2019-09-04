@@ -97,7 +97,8 @@ const Layout = (props) => {
         styles={{ bottom: '150px' }}
         name="camera"
       />
-      <Modal isModalVisible={showCreateEventModal} handleModalClose={handleEventModalClose}>
+      <Modal showClosePrompt isModalVisible={showCreateEventModal}
+        handleModalClose={handleEventModalClose}>
         <CreateEvent handleModalClose={handleEventModalClose} />
       </Modal>
       <Modal isModalVisible={showPostToEventModal}
