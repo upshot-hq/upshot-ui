@@ -1,15 +1,19 @@
 import { all } from 'redux-saga/effects';
 
-import { watchAuthenticateUserSagaAsync, watchUpdateUserProfileSagaAsync } from './userSaga';
-import { watchGetCompetitionsSagaAsync } from './competitionSaga';
-import { watchCreateEventSagaAsync } from './eventSaga';
+import * as userSaga from './userSaga';
+import * as competitionSaga from './competitionSaga';
+import * as searchSaga from './searchSaga';
+import * as eventPostSaga from './eventPostSaga';
+import * as eventSaga from './eventSaga';
 
 function* rootSaga() {
   yield all([
-    watchAuthenticateUserSagaAsync(),
-    watchUpdateUserProfileSagaAsync(),
-    watchGetCompetitionsSagaAsync(),
-    watchCreateEventSagaAsync(),
+    competitionSaga.watchFetchCompetitionsSagaAsync(),
+    eventPostSaga.watchPostToEventSagaAsync(),
+    searchSaga.watchSearchSagaAsync(),
+    userSaga.watchAuthenticateUserSagaAsync(),
+    userSaga.watchUpdateUserProfileSagaAsync(),
+    eventSaga.watchCreateEventSagaAsync(),
   ]);
 }
 

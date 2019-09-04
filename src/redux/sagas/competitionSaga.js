@@ -5,22 +5,22 @@ import CompetitionAPI from '../../services/CompetitionAPI';
 import { notifyError } from '../../helpers/notify';
 
 import {
-  getCompetitions,
-  getCompetitionsSuccess,
-  getCompetitionsFailure,
+  fetchAllCompetitions,
+  fetchAllCompetitionsSuccess,
+  fetchAllCompetitionsFailure,
 } from '../actionCreators/competitionActions';
 
-export function* watchGetCompetitionsSagaAsync() {
-  yield takeLatest(getCompetitions().type, GetCompetitionsSagaAsync);
+export function* watchFetchCompetitionsSagaAsync() {
+  yield takeLatest(fetchAllCompetitions().type, fetchCompetitionsSagaAsync);
 }
 
-export function* GetCompetitionsSagaAsync() {
+export function* fetchCompetitionsSagaAsync(action) {
   try {
     const response = yield call(CompetitionAPI.getCompetitions);
-    yield put(getCompetitionsSuccess(response.data));
+    yield put(fetchAllCompetitionsSuccess(response.data));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
-    yield put(getCompetitionsFailure(errorMessage));
+    yield put(fetchAllCompetitionsFailure(errorMessage));
     notifyError(errorMessage);
   }
 }

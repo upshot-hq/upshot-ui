@@ -1,7 +1,7 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  competitions: [],
+  posts: [],
   success: false,
   message: '',
   error: {
@@ -11,20 +11,20 @@ const initialState = {
   isLoading: false,
 };
 
-const competition = (state = initialState, action) => {
+const eventPost = (state = initialState, action) => {
   switch (action.type) {
-    case types.FETCH_ALL_COMPETITIONS:
+    case types.POST_TO_EVENT:
       return { ...state, isLoading: true, success: false };
-    case types.FETCH_ALL_COMPETITIONS_SUCCESS:
+    case types.POST_TO_EVENT_SUCCESS:
       return {
         ...state,
         isLoading: false,
         success: true,
         message: action.response.message,
-        competitions: action.response.competitions,
+        posts: [...state.posts, action.response.eventPost],
         error: initialState.error,
       };
-    case types.FETCH_ALL_COMPETITIONS_FAILURE:
+    case types.POST_TO_EVENT_FAILURE:
       return {
         ...state,
         success: false,
@@ -36,4 +36,4 @@ const competition = (state = initialState, action) => {
   }
 };
 
-export default competition;
+export default eventPost;

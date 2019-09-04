@@ -1,15 +1,15 @@
 import * as types from '../constants/actionTypes';
 
-export const getCompetitions = () => ({
-  type: types.GET_COMPETITIONS,
+export const fetchAllCompetitions = () => ({
+  type: types.FETCH_ALL_COMPETITIONS,
 });
 
-export const getCompetitionsSuccess = (competitionsData) => ({
-  type: types.GET_COMPETITIONS_SUCCESS,
-  competitionsData,
+export const fetchAllCompetitionsSuccess = ({ message, competitions }) => ({
+  type: types.FETCH_ALL_COMPETITIONS_SUCCESS,
+  response: { message, competitions },
 });
 
-export const getCompetitionsFailure = (error) => ({
-  type: types.GET_COMPETITIONS_FAILURE,
+export const fetchAllCompetitionsFailure = (error) => ({
+  type: types.FETCH_ALL_COMPETITIONS_FAILURE,
   error,
 });

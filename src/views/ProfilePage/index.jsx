@@ -83,22 +83,34 @@ export const ProfilePage = (props) => {
 		<Fragment>
 			<Layout centerContainerStyles={{ paddingTop: 0 }}>
 				<div className="profilepage">
-					<div className="header">
-						<div className="top">
-							<div className="content">
+					<div className="profilepage__header">
+						<div className="profilepage__header-top">
+							<div className="profilepage__header-top__content">
 								{renderProfileCard()}
 								{renderStatCard()}
 							</div>
 						</div>
-						<div className="bottom">
-							<div className="nav__items">
-								<div key={1} className="nav__items-item">events</div>
-								<div key={2} className="nav__items-item">posts</div>
-								<div key={3} className="nav__items-item">likes</div>
+						<div className="profilepage__header-bottom">
+							<div className="profilepage__header-bottom__nav__items">
+								<div key={1}
+									className="profilepage__header-bottom__nav__items-item"
+								>
+									events
+								</div>
+								<div key={2}
+									className="profilepage__header-bottom__nav__items-item"
+								>
+									posts
+								</div>
+								<div key={3}
+									className="profilepage__header-bottom__nav__items-item"
+								>
+									likes
+								</div>
 							</div>
 						</div>
 					</div>
-					<div className="content">
+					<div className="profilepage__content">
 						<div className="dummy-card" />
 						<div className="dummy-card" />
 						<div className="dummy-card" />

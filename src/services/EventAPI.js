@@ -6,6 +6,10 @@ class EventAPI {
   static getEvents(eventData) {
     return axios.post(`${baseUrl}/events`, eventData);
   }
+
+  static postToAnEvent(data) {
+    return axios.post(`${baseUrl}/events/${data.eventId}/posts`, data.payload);
+  }
 }
 
 export default EventAPI;

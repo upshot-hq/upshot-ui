@@ -2,13 +2,13 @@
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
 
-.up-image-upload {
-  .image {
+.us-upload {
+  &__image {
     width: rem(72px);
     height: rem(72px);
     border: rem(1px) solid $gray-1;
     border-radius: 50%;
-    background-color: $gray-2;
+    background-color: $gray-7;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

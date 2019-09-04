@@ -1,3 +1,5 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
 
 * {    
@@ -19,7 +21,15 @@ code {
 }
 
 .App {
+  max-height: 100vh;
   height: 100vh;
   overflow: hidden;
+}
+
+@media only screen and (min-width: $iPadPro) and (max-width: $desktop) {
+  .App {
+    height: rem(788px);
+    max-height: rem(788px);
+  }
 }
 
