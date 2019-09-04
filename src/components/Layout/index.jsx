@@ -13,7 +13,7 @@ import { history } from '../../helpers/utils';
 
 
 const Layout = (props) => {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const {
     children, leftContainerStyles,
     centerContainerStyles, rightContainerStyles,

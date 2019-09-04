@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import './Modal.scss';
-import PromptModal from '../PromptModal/index';
+import PromptModal from '../PromptModal';
 
 const Modal = (props) => {
   const {
