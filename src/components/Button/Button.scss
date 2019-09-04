@@ -21,6 +21,11 @@
     font-family: $primary-font;
     font-size: rem(14px);
     font-weight: 700;
+    background-image: linear-gradient($primary-color,$primary-color);
+    background-size: 100% 0%;
+    background-repeat:no-repeat;
+    background-position: bottom;
+    transition: all 0.2s ease-in-out;
     &:active {
       background-color: $secondary-color;
       border: rem(1px) solid $secondary-color;
@@ -35,5 +40,9 @@
         border-top-color: $white;
       }
     }
+  }
+  &>button:hover {
+    color: $white;
+    background-size: 100% 100%;
   }
 }

@@ -1,23 +1,25 @@
-import React, { useState } from 'react';
-import { Textbox, MultiSelector, Textarea } from '../FormInput';
+import React, { useState, useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import {
+  Textbox, MultiSelector, Textarea, DatePicker,
+} from '../FormInput';
 import Button from '../Button';
-import { validateGettingStarted, validateAlmostThere } from '../../validators/validateCreateEvent';
+import {
+  validateGettingStarted,
+  validateAlmostThere,
+  validateLastThing,
+} from '../../helpers/validators/validateCreateEvent';
+import {
+  GettingStartedBar,
+  AlmostThereBar,
+  LastThingBar,
+} from '../ProgressBars';
+import * as competitionActions from '../../redux/actionCreators/competitionActions';
+import * as eventActions from '../../redux/actionCreators/eventActions';
+import Loader from '../Loader';
 import './style.scss';
-
-const options = [
-  {
-    id: 1,
-    name: 'Best dressed',
-  },
-  {
-    id: 2,
-    name: 'Best angle',
-  },
-  {
-    id: 3,
-    name: 'Funniest caption',
-  },
-];
 
 const pages = {
   gettingStarted: 1,
@@ -25,9 +27,61 @@ const pages = {
   lastThing: 3,
 };
 
-const CreateEvent = () => {
-  const [inputs, setInputs] = useState({ competitions: [], about: '', errors: {} });
-  const [currentPage, setCurrentPage] = useState(3);
+const CreateEvent = (props) => {
+  const {
+    isCompetitionsLoading,
+    competitions,
+    getCompetitions,
+    isEventLoading,
+    createEvent,
+    createEventError,
+    handleModalClose,
+  } = props;
+  const [inputs, setInputs] = useState({
+    competitions: [],
+    about: '',
+    startDate: new Date(),
+    endDate: new Date(),
+    errors: {},
+    competitionList: [],
+  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const formSubmitted = useRef(false);
+
+  useEffect(() => {
+    getCompetitions();
+  }, [getCompetitions]);
+
+  useEffect(() => {
+    if (!_.isEqual(inputs.competitionList, competitions)) {
+      setInputs({ ...inputs, competitionList: competitions });
+    }
+  }, [competitions, inputs]);
+
+  useEffect(() => {
+    // update error state if there's error from server
+    if (Object.keys(createEventError.errors).length && formSubmitted.current) {
+      formSubmitted.current = false;
+      const serverErrors = {
+        ...createEventError.errors,
+        startDate: createEventError.errors.start_time,
+        endDate: createEventError.errors.end_time,
+      };
+      setInputs({ ...inputs, errors: serverErrors });
+      // set error page to display
+      if (serverErrors.hashtag || serverErrors.competitions) {
+        setCurrentPage(1);
+      } else if (serverErrors.name || serverErrors.about) {
+        setCurrentPage(2);
+      } else if (serverErrors.startDate || serverErrors.endDate) {
+        setCurrentPage(3);
+      }
+    }
+    if (!Object.keys(createEventError.errors).length && formSubmitted.current) {
+      handleModalClose();
+      formSubmitted.current = false;
+    }
+  }, [createEventError, handleModalClose, inputs]);
 
   const handleChange = (event) => {
     event.persist();
@@ -35,6 +89,7 @@ const CreateEvent = () => {
   };
 
   const handleQuillChange = (content, delta, source, editor) => {
+    const text = editor.getText(content);
     const event = {
       persist: () => {},
       target: {
@@ -42,8 +97,16 @@ const CreateEvent = () => {
         value: content,
       },
     };
+    const eventText = {
+      persist: () => {},
+      target: {
+        name: 'aboutText',
+        value: text,
+      },
+    };
 
     handleChange(event);
+    handleChange(eventText);
   };
 
   const handleSelect = (event) => {
@@ -61,27 +124,39 @@ const CreateEvent = () => {
   };
 
   const handleSubmit = (page) => {
-    // page A
     if (page === pages.gettingStarted) {
       const { isValid, errors } = validateGettingStarted(inputs);
-      console.log('errors: ', errors);
-      setInputs({ ...inputs, errors });
+      setInputs({ ...inputs, errors: { ...inputs.errors, ...errors } });
       if (isValid) {
         setCurrentPage(pages.almostThere);
       }
     }
 
-    // page B
     if (page === pages.almostThere) {
       const { isValid, errors } = validateAlmostThere(inputs);
-      console.log('errors: ', errors);
-      setInputs({ ...inputs, errors });
+      setInputs({ ...inputs, errors: { ...inputs.errors, ...errors } });
       if (isValid) {
         setCurrentPage(pages.lastThing);
       }
     }
 
-    // page C
+    if (page === pages.lastThing) {
+      const { isValid, errors } = validateLastThing(inputs);
+      setInputs({ ...inputs, errors: { ...inputs.errors, ...errors } });
+      if (isValid) {
+        const requestBody = {
+          name: inputs.name,
+          hashtag: inputs.hashtag,
+          about: inputs.about,
+          competitions: inputs.competitions.map((competition) => (Number(competition))),
+          start_time: inputs.startDate,
+          end_time: inputs.endDate,
+        };
+
+        createEvent(requestBody);
+        formSubmitted.current = true;
+      }
+    }
   };
 
   const goBack = (page) => {
@@ -99,12 +174,19 @@ const CreateEvent = () => {
           error={inputs.errors.hashtag || ''} required />
         </div>
         <div className="create-event__form-input">
-          <MultiSelector options={options} selectedOptions={inputs.competitions}
+          {isCompetitionsLoading && <div><Loader message="loading competitions..." /> </div>}
+          {!isCompetitionsLoading
+          && <MultiSelector options={inputs.competitionList} selectedOptions={inputs.competitions}
           handleSelect={handleSelect}
-          info="select competitions users can enter for" error={inputs.errors.competitions} />
+          info="select competitions users can enter for" error={inputs.errors.competitions} />}
         </div>
       </div>
-      <Button title="continue" handleClick={() => (handleSubmit(pages.gettingStarted))} />
+      <Button title="continue"
+        handleClick={() => (handleSubmit(pages.gettingStarted))}
+        customStyles={{ marginTop: '20px' }} />
+      <div className="progress-bar">
+        <GettingStartedBar />
+      </div>
     </div>
   );
 
@@ -129,35 +211,43 @@ const CreateEvent = () => {
         <Button title="continue" handleClick={() => (handleSubmit(pages.almostThere))} />
         <span onClick={() => goBack(pages.gettingStarted)} className="go-back">go back</span>
       </div>
+      <div className="progress-bar">
+        <AlmostThereBar />
+      </div>
     </div>
   );
 
   const renderLastThing = () => (
     <div>
       <p className="create-event__title">One last thing</p>
+      <br/><br/>
       <div className="create-event__form">
         <div className="create-event__form-input">
-          <Textbox id="startDate" value={inputs.startDate} name="startDate"
-          title="startDate" placeholder="start date and time"
-          type="datetime-local" onChange={handleChange}
-          info="select the date and time the event will commence"
+          <DatePicker id="startDate" value={inputs.startDate} name="startDate"
+          title="startDate" placeholder="start date and time" onChange={handleChange}
+          info="select the date and time the event will start"
           error={inputs.errors.startDate} required />
         </div>
         <div className="create-event__form-input">
-          <Textbox id="endDate" value={inputs.endDate} name="endDate"
-          title="endDate" placeholder="end date and time" type="datetime-local"
-          onChange={handleChange}
+          <DatePicker id="endDate" value={inputs.endDate} name="endDate"
+          title="endDate" placeholder="end date and time" onChange={handleChange}
           info="select the date and time the event will end"
           error={inputs.errors.endDate} required />
         </div>
       </div>
       <br/>
-      <span className="info">this helps us know when to allow upshotters upload images</span>
+      <span className="last-thing-info">
+        this helps us know when to allow upshotters upload images
+      </span>
       <br/>
       <br/>
-      <div className="buttons">
+      {isEventLoading && <div><Loader message="creating event..." /> </div>}
+      {!isEventLoading && <div className="buttons">
         <Button title="finish" handleClick={() => (handleSubmit(pages.lastThing))} />
         <span onClick={() => goBack(pages.almostThere)} className="go-back">go back</span>
+      </div>}
+      <div className="progress-bar">
+        <LastThingBar />
       </div>
     </div>
   );
@@ -176,4 +266,26 @@ const CreateEvent = () => {
   );
 };
 
-export default CreateEvent;
+CreateEvent.propTypes = {
+  competitions: PropTypes.array.isRequired,
+  isCompetitionsLoading: PropTypes.bool.isRequired,
+  getCompetitions: PropTypes.func.isRequired,
+  isEventLoading: PropTypes.bool.isRequired,
+  createEvent: PropTypes.func.isRequired,
+  createEventError: PropTypes.object.isRequired,
+  handleModalClose: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = ({ competition, event }) => ({
+  isCompetitionsLoading: competition.isLoading,
+  competitions: competition.competitions,
+  isEventLoading: event.isLoading,
+  createEventError: event.errors,
+});
+
+const mapDispatchToProps = {
+  getCompetitions: competitionActions.fetchAllCompetitions,
+  createEvent: eventActions.createEvent,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateEvent);
