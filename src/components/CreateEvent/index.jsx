@@ -281,7 +281,7 @@ const mapStateToProps = ({ competition, event }) => ({
 });
 
 const mapDispatchToProps = {
-  getCompetitions: competitionActions.getCompetitions,
+  getCompetitions: competitionActions.fetchAllCompetitions,
   createEvent: eventActions.createEvent,
 };
 
