@@ -101,7 +101,7 @@ const Layout = (props) => {
         handleModalClose={handleEventModalClose}>
         <CreateEvent handleModalClose={handleEventModalClose} />
       </Modal>
-      <Modal isModalVisible={showPostToEventModal}
+      <Modal showClosePrompt isModalVisible={showPostToEventModal}
         handleModalClose={handlePostToEventModalClose}
       >
         <PostToEvent handleModalClose={handlePostToEventModalClose} />

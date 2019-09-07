@@ -96,6 +96,10 @@
     &::-webkit-scrollbar {
         width: 0 !important
     }
+    .container {
+      width: 90%;
+      margin: auto;
+    }
     .dummy-card {
       margin: auto;
       margin-top: rem(20px);

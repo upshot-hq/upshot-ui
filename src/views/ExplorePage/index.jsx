@@ -5,6 +5,8 @@ import './ExplorePage.scss';
 import Layout from '../../components/Layout';
 import SubNavBar from '../../components/SubNavBar';
 import SearchBar from '../../components/SearchBar';
+import { events } from './__mocks__';
+import EventCard from '../../components/EventCard';
 
 const ExplorePage = () => {
   const renderTopBar = () => (
@@ -29,15 +31,15 @@ const ExplorePage = () => {
 
   const subNavBarItems = [
     {
+      title: 'All',
+      onClick: () => {},
+    },
+    {
       title: 'Events',
       onClick: () => {},
     },
     {
       title: 'Posts',
-      onClick: () => {},
-    },
-    {
-      title: 'Likes',
       onClick: () => {},
     },
   ];
@@ -54,12 +56,13 @@ const ExplorePage = () => {
 					</div>
 				</div>
 				<div className="content">
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
+					<div className="container">
+						{
+							events.map((event, index) => (
+								<EventCard event={event} key={index} />
+							))
+						}
+					</div>
 				</div>
 			</div>
 		</Layout>
