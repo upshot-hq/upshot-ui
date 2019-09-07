@@ -7,6 +7,7 @@ import AuthPage from '../views/AuthPage';
 import HomePage from '../views/HomePage';
 import ProfilePage from '../views/ProfilePage';
 import { getUserDetails } from '../helpers/utils';
+import ExplorePage from '../views/ExplorePage/index';
 
 const Routes = () => (
     <Switch>
@@ -28,6 +29,11 @@ const Routes = () => (
             path="/profile"
             exact
             component={authenticateView(ProfilePage)}
+        />
+        <Route
+            path="/explore"
+            exact
+            component={authenticateView(ExplorePage)}
         />
         <Route component={NotFoundPage} />
     </Switch>

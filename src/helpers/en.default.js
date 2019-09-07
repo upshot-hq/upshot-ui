@@ -13,7 +13,7 @@ export default {
     },
     explore: {
       title: 'explore',
-      link: '/',
+      link: '/explore',
       icon: {
         name: 'globe',
         size: '2x',
