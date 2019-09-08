@@ -99,7 +99,7 @@ const EventCard = (props) => {
   };
 
   return (
-    <div id="event-card">
+    <div id="event-card" className="event-card">
       <div className="event-card__content">
         {renderTitle()}
         {renderCompetitions(event.competitions)}
