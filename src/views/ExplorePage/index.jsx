@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import './ExplorePage.scss';
 import Layout from '../../components/Layout';
-import SubNavBar from '../../components/SubNavBar';
+import Tabs from '../../components/Tabs';
 import SearchBar from '../../components/SearchBar';
 import { events } from './__mocks__';
 import EventCard from '../../components/EventCard';
 
 const ExplorePage = () => {
+  const ALLTAB = 'all';
+  const EVENTTAB = 'events';
+  const POSTTAB = 'posts';
+  const [currentView, setCurrentView] = useState(ALLTAB);
+
   const renderTopBar = () => (
 		<div className="topbar">
 			<div className="icon back-btn">
@@ -29,18 +34,18 @@ const ExplorePage = () => {
 		</div>
   );
 
-  const subNavBarItems = [
+  const TabsItems = [
     {
-      title: 'All',
-      onClick: () => {},
+      title: ALLTAB,
+      onClick: () => { setCurrentView(ALLTAB); },
     },
     {
-      title: 'Events',
-      onClick: () => {},
+      title: EVENTTAB,
+      onClick: () => { setCurrentView(EVENTTAB); },
     },
     {
-      title: 'Posts',
-      onClick: () => {},
+      title: POSTTAB,
+      onClick: () => { setCurrentView(POSTTAB); },
     },
   ];
 
@@ -52,7 +57,7 @@ const ExplorePage = () => {
 						{renderTopBar()}
 					</div>
 					<div className="bottom">
-						<SubNavBar navItems={subNavBarItems} />
+						<Tabs navItems={TabsItems} activeTitle={currentView} />
 					</div>
 				</div>
 				<div className="content">
