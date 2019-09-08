@@ -38,6 +38,7 @@ module.exports = {
     "comma-dangle": 1,
     "jsx-quotes": 1,
     "no-tabs": 0,
+    "no-mixed-spaces-and-tabs": 0,
     "class-methods-use-this": 0,
     "react/display-name": [ 1, {"ignoreTranspilerName": false }],
     "react/forbid-prop-types": [1, {"forbid": ["any"]}],

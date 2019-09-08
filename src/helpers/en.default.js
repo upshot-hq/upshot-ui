@@ -2,6 +2,7 @@ export default {
   networkErrorMessage: 'Possible network error, please check your connection and try again',
   serverErrorMessage: 'Server error, try again',
   authenticatonErrorMessage: 'Authentication failed',
+  failedToFetch: 'failed to fetch',
   layoutSideNav: {
     home: {
       title: 'home',
@@ -48,5 +49,13 @@ export default {
   postToEvent: {
     competitionDropdownInfo: 'select a competition you would like to enter',
     eventSearchInfo: 'search and select an event',
+  },
+  explorePage: {
+    noContent: 'no content to explore :(',
+    tabs: {
+      allTab: 'all',
+      eventsTab: 'events',
+      postsTab: 'posts',
+    },
   },
 };

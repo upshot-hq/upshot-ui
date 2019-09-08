@@ -7,6 +7,8 @@ import {
 } from './defaults';
 import lang from './en.default';
 
+const { allTab, eventsTab, postsTab } = lang.explorePage.tabs;
+
 export const isExpired = (expiredTimeInSec) => {
   const now = new Date();
   const nowInSec = Math.floor(now.getTime() * 0.001); // Convert date to sec
@@ -90,4 +92,18 @@ export const createFormData = (data) => {
   Object.keys(data).forEach((key) => formData.append(key, data[key]));
 
   return formData;
+};
+
+export const filterExploredContent = (content, filter = allTab) => {
+  // filter out events
+  if (filter.toLowerCase() === eventsTab.toLowerCase()) {
+    return content.filter((resource) => ('start_at' in resource));
+  }
+
+  // filter out posts
+  if (filter.toLowerCase() === postsTab.toLowerCase()) {
+    return content.filter((resource) => ('caption' in resource));
+  }
+
+  return content;
 };

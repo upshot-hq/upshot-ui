@@ -97,7 +97,7 @@
       &::-webkit-scrollbar {
           width: 0 !important
       }
-      .container {
+      &-container {
         width: 90%;
         margin: auto;
       }
@@ -111,13 +111,23 @@
         border-radius: rem(5px);
       }
     }
-    .explore-page-loader {
+    .explore-page__loader {
       display: flex;
       justify-content: center;
       &>.up-loader {
         margin: rem(10px 0);
         height: rem(20px);
         width: rem(20px);
+      }
+    }
+    .explore-page__error {
+      display: flex;
+      justify-content: center;
+      &-content {
+        font-size: rem(14px);
+        font-family: $primary-font;
+        color: $gray-1;
+        margin: rem(10px 0);
       }
     }
   }

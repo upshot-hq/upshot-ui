@@ -1,4 +1,5 @@
 import * as types from '../constants/actionTypes';
+import { defaultFetchLimit, defaultOffset } from '../../helpers/defaults';
 
 const initialState = {
   content: [],
@@ -7,17 +8,29 @@ const initialState = {
     errors: {},
   },
   isLoading: false,
+  pagination: {
+    limit: defaultFetchLimit,
+    offset: defaultOffset,
+    totalCount: 0,
+  },
 };
 
 const explore = (state = initialState, action) => {
   switch (action.type) {
     case types.FETCH_EXPLORE_CONTENT:
-      return { ...state, isLoading: true };
+      return {
+        ...state,
+        isLoading: true,
+        content: action.exploreQueries.isNewTab
+          ? initialState.content
+          : state.content,
+      };
 
     case types.FETCH_EXPLORE_CONTENT_SUCCESS:
       return {
         ...state,
         content: [...state.content, ...action.exploreData.content],
+        pagination: action.exploreData.pagination,
         isLoading: false,
         errors: initialState.errors,
       };
