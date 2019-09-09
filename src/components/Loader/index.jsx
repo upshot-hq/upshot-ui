@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import './Loader.scss';
 
 const Loader = (props) => {
-  const { customStyles, message } = props;
+  const { customStyles, message, containerClassName } = props;
 
   return (
-    <div className="up-loader-container">
+    <div className={`up-loader-container ${containerClassName}`}>
       <div className="up-loader" style={customStyles} />
       {message && <span className="message">{message}</span>}
     </div>
@@ -16,6 +16,7 @@ const Loader = (props) => {
 
 Loader.propTypes = {
   customStyles: PropTypes.object,
+  containerClassName: PropTypes.string,
   message: PropTypes.string,
 };
 

@@ -11,10 +11,10 @@ import {
 } from '../actionCreators/eventActions';
 
 export function* watchCreateEventSagaAsync() {
-  yield takeLatest(createEvent().type, CreateEventSagaAsync);
+  yield takeLatest(createEvent().type, createEventSagaAsync);
 }
 
-export function* CreateEventSagaAsync(action) {
+export function* createEventSagaAsync(action) {
   try {
     const response = yield call(EventAPI.getEvents, action.eventData);
     yield put(createEventSuccess(response.data));

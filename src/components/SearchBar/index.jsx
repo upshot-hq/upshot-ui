@@ -126,7 +126,7 @@ SearchBar.propTypes = {
   handleSearchResultClick: PropTypes.func.isRequired,
 };
 
-SearchBar.defaultTypes = {
+SearchBar.defaultProps = {
   placeholder: 'search here',
 };
 

@@ -33,7 +33,7 @@ const HomePage = ({ eventsPosts, getPinnedEventsPosts, isEventsPostsLoading }) =
 
   return (
 		<Layout>
-			<div className="homepage">
+			<div className="homepage" id="homepage">
 				<div className="header">
 					<div className="top">
 						{renderSearchBar()}

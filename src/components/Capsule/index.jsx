@@ -6,6 +6,7 @@ import './Capsule.scss';
 const Capsule = ({
   title, handleClose, id, handleSelect,
   capsuleStyle, textStyle, closeBtnStyle,
+  showCloseBtn,
 }) => {
   const handleCloseBtnClick = () => {
     handleClose(id);
@@ -16,9 +17,12 @@ const Capsule = ({
       <div className="us-capsule__text" onClick={handleSelect} style={textStyle}>
         {title}
       </div>
-      <span className="us-capsule__close-btn" onClick={handleCloseBtnClick} style={closeBtnStyle}>
-        &times;
-      </span>
+      {showCloseBtn
+        && <span className="us-capsule__close-btn"
+          onClick={handleCloseBtnClick} style={closeBtnStyle}>
+          &times;
+        </span>
+      }
     </div>
   );
 };
@@ -34,6 +38,11 @@ Capsule.propTypes = {
   closeBtnStyle: PropTypes.object,
   textStyle: PropTypes.object,
   capsuleStyle: PropTypes.object,
+  showCloseBtn: PropTypes.bool,
+};
+
+Capsule.defaultProps = {
+  showCloseBtn: true,
 };
 
 export default Capsule;

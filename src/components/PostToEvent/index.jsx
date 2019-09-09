@@ -1,6 +1,4 @@
-import React, {
-  useState, useEffect, Fragment, useRef,
-} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -12,9 +10,7 @@ import Dropdown from '../FormInput/Dropdown';
 import Capsule from '../Capsule';
 import SearchBar from '../SearchBar';
 import ImageUpload from '../ImageUpload/index';
-import * as competitionActions from '../../redux/actionCreators/competitionActions';
 import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
-import Loader from '../Loader';
 import { createFormData } from '../../helpers/utils';
 
 const PostToEvent = (props) => {
@@ -26,17 +22,9 @@ const PostToEvent = (props) => {
   const [disableFormBtn, setDisableFormBtn] = useState(true);
   const isInitialMount = useRef(true);
   const {
-    competitions, competitionIsLoading, fetchAllCompetitions,
-    competitionError, postToEvent, isPostingToEvent,
+    postToEvent, isPostingToEvent,
     eventPostSuccess, handleModalClose,
   } = props;
-
-  useEffect(() => {
-    if (isInitialMount.current) {
-      fetchAllCompetitions();
-      isInitialMount.current = false;
-    }
-  }, [fetchAllCompetitions]);
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -49,11 +37,11 @@ const PostToEvent = (props) => {
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
-    } else if (selectedEvent && competitions.length) {
-      const comp = competitions.filter((comptn) => selectedEvent.competitions.includes(comptn.id));
-      setEventCompetitions(comp);
+    } else if (selectedEvent) {
+      const { competitions } = selectedEvent;
+      setEventCompetitions(competitions);
     }
-  }, [selectedEvent, competitions]);
+  }, [selectedEvent]);
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -100,7 +88,7 @@ const PostToEvent = (props) => {
     }
   };
 
-  const postToEventForm = () => {
+  const renderPostToEventForm = () => {
     const dropdownInfo = selectedEvent
       ? lang.postToEvent.competitionDropdownInfo : lang.postToEvent.eventSearchInfo;
 
@@ -174,22 +162,10 @@ const PostToEvent = (props) => {
     );
   };
 
-  const renderPostToEventForm = () => (
-    <Fragment>
-      {competitionError
-        ? <div className="error">{competitionError}</div>
-        : postToEventForm()
-      }
-    </Fragment>
-  );
-
   return (
-    <div className="post-to-event">
+    <div className="post-to-event" id="post-to-event">
       <div className="post-to-event__container">
-        {competitionIsLoading
-          ? <Loader customStyles={{ width: '30px', height: '30px' }} />
-          : renderPostToEventForm()
-        }
+        {renderPostToEventForm()}
       </div>
     </div>
   );
@@ -197,26 +173,18 @@ const PostToEvent = (props) => {
 
 PostToEvent.propTypes = {
   children: PropTypes.node,
-  competitions: PropTypes.array.isRequired,
-  competitionIsLoading: PropTypes.bool.isRequired,
   isPostingToEvent: PropTypes.bool.isRequired,
-  fetchAllCompetitions: PropTypes.func.isRequired,
   postToEvent: PropTypes.func.isRequired,
   handleModalClose: PropTypes.func.isRequired,
-  competitionError: PropTypes.string.isRequired,
   eventPostSuccess: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ competition, eventPost }) => ({
-  competitions: competition.competitions,
-  competitionIsLoading: competition.isLoading,
-  competitionError: competition.error.message,
+const mapStateToProps = ({ eventPost }) => ({
   isPostingToEvent: eventPost.isLoading,
   eventPostSuccess: eventPost.success,
 });
 
 const actionCreators = {
-  fetchAllCompetitions: competitionActions.fetchAllCompetitions,
   postToEvent: eventPostActions.postToEvent,
 };
 
