@@ -115,6 +115,16 @@
     &::-webkit-scrollbar {
         width: 0 !important
     }
+    &__loader {
+      display: flex;
+      justify-content: center;
+      margin-top: rem(30px);
+    }
+    &__no-content {
+      display: flex;
+      justify-content: center;
+      margin-top: rem(30px);
+    }
     .dummy-card {
       margin: auto;
       margin-top: rem(20px);

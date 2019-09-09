@@ -9,6 +9,7 @@ const initialState = {
     errors: [],
   },
   isLoading: false,
+  pagination: {},
 };
 
 const eventPost = (state = initialState, action) => {
@@ -25,6 +26,25 @@ const eventPost = (state = initialState, action) => {
         error: initialState.error,
       };
     case types.POST_TO_EVENT_FAILURE:
+      return {
+        ...state,
+        success: false,
+        isLoading: false,
+        error: { ...initialState.error, message: action.error },
+      };
+    case types.GET_PINNED_EVENT_POSTS:
+      return { ...state, isLoading: true, success: false };
+    case types.GET_PINNED_EVENT_POSTS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        success: true,
+        message: action.response.message,
+        posts: [...state.posts, ...action.response.posts],
+        error: initialState.error,
+        pagination: action.response.pagination,
+      };
+    case types.GET_PINNED_EVENT_POSTS_FAILURE:
       return {
         ...state,
         success: false,

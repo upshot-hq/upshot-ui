@@ -7,6 +7,9 @@ import {
   postToEvent,
   postToEventSuccess,
   postToEventFailure,
+  getPinnedEventsPosts,
+  getPinnedEventsPostsSuccess,
+  getPinnedEventsPostsFailed,
 } from '../actionCreators/eventPostActions';
 
 export function* watchPostToEventSagaAsync() {
@@ -22,6 +25,22 @@ export function* postToEventSagaAsync(action) {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(postToEventFailure(errorMessage));
+    notifyError(errorMessage);
+  }
+}
+
+export function* watchGetPinnedEventsPostsSagaAsync() {
+  yield takeLatest(getPinnedEventsPosts('', '').type, getPinnedEventsPostsSagaAsync);
+}
+
+export function* getPinnedEventsPostsSagaAsync(action) {
+  try {
+    const { limit, offset } = action;
+    const response = yield call(EventAPI.getPinnedEventsPosts, { limit, offset });
+    yield put(getPinnedEventsPostsSuccess(response.data));
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(getPinnedEventsPostsFailed(errorMessage));
     notifyError(errorMessage);
   }
 }

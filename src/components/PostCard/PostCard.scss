@@ -1,0 +1,64 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+.postcard {
+  margin: auto;
+  margin-top: rem(20px);
+  margin-bottom: rem(20px);
+  width: 90%;
+  background-color: $white;
+  border-radius: rem(5px);
+  box-shadow: rem(0 0 5px) $black-3;
+  overflow: hidden;
+  &__postImage {
+    min-height: rem(50px);
+    height: 80%;
+    position: relative;
+    .competition {
+      background-color: $primary-color;
+      color: $white;
+      position: absolute;
+      top: rem(15px);
+      left: rem(15px);
+      padding: rem(8px);
+      border-radius: rem(15px);
+      font-size: rem(10px);
+      text-transform: lowercase;
+    }
+  }
+  &__icons {
+    display: flex;
+    justify-content: space-between;
+    padding: rem(10px);
+    .leftside {
+      display: flex;
+    }
+    .icon {
+      margin-left: rem(10px);
+      margin-right: rem(10px);
+      img {
+        height: rem(24px);
+        width: rem(24px);
+      }
+      .count {
+        text-align: center;
+        font-size: rem(12px);
+      }
+    }
+    .icon:hover {
+      cursor: pointer;
+    }
+  }
+  &__caption {
+    padding: 0 rem(15px) rem(15px) rem(15px);
+    color: $primary-color;
+    .username {
+      font-size: rem(14px);
+      font-weight: 700;
+      text-transform: lowercase;
+    }
+    .text {
+      font-size: rem(14px);
+    }
+  }
+}

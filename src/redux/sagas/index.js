@@ -14,6 +14,7 @@ function* rootSaga() {
     userSaga.watchAuthenticateUserSagaAsync(),
     userSaga.watchUpdateUserProfileSagaAsync(),
     eventSaga.watchCreateEventSagaAsync(),
+    eventPostSaga.watchGetPinnedEventsPostsSagaAsync(),
   ]);
 }
 

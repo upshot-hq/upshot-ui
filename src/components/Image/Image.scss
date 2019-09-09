@@ -1,0 +1,30 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
+
+.imageContainer {
+  .image {
+    height: 100%;
+    width: 100%;
+  }
+  .image.loading {
+    display: flex;
+    justify-content: center;
+    height: rem(250px);
+    background-color: $gray-7;
+  }
+  .image.failed {
+    height: rem(100px);
+    width: rem(100px);
+  }
+  .image.hidden {
+    display: none;
+  }
+  .notFoundContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: rem(250px);
+    padding: rem(20px);
+    background-color: $gray-7;
+  }
+}
