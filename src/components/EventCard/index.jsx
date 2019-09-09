@@ -46,10 +46,10 @@ const EventCard = (props) => {
       </Fragment>
   );
 
-  const renderCompetitions = (competitons) => (
+  const renderCompetitions = (competitions) => (
     <div className="event-card__content-event-competitions">
       <div className="event-competitions__container">
-        {competitons.map((competition) => renderCompetition(competition))}
+        {competitions.map((competition) => renderCompetition(competition))}
       </div>
     </div>
   );
