@@ -2,6 +2,7 @@ import React from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import Layout from '../../components/Layout';
+import PostCard from '../../components/PostCard';
 import './HomePage.scss';
 
 const HomePage = () => {
@@ -24,7 +25,7 @@ const HomePage = () => {
 
   return (
 		<Layout>
-			<div className="homepage">
+			<div className="homepage" id="homepage">
 				<div className="header">
 					<div className="top">
 						{renderSearchBar()}
@@ -40,12 +41,14 @@ const HomePage = () => {
 					</div>
 				</div>
 				<div className="content">
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
-					<div className="dummy-card" />
+					<div className="content__container">
+						<PostCard />
+						<PostCard />
+						<PostCard />
+						<PostCard />
+						<PostCard />
+						<PostCard />
+					</div>
 				</div>
 			</div>
 		</Layout>

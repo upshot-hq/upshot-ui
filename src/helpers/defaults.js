@@ -7,3 +7,5 @@ export const saltRounds = 10;
 export const defaultImageSizeLimit = 2000000;
 export const profileDescriptionMaxLength = 140;
 export const defaultDebounceTime = 500;
+export const defaultFetchLimit = 10;
+export const defaultOffset = 0;

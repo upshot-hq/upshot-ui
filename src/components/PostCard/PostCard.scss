@@ -1,0 +1,16 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+#post-card {
+  &.post-card {
+    height: rem(360px);
+    width: 100%;
+    background-color: $white;
+    border-radius: rem(5px);
+    overflow: hidden;
+    margin: rem(20px 0);
+    box-shadow: rem(0 0 5px) $black-3;
+    font-family: $primary-font;
+  }
+}

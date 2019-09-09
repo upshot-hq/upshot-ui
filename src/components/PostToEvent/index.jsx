@@ -184,10 +184,10 @@ const PostToEvent = (props) => {
   );
 
   return (
-    <div className="post-to-event">
+    <div className="post-to-event" id="post-to-event">
       <div className="post-to-event__container">
         {competitionIsLoading
-          ? <Loader customStyles={{ width: '30px', height: '30px' }} />
+          ? <Loader containerClassName="post-to-event__loader" />
           : renderPostToEventForm()
         }
       </div>

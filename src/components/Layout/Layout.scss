@@ -83,6 +83,9 @@
         border-bottom: 0;
         flex-basis: 40%;
         overflow-x: hidden;
+        &::-webkit-scrollbar { 
+          display: none; 
+        }
       }
       &-rightside {
         padding-top: 2%;
