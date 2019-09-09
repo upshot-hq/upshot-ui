@@ -38,6 +38,10 @@
             font-size: rem(20px);
             color: $gray-7;
             cursor: pointer;
+            &>img {
+              width: rem(30px);
+              height: rem(30px);
+            }
             &.pinned {
               color: $red;
             }

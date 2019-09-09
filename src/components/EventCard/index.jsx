@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbtack } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 
 import './EventCard.scss';
 import Capsule from '../Capsule';
+import pin from '../../assets/pin.svg';
+import pinFill from '../../assets/pin-fill.svg';
 
 const EventCard = (props) => {
   const { event } = props;
@@ -23,12 +23,12 @@ const EventCard = (props) => {
 
   const renderTitle = () => {
     const iconClassName = pinned ? 'icon pinned' : 'icon';
-
+    const pinIcon = pinned ? pinFill : pin;
     return (
       <div className="event-card__content-event-title">
         <span>{event.name}</span>
         <span className={iconClassName} onClick={togglePinned}>
-          <FontAwesomeIcon icon={faThumbtack} />
+          <img src={pinIcon} alt="pin" />
         </span>
       </div>
     );
