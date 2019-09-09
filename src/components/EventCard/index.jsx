@@ -41,6 +41,7 @@ const EventCard = (props) => {
           id={competition.id}
           handleClose={() => {}}
           showCloseBtn={false}
+          textStyle={{ maxWidth: '100%' }}
         />
       </Fragment>
   );

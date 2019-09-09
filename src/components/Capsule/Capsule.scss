@@ -20,7 +20,7 @@
   border: solid rem(1px) $primary-color;
   box-shadow: 0 rem(1px) 0 0 $primary-color-1;
   &__text {
-    max-width: 100%;
+    max-width: 92%;
     text-overflow: ellipsis;
     overflow: hidden;
     color: $white;
