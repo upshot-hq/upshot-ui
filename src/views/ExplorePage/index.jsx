@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 
@@ -12,27 +12,48 @@ import Loader from '../../components/Loader';
 import lang from '../../helpers/en.default';
 import PostCard from '../../components/PostCard/index';
 import * as exploreActions from '../../redux/actionCreators/exploreActions';
+import { useIntersect } from '../../helpers/hooksUtils';
 
 const ExplorePage = (props) => {
+  const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
   const { allTab, eventsTab, postsTab } = lang.explorePage.tabs;
   const {
     isLoading, content, errorMessage,
-    fetchExploreContent,
+    fetchExploreContent, pagination,
   } = props;
   const [currentView, setCurrentView] = useState(allTab);
   const [isNewTab, setIsNewTab] = useState(true);
-  // const isInitialMount = useRef(true);
+  const isInitialMount = useRef(true);
 
-  // useEffect(() => {
-  //   if (isInitialMount.current) {
-  //     isInitialMount.current = false;
-  //     fetchExploreContent({});
-  //   }
-  // }, [fetchExploreContent]);
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else if (!isLoading) {
+      const fetchMoreContent = () => {
+        const { limit, offset, totalCount } = pagination;
+        if (isIntersected && !isNewTab && content.length < totalCount) {
+          const nextOffset = Number(offset) + Number(limit);
+          fetchExploreContent({
+            limit,
+            offset: nextOffset,
+            filter: currentView,
+            isNewTab,
+          });
+        }
+      };
+
+      fetchMoreContent();
+    }
+  }, [
+    pagination, isIntersected,
+    content, currentView, fetchExploreContent,
+    isNewTab, isLoading,
+  ]);
 
   useEffect(() => {
     if (isNewTab) {
       fetchExploreContent({ filter: currentView, isNewTab });
+      setIsNewTab(false);
     }
   }, [fetchExploreContent, currentView, isNewTab]);
 
@@ -108,6 +129,10 @@ const ExplorePage = (props) => {
 		</div>
   );
 
+  const renderFetchMoreTrigger = () => (
+    <div className="fetch-more" ref={setNode} />
+  );
+
   return (
 		<Layout>
 			<div className="explore-page" id="explore-page">
@@ -120,12 +145,13 @@ const ExplorePage = (props) => {
 					</div>
 				</div>
 				<div className="content">
-					{renderContent()}
+          {renderContent()}
 					{isLoading && <Loader containerClassName="explore-page__loader" />}
 					{!isLoading && !!errorMessage && renderError(lang.failedToFetch)}
 					{!isLoading && !errorMessage
 						&& !content.length && renderError(lang.explorePage.noContent)
-					}
+          }
+          {renderFetchMoreTrigger()}
 				</div>
 			</div>
 		</Layout>

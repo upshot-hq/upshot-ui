@@ -6,7 +6,7 @@
   position: relative;
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: rem(180px);
+  max-width: rem(660px);
   min-width: rem(80px);
   white-space: nowrap;
   background-color: $primary-color;
@@ -20,7 +20,7 @@
   border: solid rem(1px) $primary-color;
   box-shadow: 0 rem(1px) 0 0 $primary-color-1;
   &__text {
-    max-width: 92%;
+    max-width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
     color: $white;

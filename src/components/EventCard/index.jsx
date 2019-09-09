@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbtack } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 
 import './EventCard.scss';
-import { competitions } from '../../views/ExplorePage/__mocks__';
 import Capsule from '../Capsule';
 
 const EventCard = (props) => {
@@ -28,7 +28,7 @@ const EventCard = (props) => {
       <div className="event-card__content-event-title">
         <span>{event.name}</span>
         <span className={iconClassName} onClick={togglePinned}>
-          <FontAwesome name="bookmark" />
+          <FontAwesomeIcon icon={faThumbtack} />
         </span>
       </div>
     );
@@ -45,16 +45,10 @@ const EventCard = (props) => {
       </Fragment>
   );
 
-  const renderCompetitions = (competitonIds) => (
+  const renderCompetitions = (competitons) => (
     <div className="event-card__content-event-competitions">
       <div className="event-competitions__container">
-        {
-          competitonIds.map((id) => {
-            const competition = competitions.find((comp) => comp.id === id);
-            if (competition) return renderCompetition(competition);
-            return null;
-          })
-        }
+        {competitons.map((competition) => renderCompetition(competition))}
       </div>
     </div>
   );

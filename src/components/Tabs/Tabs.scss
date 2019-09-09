@@ -23,6 +23,7 @@
       height: 60%;
       text-transform: capitalize;
       color: $primary-color;
+      background-color: $white;
       font-family: $primary-font;
       font-size: rem(16px);
       font-weight: bold;
@@ -31,9 +32,13 @@
       text-align: center;
       padding: rem(0 16px);
       height: 100%;
-      &:hover, &.active {
-        color: $primary-color;
-        border-bottom: rem(3px) solid $primary-color;
+      &:hover {
+        color: $secondary-color;
+        border-bottom: rem(3px) solid $secondary-color-light;
+      }
+      &.active {
+        color: $secondary-color;
+        border-bottom: rem(3px) solid $secondary-color;
       }
     }
     &::-webkit-scrollbar { 
