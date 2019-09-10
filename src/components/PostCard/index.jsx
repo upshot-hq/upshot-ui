@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import './PostCard.scss';
 import Image from '../Image';
@@ -10,7 +11,7 @@ import Bookmark from '../../assets/icons/bookmark.svg';
 import SolidBookmark from '../../assets/icons/solid-bookmark.svg';
 
 const PostCard = ({
-  competition, imageUrl, username, caption,
+  post,
 }) => {
   const [isLiked, setLike] = useState(false);
   const [isDisLiked, setDisLike] = useState(false);
@@ -23,14 +24,21 @@ const PostCard = ({
   const handleDisLike = () => {
     setDisLike(!isDisLiked);
   };
+
   const handleBookmark = () => {
     setBookmark(!isBookmarked);
   };
+
+  const formatDate = (date) => {
+    const momentDate = moment(date);
+    return momentDate.fromNow();
+  };
+
   return (
     <div className="postcard">
       <div className="postcard__postImage">
-        <div className="competition">{competition}</div>
-        <Image imageUrl={imageUrl} />
+        <div className="competition">{post.competitions_name}</div>
+        <Image imageUrl={post.picture_url} />
       </div>
       <div className="postcard__icons">
         <div className="leftside">
@@ -52,18 +60,24 @@ const PostCard = ({
         </div>
       </div>
       <div className="postcard__caption">
-        <span className="username">{username} </span>
-        <span className="text">{caption}</span>
+        <span className="username">{post.user_username} </span>
+        <span className="text">{post.caption}</span>
+      </div>
+      <div className="postcard__date">
+        <span className="postdate">{formatDate(post.created_at)}</span>
       </div>
     </div>
   );
 };
 
 PostCard.propTypes = {
-  competition: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  caption: PropTypes.string.isRequired,
+  post: PropTypes.shape({
+    competitions_name: PropTypes.string.isRequired,
+    picture_url: PropTypes.string.isRequired,
+    user_username: PropTypes.string.isRequired,
+    caption: PropTypes.string.isRequired,
+    created_at: PropTypes.string.isRequired,
+  }),
 };
 
 export default PostCard;

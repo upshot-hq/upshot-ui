@@ -12,7 +12,7 @@ class EventAPI {
   }
 
   static getPinnedEventsPosts({ limit = 10, offset = 0 }) {
-    return axios.get(`${baseUrl}/events/posts?limit=${limit}&offset=${offset}`);
+    return axios.get(`${baseUrl}/events/pins/posts?limit=${limit}&offset=${offset}`);
   }
 }
 

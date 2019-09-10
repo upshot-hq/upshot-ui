@@ -6,6 +6,15 @@
     height: 100%;
     width: 100%;
   }
+  .loader-container {
+    .up-loader {
+      border: rem(3px) solid $gray-1;
+      border-top: rem(3px) solid $white;
+      border-radius: 50%;
+      width: rem(25px);
+      height: rem(25px);
+    }
+  }
   .image.loading {
     display: flex;
     justify-content: center;

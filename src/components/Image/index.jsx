@@ -23,7 +23,7 @@ const Image = ({ imageUrl }) => {
     <div className="imageContainer">
       {(loadingStatus === loadingStatusValues.loading)
       && <div className={`image ${loadingStatus}`}>
-        <Loader message="loading image..." customClass="loader" />
+        <Loader containerClassName="loader-container" />
       </div>}
       {(loadingStatus === loadingStatusValues.failed)
       && <div className="notFoundContainer">
