@@ -128,5 +128,50 @@
       }
     }
   }
+  .content {
+    width: 100%;
+    height: 84%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        width: 0 !important
+    }
+    &__loader {
+      display: flex;
+      justify-content: center;
+      margin-top: rem(30px);
+      .loader-container {
+        .up-loader {
+          border: rem(3px) solid $gray-1;
+          border-top: rem(3px) solid $white;
+          border-radius: 50%;
+          width: rem(25px);
+          height: rem(25px);
+        }
+      }
+    }
+    .dummy-card {
+      margin: auto;
+      margin-top: rem(20px);
+      margin-bottom: rem(20px);
+      height: 60%;
+      width: 90%;
+      background-color: $primary-color;
+      border-radius: rem(5px);
+    }
+    .content-container {
+      width: 90%;
+      margin: auto;
+    }
+  }
+  .no-content {
+    display: flex;
+    justify-content: center;
+    margin-top: rem(20px);
+  }
+  .fetch-more {
+    height: rem(20px);
+  }
 }
 

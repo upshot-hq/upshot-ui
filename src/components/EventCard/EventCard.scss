@@ -10,15 +10,13 @@
   overflow: hidden;
   margin: rem(20px 0);
   box-shadow: rem(0 0 5px) $black-3;
-  padding: rem(2px);
-  padding-bottom: rem(1px);
   font-family: $primary-font;
   .event-card {
     &__content {
       height: 100%;
       width: 90%;
       margin: auto;
-      height: 79%;
+      height: 80%;
       &-event {
         &-title {
           display: flex;
