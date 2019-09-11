@@ -8,6 +8,7 @@ import HomePage from '../views/HomePage';
 import ProfilePage from '../views/ProfilePage';
 import { getUserDetails } from '../helpers/utils';
 import ExplorePage from '../views/ExplorePage/index';
+import EventPage from '../views/EventPage/index';
 
 const Routes = () => (
     <Switch>
@@ -34,6 +35,11 @@ const Routes = () => (
             path="/explore"
             exact
             component={authenticateView(ExplorePage)}
+        />
+        <Route
+            path="/events/:eventId"
+            exact
+            component={authenticateView(EventPage)}
         />
         <Route component={NotFoundPage} />
     </Switch>

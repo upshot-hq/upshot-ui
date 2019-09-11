@@ -8,6 +8,9 @@ import {
   createEvent,
   createEventSuccess,
   createEventFailure,
+  getEvent,
+  getEventSuccess,
+  getEventFailure,
 } from '../actionCreators/eventActions';
 
 export function* watchCreateEventSagaAsync() {
@@ -26,5 +29,19 @@ export function* createEventSagaAsync(action) {
       message: errorMessage,
     }));
     notifyError(errorMessage);
+  }
+}
+
+export function* watchGetEventSagaAsync() {
+  yield takeLatest(getEvent().type, getEventSagaAsync);
+}
+
+export function* getEventSagaAsync(action) {
+  try {
+    const response = yield call(EventAPI.getEvent, action.eventId);
+    yield put(getEventSuccess(response.data));
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(getEventFailure({ message: errorMessage }));
   }
 }

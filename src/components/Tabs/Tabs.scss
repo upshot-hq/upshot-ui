@@ -32,9 +32,12 @@
       text-align: center;
       padding: rem(0 16px);
       height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       &:hover {
         color: $secondary-color;
-        border-bottom: rem(3px) solid $secondary-color-light;
+        border-bottom: rem(3px) solid $secondary-color;
       }
       &.active {
         color: $secondary-color;

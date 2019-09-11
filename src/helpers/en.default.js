@@ -58,4 +58,18 @@ export default {
       postsTab: 'posts',
     },
   },
+  eventPage: {
+    notFound: 'page not found :(',
+    tabs: {
+      detailsTab: 'details',
+      postsTab: 'posts',
+      analyticsTab: 'analytics',
+    },
+    details: {
+      about: 'about this event',
+      dateAndTime: 'date and time',
+      contact: 'contact',
+      hashtags: 'hashtags',
+    },
+  },
 };

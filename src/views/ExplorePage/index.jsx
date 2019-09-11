@@ -141,7 +141,11 @@ const ExplorePage = (props) => {
 						{renderTopBar()}
 					</div>
 					<div className="bottom">
-						<Tabs navItems={TabsItems} activeTitle={currentView} />
+            <Tabs
+              navItems={TabsItems}
+              activeTitle={currentView}
+              navItemStyles={{ alignItems: 'flex-start' }}
+            />
 					</div>
 				</div>
 				<div className="content">

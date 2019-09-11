@@ -22,16 +22,20 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          font-family: $primary-font;
-          font-weight: bold;
-          letter-spacing: rem(0.5px);
-          font-size: rem(18px);
-          text-transform: capitalize;
           margin: rem(10px 0);
           height: 30%;
           text-overflow: ellipsis;
           overflow: hidden;
           white-space: nowrap;
+          &>.text {
+            font-family: $primary-font;
+            font-weight: bold;
+            letter-spacing: rem(0.5px);
+            font-size: rem(18px);
+            text-transform: capitalize;
+            text-decoration: none;
+            color: $primary-color;
+          }
           &>.icon {
             font-size: rem(20px);
             color: $gray-7;
