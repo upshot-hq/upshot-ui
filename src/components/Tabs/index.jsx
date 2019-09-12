@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './Tabs.scss';
 
 const Tabs = (props) => {
-  const { navItems, activeTitle } = props;
+  const { navItems, activeTitle, navItemStyles } = props;
 
   const renderTabItem = (navItem, index) => {
     const navItemClassName = navItem.title.toLowerCase() === activeTitle.toLowerCase()
@@ -14,8 +14,11 @@ const Tabs = (props) => {
       <div key={index}
         className={navItemClassName}
         onClick={navItem.onClick}
+        style={navItemStyles}
       >
-        {navItem.title}
+        <span className="tab__items-item-text">
+          {navItem.title}
+        </span>
       </div>
     );
   };
@@ -41,10 +44,12 @@ Tabs.propTypes = {
     onClick: PropTypes.func.isRequired,
   })).isRequired,
   activeTitle: PropTypes.string,
+  navItemStyles: PropTypes.object,
 };
 
 Tabs.defaultProps = {
   activeTitle: '',
+  navItemStyles: {},
 };
 
 export default Tabs;

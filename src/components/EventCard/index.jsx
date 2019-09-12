@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import './EventCard.scss';
@@ -26,7 +27,7 @@ const EventCard = (props) => {
     const pinIcon = pinned ? pinFill : pin;
     return (
       <div className="event-card__content-event-title">
-        <span>{event.name}</span>
+        <Link to={`/events/${event.id}`} className="text">{event.name}</Link>
         <span className={iconClassName} onClick={togglePinned}>
           <img src={pinIcon} alt="pin" />
         </span>

@@ -1,0 +1,303 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+
+#eventpage {
+  height: 100%;
+  .eventpage {
+    &__header {
+      width: 100%;
+      height: 37%;
+      overflow: hidden;
+      border-bottom: rem(1px) solid $gray-3;
+      &-top {
+        background-color: $white;
+        height: 80%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &__content {
+          width: 90%;
+          height: 90%;
+          .profile {
+            width: 100%;
+            height: 70%;
+            background-color: $white;
+            border-radius: rem(5px);
+            box-shadow: rem(1px 1px 4px 0px) $primary-color-2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: $primary-font;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            .avatar {
+              width: 25%;
+              height: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              .image {
+                width: rem(72px);
+                height: rem(72px);
+                border: 1px solid $secondary-color-3;
+                border-radius: 50%;
+                background-color: $gray-1;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+              }
+            }
+            .details {
+              width: 72%;
+              height: 80%;
+              overflow: hidden;
+              padding: rem(0px 10px);
+              display: flex;
+              flex-direction: column;
+              justify-content: space-around;
+              align-items: center;
+              color: $primary-color;
+              .name {
+                width: 100%;
+                height: 50%;
+                padding: rem(4px) 0;
+                .title {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  .text {
+                    font-size: rem(16px);
+                    text-transform: capitalize;
+                    font-weight: bold;
+                    flex-grow: 2;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                  }
+                  .edit-btn {
+                    flex-grow: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    .btn {
+                      border: rem(1px) solid $secondary-color-3;
+                      border-radius: rem(5px);
+                      padding: rem(5px 10px);
+                      font-family: $primary-font;
+                      font-size: rem(11px);
+                      font-weight: normal;
+                      text-overflow: ellipsis;
+                      overflow: hidden;
+                      white-space: nowrap;
+                      text-transform: capitalize;
+                      cursor: pointer;
+                      outline: none;
+                      &:active {
+                        background-color: $secondary-color;
+                        color: $white;
+                      }
+                    }
+                  }
+                }
+                .handle {
+                  font-size: rem(11px);
+                  font-weight: normal;
+                  color: $secondary-color;
+                }
+              }
+              .description {
+                width: 100%;
+                height: 50%;
+                font-family: $primary-font;
+                font-size: rem(12px);
+                font-weight: normal;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: pre-wrap;
+                word-break: break-all;
+                overflow-wrap: break-word;
+                .hashtag {
+                  color: $secondary-color;
+                }
+                .no-description {
+                  color: $gray-2;
+                  font-style: italic;
+                }
+              }
+            }
+          }
+          .stat {
+            height: auto;
+            max-height: 30%;
+            width: 60%;
+            padding-top: rem(15px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            .content {
+              box-shadow: rem(1px 1px 4px 0px) $primary-color-2;
+              height: 40%;
+              width: 100%;
+              padding:  rem(5px 10px);
+              background-color: $white;
+              border-radius: rem(5px);
+              display: flex;
+              align-items: center;
+              justify-content: space-evenly;
+              overflow: hidden;
+              .text {
+                font-family: $primary-font;
+                text-transform: capitalize;
+                font-size: rem(14px);
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                flex-grow: 1;
+                width: 30%;
+                text-align: center;
+                .count {
+                  font-weight: bold;
+                  font-size: rem(15px);
+                  text-transform: capitalize;
+                }
+              }
+            }
+          }
+        }
+      }
+      &-bottom {
+        height: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        &__nav__items {
+          width: 80%;
+          height: 100%;
+          display: flex;
+          justify-content: space-around;
+          align-items: flex-end;
+          &-item {
+            height: 60%;
+            text-transform: capitalize;
+            color: $primary-color;
+            font-family: $primary-font;
+            font-size: rem(16px);
+            font-weight: bold;
+            cursor: pointer;
+            flex-grow: 1;
+            text-align: center;
+            &:hover {
+              color: $secondary-color;
+              border-bottom: rem(3px) solid $secondary-color;
+            }
+          }
+        }
+      }
+    }
+    &__content {
+      width: 100%;
+      height: 63%;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      -ms-overflow-style: none;
+      &::-webkit-scrollbar {
+          width: 0 !important
+      }
+      &-container {
+        width: 90%;
+        height: 100%;
+        .details-card {
+          margin: auto;
+          margin-top: rem(20px);
+          margin-bottom: rem(20px);
+          height: auto;
+          width: 100%;
+          background-color: $white;
+          border-radius: rem(5px);
+          box-shadow: rem(0 0 5px) $black-3;
+          font-family: $primary-font;
+          padding: rem(10px 0 10px 0);
+          &__header {
+            width: 90%;
+            margin: 10px auto;
+            overflow: hidden;
+            .text {
+              font-family: $primary-font;
+              font-size: rem(18px);
+              font-weight: bold;
+              color: $primary-color;
+              text-transform: capitalize;
+              word-break: break-all;
+              &::first-letter {
+                text-transform: uppercase;
+              }
+            }
+          }
+          &__content {
+            width: 90%;
+            margin: rem(10px) auto;
+            overflow: hidden;
+            .text {
+              font-family: $primary-font;
+              font-size: rem(14px);
+              font-weight: normal;
+              color: $primary-color;
+              word-break: break-word;
+            }
+            .title {
+              font-weight: bold;
+              text-transform: capitalize;
+            }
+            .start, .end {
+              display: flex;
+              margin: rem(5px 0);
+              .title {
+                flex-basis: 10%;
+              }
+            }
+            .capitalize {
+              text-transform: capitalize;
+            }
+            .hashtag {
+              color: $secondary-color;
+            }
+          }
+        }
+      }
+    }
+    &__loader-container {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &--loader {
+        &>.up-loader {
+          height: rem(30px);
+          width: rem(30px);
+        }
+      }
+    }
+    &__notfound {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 90%;
+      margin: auto;
+      .text {
+        font-family: $primary-font;
+        font-size: rem(20px);
+        text-align: center;
+        font-weight: normal;
+        color: $gray-1;
+        text-transform: lowercase;
+        word-break: break-word;
+      }
+    }
+  }
+}

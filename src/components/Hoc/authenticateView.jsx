@@ -31,7 +31,7 @@ export default function (View) {
     render() {
       return (
         <Fragment>
-          {!this.state.isLoading && <View />}
+          {!this.state.isLoading && <View {...this.props} />}
         </Fragment>
       );
     }
