@@ -76,7 +76,7 @@ export const EventPage = (props) => {
     <div className="fetch-more" ref={setNode} />
   );
 
-  const renderLoader2 = () => (
+  const renderFetchMoreLoader = () => (
 		<div className="eventpage__posts-loader-container">
 			<Loader containerClassName="eventpage__posts-loader" />
 		</div>
@@ -97,8 +97,8 @@ export const EventPage = (props) => {
 			<div className="eventpage__content">
 				<div className="eventpage__content-container">
           {renderContent()}
-          {posts.length && !postsSuccessStatus && renderLoader2()}
-          {posts.length && renderFetchMoreTrigger()}
+          {!!posts.length && !postsSuccessStatus && renderFetchMoreLoader()}
+          {!!posts.length && renderFetchMoreTrigger()}
 				</div>
 			</div>
 		</Fragment>

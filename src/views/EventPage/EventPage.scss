@@ -208,8 +208,12 @@
       flex-direction: column;
       -ms-overflow-style: none;
       &::-webkit-scrollbar {
-          width: 0 !important
+          width: rem(2px) !important
       }
+      &::-webkit-scrollbar-thumb {
+        background-color: $gray-1;
+      }
+      
       &-container {
         width: 90%;
         height: 95%;
