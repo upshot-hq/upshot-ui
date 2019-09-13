@@ -1,4 +1,5 @@
 import * as types from '../constants/actionTypes';
+import { defaultFetchLimit, defaultOffset } from '../../helpers/defaults';
 
 export const postToEvent = (eventId, payload) => ({
   type: types.POST_TO_EVENT,
@@ -29,5 +30,22 @@ export const getPinnedEventsPostsSuccess = (response) => ({
 
 export const getPinnedEventsPostsFailed = (error) => ({
   type: types.GET_PINNED_EVENT_POSTS_FAILURE,
+  error,
+});
+
+export const getEventPosts = (
+  { eventId, limit = defaultFetchLimit, offset = defaultOffset },
+) => ({
+  type: types.GET_EVENT_POSTS,
+  eventData: { eventId, limit, offset },
+});
+
+export const getEventPostsSuccess = (response) => ({
+  type: types.GET_EVENT_POSTS_SUCCESS,
+  response,
+});
+
+export const getEventPostsFailure = (error) => ({
+  type: types.GET_EVENT_POSTS_FAILURE,
   error,
 });

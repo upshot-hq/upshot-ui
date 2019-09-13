@@ -10,6 +10,9 @@ import {
   getPinnedEventsPosts,
   getPinnedEventsPostsSuccess,
   getPinnedEventsPostsFailed,
+  getEventPosts,
+  getEventPostsSuccess,
+  getEventPostsFailure,
 } from '../actionCreators/eventPostActions';
 
 export function* watchPostToEventSagaAsync() {
@@ -42,5 +45,20 @@ export function* getPinnedEventsPostsSagaAsync(action) {
     const errorMessage = apiErrorHandler(error);
     yield put(getPinnedEventsPostsFailed(errorMessage));
     notifyError(errorMessage);
+  }
+}
+
+export function* watchGetEventPostsSagaAsync() {
+  yield takeLatest(getEventPosts({}).type, getEventPostsSagaAsync);
+}
+
+export function* getEventPostsSagaAsync(action) {
+  try {
+    const { eventId, limit, offset } = action.eventData;
+    const response = yield call(EventAPI.getEventPosts, { eventId, limit, offset });
+    yield put(getEventPostsSuccess(response.data));
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(getEventPostsFailure(errorMessage));
   }
 }

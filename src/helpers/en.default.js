@@ -71,5 +71,8 @@ export default {
       contact: 'contact',
       hashtags: 'hashtags',
     },
+    posts: {
+      noPosts: 'no post yet!',
+    },
   },
 };
