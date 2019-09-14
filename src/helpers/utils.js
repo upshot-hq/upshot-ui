@@ -4,6 +4,7 @@ import { createBrowserHistory } from 'history';
 
 import {
   jwtKey, hashTagPrefix, handlePrefix, saltRounds, reactionKeys,
+  increment, decrement,
 } from './defaults';
 import lang from './en.default';
 
@@ -123,7 +124,7 @@ export const updatePostCount = (post, updateType, key, value) => {
   if (Number.isNaN(count)) {
     return newPost;
   }
-  if (updateType === 'increment') {
+  if (updateType === increment) {
     total = count + value;
   } else {
     total = count - value;
@@ -162,19 +163,19 @@ export const handlePostReaction = (reaction, post, reactionType) => {
   newPost = updatePostValue(newPost, key, reactionType);
 
   if (reactionType) {
-    newPost = updatePostCount(newPost, 'increment', countKey, 1);
+    newPost = updatePostCount(newPost, increment, countKey, 1);
   } else {
-    newPost = updatePostCount(newPost, 'decrement', countKey, 1);
+    newPost = updatePostCount(newPost, decrement, countKey, 1);
   }
 
   if (reactionType && reaction === 'like' && post.user_dislikes) {
     // remove user dislike status if user likes the post
     newPost = updatePostValue(newPost, reactionKeys.dislike.valueKey, !reactionType);
-    newPost = updatePostCount(newPost, 'decrement', reactionKeys.dislike.countKey, 1);
+    newPost = updatePostCount(newPost, decrement, reactionKeys.dislike.countKey, 1);
   } else if (reactionType && reaction === 'dislike' && post.user_likes) {
     // remove user like status if user dislikes the post
     newPost = updatePostValue(newPost, reactionKeys.like.valueKey, !reactionType);
-    newPost = updatePostCount(newPost, 'decrement', reactionKeys.like.countKey, 1);
+    newPost = updatePostCount(newPost, decrement, reactionKeys.like.countKey, 1);
   }
 
   return newPost;
