@@ -11,7 +11,9 @@ function* rootSaga() {
   yield all([
     // please arrange in alphabetical order
     competitionSaga.watchFetchCompetitionsSagaAsync(),
+    eventPostSaga.watchDislikePostEventSagaAsync(),
     eventPostSaga.watchGetPinnedEventsPostsSagaAsync(),
+    eventPostSaga.watchLikePostEventSagaAsync(),
     eventPostSaga.watchPostToEventSagaAsync(),
     eventSaga.watchCreateEventSagaAsync(),
     eventSaga.watchGetEventSagaAsync(),

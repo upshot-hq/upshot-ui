@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { debounce } from 'lodash';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import './PostCard.scss';
@@ -9,20 +10,30 @@ import Heart from '../../assets/icons/heart.svg';
 import SolidHeart from '../../assets/icons/solid-heart.svg';
 import Bookmark from '../../assets/icons/bookmark.svg';
 import SolidBookmark from '../../assets/icons/solid-bookmark.svg';
+import { handlePostReaction } from '../../helpers/utils';
 
 const PostCard = ({
-  post,
+  post: reduxPost, handleLike, handleDisLike,
 }) => {
-  const [isLiked, setLike] = useState(false);
-  const [isDisLiked, setDisLike] = useState(false);
   const [isBookmarked, setBookmark] = useState(false);
+  const [post, setPost] = useState(reduxPost);
+  const debounceLike = useRef(() => {});
+  const debounceDisLike = useRef(() => {});
+  useEffect(() => {
+    debounceLike.current = debounce(handleLike, 2000);
+    debounceDisLike.current = debounce(handleDisLike, 2000);
+  }, [handleLike, handleDisLike]);
 
-  const handleLike = () => {
-    setLike(!isLiked);
+  const toggleLike = (postId) => {
+    const like = !post.user_likes;
+    setPost(handlePostReaction('like', post, like));
+    debounceLike.current(postId, like);
   };
 
-  const handleDisLike = () => {
-    setDisLike(!isDisLiked);
+  const toggleDisLike = (postId) => {
+    const dislike = !post.user_dislikes;
+    setPost(handlePostReaction('dislike', post, dislike));
+    debounceDisLike.current(postId, dislike);
   };
 
   const handleBookmark = () => {
@@ -43,14 +54,21 @@ const PostCard = ({
       <div className="postcard__icons">
         <div className="leftside">
           <div className="icon">
-            {!isLiked && <img src={Heart} onClick={handleLike} alt="like" />}
-            {isLiked && <img src={SolidHeart} onClick={handleLike} alt="like" />}
-            <div className="count">24</div>
+            {!post.user_likes
+              && <img src={Heart} onClick={() => toggleLike(post.id)} alt="like" />}
+            {post.user_likes
+              && <img src={SolidHeart} onClick={() => toggleLike(post.id)} alt="like" />}
+            {(post.total_likes > 0)
+              && <div className="count">{post.total_likes}</div>}
           </div>
           <div className="icon">
-            {!isDisLiked && <img src={HeartBreak} onClick={handleDisLike} alt="dislike" />}
-            {isDisLiked && <img src={SolidHeartBreak} onClick={handleDisLike} alt="dislike" />}
-            <div className="count">1</div>
+            {!post.user_dislikes
+              && <img src={HeartBreak}
+              onClick={() => toggleDisLike(post.id)} alt="dislike" />}
+            {post.user_dislikes
+              && <img src={SolidHeartBreak}
+              onClick={() => toggleDisLike(post.id)} alt="dislike" />}
+            {(post.total_dislikes > 0) && <div className="count">{post.total_dislikes}</div>}
           </div>
         </div>
         <div className="icon">
@@ -72,12 +90,19 @@ const PostCard = ({
 
 PostCard.propTypes = {
   post: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     competitions_name: PropTypes.string.isRequired,
     picture_url: PropTypes.string.isRequired,
     user_username: PropTypes.string.isRequired,
     caption: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
+    user_likes: PropTypes.bool,
+    user_dislikes: PropTypes.bool,
+    total_likes: PropTypes.string,
+    total_dislikes: PropTypes.string,
   }),
+  handleLike: PropTypes.func.isRequired,
+  handleDisLike: PropTypes.func.isRequired,
 };
 
 export default PostCard;

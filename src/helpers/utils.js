@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import { createBrowserHistory } from 'history';
 
 import {
-  jwtKey, hashTagPrefix, handlePrefix, saltRounds,
+  jwtKey, hashTagPrefix, handlePrefix, saltRounds, reactionKeys,
 } from './defaults';
 import lang from './en.default';
 
@@ -106,4 +106,98 @@ export const filterExploredContent = (content, filter = allTab) => {
   }
 
   return content;
+};
+
+/**
+ * Method to update the total count of a post
+ * @param {object} post
+ * @param {string} updateType (increment/decrement)
+ * @param {string} key
+ * @param {integer} value
+ * @returns {object}
+ */
+export const updatePostCount = (post, updateType, key, value) => {
+  const newPost = { ...post };
+  let total = 0;
+  const count = Number.parseInt(newPost[key], 10);
+  if (Number.isNaN(count)) {
+    return newPost;
+  }
+  if (updateType === 'increment') {
+    total = count + value;
+  } else {
+    total = count - value;
+  }
+  if (total < 0) {
+    total = 0;
+  }
+  newPost[key] = `${total}`;
+  return newPost;
+};
+
+/**
+ * method to update a specific value of a post using the key
+ * @param {object} post
+ * @param {string} key
+ * @param {any} value
+ * @returns {object}
+ */
+export const updatePostValue = (post, key, value) => {
+  const newPost = { ...post };
+  newPost[key] = value;
+
+  return newPost;
+};
+
+/**
+ * method to handle reaction on a post
+ * @param {string} reaction (like/dislike)
+ * @param {object} post
+ * @param {bool} reactionType
+ * @returns {object}
+ */
+export const handlePostReaction = (reaction, post, reactionType) => {
+  let newPost = { ...post };
+  const { valueKey: key, countKey } = reactionKeys[reaction];
+  newPost = updatePostValue(newPost, key, reactionType);
+
+  if (reactionType) {
+    newPost = updatePostCount(newPost, 'increment', countKey, 1);
+  } else {
+    newPost = updatePostCount(newPost, 'decrement', countKey, 1);
+  }
+
+  if (reactionType && reaction === 'like' && post.user_dislikes) {
+    // remove user dislike status if user likes the post
+    newPost = updatePostValue(newPost, reactionKeys.dislike.valueKey, !reactionType);
+    newPost = updatePostCount(newPost, 'decrement', reactionKeys.dislike.countKey, 1);
+  } else if (reactionType && reaction === 'dislike' && post.user_likes) {
+    // remove user like status if user dislikes the post
+    newPost = updatePostValue(newPost, reactionKeys.like.valueKey, !reactionType);
+    newPost = updatePostCount(newPost, 'decrement', reactionKeys.like.countKey, 1);
+  }
+
+  return newPost;
+};
+
+/**
+ * method to handle reacting (like/dislike) on a specific post in an array of posts
+ * @param {string} reaction (like/dislike)
+ * @param {array} posts
+ * @param {integer} postToReactId
+ * @param {bool} reactionType
+ * @returns {array}
+ */
+export const handlePostReactionInPosts = (reaction, posts, postToReactId, reactionType) => {
+  const newPostList = [...posts];
+  for (let i = 0; i < newPostList.length; i += 1) {
+    let post = newPostList[i];
+    if (post.id === postToReactId) {
+      post = handlePostReaction(reaction, post, reactionType);
+      newPostList[i] = post;
+      break;
+    }
+  }
+
+  return newPostList;
 };
