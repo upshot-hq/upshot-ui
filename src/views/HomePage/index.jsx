@@ -11,7 +11,8 @@ import Loader from '../../components/Loader';
 import { useIntersect } from '../../helpers/hooksUtils';
 
 const HomePage = ({
-  eventsPosts, getPinnedEventsPosts, isEventsPostsLoading, pagination,
+  eventsPosts, getPinnedEventsPosts,
+  isEventsPostsLoading, pagination, match,
 }) => {
   const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
   const isInitialMount = useRef(true);
@@ -54,7 +55,7 @@ const HomePage = ({
   );
 
   return (
-		<Layout>
+		<Layout match={match}>
 			<div className="homepage" id="homepage">
 				<div className="header">
 					<div className="top">
@@ -97,6 +98,7 @@ const HomePage = ({
 };
 
 HomePage.propTypes = {
+  match: PropTypes.object.isRequired,
   eventsPosts: PropTypes.array.isRequired,
   isEventsPostsLoading: PropTypes.bool.isRequired,
   getPinnedEventsPosts: PropTypes.func.isRequired,

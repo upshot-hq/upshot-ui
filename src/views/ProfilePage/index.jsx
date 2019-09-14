@@ -11,7 +11,7 @@ import { addStylesToHashTags } from '../../helpers/utils';
 import UserProfileForm from '../../components/UserProfileForm/index';
 
 export const ProfilePage = (props) => {
-  const { user: { userData }, profileUpdateSuccess } = props;
+  const { user: { userData }, profileUpdateSuccess, match } = props;
   const [showModal, setShowModal] = useState(false);
   const isInitialMount = useRef(true);
 
@@ -81,7 +81,7 @@ export const ProfilePage = (props) => {
 
   return (
 		<Fragment>
-			<Layout centerContainerStyles={{ paddingTop: 0 }}>
+			<Layout centerContainerStyles={{ paddingTop: 0 }} match={match}>
 				<div className="profilepage">
 					<div className="profilepage__header">
 						<div className="profilepage__header-top">
@@ -128,6 +128,7 @@ export const ProfilePage = (props) => {
 };
 
 ProfilePage.propTypes = {
+  match: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   profileUpdateSuccess: PropTypes.bool.isRequired,
 };
