@@ -51,6 +51,30 @@ const eventPost = (state = initialState, action) => {
         isLoading: false,
         error: { ...initialState.error, message: action.error },
       };
+    case types.GET_EVENT_POSTS:
+      return {
+        ...state,
+        isLoading: true,
+        success: false,
+        error: initialState.error,
+      };
+    case types.GET_EVENT_POSTS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        success: true,
+        message: action.response.message,
+        posts: [...state.posts, ...action.response.posts],
+        error: initialState.error,
+        pagination: action.response.pagination,
+      };
+    case types.GET_EVENT_POSTS_FAILURE:
+      return {
+        ...state,
+        success: false,
+        isLoading: false,
+        error: { ...initialState.error, message: action.error },
+      };
     default:
       return state;
   }

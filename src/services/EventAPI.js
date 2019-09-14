@@ -11,6 +11,10 @@ class EventAPI {
     return axios.get(`${baseUrl}/events/${eventId}`);
   }
 
+  static getEventPosts({ eventId, limit, offset }) {
+    return axios.get(`${baseUrl}/events/${eventId}/posts?limit=${limit}&offset=${offset}`);
+  }
+
   static postToAnEvent(data) {
     return axios.post(`${baseUrl}/events/${data.eventId}/posts`, data.payload);
   }
