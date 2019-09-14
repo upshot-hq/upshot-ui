@@ -13,6 +13,7 @@ import lang from '../../helpers/en.default';
 import PostCard from '../../components/PostCard/index';
 import * as exploreActions from '../../redux/actionCreators/exploreActions';
 import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
+import * as eventActions from '../../redux/actionCreators/eventActions';
 import { useIntersect } from '../../helpers/hooksUtils';
 
 const ExplorePage = (props) => {
@@ -22,7 +23,7 @@ const ExplorePage = (props) => {
     isLoading, content, errorMessage,
     fetchExploreContent, pagination,
     likePost, dislikePost,
-    match,
+    match, pinEvent,
   } = props;
   const [currentView, setCurrentView] = useState(allTab);
   const [isNewTab, setIsNewTab] = useState(true);
@@ -66,6 +67,10 @@ const ExplorePage = (props) => {
 
   const handleDisLike = (postId, dislike) => {
     dislikePost(postId, dislike);
+  };
+
+  const handlePin = (eventId, pin) => {
+    pinEvent(eventId, pin);
   };
 
   const renderTopBar = () => (
@@ -127,7 +132,10 @@ const ExplorePage = (props) => {
 				  const isEvent = ('start_at' in resource);
 				  const isEventPost = ('caption' in resource);
 				  if (isEvent) {
-				    return <EventCard event={resource} key={index} />;
+				    return <EventCard
+              event={resource}
+              key={index}
+              handlePin={handlePin} />;
 				  }
 
 				  if (isEventPost) {
@@ -186,6 +194,7 @@ ExplorePage.propTypes = {
   pagination: PropTypes.object.isRequired,
   likePost: PropTypes.func.isRequired,
   dislikePost: PropTypes.func.isRequired,
+  pinEvent: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ explore }) => ({
@@ -199,6 +208,7 @@ const actionCreators = {
   fetchExploreContent: exploreActions.fetchExploreContent,
   likePost: eventPostActions.likePost,
   dislikePost: eventPostActions.dislikePost,
+  pinEvent: eventActions.pinEvent,
 };
 
 export default connect(mapStateToProps, actionCreators)(ExplorePage);

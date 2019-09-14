@@ -29,3 +29,9 @@ export const getEventFailure = (errorObject) => ({
   type: types.GET_EVENT_FAILURE,
   errorObject,
 });
+
+export const pinEvent = (eventId, pin) => ({
+  type: types.PIN_EVENT,
+  eventId,
+  pin,
+});

@@ -11,6 +11,7 @@ import SolidHeart from '../../assets/icons/solid-heart.svg';
 import Bookmark from '../../assets/icons/bookmark.svg';
 import SolidBookmark from '../../assets/icons/solid-bookmark.svg';
 import { handlePostReaction } from '../../helpers/utils';
+import { reactions } from '../../helpers/defaults';
 
 const PostCard = ({
   post: reduxPost, handleLike, handleDisLike,
@@ -26,13 +27,13 @@ const PostCard = ({
 
   const toggleLike = (postId) => {
     const like = !post.user_likes;
-    setPost(handlePostReaction('like', post, like));
+    setPost(handlePostReaction(reactions.like, post, like));
     debounceLike.current(postId, like);
   };
 
   const toggleDisLike = (postId) => {
     const dislike = !post.user_dislikes;
-    setPost(handlePostReaction('dislike', post, dislike));
+    setPost(handlePostReaction(reactions.like, post, dislike));
     debounceDisLike.current(postId, dislike);
   };
 

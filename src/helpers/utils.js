@@ -202,3 +202,42 @@ export const handlePostReactionInPosts = (reaction, posts, postToReactId, reacti
 
   return newPostList;
 };
+
+/**
+ * method to handle reaction on an event
+ * @param {string} reaction (pin)
+ * @param {object} event
+ * @param {bool} reactionType
+ * @returns {object}
+ */
+export const handleEventReaction = (reaction, event, reactionType) => {
+  const newEvent = { ...event };
+  if (reaction === reactions.pin) {
+    newEvent[reactionKeys.pin.valueKey] = reactionType;
+  }
+
+  return newEvent;
+};
+
+/**
+ * method to handle reaction on a specific event in an array of events
+ * @param {string} reaction (pin)
+ * @param {object} event
+ * @param {bool} reactionType
+ * @returns {object}
+ */
+export const handlesEventReactionInEvents = (
+  reaction, events, eventToReactId, reactionType,
+) => {
+  const newEvents = [...events];
+  for (let i = 0; i < newEvents.length; i += 1) {
+    let event = newEvents[i];
+    if (event.event_id === eventToReactId) {
+      event = handleEventReaction(reaction, event, reactionType);
+      newEvents[i] = event;
+      break;
+    }
+  }
+
+  return newEvents;
+};

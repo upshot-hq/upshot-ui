@@ -23,7 +23,7 @@ export const EventPage = (props) => {
     match: { params }, event, posts,
     getEvent, eventIsLoading, getEventPosts,
     pagination, postIsLoading, postsErrorMessage,
-    postsSuccessStatus,
+    postsSuccessStatus, pinEvent,
   } = props;
   const [currentView, setCurrentView] = useState(detailsTab);
   const isInitialMount = useRef(true);
@@ -52,7 +52,13 @@ export const EventPage = (props) => {
     }
   }, [params, getEvent]);
 
-  const renderEventCard = (eventItem) => (<EventCard event={eventItem} />);
+  const handlePin = (eventId, pin) => {
+    pinEvent(eventId, pin);
+  };
+
+  const renderEventCard = (eventItem) => (
+  <EventCard event={eventItem} handlePin={handlePin} />
+  );
 
   const renderContent = () => (
 		<Fragment>
@@ -140,6 +146,7 @@ EventPage.propTypes = {
   postIsLoading: PropTypes.bool.isRequired,
   postsErrorMessage: PropTypes.string.isRequired,
   postsSuccessStatus: PropTypes.bool.isRequired,
+  pinEvent: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ event, eventPost }) => ({
@@ -155,6 +162,7 @@ const mapStateToProps = ({ event, eventPost }) => ({
 const actionCreators = {
   getEvent: eventActions.getEvent,
   getEventPosts: eventPostActions.getEventPosts,
+  pinEvent: eventActions.pinEvent,
 };
 
 export default connect(mapStateToProps, actionCreators)(EventPage);

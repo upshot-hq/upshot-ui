@@ -1,5 +1,6 @@
 import * as types from '../constants/actionTypes';
-import { defaultFetchLimit, defaultOffset } from '../../helpers/defaults';
+import { defaultFetchLimit, defaultOffset, reactions } from '../../helpers/defaults';
+import { handlesEventReactionInEvents } from '../../helpers/utils';
 
 const initialState = {
   content: [],
@@ -43,6 +44,14 @@ const explore = (state = initialState, action) => {
           message: action.errorObject.message || 'failed to fetch',
           errors: action.errorObject.errors,
         },
+      };
+
+    case types.PIN_EVENT:
+      return {
+        ...state,
+        content: handlesEventReactionInEvents(
+          reactions.pin, state.content, action.eventId, action.pin,
+        ),
       };
 
     default:

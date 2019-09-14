@@ -32,6 +32,11 @@ class EventAPI {
     const dislikeString = (dislike) ? 'true' : 'false';
     return axios.post(`${baseUrl}/events/posts/${postId}/dislikes`, { dislike: dislikeString });
   }
+
+  static pinEvent({ eventId, pin }) {
+    const pinString = (pin) ? 'true' : 'false';
+    return axios.post(`${baseUrl}/events/${eventId}/pins`, { pin: pinString });
+  }
 }
 
 export default EventAPI;
