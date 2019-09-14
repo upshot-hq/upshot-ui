@@ -15,7 +15,7 @@ const Layout = (props) => {
   const [showCreateEventModal, setShowCreateEventModal] = useState(false);
   const [showPostToEventModal, setShowPostToEventModal] = useState(false);
   const {
-    children, leftContainerStyles,
+    children, leftContainerStyles, match: { path },
     centerContainerStyles, rightContainerStyles,
   } = props;
 
@@ -37,9 +37,11 @@ const Layout = (props) => {
 
   const renderSideNavItem = (navItem, index) => {
     const { title, icon, link } = lang.layoutSideNav[navItem];
+    const navItemClassName = (link.toLowerCase() === path.toLowerCase())
+      ? 'nav-item active' : 'nav-item';
 
     return (
-      <div key={index} className="nav-item" onClick={() => history.push(link)}>
+      <div key={index} className={navItemClassName} onClick={() => history.push(link)}>
         <div className="icon">
           <FontAwesome
             key={index}
@@ -111,6 +113,7 @@ const Layout = (props) => {
 };
 
 Layout.propTypes = {
+  match: PropTypes.object.isRequired,
   children: PropTypes.node,
   leftContainerStyles: PropTypes.object,
   centerContainerStyles: PropTypes.object,

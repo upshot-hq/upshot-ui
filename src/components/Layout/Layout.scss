@@ -42,7 +42,7 @@
                 white-space: nowrap; 
                 overflow: hidden;
                 text-overflow: ellipsis;
-                &:hover {
+                &:hover, &.active {
                   color: $secondary-color;
                   .icon, .title {
                     color: $secondary-color;

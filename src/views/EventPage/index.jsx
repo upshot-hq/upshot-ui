@@ -118,7 +118,7 @@ export const EventPage = (props) => {
 
   return (
 		<Fragment>
-			<Layout centerContainerStyles={{ paddingTop: 0 }}>
+			<Layout centerContainerStyles={{ paddingTop: 0 }} match={props.match}>
 				<div className="eventpage" id="eventpage">
 					{eventIsLoading && renderLoader()}
 					{!eventIsLoading && event.id && renderView()}

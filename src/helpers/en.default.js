@@ -72,7 +72,10 @@ export default {
       hashtags: 'hashtags',
     },
     posts: {
-      noPosts: 'no post yet!',
+      noPosts: 'no posts yet!',
     },
+  },
+  homepage: {
+    noPosts: 'No Posts to show. Try exploring...',
   },
 };

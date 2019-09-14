@@ -324,6 +324,9 @@
           color: $gray-1;
           text-transform: lowercase;
           word-break: break-word;
+          &::first-letter {
+            text-transform: uppercase;
+          }
         }
       }
       &-loader-container {

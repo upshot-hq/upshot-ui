@@ -9,9 +9,11 @@ import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
 import './HomePage.scss';
 import Loader from '../../components/Loader';
 import { useIntersect } from '../../helpers/hooksUtils';
+import lang from '../../helpers/en.default';
 
 const HomePage = ({
-  eventsPosts, getPinnedEventsPosts, isEventsPostsLoading, pagination,
+  eventsPosts, getPinnedEventsPosts,
+  isEventsPostsLoading, pagination, match,
 }) => {
   const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
   const isInitialMount = useRef(true);
@@ -54,7 +56,7 @@ const HomePage = ({
   );
 
   return (
-		<Layout>
+		<Layout match={match}>
 			<div className="homepage" id="homepage">
 				<div className="header">
 					<div className="top">
@@ -71,7 +73,7 @@ const HomePage = ({
 					</div>
 				</div>
           {(!isEventsPostsLoading && !eventsPosts.length) && <div className="no-content">
-            <p>No Posts to show. Try exploring...</p>
+            <p>{lang.homepage.noPosts}</p>
           </div>}
 				<div className="content">
 					<div className="content-container">
@@ -97,6 +99,7 @@ const HomePage = ({
 };
 
 HomePage.propTypes = {
+  match: PropTypes.object.isRequired,
   eventsPosts: PropTypes.array.isRequired,
   isEventsPostsLoading: PropTypes.bool.isRequired,
   getPinnedEventsPosts: PropTypes.func.isRequired,
