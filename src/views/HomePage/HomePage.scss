@@ -117,7 +117,10 @@
       justify-content: center;
       align-items: center;
       &::-webkit-scrollbar {
-          width: 0 !important
+        width: rem(2px) !important
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: $gray-1;
       }
       .content__container {
         width: 90%;
@@ -135,7 +138,10 @@
     overflow-x: hidden;
     -ms-overflow-style: none;
     &::-webkit-scrollbar {
-        width: 0 !important
+      width: rem(2px) !important
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $gray-1;
     }
     &__loader {
       display: flex;
@@ -169,6 +175,7 @@
     display: flex;
     justify-content: center;
     margin-top: rem(20px);
+    color: $gray-1;
   }
   .fetch-more {
     height: rem(20px);

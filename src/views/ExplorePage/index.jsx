@@ -22,6 +22,7 @@ const ExplorePage = (props) => {
     isLoading, content, errorMessage,
     fetchExploreContent, pagination,
     likePost, dislikePost,
+    match,
   } = props;
   const [currentView, setCurrentView] = useState(allTab);
   const [isNewTab, setIsNewTab] = useState(true);
@@ -148,7 +149,7 @@ const ExplorePage = (props) => {
   );
 
   return (
-		<Layout>
+		<Layout match={match}>
 			<div className="explore-page" id="explore-page">
 				<div className="header">
 					<div className="top">
@@ -177,6 +178,7 @@ const ExplorePage = (props) => {
 };
 
 ExplorePage.propTypes = {
+  match: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string.isRequired,
   content: PropTypes.array.isRequired,

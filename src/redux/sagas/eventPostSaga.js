@@ -12,6 +12,9 @@ import {
   getPinnedEventsPostsFailed,
   likePost,
   dislikePost,
+  getEventPosts,
+  getEventPostsSuccess,
+  getEventPostsFailure,
 } from '../actionCreators/eventPostActions';
 
 export function* watchPostToEventSagaAsync() {
@@ -70,5 +73,20 @@ export function* dislikePostEventSagaAsync(action) {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     notifyError(errorMessage);
+  }
+}
+
+export function* watchGetEventPostsSagaAsync() {
+  yield takeLatest(getEventPosts({}).type, getEventPostsSagaAsync);
+}
+
+export function* getEventPostsSagaAsync(action) {
+  try {
+    const { eventId, limit, offset } = action.eventData;
+    const response = yield call(EventAPI.getEventPosts, { eventId, limit, offset });
+    yield put(getEventPostsSuccess(response.data));
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(getEventPostsFailure(errorMessage));
   }
 }

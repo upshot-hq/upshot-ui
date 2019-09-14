@@ -95,20 +95,14 @@
       overflow-x: hidden;
       -ms-overflow-style: none;
       &::-webkit-scrollbar {
-          width: 0 !important
+        width: rem(2px) !important
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: $gray-1;
       }
       &-container {
         width: 90%;
         margin: auto;
-      }
-      .dummy-card {
-        margin: auto;
-        margin-top: rem(20px);
-        margin-bottom: rem(20px);
-        height: 60%;
-        width: 90%;
-        background-color: $primary-color;
-        border-radius: rem(5px);
       }
     }
     .explore-page__loader {

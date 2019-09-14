@@ -3,7 +3,6 @@ import React, {
 } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
 import './EventPage.scss';
 import Layout from '../../components/Layout';
@@ -12,13 +11,19 @@ import Tabs from '../../components/Tabs';
 import EventCard from '../../components/EventCard';
 import Loader from '../../components/Loader';
 import * as eventActions from '../../redux/actionCreators/eventActions';
-import { addStylesToHashTags } from '../../helpers/utils';
+import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
+import EventDetails from './EventDetails';
+import EventPosts from './EventPosts';
+import { useIntersect } from '../../helpers/hooksUtils';
 
 export const EventPage = (props) => {
+  const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
   const { detailsTab, postsTab, analyticsTab } = lang.eventPage.tabs;
   const {
-    match: { params }, event,
-    getEvent, eventIsLoading,
+    match: { params }, event, posts,
+    getEvent, eventIsLoading, getEventPosts,
+    pagination, postIsLoading, postsErrorMessage,
+    postsSuccessStatus,
   } = props;
   const [currentView, setCurrentView] = useState(detailsTab);
   const isInitialMount = useRef(true);
@@ -49,88 +54,32 @@ export const EventPage = (props) => {
 
   const renderEventCard = (eventItem) => (<EventCard event={eventItem} />);
 
-  const renderAboutCard = () => (
-		<div className="details-card">
-			<div className="details-card__header">
-				<p className="text">{lang.eventPage.details.about}</p>
-			</div>
-			<div className="details-card__content">
-				<p className="text"
-					// eslint-disable-next-line
-					dangerouslySetInnerHTML={
-						{ __html: addStylesToHashTags(event.about) }
-					}
-				/>
-			</div>
-		</div>
-  );
-
-  const renderDateAndTimeCard = () => {
-    const startAt = moment(event.start_at).format('LLLL');
-    const endAt = moment(event.end_at).format('LLLL');
-
-    return (
-			<div className="details-card">
-				<div className="details-card__header">
-					<p className="text">{lang.eventPage.details.dateAndTime}</p>
-				</div>
-				<div className="details-card__content">
-					<div className="start">
-						<div className="text title">start:</div>
-						<div className="text">{startAt}</div>
-					</div>
-					<div className="end">
-						<div className="text title">end:</div>
-						<div className="text">{endAt}</div>
-					</div>
-				</div>
-			</div>
-    );
-  };
-
-  const renderContactCard = () => (
-		<div className="details-card">
-			<div className="details-card__header">
-				<p className="text">{lang.eventPage.details.contact}</p>
-			</div>
-			<div className="details-card__content">
-				<div className="start">
-					<div className="text title">name:</div>
-					<div className="text capitalize">
-						{`${event.user_firstname} ${event.user_lastname}`}
-					</div>
-				</div>
-				<div className="end">
-					<div className="text title">email:</div>
-					<div className="text">{event.user_email}</div>
-				</div>
-			</div>
-		</div>
-  );
-
-  const renderHashtagCard = () => (
-		<div className="details-card">
-			<div className="details-card__header">
-				<p className="text">{lang.eventPage.details.hashtags}</p>
-			</div>
-			<div className="details-card__content">
-				<p className="text"
-					// eslint-disable-next-line
-					dangerouslySetInnerHTML={
-						{ __html: addStylesToHashTags(event.hashtag) }
-					}
-				/>
-			</div>
-		</div>
-  );
-
-  const renderDetailsCards = () => (
+  const renderContent = () => (
 		<Fragment>
-			{renderAboutCard()}
-			{renderHashtagCard()}
-			{renderDateAndTimeCard()}
-			{renderContactCard()}
+      {(currentView === detailsTab) && <EventDetails event={event} />}
+      {(currentView === postsTab)
+        && <EventPosts posts={posts}
+          isLoading={postIsLoading}
+          errorMessage={postsErrorMessage}
+          setNode={setNode}
+          eventId={params.eventId}
+          isPostView={(currentView === postsTab)}
+          getEventPosts={getEventPosts}
+          isIntersected={isIntersected}
+          pagination={pagination}
+        />
+      }
 		</Fragment>
+  );
+
+  const renderFetchMoreTrigger = () => (
+    <div className="fetch-more" ref={setNode} />
+  );
+
+  const renderFetchMoreLoader = () => (
+		<div className="eventpage__posts-loader-container">
+			<Loader containerClassName="eventpage__posts-loader" />
+		</div>
   );
 
   const renderView = () => (
@@ -147,7 +96,9 @@ export const EventPage = (props) => {
 			</div>
 			<div className="eventpage__content">
 				<div className="eventpage__content-container">
-					{(currentView === detailsTab) && renderDetailsCards()}
+          {renderContent()}
+          {!!posts.length && !postsSuccessStatus && renderFetchMoreLoader()}
+          {!!posts.length && renderFetchMoreTrigger()}
 				</div>
 			</div>
 		</Fragment>
@@ -167,7 +118,7 @@ export const EventPage = (props) => {
 
   return (
 		<Fragment>
-			<Layout centerContainerStyles={{ paddingTop: 0 }}>
+			<Layout centerContainerStyles={{ paddingTop: 0 }} match={props.match}>
 				<div className="eventpage" id="eventpage">
 					{eventIsLoading && renderLoader()}
 					{!eventIsLoading && event.id && renderView()}
@@ -181,17 +132,29 @@ export const EventPage = (props) => {
 EventPage.propTypes = {
   match: PropTypes.object.isRequired,
   event: PropTypes.object.isRequired,
+  posts: PropTypes.array.isRequired,
+  pagination: PropTypes.object.isRequired,
   getEvent: PropTypes.func.isRequired,
+  getEventPosts: PropTypes.func.isRequired,
   eventIsLoading: PropTypes.bool.isRequired,
+  postIsLoading: PropTypes.bool.isRequired,
+  postsErrorMessage: PropTypes.string.isRequired,
+  postsSuccessStatus: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ event }) => ({
+const mapStateToProps = ({ event, eventPost }) => ({
   event: event.event,
+  posts: eventPost.posts,
   eventIsLoading: event.isLoadingEvent,
+  postIsLoading: eventPost.isLoading,
+  pagination: eventPost.pagination,
+  postsErrorMessage: eventPost.error.message,
+  postsSuccessStatus: eventPost.success,
 });
 
 const actionCreators = {
   getEvent: eventActions.getEvent,
+  getEventPosts: eventPostActions.getEventPosts,
 };
 
 export default connect(mapStateToProps, actionCreators)(EventPage);

@@ -22,6 +22,7 @@ Loader.propTypes = {
 
 Loader.defaultProps = {
   customStyles: {},
+  containerClassName: '',
 };
 
 export default Loader;

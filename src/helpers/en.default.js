@@ -71,5 +71,11 @@ export default {
       contact: 'contact',
       hashtags: 'hashtags',
     },
+    posts: {
+      noPosts: 'no posts yet!',
+    },
+  },
+  homepage: {
+    noPosts: 'No Posts to show. Try exploring...',
   },
 };
