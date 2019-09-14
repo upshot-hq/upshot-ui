@@ -19,7 +19,7 @@ export function* watchCreateEventSagaAsync() {
 
 export function* createEventSagaAsync(action) {
   try {
-    const response = yield call(EventAPI.getEvents, action.eventData);
+    const response = yield call(EventAPI.createEvent, action.eventData);
     yield put(createEventSuccess(response.data));
     notifySuccess('Event created successfully');
   } catch (error) {

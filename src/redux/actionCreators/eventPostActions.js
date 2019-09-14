@@ -33,6 +33,34 @@ export const getPinnedEventsPostsFailed = (error) => ({
   error,
 });
 
+export const likePost = (postId, like) => ({
+  type: types.LIKE_POST,
+  postId,
+  like,
+});
+
+export const likePostSuccess = () => ({
+  type: types.LIKE_POST_SUCCESS,
+});
+
+export const likePostFailed = () => ({
+  type: types.LIKE_POST_FAILURE,
+});
+
+export const dislikePost = (postId, dislike) => ({
+  type: types.DISLIKE_POST,
+  postId,
+  dislike,
+});
+
+export const dislikePostSuccess = () => ({
+  type: types.DISLIKE_POST_SUCCESS,
+});
+
+export const dislikePostFailed = () => ({
+  type: types.DISLIKE_POST_FAILURE,
+});
+
 export const getEventPosts = (
   { eventId, limit = defaultFetchLimit, offset = defaultOffset },
 ) => ({

@@ -10,6 +10,8 @@ import {
   getPinnedEventsPosts,
   getPinnedEventsPostsSuccess,
   getPinnedEventsPostsFailed,
+  likePost,
+  dislikePost,
   getEventPosts,
   getEventPostsSuccess,
   getEventPostsFailure,
@@ -44,6 +46,32 @@ export function* getPinnedEventsPostsSagaAsync(action) {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(getPinnedEventsPostsFailed(errorMessage));
+    notifyError(errorMessage);
+  }
+}
+
+export function* watchLikePostEventSagaAsync() {
+  yield takeLatest(likePost('', '').type, likePostEventSagaAsync);
+}
+
+export function* likePostEventSagaAsync(action) {
+  try {
+    yield call(EventAPI.likePost, action);
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    notifyError(errorMessage);
+  }
+}
+
+export function* watchDislikePostEventSagaAsync() {
+  yield takeLatest(dislikePost('', '').type, dislikePostEventSagaAsync);
+}
+
+export function* dislikePostEventSagaAsync(action) {
+  try {
+    yield call(EventAPI.dislikePost, action);
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
     notifyError(errorMessage);
   }
 }

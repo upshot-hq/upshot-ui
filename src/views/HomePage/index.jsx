@@ -12,8 +12,8 @@ import { useIntersect } from '../../helpers/hooksUtils';
 import lang from '../../helpers/en.default';
 
 const HomePage = ({
-  eventsPosts, getPinnedEventsPosts,
-  isEventsPostsLoading, pagination, match,
+  eventsPosts, getPinnedEventsPosts, isEventsPostsLoading, pagination,
+  likePost, dislikePost, match,
 }) => {
   const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
   const isInitialMount = useRef(true);
@@ -33,6 +33,14 @@ const HomePage = ({
   useEffect(() => {
     getPinnedEventsPosts(10, 0);
   }, [getPinnedEventsPosts]);
+
+  const handleLike = (postId, like) => {
+    likePost(postId, like);
+  };
+
+  const handleDisLike = (postId, dislike) => {
+    dislikePost(postId, dislike);
+  };
 
   const renderFetchMoreTrigger = () => (
     <div className="fetch-more" ref={setNode} />
@@ -84,7 +92,9 @@ const HomePage = ({
 								competition={post.competitions_name}
 								imageUrl={post.picture_url}
 								username={post.user_username}
-								caption={post.caption}
+                caption={post.caption}
+                handleLike={handleLike}
+                handleDisLike={handleDisLike}
 							/>
 						))}
 						{isEventsPostsLoading && <div className="content__loader">
@@ -104,6 +114,8 @@ HomePage.propTypes = {
   isEventsPostsLoading: PropTypes.bool.isRequired,
   getPinnedEventsPosts: PropTypes.func.isRequired,
   pagination: PropTypes.object.isRequired,
+  likePost: PropTypes.func.isRequired,
+  dislikePost: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ eventPost }) => ({
@@ -115,6 +127,8 @@ const mapStateToProps = ({ eventPost }) => ({
 
 const mapDispatchToProps = {
   getPinnedEventsPosts: eventPostActions.getPinnedEventsPosts,
+  likePost: eventPostActions.likePost,
+  dislikePost: eventPostActions.dislikePost,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

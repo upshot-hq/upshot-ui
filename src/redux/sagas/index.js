@@ -10,9 +10,11 @@ import * as exploreSaga from './exploreSaga';
 function* rootSaga() {
   yield all([
     // please arrange in alphabetical order
+    eventPostSaga.watchDislikePostEventSagaAsync(),
     competitionSaga.watchFetchCompetitionsSagaAsync(),
     eventPostSaga.watchGetEventPostsSagaAsync(),
     eventPostSaga.watchGetPinnedEventsPostsSagaAsync(),
+    eventPostSaga.watchLikePostEventSagaAsync(),
     eventPostSaga.watchPostToEventSagaAsync(),
     eventSaga.watchCreateEventSagaAsync(),
     eventSaga.watchGetEventSagaAsync(),
