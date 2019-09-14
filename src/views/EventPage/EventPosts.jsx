@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import PostCard from '../../components/PostCard';
 import Loader from '../../components/Loader/index';
 import { useDebounce } from '../../helpers/hooksUtils';
+import lang from '../../helpers/en.default';
 
 export const EventPosts = (props) => {
   const {
@@ -53,10 +54,17 @@ export const EventPosts = (props) => {
 		</div>
   );
 
+  const renderMessage = (message) => (
+		<div className="eventpage__posts-message">
+			<div className="text">{message}</div>
+		</div>
+  );
+
   return (
 		<Fragment>
       {!!posts.length && renderPosts()}
       {!posts.length && isLoading && renderLoader()}
+      {!posts.length && !isLoading && renderMessage(lang.eventPage.posts.noPosts)}
 		</Fragment>
   );
 };

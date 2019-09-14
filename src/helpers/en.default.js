@@ -72,7 +72,7 @@ export default {
       hashtags: 'hashtags',
     },
     posts: {
-      noPosts: 'no post yet!',
+      noPosts: 'no posts yet!',
     },
   },
 };
