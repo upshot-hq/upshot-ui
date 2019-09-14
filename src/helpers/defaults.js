@@ -21,3 +21,7 @@ export const reactionKeys = {
     countKey: 'total_dislikes',
   },
 };
+export const reactions = {
+  like: 'like',
+  dislike: 'dislike',
+};
