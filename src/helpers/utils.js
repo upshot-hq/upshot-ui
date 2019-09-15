@@ -243,11 +243,11 @@ export const handlesEventReactionInEvents = (
 };
 
 /**
- * determines which search result should be returned
+ * determines which result should be returned
  * @param {array} firstResult
  * @param {array} secondResult
  * @param {boolean} returnSecondResult - if it should return the firstResult or secondResult
- * @returns {array} currentResult or newResult
+ * @returns {array} selected result
  */
 export const determineResult = (firstResult, secondResult, returnSecondResult) => {
   if (returnSecondResult) return secondResult;

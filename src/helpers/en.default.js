@@ -3,6 +3,7 @@ export default {
   serverErrorMessage: 'Server error, try again',
   authenticatonErrorMessage: 'Authentication failed',
   failedToFetch: 'failed to fetch',
+  defaultSearchPlaceholder: 'search upshot',
   layoutSideNav: {
     home: {
       title: 'home',
@@ -49,6 +50,9 @@ export default {
   postToEvent: {
     competitionDropdownInfo: 'select a competition you would like to enter',
     eventSearchInfo: 'search and select an event',
+    captionPlaceholder: 'enter caption',
+    dropdownPlaceholder: 'select a competition',
+    searchPlaceholder: 'search events',
   },
   explorePage: {
     noContent: 'no content to explore :(',
@@ -77,5 +81,9 @@ export default {
   },
   homepage: {
     noPosts: 'No Posts to show. Try exploring...',
+  },
+  searchPage: {
+    noSearchQuery: 'nothing to search',
+    pageTitle: 'search page',
   },
 };

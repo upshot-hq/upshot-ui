@@ -10,7 +10,7 @@
     width: 100%;
     height: rem(30px);
     border-radius: rem(5px);
-    background-color: $gray-3;
+    background-color: $gray-7;
     display: flex;
     &-icon {
       flex-basis: 8%;
@@ -49,7 +49,7 @@
   &__result {
     position: absolute;
     margin-left: rem(1px);
-    z-index: 99;
+    z-index: 10;
     background-color: $white;
     position: absolute;
     top: 110%;
@@ -60,9 +60,11 @@
     border: rem(1px) solid $gray-7;
     overflow-y: scroll;
     overflow-x: hidden;
+    &::-webkit-scrollbar { 
+      display: none; 
+    }
     .row {
       width: 100%;
-      padding: rem(10px) rem(20px);
       border-bottom: rem(1px) solid $gray-7;
       color: $primary-color;
       font-size: rem(16px);
@@ -70,6 +72,14 @@
       cursor: pointer;
       &:hover {
         background-color: $gray-3;
+      }
+      &-content {
+        width: 90%;
+        min-height: rem(30px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: rem(10px) rem(20px);
       }
       .text {
         cursor: pointer;
@@ -101,8 +111,28 @@
       color: $gray-1;
       font-size: rem(14px);
       cursor: default;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       &:hover {
         background-color: $white;
+      }
+    }
+  }
+  &__row-capsule {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: rem(6px 0);
+    min-width: rem(32px);
+    border: none;
+    box-shadow: none;
+    font-size: rem(10px);
+    text-align: center;
+    background-color: $gray-5;
+    &-text {
+      &:hover {
+        color: $white;
       }
     }
   }

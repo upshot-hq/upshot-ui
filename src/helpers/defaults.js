@@ -29,3 +29,13 @@ export const reactions = {
   dislike: 'dislike',
   pin: 'pin',
 };
+export const resources = {
+  event: 'event',
+  post: 'eventPost',
+};
+export const searchScopes = {
+  all: 'all',
+  events: 'events',
+  posts: 'posts',
+};
+export const enterKeyCode = 13;

@@ -1,0 +1,9 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+#us-generalSearch {
+  &.generalSearch {
+    width: 100%;
+  }
+}

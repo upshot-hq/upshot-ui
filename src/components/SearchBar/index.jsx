@@ -5,16 +5,19 @@ import FontAwesome from 'react-fontawesome';
 
 import './SearchBar.scss';
 import { useDebounce } from '../../helpers/hooksUtils';
+import { history } from '../../helpers/utils';
 import lang from '../../helpers/en.default';
 import * as searchActions from '../../redux/actionCreators/searchActions';
 import Loader from '../Loader';
+import { resources, enterKeyCode } from '../../helpers/defaults';
+import Capsule from '../Capsule';
 
 const SearchBar = ({
   placeholder, searchError,
   iconStyle, inputStyle, searchIsLoading,
-  search, searchScope, searchResult,
-  searchResultTitleProperty, searchResultValueProperty,
-  handleSearchResultClick,
+  search, searchScope, searchResult, initialQuery,
+  handleSearchResultClick, strictSearch, getSearchResultTitleAndValue,
+  allowEnterClickToSearchPage,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showResultContainer, setShowResultContainer] = useState(false);
@@ -23,11 +26,11 @@ const SearchBar = ({
   useEffect(() => {
     if (debouncedSearchQuery) {
       setShowResultContainer(true);
-      search({ scope: searchScope, searchQuery: debouncedSearchQuery });
+      search({ scope: searchScope, searchQuery: debouncedSearchQuery, strict: strictSearch });
     } else {
       setShowResultContainer(false);
     }
-  }, [debouncedSearchQuery, searchScope, search]);
+  }, [debouncedSearchQuery, searchScope, search, strictSearch]);
 
 
   const handleInputChange = (event) => {
@@ -35,9 +38,16 @@ const SearchBar = ({
     setSearchQuery(value);
   };
 
-  const handleRowClick = (rowValue) => {
-    handleSearchResultClick(rowValue);
+  const handleRowClick = (rowValue, type = '') => {
+    handleSearchResultClick(rowValue, type);
     setShowResultContainer(false);
+  };
+
+  const handleKeyDown = (e) => {
+    if (allowEnterClickToSearchPage
+      && (e.which === enterKeyCode || e.keyCode === enterKeyCode)) {
+      history.push(`/search?q=${searchQuery}`);
+    }
   };
 
   const renderSearchBar = () => (
@@ -47,7 +57,8 @@ const SearchBar = ({
       </div>
       <input type="text" name="search" style={inputStyle}
         className="us-search__bar-input" placeholder={placeholder}
-        onChange={handleInputChange}
+        onChange={handleInputChange} defaultValue={initialQuery}
+        autoComplete="off" onKeyDown={handleKeyDown}
       />
     </div>
   );
@@ -63,20 +74,33 @@ const SearchBar = ({
     );
   };
 
+  const renderResultItem = (result, index) => {
+    const { title, value, type } = getSearchResultTitleAndValue(result);
+    return (
+      <div className="row" key={index}
+        id={value}
+        onClick={() => handleRowClick(result, type)}
+      >
+        <div className="row-content">
+          <div className="text">
+            <span>{title}</span>
+          </div>
+            {(type === resources.post) && <Capsule
+              title="post"
+              id={result.id}
+              showCloseBtn={false}
+              handleClose={() => handleRowClick(result, type)}
+              capsuleClassName="us-search__row-capsule"
+              textClassName="us-search__row-capsule-text"
+            />}
+          </div>
+        </div>
+    );
+  };
+
   const renderSearchResult = () => (
     <Fragment>
-      {
-        searchResult.map((result, index) => (
-          <div className="row" key={index}
-            id={result[searchResultValueProperty]}
-            onClick={() => handleRowClick(result)}
-          >
-            <div className="text">
-              <span>{result[searchResultTitleProperty]}</span>
-            </div>
-          </div>))
-
-      }
+      {searchResult.map((result, index) => (renderResultItem(result, index)))}
     </Fragment>
   );
 
@@ -95,7 +119,7 @@ const SearchBar = ({
     {
       searchIsLoading
         ? <div className="row loading">
-            <Loader customStyles={{ width: '15px', height: '15px' }} />
+            <Loader customStyles={{ width: '0.94rem', height: '0.94rem' }} />
           </div>
         : renderContent()
     }
@@ -104,7 +128,7 @@ const SearchBar = ({
 
   return (
     <Fragment>
-      <div className="us-search">
+      <div className="us-search" id="us-search">
         {renderSearchBar()}
         {showResultContainer && renderSearchResultContainer()}
       </div>
@@ -119,15 +143,20 @@ SearchBar.propTypes = {
   searchIsLoading: PropTypes.bool.isRequired,
   search: PropTypes.func.isRequired,
   searchScope: PropTypes.string.isRequired,
-  searchResultTitleProperty: PropTypes.string.isRequired,
-  searchResultValueProperty: PropTypes.string.isRequired,
   searchResult: PropTypes.array.isRequired,
   searchError: PropTypes.string.isRequired,
   handleSearchResultClick: PropTypes.func.isRequired,
+  getSearchResultTitleAndValue: PropTypes.func.isRequired,
+  strictSearch: PropTypes.bool,
+  initialQuery: PropTypes.string,
+  allowEnterClickToSearchPage: PropTypes.bool,
 };
 
 SearchBar.defaultProps = {
-  placeholder: 'search here',
+  placeholder: lang.defaultSearchPlaceholder,
+  strictSearch: false,
+  initialQuery: '',
+  allowEnterClickToSearchPage: false,
 };
 
 const mapStateToProps = ({ search }) => ({
