@@ -10,10 +10,26 @@
     height: 100%;
     .header {
       width: 100%;
-      height: 12%;
+      height: 16%;
       border-bottom: rem(1px) solid $gray-3;
       .top {
         height: 100%;
+        .title {
+          height: 40%;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: flex-end;
+          &-text {
+            width: 80%;
+            font-family: $primary-font;
+            font-size: rem(18px);
+            font-weight: bold;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+        }
         .back-btn {
           color: $primary-color;
           flex-basis: 10%;
@@ -31,7 +47,7 @@
         }
         .topbar {
           display: flex;
-          height: 100%;
+          height: 55%;
           width: 100%;
           justify-content: space-between;
           align-items: center;

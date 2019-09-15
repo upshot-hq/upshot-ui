@@ -99,6 +99,9 @@ const SearchPage = (props) => {
 			<div className="search-page" id="search-page">
 				<div className="header">
 					<div className="top">
+            <div className="title">
+              <span className="title-text">Search Page</span>
+            </div>
 						{renderTopBar()}
 					</div>
 				</div>
