@@ -11,7 +11,7 @@ import Capsule from '../Capsule';
 import pin from '../../assets/pin.svg';
 import pinFill from '../../assets/pin-fill.svg';
 import { handleEventReaction } from '../../helpers/utils';
-import { reactions } from '../../helpers/defaults';
+import { reactions, debounceTime } from '../../helpers/defaults';
 
 const EventCard = (props) => {
   const { event: reduxEvent, handlePin } = props;
@@ -19,7 +19,7 @@ const EventCard = (props) => {
   const debouncePin = useRef(() => {});
 
   useEffect(() => {
-    debouncePin.current = debounce(handlePin, 2000);
+    debouncePin.current = debounce(handlePin, debounceTime);
   }, [handlePin]);
 
   const footerLabels = {

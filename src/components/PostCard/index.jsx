@@ -11,7 +11,7 @@ import SolidHeart from '../../assets/icons/solid-heart.svg';
 import Bookmark from '../../assets/icons/bookmark.svg';
 import SolidBookmark from '../../assets/icons/solid-bookmark.svg';
 import { handlePostReaction } from '../../helpers/utils';
-import { reactions } from '../../helpers/defaults';
+import { reactions, debounceTime } from '../../helpers/defaults';
 
 const PostCard = ({
   post: reduxPost, handleLike, handleDisLike,
@@ -21,8 +21,8 @@ const PostCard = ({
   const debounceLike = useRef(() => {});
   const debounceDisLike = useRef(() => {});
   useEffect(() => {
-    debounceLike.current = debounce(handleLike, 2000);
-    debounceDisLike.current = debounce(handleDisLike, 2000);
+    debounceLike.current = debounce(handleLike, debounceTime);
+    debounceDisLike.current = debounce(handleDisLike, debounceTime);
   }, [handleLike, handleDisLike]);
 
   const toggleLike = (postId) => {
