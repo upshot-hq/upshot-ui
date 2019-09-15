@@ -153,7 +153,7 @@ SearchBar.propTypes = {
 };
 
 SearchBar.defaultProps = {
-  placeholder: 'search upshot',
+  placeholder: lang.defaultSearchPlaceholder,
   strictSearch: false,
   initialQuery: '',
   allowEnterClickToSearchPage: false,

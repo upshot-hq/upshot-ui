@@ -3,6 +3,7 @@ export default {
   serverErrorMessage: 'Server error, try again',
   authenticatonErrorMessage: 'Authentication failed',
   failedToFetch: 'failed to fetch',
+  defaultSearchPlaceholder: 'search upshot',
   layoutSideNav: {
     home: {
       title: 'home',

@@ -60,6 +60,9 @@
     border: rem(1px) solid $gray-7;
     overflow-y: scroll;
     overflow-x: hidden;
+    &::-webkit-scrollbar { 
+      display: none; 
+    }
     .row {
       width: 100%;
       border-bottom: rem(1px) solid $gray-7;
@@ -72,6 +75,7 @@
       }
       &-content {
         width: 90%;
+        min-height: rem(30px);
         display: flex;
         justify-content: space-between;
         align-items: center;
