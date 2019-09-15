@@ -13,6 +13,7 @@ export const EventPosts = (props) => {
     posts, isLoading,
     isPostView, pagination,
     eventId, getEventPosts, isIntersected,
+    handleLike, handleDisLike,
   } = props;
   const isInitialMount = useRef(true);
 
@@ -44,7 +45,12 @@ export const EventPosts = (props) => {
 
   const renderPosts = () => (
     <div className="eventpage__posts">
-      {posts.map((post, index) => <PostCard post={post} key={index} />)}
+      {posts.map((post, index) => <PostCard
+        post={post}
+        key={index}
+        handleLike={handleLike}
+        handleDisLike={handleDisLike}
+        />)}
     </div>
   );
 
@@ -77,6 +83,8 @@ EventPosts.propTypes = {
   isIntersected: PropTypes.bool.isRequired,
   getEventPosts: PropTypes.func.isRequired,
   pagination: PropTypes.object.isRequired,
+  handleLike: PropTypes.func.isRequired,
+  handleDisLike: PropTypes.func.isRequired,
 };
 
 EventPosts.defaultProps = {

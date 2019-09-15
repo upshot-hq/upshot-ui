@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import { handlePostReactionInPosts } from '../../helpers/utils';
+import { handlePostReactionInPosts, determineResult } from '../../helpers/utils';
 
 const initialState = {
   posts: [],
@@ -41,7 +41,11 @@ const eventPost = (state = initialState, action) => {
         isLoading: false,
         success: true,
         message: action.response.message,
-        posts: [...state.posts, ...action.response.posts],
+        posts: determineResult(
+          [...state.posts, ...action.response.posts],
+          action.response.posts,
+          action.isNewRequest,
+        ),
         error: initialState.error,
         pagination: action.response.pagination,
       };

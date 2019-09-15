@@ -31,7 +31,7 @@ const HomePage = ({
   }, [getPinnedEventsPosts, isEventsPostsLoading, pagination, eventsPosts, isIntersected]);
 
   useEffect(() => {
-    getPinnedEventsPosts(10, 0);
+    getPinnedEventsPosts(10, 0, true);
   }, [getPinnedEventsPosts]);
 
   const handleLike = (postId, like) => {

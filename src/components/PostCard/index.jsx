@@ -13,7 +13,7 @@ import SolidBookmark from '../../assets/icons/solid-bookmark.svg';
 import { handlePostReaction } from '../../helpers/utils';
 import { reactions } from '../../helpers/defaults';
 
-const debounceTime = 2000;
+const debounceTime = 1000;
 
 const PostCard = ({
   post: reduxPost, handleLike, handleDisLike,
@@ -104,8 +104,13 @@ PostCard.propTypes = {
     total_likes: PropTypes.string,
     total_dislikes: PropTypes.string,
   }),
-  handleLike: PropTypes.func.isRequired,
-  handleDisLike: PropTypes.func.isRequired,
+  handleLike: PropTypes.func,
+  handleDisLike: PropTypes.func,
+};
+
+PostCard.defaultProps = {
+  handleLike: () => {},
+  handleDisLike: () => {},
 };
 
 export default PostCard;

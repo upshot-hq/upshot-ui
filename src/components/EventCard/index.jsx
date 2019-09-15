@@ -13,7 +13,7 @@ import pinFill from '../../assets/pin-fill.svg';
 import { handleEventReaction } from '../../helpers/utils';
 import { reactions } from '../../helpers/defaults';
 
-const debounceTime = 2000;
+const debounceTime = 1000;
 
 const EventCard = (props) => {
   const { event: reduxEvent, handlePin } = props;
