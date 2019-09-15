@@ -33,7 +33,7 @@ const PostCard = ({
 
   const toggleDisLike = (postId) => {
     const dislike = !post.user_dislikes;
-    setPost(handlePostReaction(reactions.like, post, dislike));
+    setPost(handlePostReaction(reactions.dislike, post, dislike));
     debounceDisLike.current(postId, dislike);
   };
 
