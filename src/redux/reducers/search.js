@@ -1,7 +1,9 @@
 import * as types from '../constants/actionTypes';
+import { fillSearchResults } from '../../helpers/utils';
 
 const initialState = {
   result: [],
+  searchPageResult: [],
   success: false,
   message: '',
   error: {
@@ -21,7 +23,16 @@ const search = (state = initialState, action) => {
         isLoading: false,
         success: true,
         message: action.response.message,
-        result: action.response.search,
+        result: fillSearchResults(
+          action.response.search,
+          state.result,
+          action.isSearchPage,
+        ),
+        searchPageResult: fillSearchResults(
+          state.searchPageResult,
+          action.response.search,
+          action.isSearchPage,
+        ),
         error: initialState.error,
       };
     case types.SEARCH_FAILURE:

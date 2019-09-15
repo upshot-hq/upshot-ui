@@ -12,6 +12,7 @@ import SearchBar from '../SearchBar';
 import ImageUpload from '../ImageUpload/index';
 import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
 import { createFormData } from '../../helpers/utils';
+import { searchScopes } from '../../helpers/defaults';
 
 const PostToEvent = (props) => {
   const [selectedCompetition, setSelectedCompetition] = useState('');
@@ -51,6 +52,18 @@ const PostToEvent = (props) => {
       setDisableFormBtn(disableBtn);
     }
   }, [selectedEvent, selectedCompetition, imageFile, isPostingToEvent]);
+
+  const getSearchResultTitleAndValue = (resultItem) => {
+    const titleAndValue = { title: '', value: '', type: '' };
+    const isEvent = ('start_at' in resultItem);
+
+    if (isEvent) {
+      titleAndValue.title = resultItem.hashtag;
+      titleAndValue.value = resultItem.id;
+    }
+
+    return titleAndValue;
+  };
 
   const handleEventSelection = (event) => {
     setSelectedEvent(event);
@@ -96,11 +109,11 @@ const PostToEvent = (props) => {
       <div className="form-content">
         <div className="search">
           <SearchBar
-            searchScope="events"
-            searchResultTitleProperty="hashtag"
-            searchResultValueProperty="id"
+            searchScope={searchScopes.events}
+            getSearchResultTitleAndValue={getSearchResultTitleAndValue}
             handleSearchResultClick={handleEventSelection}
-            placeholder="search events here"
+            placeholder={lang.postToEvent.searchPlaceholder}
+            strictSearch
           />
         </div>
         {selectedEvent
@@ -122,7 +135,7 @@ const PostToEvent = (props) => {
             error=""
             info={dropdownInfo}
             onChange={handleDropdownSelect}
-            placeholder="select a competition"
+            placeholder={lang.postToEvent.dropdownPlaceholder}
             disabled={!selectedEvent}
           />
         </div>
@@ -141,7 +154,7 @@ const PostToEvent = (props) => {
         </div>
         <div className="caption">
           <CustomTextarea
-            placeholder="enter caption"
+            placeholder={lang.postToEvent.captionPlaceholder}
             styles={{ fontWeight: '600' }}
             name="caption"
             onChange={handleCaptionChange}

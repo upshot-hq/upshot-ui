@@ -10,6 +10,7 @@ import './HomePage.scss';
 import Loader from '../../components/Loader';
 import { useIntersect } from '../../helpers/hooksUtils';
 import lang from '../../helpers/en.default';
+import GeneralSearchBar from '../../components/GeneralSearchBar/index';
 
 const HomePage = ({
   eventsPosts, getPinnedEventsPosts, isEventsPostsLoading, pagination,
@@ -49,13 +50,10 @@ const HomePage = ({
   const renderSearchBar = () => (
 		<div className="searchbar">
 			<div className="icon back-btn">
-			<FontAwesome name="arrow-left" />
+			  <FontAwesome name="arrow-left" />
 			</div>
 			<div className="bar">
-				<div className="search-icon">
-				<FontAwesome name="search" />
-				</div>
-				<input type="text" name="search" className="search-input"/>
+        <GeneralSearchBar />
 			</div>
 			<div className="icon options-btn">
 				<FontAwesome name="ellipsis-h" />
