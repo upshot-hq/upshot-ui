@@ -11,7 +11,9 @@ import Capsule from '../Capsule';
 import pin from '../../assets/pin.svg';
 import pinFill from '../../assets/pin-fill.svg';
 import { handleEventReaction } from '../../helpers/utils';
-import { reactions, debounceTime } from '../../helpers/defaults';
+import { reactions } from '../../helpers/defaults';
+
+const debounceTime = 2000;
 
 const EventCard = (props) => {
   const { event: reduxEvent, handlePin } = props;
