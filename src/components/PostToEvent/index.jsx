@@ -52,6 +52,18 @@ const PostToEvent = (props) => {
     }
   }, [selectedEvent, selectedCompetition, imageFile, isPostingToEvent]);
 
+  const getSearchResultTitleAndValue = (resultItem) => {
+    const titleAndValue = { title: '', value: '', type: '' };
+    const isEvent = ('start_at' in resultItem);
+
+    if (isEvent) {
+      titleAndValue.title = resultItem.hashtag;
+      titleAndValue.value = resultItem.id;
+    }
+
+    return titleAndValue;
+  };
+
   const handleEventSelection = (event) => {
     setSelectedEvent(event);
   };
@@ -97,10 +109,10 @@ const PostToEvent = (props) => {
         <div className="search">
           <SearchBar
             searchScope="events"
-            searchResultTitleProperty="hashtag"
-            searchResultValueProperty="id"
+            getSearchResultTitleAndValue={getSearchResultTitleAndValue}
             handleSearchResultClick={handleEventSelection}
-            placeholder="search events here"
+            placeholder="search events"
+            strictSearch
           />
         </div>
         {selectedEvent

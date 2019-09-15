@@ -6,7 +6,6 @@ import './ExplorePage.scss';
 import { PropTypes } from 'prop-types';
 import Layout from '../../components/Layout';
 import Tabs from '../../components/Tabs';
-import SearchBar from '../../components/SearchBar';
 import EventCard from '../../components/EventCard';
 import Loader from '../../components/Loader';
 import lang from '../../helpers/en.default';
@@ -14,6 +13,7 @@ import PostCard from '../../components/PostCard/index';
 import * as exploreActions from '../../redux/actionCreators/exploreActions';
 import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
 import { useIntersect } from '../../helpers/hooksUtils';
+import GeneralSearch from '../../components/GeneralSearch';
 
 const ExplorePage = (props) => {
   const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
@@ -74,13 +74,7 @@ const ExplorePage = (props) => {
 			<FontAwesome name="arrow-left" />
 			</div>
 			<div className="bar">
-				<SearchBar
-					search={() => {}}
-					handleSearchResultClick={() => {}}
-					searchScope=""
-					searchResultTitleProperty=""
-					searchResultValueProperty=""
-				/>
+        <GeneralSearch />
 			</div>
 			<div className="icon options-btn">
 				<FontAwesome name="ellipsis-h" />

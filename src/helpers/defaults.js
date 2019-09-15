@@ -25,3 +25,8 @@ export const reactions = {
   like: 'like',
   dislike: 'dislike',
 };
+
+export const resources = {
+  event: 'event',
+  post: 'eventPost',
+};

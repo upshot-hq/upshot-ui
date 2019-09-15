@@ -78,4 +78,7 @@ export default {
   homepage: {
     noPosts: 'No Posts to show. Try exploring...',
   },
+  searchPage: {
+    noSearchQuery: 'nothing to search',
+  },
 };

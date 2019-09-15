@@ -15,7 +15,7 @@ export function* watchSearchSagaAsync() {
 export function* searchSagaAsync(action) {
   try {
     const response = yield call(SearchAPI.search, action.payload);
-    yield put(searchSuccess(response.data));
+    yield put(searchSuccess(response.data, action.payload.isSearchPage));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(searchFailure(errorMessage));
