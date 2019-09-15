@@ -11,7 +11,9 @@ import SolidHeart from '../../assets/icons/solid-heart.svg';
 import Bookmark from '../../assets/icons/bookmark.svg';
 import SolidBookmark from '../../assets/icons/solid-bookmark.svg';
 import { handlePostReaction } from '../../helpers/utils';
-import { reactions, debounceTime } from '../../helpers/defaults';
+import { reactions } from '../../helpers/defaults';
+
+const debounceTime = 2000;
 
 const PostCard = ({
   post: reduxPost, handleLike, handleDisLike,

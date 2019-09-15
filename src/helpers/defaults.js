@@ -11,7 +11,6 @@ export const defaultFetchLimit = 10;
 export const defaultOffset = 0;
 export const increment = 'increment';
 export const decrement = 'decrement';
-export const debounceTime = 1000;
 export const reactionKeys = {
   like: {
     valueKey: 'user_likes',
