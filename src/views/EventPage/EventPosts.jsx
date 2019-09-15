@@ -2,18 +2,23 @@ import React, {
   Fragment, useEffect, useRef,
 } from 'react';
 import PropTypes from 'prop-types';
+import { debounce } from 'lodash';
 
 import PostCard from '../../components/PostCard';
 import Loader from '../../components/Loader/index';
 import { useDebounce } from '../../helpers/hooksUtils';
 import lang from '../../helpers/en.default';
+import CompetitionFilter from '../../components/CompetitionFilter';
+
+const debounceTime = 1000;
 
 export const EventPosts = (props) => {
   const {
     posts, isLoading,
     isPostView, pagination,
     eventId, getEventPosts, isIntersected,
-    handleLike, handleDisLike,
+    handleLike, handleDisLike, eventCompetitions,
+    competitionFilter, handleCompetitionFilter,
   } = props;
   const isInitialMount = useRef(true);
 
@@ -21,16 +26,27 @@ export const EventPosts = (props) => {
     const { limit, offset, totalCount } = pagination;
     if (isIntersected && isPostView && posts.length < totalCount) {
       const nextOffset = Number(offset) + Number(limit);
-      getEventPosts({ eventId, limit, offset: nextOffset });
+      getEventPosts({
+        eventId,
+        limit,
+        offset: nextOffset,
+        competitionId: competitionFilter,
+        isNewFilter: false,
+      });
     }
   };
 
-  const debouncedFetchMoreContent = useDebounce(fetchMoreContent, 1000);
+  const debouncedFetchMoreContent = useDebounce(fetchMoreContent, debounceTime);
+  const debounceGetEventPosts = useRef(() => {});
+
+  useEffect(() => {
+    debounceGetEventPosts.current = debounce(getEventPosts, debounceTime);
+  }, [getEventPosts]);
 
   useEffect(() => {
     if (isInitialMount.current) {
       if (isPostView && !posts.length) {
-        getEventPosts({ eventId });
+        getEventPosts({ eventId, isNewFilter: true });
       }
 
       isInitialMount.current = false;
@@ -42,6 +58,15 @@ export const EventPosts = (props) => {
     isLoading, posts, debouncedFetchMoreContent,
     isIntersected,
   ]);
+
+  const handleCompetitonFilterClick = (competitionId) => {
+    handleCompetitionFilter(competitionId);
+    debounceGetEventPosts.current({
+      eventId,
+      competitionId,
+      isNewFilter: true,
+    });
+  };
 
   const renderPosts = () => (
     <div className="eventpage__posts">
@@ -68,6 +93,11 @@ export const EventPosts = (props) => {
 
   return (
 		<Fragment>
+      <CompetitionFilter
+        competitions={eventCompetitions}
+        handleFilterSelect={handleCompetitonFilterClick}
+        selectedCompetitionId={competitionFilter}
+      />
       {!!posts.length && renderPosts()}
       {!posts.length && isLoading && renderLoader()}
       {!posts.length && !isLoading && renderMessage(lang.eventPage.posts.noPosts)}
@@ -85,6 +115,9 @@ EventPosts.propTypes = {
   pagination: PropTypes.object.isRequired,
   handleLike: PropTypes.func.isRequired,
   handleDisLike: PropTypes.func.isRequired,
+  eventCompetitions: PropTypes.array.isRequired,
+  handleCompetitionFilter: PropTypes.func.isRequired,
+  competitionFilter: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 EventPosts.defaultProps = {

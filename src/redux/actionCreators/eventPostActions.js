@@ -63,11 +63,19 @@ export const dislikePostFailed = () => ({
   type: types.DISLIKE_POST_FAILURE,
 });
 
-export const getEventPosts = (
-  { eventId, limit = defaultFetchLimit, offset = defaultOffset },
-) => ({
+export const getEventPosts = ({
+  eventId, limit = defaultFetchLimit,
+  offset = defaultOffset, competitionId = '',
+  isNewFilter,
+}) => ({
   type: types.GET_EVENT_POSTS,
-  eventData: { eventId, limit, offset },
+  eventData: {
+    eventId,
+    limit,
+    offset,
+    competitionId,
+    isNewFilter: isNewFilter || false,
+  },
 });
 
 export const getEventPostsSuccess = (response) => ({

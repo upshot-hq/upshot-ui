@@ -74,6 +74,7 @@ const eventPost = (state = initialState, action) => {
         isLoading: true,
         success: false,
         error: initialState.error,
+        posts: determineResult(state.posts, initialState.posts, action.eventData.isNewFilter),
       };
     case types.GET_EVENT_POSTS_SUCCESS:
       return {
