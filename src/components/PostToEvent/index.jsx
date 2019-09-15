@@ -12,6 +12,7 @@ import SearchBar from '../SearchBar';
 import ImageUpload from '../ImageUpload/index';
 import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
 import { createFormData } from '../../helpers/utils';
+import { searchScopes } from '../../helpers/defaults';
 
 const PostToEvent = (props) => {
   const [selectedCompetition, setSelectedCompetition] = useState('');
@@ -108,10 +109,10 @@ const PostToEvent = (props) => {
       <div className="form-content">
         <div className="search">
           <SearchBar
-            searchScope="events"
+            searchScope={searchScopes.events}
             getSearchResultTitleAndValue={getSearchResultTitleAndValue}
             handleSearchResultClick={handleEventSelection}
-            placeholder="search events"
+            placeholder={lang.postToEvent.searchPlaceholder}
             strictSearch
           />
         </div>
@@ -134,7 +135,7 @@ const PostToEvent = (props) => {
             error=""
             info={dropdownInfo}
             onChange={handleDropdownSelect}
-            placeholder="select a competition"
+            placeholder={lang.postToEvent.dropdownPlaceholder}
             disabled={!selectedEvent}
           />
         </div>
@@ -153,7 +154,7 @@ const PostToEvent = (props) => {
         </div>
         <div className="caption">
           <CustomTextarea
-            placeholder="enter caption"
+            placeholder={lang.postToEvent.captionPlaceholder}
             styles={{ fontWeight: '600' }}
             name="caption"
             onChange={handleCaptionChange}

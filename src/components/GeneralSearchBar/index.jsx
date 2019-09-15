@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import './GeneralSearch.scss';
+import './GeneralSearchBar.scss';
 import SearchBar from '../SearchBar';
 import { history } from '../../helpers/utils';
-import { resources } from '../../helpers/defaults';
+import { resources, searchScopes } from '../../helpers/defaults';
 
-const GeneralSearch = (props) => {
+const GeneralSearchBar = (props) => {
   const getSearchResultTitleAndValue = (resultItem) => {
     const titleAndValue = { title: '', value: '', type: '' };
     const isEvent = ('start_at' in resultItem);
@@ -39,7 +39,7 @@ const GeneralSearch = (props) => {
   const renderSearch = () => (
     <Fragment>
       <SearchBar
-        searchScope="all"
+        searchScope={searchScopes.all}
         getSearchResultTitleAndValue={getSearchResultTitleAndValue}
         handleSearchResultClick={handleSearchResultClick}
         initialQuery={props.initialQuery}
@@ -55,12 +55,12 @@ const GeneralSearch = (props) => {
   );
 };
 
-GeneralSearch.propTypes = {
+GeneralSearchBar.propTypes = {
   initialQuery: PropTypes.string,
 };
 
-GeneralSearch.defaultProps = {
+GeneralSearchBar.defaultProps = {
   initialQuery: '',
 };
 
-export default GeneralSearch;
+export default GeneralSearchBar;

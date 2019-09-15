@@ -49,6 +49,9 @@ export default {
   postToEvent: {
     competitionDropdownInfo: 'select a competition you would like to enter',
     eventSearchInfo: 'search and select an event',
+    captionPlaceholder: 'enter caption',
+    dropdownPlaceholder: 'select a competition',
+    searchPlaceholder: 'search events',
   },
   explorePage: {
     noContent: 'no content to explore :(',
@@ -80,5 +83,6 @@ export default {
   },
   searchPage: {
     noSearchQuery: 'nothing to search',
+    pageTitle: 'search page',
   },
 };

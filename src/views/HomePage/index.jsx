@@ -10,7 +10,7 @@ import './HomePage.scss';
 import Loader from '../../components/Loader';
 import { useIntersect } from '../../helpers/hooksUtils';
 import lang from '../../helpers/en.default';
-import GeneralSearch from '../../components/GeneralSearch/index';
+import GeneralSearchBar from '../../components/GeneralSearchBar/index';
 
 const HomePage = ({
   eventsPosts, getPinnedEventsPosts, isEventsPostsLoading, pagination,
@@ -53,7 +53,7 @@ const HomePage = ({
 			  <FontAwesome name="arrow-left" />
 			</div>
 			<div className="bar">
-        <GeneralSearch />
+        <GeneralSearchBar />
 			</div>
 			<div className="icon options-btn">
 				<FontAwesome name="ellipsis-h" />

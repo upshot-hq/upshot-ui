@@ -12,7 +12,8 @@ import lang from '../../helpers/en.default';
 import PostCard from '../../components/PostCard/index';
 import * as searchActions from '../../redux/actionCreators/searchActions';
 import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
-import GeneralSearch from '../../components/GeneralSearch';
+import GeneralSearchBar from '../../components/GeneralSearchBar';
+import { searchScopes } from '../../helpers/defaults';
 
 const SearchPage = (props) => {
   const {
@@ -32,7 +33,7 @@ const SearchPage = (props) => {
   useEffect(() => {
     if (searchQuery) {
       search({
-        scope: 'all',
+        scope: searchScopes.all,
         searchQuery,
         strict: false,
         isSearchPage: true,
@@ -54,7 +55,7 @@ const SearchPage = (props) => {
 			<FontAwesome name="arrow-left" />
 			</div>
 			<div className="bar">
-        <GeneralSearch initialQuery={searchQuery} />
+        <GeneralSearchBar initialQuery={searchQuery} />
 			</div>
 			<div className="icon options-btn">
 				<FontAwesome name="ellipsis-h" />
@@ -100,7 +101,7 @@ const SearchPage = (props) => {
 				<div className="header">
 					<div className="top">
             <div className="title">
-              <span className="title-text">Search Page</span>
+              <span className="title-text">{lang.searchPage.pageTitle}</span>
             </div>
 						{renderTopBar()}
 					</div>

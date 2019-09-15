@@ -204,7 +204,7 @@ export const handlePostReactionInPosts = (reaction, posts, postToReactId, reacti
 };
 
 /**
- * determins which search result should be returned
+ * determines which search result should be returned
  * @param {array} firstResult
  * @param {array} secondResult
  * @param {boolean} returnSecondResult - if it should return the firstResult or secondResult

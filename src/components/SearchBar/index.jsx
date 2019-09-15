@@ -9,7 +9,7 @@ import { history } from '../../helpers/utils';
 import lang from '../../helpers/en.default';
 import * as searchActions from '../../redux/actionCreators/searchActions';
 import Loader from '../Loader';
-import { resources } from '../../helpers/defaults';
+import { resources, enterKeyCode } from '../../helpers/defaults';
 import Capsule from '../Capsule';
 
 const SearchBar = ({
@@ -44,7 +44,8 @@ const SearchBar = ({
   };
 
   const handleKeyDown = (e) => {
-    if (allowEnterClickToSearchPage && (e.which === 13 || e.keyCode === 13)) {
+    if (allowEnterClickToSearchPage
+      && (e.which === enterKeyCode || e.keyCode === enterKeyCode)) {
       history.push(`/search?q=${searchQuery}`);
     }
   };

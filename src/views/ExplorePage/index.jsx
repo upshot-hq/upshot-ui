@@ -13,7 +13,7 @@ import PostCard from '../../components/PostCard/index';
 import * as exploreActions from '../../redux/actionCreators/exploreActions';
 import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
 import { useIntersect } from '../../helpers/hooksUtils';
-import GeneralSearch from '../../components/GeneralSearch';
+import GeneralSearchBar from '../../components/GeneralSearchBar';
 
 const ExplorePage = (props) => {
   const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
@@ -74,7 +74,7 @@ const ExplorePage = (props) => {
 			<FontAwesome name="arrow-left" />
 			</div>
 			<div className="bar">
-        <GeneralSearch />
+        <GeneralSearchBar />
 			</div>
 			<div className="icon options-btn">
 				<FontAwesome name="ellipsis-h" />

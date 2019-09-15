@@ -25,8 +25,13 @@ export const reactions = {
   like: 'like',
   dislike: 'dislike',
 };
-
 export const resources = {
   event: 'event',
   post: 'eventPost',
 };
+export const searchScopes = {
+  all: 'all',
+  events: 'events',
+  posts: 'posts',
+};
+export const enterKeyCode = 13;
