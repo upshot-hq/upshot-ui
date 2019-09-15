@@ -11,6 +11,9 @@ import SolidHeart from '../../assets/icons/solid-heart.svg';
 import Bookmark from '../../assets/icons/bookmark.svg';
 import SolidBookmark from '../../assets/icons/solid-bookmark.svg';
 import { handlePostReaction } from '../../helpers/utils';
+import { reactions } from '../../helpers/defaults';
+
+const debounceTime = 1000;
 
 const PostCard = ({
   post: reduxPost, handleLike, handleDisLike,
@@ -20,19 +23,19 @@ const PostCard = ({
   const debounceLike = useRef(() => {});
   const debounceDisLike = useRef(() => {});
   useEffect(() => {
-    debounceLike.current = debounce(handleLike, 2000);
-    debounceDisLike.current = debounce(handleDisLike, 2000);
+    debounceLike.current = debounce(handleLike, debounceTime);
+    debounceDisLike.current = debounce(handleDisLike, debounceTime);
   }, [handleLike, handleDisLike]);
 
   const toggleLike = (postId) => {
     const like = !post.user_likes;
-    setPost(handlePostReaction('like', post, like));
+    setPost(handlePostReaction(reactions.like, post, like));
     debounceLike.current(postId, like);
   };
 
   const toggleDisLike = (postId) => {
     const dislike = !post.user_dislikes;
-    setPost(handlePostReaction('dislike', post, dislike));
+    setPost(handlePostReaction(reactions.dislike, post, dislike));
     debounceDisLike.current(postId, dislike);
   };
 
@@ -101,8 +104,13 @@ PostCard.propTypes = {
     total_likes: PropTypes.string,
     total_dislikes: PropTypes.string,
   }),
-  handleLike: PropTypes.func.isRequired,
-  handleDisLike: PropTypes.func.isRequired,
+  handleLike: PropTypes.func,
+  handleDisLike: PropTypes.func,
+};
+
+PostCard.defaultProps = {
+  handleLike: () => {},
+  handleDisLike: () => {},
 };
 
 export default PostCard;

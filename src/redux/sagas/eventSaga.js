@@ -11,6 +11,7 @@ import {
   getEvent,
   getEventSuccess,
   getEventFailure,
+  pinEvent,
 } from '../actionCreators/eventActions';
 
 export function* watchCreateEventSagaAsync() {
@@ -43,5 +44,18 @@ export function* getEventSagaAsync(action) {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(getEventFailure({ message: errorMessage }));
+  }
+}
+
+export function* watchPinEventSagaAsync() {
+  yield takeLatest(pinEvent('', '').type, pinEventSagaAsync);
+}
+
+export function* pinEventSagaAsync(action) {
+  try {
+    yield call(EventAPI.pinEvent, action);
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    notifyError(errorMessage);
   }
 }

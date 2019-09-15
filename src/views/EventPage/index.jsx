@@ -23,7 +23,7 @@ export const EventPage = (props) => {
     match: { params }, event, posts,
     getEvent, eventIsLoading, getEventPosts,
     pagination, postIsLoading, postsErrorMessage,
-    postsSuccessStatus,
+    postsSuccessStatus, pinEvent, likePost, dislikePost,
   } = props;
   const [currentView, setCurrentView] = useState(detailsTab);
   const isInitialMount = useRef(true);
@@ -52,13 +52,28 @@ export const EventPage = (props) => {
     }
   }, [params, getEvent]);
 
-  const renderEventCard = (eventItem) => (<EventCard event={eventItem} />);
+  const handlePin = (eventId, pin) => {
+    pinEvent(eventId, pin);
+  };
+
+  const handleLike = (postId, like) => {
+    likePost(postId, like);
+  };
+
+  const handleDisLike = (postId, dislike) => {
+    dislikePost(postId, dislike);
+  };
+
+  const renderEventCard = (eventItem) => (
+  <EventCard event={eventItem} handlePin={handlePin} />
+  );
 
   const renderContent = () => (
 		<Fragment>
       {(currentView === detailsTab) && <EventDetails event={event} />}
       {(currentView === postsTab)
-        && <EventPosts posts={posts}
+        && <EventPosts
+          posts={posts}
           isLoading={postIsLoading}
           errorMessage={postsErrorMessage}
           setNode={setNode}
@@ -67,6 +82,8 @@ export const EventPage = (props) => {
           getEventPosts={getEventPosts}
           isIntersected={isIntersected}
           pagination={pagination}
+          handleLike={handleLike}
+          handleDisLike={handleDisLike}
         />
       }
 		</Fragment>
@@ -140,6 +157,9 @@ EventPage.propTypes = {
   postIsLoading: PropTypes.bool.isRequired,
   postsErrorMessage: PropTypes.string.isRequired,
   postsSuccessStatus: PropTypes.bool.isRequired,
+  pinEvent: PropTypes.func.isRequired,
+  likePost: PropTypes.func.isRequired,
+  dislikePost: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ event, eventPost }) => ({
@@ -155,6 +175,9 @@ const mapStateToProps = ({ event, eventPost }) => ({
 const actionCreators = {
   getEvent: eventActions.getEvent,
   getEventPosts: eventPostActions.getEventPosts,
+  pinEvent: eventActions.pinEvent,
+  likePost: eventPostActions.likePost,
+  dislikePost: eventPostActions.dislikePost,
 };
 
 export default connect(mapStateToProps, actionCreators)(EventPage);

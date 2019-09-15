@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import { fillSearchResults } from '../../helpers/utils';
+import { determineResult } from '../../helpers/utils';
 
 const initialState = {
   result: [],
@@ -23,12 +23,12 @@ const search = (state = initialState, action) => {
         isLoading: false,
         success: true,
         message: action.response.message,
-        result: fillSearchResults(
+        result: determineResult(
           action.response.search,
           state.result,
           action.isSearchPage,
         ),
-        searchPageResult: fillSearchResults(
+        searchPageResult: determineResult(
           state.searchPageResult,
           action.response.search,
           action.isSearchPage,

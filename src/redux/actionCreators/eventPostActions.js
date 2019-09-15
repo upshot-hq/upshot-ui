@@ -17,15 +17,17 @@ export const postToEventFailure = (error) => ({
   error,
 });
 
-export const getPinnedEventsPosts = (limit, offset) => ({
+export const getPinnedEventsPosts = (limit, offset, isNewRequest = false) => ({
   type: types.GET_PINNED_EVENT_POSTS,
   limit,
   offset,
+  isNewRequest,
 });
 
-export const getPinnedEventsPostsSuccess = (response) => ({
+export const getPinnedEventsPostsSuccess = (response, isNewRequest = false) => ({
   type: types.GET_PINNED_EVENT_POSTS_SUCCESS,
   response,
+  isNewRequest,
 });
 
 export const getPinnedEventsPostsFailed = (error) => ({

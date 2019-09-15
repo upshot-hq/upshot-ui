@@ -1,4 +1,7 @@
-import React, { Fragment, useState } from 'react';
+import React, {
+  Fragment, useState, useRef, useEffect,
+} from 'react';
+import { debounce } from 'lodash';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
@@ -7,10 +10,19 @@ import './EventCard.scss';
 import Capsule from '../Capsule';
 import pin from '../../assets/pin.svg';
 import pinFill from '../../assets/pin-fill.svg';
+import { handleEventReaction } from '../../helpers/utils';
+import { reactions } from '../../helpers/defaults';
+
+const debounceTime = 1000;
 
 const EventCard = (props) => {
-  const { event } = props;
-  const [pinned, setPinned] = useState(false);
+  const { event: reduxEvent, handlePin } = props;
+  const [event, setEvent] = useState(reduxEvent);
+  const debouncePin = useRef(() => {});
+
+  useEffect(() => {
+    debouncePin.current = debounce(handlePin, debounceTime);
+  }, [handlePin]);
 
   const footerLabels = {
     upcoming: 'upcoming',
@@ -18,17 +30,19 @@ const EventCard = (props) => {
     ended: 'ended',
   };
 
-  const togglePinned = () => {
-    setPinned(!pinned);
+  const togglePinned = (eventId) => {
+    const userPin = !event.user_pins;
+    setEvent(handleEventReaction(reactions.pin, event, userPin));
+    debouncePin.current(eventId, userPin);
   };
 
   const renderTitle = () => {
-    const iconClassName = pinned ? 'icon pinned' : 'icon';
-    const pinIcon = pinned ? pinFill : pin;
+    const iconClassName = event.user_pins ? 'icon pinned' : 'icon';
+    const pinIcon = event.user_pins ? pinFill : pin;
     return (
       <div className="event-card__content-event-title">
         <Link to={`/events/${event.id}`} className="text">{event.name}</Link>
-        <span className={iconClassName} onClick={togglePinned}>
+        <span className={iconClassName} onClick={() => togglePinned(event.id)}>
           <img src={pinIcon} alt="pin" />
         </span>
       </div>
@@ -108,6 +122,7 @@ const EventCard = (props) => {
 
 EventCard.propTypes = {
   event: PropTypes.object.isRequired,
+  handlePin: PropTypes.func.isRequired,
 };
 
 export default EventCard;

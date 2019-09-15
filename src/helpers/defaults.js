@@ -20,10 +20,14 @@ export const reactionKeys = {
     valueKey: 'user_dislikes',
     countKey: 'total_dislikes',
   },
+  pin: {
+    valueKey: 'user_pins',
+  },
 };
 export const reactions = {
   like: 'like',
   dislike: 'dislike',
+  pin: 'pin',
 };
 export const resources = {
   event: 'event',

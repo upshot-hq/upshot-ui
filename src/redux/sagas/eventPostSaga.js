@@ -40,9 +40,9 @@ export function* watchGetPinnedEventsPostsSagaAsync() {
 
 export function* getPinnedEventsPostsSagaAsync(action) {
   try {
-    const { limit, offset } = action;
+    const { limit, offset, isNewRequest } = action;
     const response = yield call(EventAPI.getPinnedEventsPosts, { limit, offset });
-    yield put(getPinnedEventsPostsSuccess(response.data));
+    yield put(getPinnedEventsPostsSuccess(response.data, isNewRequest));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(getPinnedEventsPostsFailed(errorMessage));
