@@ -40,7 +40,7 @@ export const EventPosts = (props) => {
   const debounceGetEventPosts = useRef(() => {});
 
   useEffect(() => {
-    debounceGetEventPosts.current = debounce(getEventPosts, debounceTime);
+    debounceGetEventPosts.current = debounce(getEventPosts, (debounceTime / 2));
   }, [getEventPosts]);
 
   useEffect(() => {
