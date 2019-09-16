@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Children, createContext } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
@@ -11,9 +11,19 @@ import CreateEvent from '../CreateEvent';
 import PostToEvent from '../PostToEvent';
 import { history } from '../../helpers/utils';
 
+
+export const LayoutContext = createContext({
+  setShowPostToEventModal: () => {},
+  showPostToEventModal: true,
+  setEvent: () => {},
+  setShowPostToEventSearchBar: () => {},
+});
+
 const Layout = (props) => {
   const [showCreateEventModal, setShowCreateEventModal] = useState(false);
   const [showPostToEventModal, setShowPostToEventModal] = useState(false);
+  const [event, setEvent] = useState(null);
+  const [showPostToEventSearchBar, setShowPostToEventSearchBar] = useState(true);
   const {
     children, leftContainerStyles, match: { path },
     centerContainerStyles, rightContainerStyles,
@@ -70,10 +80,12 @@ const Layout = (props) => {
   };
 
   const renderPostToEventModal = () => {
+    setEvent(null);
+    setShowPostToEventSearchBar(true);
     setShowPostToEventModal(true);
   };
 
-  return (
+  const renderLayout = () => (
     <div className="layout">
       <div className="layout-container">
         <div className="layout__content-leftside" style={leftContainerStyles}>
@@ -87,7 +99,7 @@ const Layout = (props) => {
           </div>
         </div>
         <div className="layout__content-center" style={centerContainerStyles}>
-          {children}
+          {Children.only(children)}
         </div>
         <div className="layout__content-rightside" style={rightContainerStyles}>
           <div className="content" />
@@ -96,7 +108,7 @@ const Layout = (props) => {
       <Fab onClickFunction={renderCreateEventModal} />
       <Fab
         onClickFunction={renderPostToEventModal}
-        styles={{ bottom: '150px' }}
+        styles={{ bottom: '9.375rem' }}
         name="camera"
       />
       <Modal showClosePrompt isModalVisible={showCreateEventModal}
@@ -106,9 +118,26 @@ const Layout = (props) => {
       <Modal showClosePrompt isModalVisible={showPostToEventModal}
         handleModalClose={handlePostToEventModalClose}
       >
-        <PostToEvent handleModalClose={handlePostToEventModalClose} />
+        <PostToEvent
+          handleModalClose={handlePostToEventModalClose}
+          event={event}
+          showSearchBar={showPostToEventSearchBar}
+        />
       </Modal>
     </div>
+  );
+
+  return (
+    <LayoutContext.Provider
+      value={{
+        showPostToEventModal,
+        setShowPostToEventModal,
+        setEvent,
+        setShowPostToEventSearchBar,
+      }}
+    >
+      {renderLayout()}
+    </LayoutContext.Provider>
   );
 };
 
