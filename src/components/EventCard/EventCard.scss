@@ -75,6 +75,8 @@
           align-items: center;
           width: 100%;
           overflow: hidden;
+          justify-content: space-between;
+          align-items: center;
           .stats-content {
             display: flex;
             justify-content: flex-start;
@@ -105,6 +107,19 @@
                 flex-basis: 40%;
               }
             }
+          }
+          .post-to-event {
+            color: $white;
+            border-radius: 50%;
+            background-color: $primary-color;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: rem(12px);
+            width: rem(24px);
+            height: rem(24px);
+            margin-right: rem(3px);
+            cursor: pointer;
           }
         }
       }

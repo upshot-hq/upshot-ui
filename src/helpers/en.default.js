@@ -86,4 +86,11 @@ export default {
     noSearchQuery: 'nothing to search',
     pageTitle: 'search page',
   },
+  eventCard: {
+    footerLabels: {
+      upcoming: 'upcoming',
+      started: 'started',
+      ended: 'ended',
+    },
+  },
 };

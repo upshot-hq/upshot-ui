@@ -15,8 +15,9 @@ import { createFormData } from '../../helpers/utils';
 import { searchScopes } from '../../helpers/defaults';
 
 const PostToEvent = (props) => {
+  const { event, showSearchBar } = props;
   const [selectedCompetition, setSelectedCompetition] = useState('');
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [selectedEvent, setSelectedEvent] = useState(event || null);
   const [eventCompetitions, setEventCompetitions] = useState([]);
   const [imageFile, setImageFile] = useState('');
   const [caption, setCaption] = useState('');
@@ -24,7 +25,7 @@ const PostToEvent = (props) => {
   const isInitialMount = useRef(true);
   const {
     postToEvent, isPostingToEvent,
-    eventPostSuccess, handleModalClose,
+    eventPostSuccess, handleModalClose, showEventRemoveBtn,
   } = props;
 
   useEffect(() => {
@@ -65,12 +66,12 @@ const PostToEvent = (props) => {
     return titleAndValue;
   };
 
-  const handleEventSelection = (event) => {
-    setSelectedEvent(event);
+  const handleEventSelection = (eventObject) => {
+    setSelectedEvent(eventObject);
   };
 
-  const handleDropdownSelect = (event) => {
-    const { value } = event.target;
+  const handleDropdownSelect = (eventObject) => {
+    const { value } = eventObject.target;
     setSelectedCompetition(value);
   };
 
@@ -78,8 +79,8 @@ const PostToEvent = (props) => {
     setImageFile(image);
   };
 
-  const handleCaptionChange = (event) => {
-    const { value } = event.target;
+  const handleCaptionChange = (eventObject) => {
+    const { value } = eventObject.target;
     setCaption(value);
   };
 
@@ -107,21 +108,24 @@ const PostToEvent = (props) => {
 
     return (
       <div className="form-content">
-        <div className="search">
-          <SearchBar
-            searchScope={searchScopes.events}
-            getSearchResultTitleAndValue={getSearchResultTitleAndValue}
-            handleSearchResultClick={handleEventSelection}
-            placeholder={lang.postToEvent.searchPlaceholder}
-            strictSearch
-          />
-        </div>
+        {showSearchBar
+          && <div className="search">
+            <SearchBar
+              searchScope={searchScopes.events}
+              getSearchResultTitleAndValue={getSearchResultTitleAndValue}
+              handleSearchResultClick={handleEventSelection}
+              placeholder={lang.postToEvent.searchPlaceholder}
+              strictSearch
+            />
+          </div>
+        }
         {selectedEvent
           && <div className="event">
               <Capsule
                 title={selectedEvent.hashtag}
                 id={selectedEvent.id}
                 handleClose={handleRemoveSelectedEvent}
+                showCloseBtn={showEventRemoveBtn}
               />
           </div>
         }
@@ -190,6 +194,19 @@ PostToEvent.propTypes = {
   postToEvent: PropTypes.func.isRequired,
   handleModalClose: PropTypes.func.isRequired,
   eventPostSuccess: PropTypes.bool.isRequired,
+  showSearchBar: PropTypes.bool,
+  showEventRemoveBtn: PropTypes.bool,
+  event: PropTypes.shape({
+    competitions: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.number.isRequired]),
+      name: PropTypes.string.isRequired,
+    })),
+  }),
+};
+
+PostToEvent.defaultProps = {
+  showSearchBar: true,
+  showEventRemoveBtn: true,
 };
 
 const mapStateToProps = ({ eventPost }) => ({

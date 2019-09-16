@@ -45,7 +45,7 @@ export const EventPosts = (props) => {
 
   useEffect(() => {
     if (isInitialMount.current) {
-      if (isPostView && !posts.length) {
+      if (isPostView) {
         getEventPosts({ eventId, isNewFilter: true });
       }
 

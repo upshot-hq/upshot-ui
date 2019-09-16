@@ -5,6 +5,7 @@ import { debounce } from 'lodash';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import FontAwesome from 'react-fontawesome';
 
 import './EventCard.scss';
 import Capsule from '../Capsule';
@@ -12,6 +13,8 @@ import pin from '../../assets/pin.svg';
 import pinFill from '../../assets/pin-fill.svg';
 import { handleEventReaction } from '../../helpers/utils';
 import { reactions } from '../../helpers/defaults';
+import { LayoutContext } from '../Layout/index';
+import lang from '../../helpers/en.default';
 
 const debounceTime = 1000;
 
@@ -23,12 +26,6 @@ const EventCard = (props) => {
   useEffect(() => {
     debouncePin.current = debounce(handlePin, debounceTime);
   }, [handlePin]);
-
-  const footerLabels = {
-    upcoming: 'upcoming',
-    started: 'started',
-    ended: 'ended',
-  };
 
   const togglePinned = (eventId) => {
     const userPin = !event.user_pins;
@@ -69,22 +66,50 @@ const EventCard = (props) => {
     </div>
   );
 
-  const renderStats = () => (
-    <div className="event-card__content-event-stats">
-      <div className="stats-content">
-        <div className="text posts">
-          <span className="count">500</span>
-          <span className="label">posts</span>
+  const renderStats = (
+    setShowPostToEventModal, setEventOnLayout, setShowPostToEventSearchBar,
+  ) => {
+    const startTime = moment(event.start_at);
+    const endTime = moment(event.end_at);
+    let showPostToEventBtn = false;
+    if (moment().isSame(startTime) || moment().isAfter(startTime)) {
+      showPostToEventBtn = true;
+    }
+
+    if (moment().isSame(endTime) || moment().isAfter(endTime)) {
+      showPostToEventBtn = false;
+    }
+
+    return (
+      <div className="event-card__content-event-stats">
+        <div className="stats-content">
+          <div className="text posts">
+            <span className="count">500</span>
+            <span className="label">posts</span>
+          </div>
+          <div className="text pins">
+            <span className="count">1873</span>
+            <span className="label">pins</span>
+          </div>
         </div>
-        <div className="text pins">
-          <span className="count">1873</span>
-          <span className="label">pins</span>
-        </div>
+        {showPostToEventBtn
+          && <div
+            className="post-to-event"
+            onClick={() => {
+              setEventOnLayout(event);
+              setShowPostToEventSearchBar(false);
+              setShowPostToEventModal(true);
+            }}
+          >
+            <FontAwesome name="camera" />
+          </div>
+        }
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderFooter = (startAt, endAt) => {
+    const { eventCard: { footerLabels } } = lang;
     let label = footerLabels.upcoming;
     const startTime = moment(startAt);
     const endTime = moment(endAt);
@@ -109,14 +134,18 @@ const EventCard = (props) => {
   };
 
   return (
-    <div id="event-card" className="event-card">
-      <div className="event-card__content">
-        {renderTitle()}
-        {renderCompetitions(event.competitions)}
-        {renderStats()}
-      </div>
-      {renderFooter(event.start_at, event.end_at)}
-    </div>
+    <LayoutContext.Consumer>
+      {({ setShowPostToEventModal, setEvent: setEventOnLayout, setShowPostToEventSearchBar }) => (
+          <div id="event-card" className="event-card">
+            <div className="event-card__content">
+              {renderTitle()}
+              {renderCompetitions(event.competitions)}
+              {renderStats(setShowPostToEventModal, setEventOnLayout, setShowPostToEventSearchBar)}
+            </div>
+            {renderFooter(event.start_at, event.end_at)}
+          </div>
+      )}
+    </LayoutContext.Consumer>
   );
 };
 
