@@ -14,7 +14,7 @@ import { history } from '../../helpers/utils';
 
 export const LayoutContext = createContext({
   setShowPostToEventModal: () => {},
-  showPostToEventModal: true,
+  showPostToEventModal: false,
   setEvent: () => {},
   setShowPostToEventSearchBar: () => {},
 });
