@@ -25,7 +25,7 @@ const PostToEvent = (props) => {
   const isInitialMount = useRef(true);
   const {
     postToEvent, isPostingToEvent,
-    eventPostSuccess, handleModalClose,
+    eventPostSuccess, handleModalClose, showEventRemoveBtn,
   } = props;
 
   useEffect(() => {
@@ -125,6 +125,7 @@ const PostToEvent = (props) => {
                 title={selectedEvent.hashtag}
                 id={selectedEvent.id}
                 handleClose={handleRemoveSelectedEvent}
+                showCloseBtn={showEventRemoveBtn}
               />
           </div>
         }
@@ -194,6 +195,7 @@ PostToEvent.propTypes = {
   handleModalClose: PropTypes.func.isRequired,
   eventPostSuccess: PropTypes.bool.isRequired,
   showSearchBar: PropTypes.bool,
+  showEventRemoveBtn: PropTypes.bool,
   event: PropTypes.shape({
     competitions: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.number.isRequired]),
@@ -204,6 +206,7 @@ PostToEvent.propTypes = {
 
 PostToEvent.defaultProps = {
   showSearchBar: true,
+  showEventRemoveBtn: true,
 };
 
 const mapStateToProps = ({ eventPost }) => ({

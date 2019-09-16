@@ -122,6 +122,7 @@ const Layout = (props) => {
           handleModalClose={handlePostToEventModalClose}
           event={event}
           showSearchBar={showPostToEventSearchBar}
+          showEventRemoveBtn={!event}
         />
       </Modal>
     </div>
