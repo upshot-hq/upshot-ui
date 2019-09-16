@@ -19,13 +19,14 @@ import { useIntersect } from '../../helpers/hooksUtils';
 export const EventPage = (props) => {
   const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
   const { detailsTab, postsTab, analyticsTab } = lang.eventPage.tabs;
+  const [currentPostsCompetitionFilter, setCurrentPostsCompetitionFilter] = useState('');
   const {
     match: { params }, event, posts,
     getEvent, eventIsLoading, getEventPosts,
     pagination, postIsLoading, postsErrorMessage,
     postsSuccessStatus, pinEvent, likePost, dislikePost,
   } = props;
-  const [currentView, setCurrentView] = useState(detailsTab);
+  const [currentView, setCurrentView] = useState(postsTab);
   const isInitialMount = useRef(true);
   const tabItems = [
     {
@@ -64,6 +65,10 @@ export const EventPage = (props) => {
     dislikePost(postId, dislike);
   };
 
+  const handleCompetitionFilter = (competitionId) => {
+    setCurrentPostsCompetitionFilter(competitionId);
+  };
+
   const renderEventCard = (eventItem) => (
   <EventCard event={eventItem} handlePin={handlePin} />
   );
@@ -73,6 +78,7 @@ export const EventPage = (props) => {
       {(currentView === detailsTab) && <EventDetails event={event} />}
       {(currentView === postsTab)
         && <EventPosts
+          eventCompetitions={event.competitions}
           posts={posts}
           isLoading={postIsLoading}
           errorMessage={postsErrorMessage}
@@ -84,6 +90,8 @@ export const EventPage = (props) => {
           pagination={pagination}
           handleLike={handleLike}
           handleDisLike={handleDisLike}
+          competitionFilter={currentPostsCompetitionFilter}
+          handleCompetitionFilter={handleCompetitionFilter}
         />
       }
 		</Fragment>

@@ -19,7 +19,7 @@ const event = (state = initialState, action) => {
     case types.CREATE_EVENT_SUCCESS:
       return {
         ...state,
-        event: action.eventData.newEvent,
+        newEvent: action.eventData.event,
         isLoading: false,
         errors: {
           message: '',

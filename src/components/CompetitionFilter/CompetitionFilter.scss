@@ -1,0 +1,55 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+#us-competition-filter {
+  .us-competition-filter {
+    width: 100%;
+    overflow: hidden;
+    &__content {
+      display: flex;
+      justify-content: space-between;
+      &>.icon {
+        width: 5%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        color: $gray-1;
+        border-right: rem(1px) solid $gray-1;
+      }
+      &>.competitions {
+        display: flex;
+        width: 93%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        &::-webkit-scrollbar {
+          height: rem(2px) !important
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: $gray-1;
+        }
+        &>.filter-capsule {
+          background-color: $white;
+          box-shadow: none;
+          padding: rem(3px) rem(7px);
+          text-align: center;
+          &.all {
+            min-width: rem(30px);
+          }
+          .filter-capsule-text {
+            color: $primary-color;
+            font-size: rem(10px);
+            text-transform: capitalize;
+            max-width: 100%;
+          }
+          &.active {
+            background-color: $primary-color;
+            .filter-capsule-text {
+              color: $white;
+            }
+          }
+        }
+      }
+    }
+  }
+}

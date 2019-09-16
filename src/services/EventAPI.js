@@ -11,8 +11,11 @@ class EventAPI {
     return axios.get(`${baseUrl}/events/${eventId}`);
   }
 
-  static getEventPosts({ eventId, limit, offset }) {
-    return axios.get(`${baseUrl}/events/${eventId}/posts?limit=${limit}&offset=${offset}`);
+  static getEventPosts({
+    eventId, limit, offset, competitionId,
+  }) {
+    // eslint-disable-next-line
+    return axios.get(`${baseUrl}/events/${eventId}/posts?limit=${limit}&offset=${offset}&competition=${competitionId}`);
   }
 
   static postToAnEvent(data) {

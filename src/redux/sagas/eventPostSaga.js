@@ -82,9 +82,14 @@ export function* watchGetEventPostsSagaAsync() {
 
 export function* getEventPostsSagaAsync(action) {
   try {
-    const { eventId, limit, offset } = action.eventData;
-    const response = yield call(EventAPI.getEventPosts, { eventId, limit, offset });
-    yield put(getEventPostsSuccess(response.data));
+    const {
+      eventId, limit,
+      offset, competitionId,
+    } = action.eventData;
+    const response = yield call(EventAPI.getEventPosts, {
+      eventId, limit, offset, competitionId,
+    });
+    yield put(getEventPostsSuccess(response.data, competitionId));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(getEventPostsFailure(errorMessage));
