@@ -3,7 +3,8 @@ import bcrypt from 'bcryptjs';
 import { createBrowserHistory } from 'history';
 
 import {
-  jwtKey, hashTagPrefix, handlePrefix, saltRounds, reactionKeys,
+  jwtKey, hashTagPrefix, handlePrefix,
+  saltRounds, reactionKeys, countSuffixes,
   increment, decrement, reactions,
 } from './defaults';
 import lang from './en.default';
@@ -216,6 +217,12 @@ export const handleEventReaction = (reaction, event, reactionType) => {
     newEvent[reactionKeys.pin.valueKey] = reactionType;
   }
 
+  if (reactionType) {
+    newEvent.total_pins += 1;
+  } else {
+    newEvent.total_pins -= 1;
+  }
+
   return newEvent;
 };
 
@@ -252,4 +259,31 @@ export const handlesEventReactionInEvents = (
 export const determineResult = (firstResult, secondResult, returnSecondResult) => {
   if (returnSecondResult) return secondResult;
   return firstResult;
+};
+
+/**
+ * modifies count by appending appropriate countSuffixes to it
+ * @param {integer} count - count to modify
+ * @returns {string} modified count
+ */
+export const modifyCounts = (count) => {
+  let num = Number.parseInt(count, 10);
+  const { thousand, million, billion } = countSuffixes;
+
+  // check for higher countSuffixes first
+  if (num && num >= billion.trigger) {
+    num /= billion.divider;
+    if (!Number.isInteger(num)) num = num.toFixed(1);
+    num = `${num}${billion.suffix}`;
+  } else if (num && num >= million.trigger) {
+    num /= million.divider;
+    if (!Number.isInteger(num)) num = num.toFixed(1);
+    num = `${num}${million.suffix}`;
+  } else if (num && num >= thousand.trigger) {
+    num /= thousand.divider;
+    if (!Number.isInteger(num)) num = num.toFixed(1);
+    num = `${num}${thousand.suffix}`;
+  }
+
+  return num;
 };

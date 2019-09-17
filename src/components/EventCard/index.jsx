@@ -11,7 +11,7 @@ import './EventCard.scss';
 import Capsule from '../Capsule';
 import pin from '../../assets/pin.svg';
 import pinFill from '../../assets/pin-fill.svg';
-import { handleEventReaction } from '../../helpers/utils';
+import { handleEventReaction, modifyCounts } from '../../helpers/utils';
 import { reactions } from '../../helpers/defaults';
 import { LayoutContext } from '../Layout/index';
 import lang from '../../helpers/en.default';
@@ -69,6 +69,8 @@ const EventCard = (props) => {
   const renderStats = (
     setShowPostToEventModal, setEventOnLayout, setShowPostToEventSearchBar,
   ) => {
+    const postCount = modifyCounts(event.total_posts);
+    const pinCount = modifyCounts(event.total_pins);
     const startTime = moment(event.start_at);
     const endTime = moment(event.end_at);
     let showPostToEventBtn = false;
@@ -84,11 +86,11 @@ const EventCard = (props) => {
       <div className="event-card__content-event-stats">
         <div className="stats-content">
           <div className="text posts">
-            <span className="count">500</span>
+            <span className="count">{postCount}</span>
             <span className="label">posts</span>
           </div>
           <div className="text pins">
-            <span className="count">1873</span>
+            <span className="count">{pinCount}</span>
             <span className="label">pins</span>
           </div>
         </div>
