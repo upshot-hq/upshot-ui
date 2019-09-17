@@ -272,13 +272,16 @@ export const modifyCounts = (count) => {
 
   // check for higher countSuffixes first
   if (num && num >= billion.trigger) {
-    num = Math.floor(num / billion.divider);
+    num /= billion.divider;
+    if (!Number.isInteger(num)) num = num.toFixed(1);
     num = `${num}${billion.suffix}`;
   } else if (num && num >= million.trigger) {
-    num = Math.floor(num / million.divider);
+    num /= million.divider;
+    if (!Number.isInteger(num)) num = num.toFixed(1);
     num = `${num}${million.suffix}`;
   } else if (num && num >= thousand.trigger) {
-    num = Math.floor(num / thousand.divider);
+    num /= thousand.divider;
+    if (!Number.isInteger(num)) num = num.toFixed(1);
     num = `${num}${thousand.suffix}`;
   }
 
