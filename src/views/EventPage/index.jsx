@@ -27,7 +27,8 @@ export const EventPage = (props) => {
     postsSuccessStatus, pinEvent, likePost, dislikePost,
     bookmarkPost,
   } = props;
-  const [currentView, setCurrentView] = useState(postsTab);
+
+  const [currentView, setCurrentView] = useState(detailsTab);
   const isInitialMount = useRef(true);
   const tabItems = [
     {

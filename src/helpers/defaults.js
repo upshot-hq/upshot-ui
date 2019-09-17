@@ -43,3 +43,20 @@ export const searchScopes = {
   posts: 'posts',
 };
 export const enterKeyCode = 13;
+export const countSuffixes = {
+  thousand: {
+    suffix: 'k',
+    trigger: 10000,
+    divider: 1000,
+  },
+  million: {
+    suffix: 'm',
+    trigger: 1000000,
+    divider: 1000000,
+  },
+  billion: {
+    suffix: 'b',
+    trigger: 1000000000,
+    divider: 1000000000,
+  },
+};
