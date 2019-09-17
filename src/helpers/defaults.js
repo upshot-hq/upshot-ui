@@ -23,11 +23,15 @@ export const reactionKeys = {
   pin: {
     valueKey: 'user_pins',
   },
+  bookmark: {
+    valueKey: 'user_bookmarks',
+  },
 };
 export const reactions = {
   like: 'like',
   dislike: 'dislike',
   pin: 'pin',
+  bookmark: 'bookmark',
 };
 export const resources = {
   event: 'event',

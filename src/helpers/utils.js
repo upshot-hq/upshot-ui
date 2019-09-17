@@ -152,7 +152,7 @@ export const updatePostValue = (post, key, value) => {
 
 /**
  * method to handle reaction on a post
- * @param {string} reaction (like/dislike)
+ * @param {string} reaction (like/dislike/bookmark)
  * @param {object} post
  * @param {bool} reactionType
  * @returns {object}
@@ -162,9 +162,9 @@ export const handlePostReaction = (reaction, post, reactionType) => {
   const { valueKey: key, countKey } = reactionKeys[reaction];
   newPost = updatePostValue(newPost, key, reactionType);
 
-  if (reactionType) {
+  if (reactionType && [reactions.like, reactions.dislike].includes(reaction)) {
     newPost = updatePostCount(newPost, increment, countKey, 1);
-  } else {
+  } else if (!reactionType && [reactions.like, reactions.dislike].includes(reaction)) {
     newPost = updatePostCount(newPost, decrement, countKey, 1);
   }
 
@@ -183,7 +183,7 @@ export const handlePostReaction = (reaction, post, reactionType) => {
 
 /**
  * method to handle reacting (like/dislike) on a specific post in an array of posts
- * @param {string} reaction (like/dislike)
+ * @param {string} reaction (like/dislike/bookmark)
  * @param {array} posts
  * @param {integer} postToReactId
  * @param {bool} reactionType

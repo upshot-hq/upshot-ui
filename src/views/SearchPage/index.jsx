@@ -20,6 +20,7 @@ const SearchPage = (props) => {
     isLoading, searchResult, errorMessage,
     likePost, dislikePost,
     match, location, search,
+    bookmarkPost,
   } = props;
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -47,6 +48,10 @@ const SearchPage = (props) => {
 
   const handleDisLike = (postId, dislike) => {
     dislikePost(postId, dislike);
+  };
+
+  const handleBookmark = (postId, bookmark) => {
+    bookmarkPost(postId, bookmark);
   };
 
   const renderTopBar = () => (
@@ -86,7 +91,8 @@ const SearchPage = (props) => {
               post={resource}
               key={index}
               handleLike={handleLike}
-              handleDisLike={handleDisLike} />;
+              handleDisLike={handleDisLike}
+              handleBookmark={handleBookmark} />;
 				  }
 
 				  return null;
@@ -129,6 +135,7 @@ SearchPage.propTypes = {
   likePost: PropTypes.func.isRequired,
   dislikePost: PropTypes.func.isRequired,
   search: PropTypes.func.isRequired,
+  bookmarkPost: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ search }) => ({
@@ -141,6 +148,7 @@ const actionCreators = {
   search: searchActions.search,
   likePost: eventPostActions.likePost,
   dislikePost: eventPostActions.dislikePost,
+  bookmarkPost: eventPostActions.bookmarkPost,
 };
 
 export default connect(mapStateToProps, actionCreators)(SearchPage);

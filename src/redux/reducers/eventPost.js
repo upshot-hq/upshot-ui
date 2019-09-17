@@ -93,6 +93,12 @@ const eventPost = (state = initialState, action) => {
         isLoading: false,
         error: { ...initialState.error, message: action.error },
       };
+    case types.BOOKMARK_POST:
+      return {
+        ...state,
+        posts: handlePostReactionInPosts('bookmark',
+          state.posts, action.postId, action.bookmark),
+      };
     default:
       return state;
   }
