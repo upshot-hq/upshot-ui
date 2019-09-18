@@ -1,4 +1,5 @@
 import * as types from '../constants/actionTypes';
+import { defaultFetchLimit, defaultOffset } from '../../helpers/defaults';
 
 export const authenticateUser = (userData) => ({
   type: types.AUTHENTICATE_USER,
@@ -32,4 +33,25 @@ export const updateUserProfileSuccess = (updatedData) => ({
 export const updateUserProfileFailure = (error) => ({
   type: types.UPDATE_USER_PROFILE_FAILURE,
   error,
+});
+
+export const getUserEvents = ({ limit = defaultFetchLimit, offset = defaultOffset }) => ({
+  type: types.GET_USER_EVENTS,
+  eventQueries: { limit, offset },
+});
+
+export const getUserEventsSuccess = (responseData) => ({
+  type: types.GET_USER_EVENTS_SUCCESS,
+  responseData,
+});
+
+export const getUserEventsFailure = (error) => ({
+  type: types.GET_USER_EVENTS_FAILURE,
+  error,
+});
+
+export const removeUserEvent = (userId, eventId) => ({
+  type: types.REMOVE_USER_EVENT,
+  userId,
+  eventId,
 });

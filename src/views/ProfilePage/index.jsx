@@ -7,11 +7,26 @@ import PropTypes from 'prop-types';
 import './ProfilePage.scss';
 import Layout from '../../components/Layout';
 import Modal from '../../components/Modal/index';
+import lang from '../../helpers/en.default';
 import { addStylesToHashTags } from '../../helpers/utils';
 import UserProfileForm from '../../components/UserProfileForm/index';
+import Tabs from '../../components/Tabs';
+import * as userActions from '../../redux/actionCreators/userActions';
+import * as eventActions from '../../redux/actionCreators/eventActions';
+import Events from './Events';
+import { useIntersect } from '../../helpers/hooksUtils';
+import Loader from '../../components/Loader/index';
+
 
 export const ProfilePage = (props) => {
-  const { user: { userData }, profileUpdateSuccess, match } = props;
+  const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
+  const {
+    user: { userData }, profileUpdateSuccess, match,
+    pinEvent, events, isLoading,
+    pagination, getUserEvents, removeUserEvent,
+  } = props;
+  const { eventsTab, postsTab, bookmarksTab } = lang.profilePage.tabs;
+  const [currentView, setCurrentView] = useState(eventsTab);
   const [showModal, setShowModal] = useState(false);
   const isInitialMount = useRef(true);
 
@@ -23,9 +38,43 @@ export const ProfilePage = (props) => {
     }
   }, [profileUpdateSuccess]);
 
+  const tabItems = [
+    {
+      title: eventsTab,
+      onClick: () => setCurrentView(eventsTab),
+
+    },
+    {
+      title: postsTab,
+      onClick: () => setCurrentView(postsTab),
+
+    },
+    {
+      title: bookmarksTab,
+      onClick: () => setCurrentView(bookmarksTab),
+    },
+  ];
+
   const handleModalClose = () => {
     setShowModal(false);
   };
+
+  const handlePin = (eventId, pin) => {
+    pinEvent(eventId, pin);
+    if (!pin) {
+      removeUserEvent(userData.id, eventId);
+    }
+  };
+
+  const renderFetchMoreTrigger = () => (
+    <div className="fetch-more" ref={setNode} />
+  );
+
+  const renderFetchMoreLoader = () => (
+		<div className="profilepage__loader-container">
+			<Loader containerClassName="profilepage__loader-container--loader" />
+		</div>
+  );
 
   const renderProfileCard = () => {
     const imageStyle = {
@@ -79,6 +128,21 @@ export const ProfilePage = (props) => {
 			</div>
   );
 
+  const renderContent = () => (
+		<Fragment>
+      {(currentView === eventsTab)
+        && <Events
+				handlePin={handlePin}
+				events={events}
+				isLoading={isLoading}
+				pagination={pagination}
+				IsEventView={(currentView === eventsTab)}
+				getUserEvents={getUserEvents}
+				isIntersected={isIntersected}
+			/>}
+		</Fragment>
+  );
+
   return (
 		<Fragment>
 			<Layout centerContainerStyles={{ paddingTop: 0 }} match={match}>
@@ -91,32 +155,15 @@ export const ProfilePage = (props) => {
 							</div>
 						</div>
 						<div className="profilepage__header-bottom">
-							<div className="profilepage__header-bottom__nav__items">
-								<div key={1}
-									className="profilepage__header-bottom__nav__items-item"
-								>
-									events
-								</div>
-								<div key={2}
-									className="profilepage__header-bottom__nav__items-item"
-								>
-									posts
-								</div>
-								<div key={3}
-									className="profilepage__header-bottom__nav__items-item"
-								>
-									likes
-								</div>
-							</div>
+							<Tabs navItems={tabItems} activeTitle={currentView} />
 						</div>
 					</div>
 					<div className="profilepage__content">
-						<div className="dummy-card" />
-						<div className="dummy-card" />
-						<div className="dummy-card" />
-						<div className="dummy-card" />
-						<div className="dummy-card" />
-						<div className="dummy-card" />
+						<div className="profilepage__content-container">
+							{renderContent()}
+							{!!events.length && isLoading && renderFetchMoreLoader()}
+          		{!!events.length && renderFetchMoreTrigger()}
+						</div>
 					</div>
 				</div>
 			</Layout>
@@ -131,13 +178,26 @@ ProfilePage.propTypes = {
   match: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   profileUpdateSuccess: PropTypes.bool.isRequired,
+  events: PropTypes.array.isRequired,
+  pagination: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  getUserEvents: PropTypes.func.isRequired,
+  removeUserEvent: PropTypes.func.isRequired,
+  pinEvent: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ auth }) => ({
   user: auth.user,
   profileUpdateSuccess: auth.updateSuccess,
+  events: auth.events,
+  pagination: auth.pagination,
+  isLoading: auth.isLoading,
 });
 
-const actionCreators = {};
+const actionCreators = {
+  getUserEvents: userActions.getUserEvents,
+  removeUserEvent: userActions.removeUserEvent,
+  pinEvent: eventActions.pinEvent,
+};
 
 export default connect(mapStateToProps, actionCreators)(ProfilePage);

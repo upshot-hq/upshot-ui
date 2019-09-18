@@ -12,6 +12,9 @@ import {
   updateUserProfile,
   updateUserProfileFailure,
   updateUserProfileSuccess,
+  getUserEvents,
+  getUserEventsSuccess,
+  getUserEventsFailure,
 } from '../actionCreators/userActions';
 import { jwtKey } from '../../helpers/defaults';
 
@@ -45,5 +48,22 @@ export function* updateUserProfileSagaAsync(action) {
     const errorMessage = apiErrorHandler(error);
     yield put(updateUserProfileFailure(errorMessage));
     notifyError(errorMessage);
+  }
+}
+
+export function* watchGetUserEventsSagaAsync() {
+  yield takeLatest(getUserEvents({}).type, getUserEventsSagaAsync);
+}
+
+export function* getUserEventsSagaAsync(action) {
+  try {
+    const response = yield call(UserAPI.getUserEvents, action.eventQueries);
+    yield put(getUserEventsSuccess(response.data));
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(getUserEventsFailure({
+      errors: error.response.data.error,
+      message: errorMessage,
+    }));
   }
 }
