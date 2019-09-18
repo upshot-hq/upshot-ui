@@ -14,71 +14,12 @@
       border-bottom: rem(1px) solid $gray-3;
       .top {
         height: 68%;
-        .back-btn {
-          color: $primary-color;
-          flex-basis: 10%;
-          display: flex;
-          justify-content: center;
-          height: 50%;
-          align-items: center;
-          &>span {
-            font-size: rem(18px);
-            cursor: pointer;
-          }
-          &:hover {
-            color: $secondary-color;
-          }
-        }
         .topbar {
           display: flex;
           height: 100%;
           width: 100%;
           justify-content: space-between;
           align-items: center;
-          .bar {
-            flex-basis: 80%;
-            height: rem(30px);
-            border-radius: rem(5px);
-            background-color: $gray-3;
-            display: flex;
-            .search-icon {
-              flex-basis: 8%;
-              color: $white-1;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              &>span {
-                font-size: rem(18px);
-                color: $white-1;
-              }
-            }
-            .search-input {
-              flex-basis: 92%;
-              height: 100%;
-              background-color: transparent;
-              color: $primary-color;
-              border: none;
-              outline: none;
-              font-family: $primary-font;
-              font-size: rem(15px);
-              font-weight: 500;
-            }
-          }
-        }
-        .options-btn {
-          color: $primary-color;
-          flex-basis: 10%;
-          display: flex;
-          justify-content: center;
-          height: 50%;
-          align-items: center;
-          &>span {
-            font-size: rem(18px);
-            cursor: pointer;
-          }
-          &:hover {
-            color: $secondary-color;
-          }
         }
       }
       .bottom {

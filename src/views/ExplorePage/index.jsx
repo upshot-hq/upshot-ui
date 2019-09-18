@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import FontAwesome from 'react-fontawesome';
+import PropTypes from 'prop-types';
 
 import './ExplorePage.scss';
-import { PropTypes } from 'prop-types';
 import Layout from '../../components/Layout';
 import Tabs from '../../components/Tabs';
 import EventCard from '../../components/EventCard';
@@ -79,15 +78,7 @@ const ExplorePage = (props) => {
 
   const renderTopBar = () => (
 		<div className="topbar">
-			<div className="icon back-btn">
-			<FontAwesome name="arrow-left" />
-			</div>
-			<div className="bar">
-        <GeneralSearchBar />
-			</div>
-			<div className="icon options-btn">
-				<FontAwesome name="ellipsis-h" />
-			</div>
+      <GeneralSearchBar />
 		</div>
   );
 

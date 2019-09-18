@@ -11,6 +11,7 @@ export const defaultFetchLimit = 10;
 export const defaultOffset = 0;
 export const increment = 'increment';
 export const decrement = 'decrement';
+export const rearrangedString = 'rearranged';
 export const reactionKeys = {
   like: {
     valueKey: 'user_likes',
@@ -26,6 +27,12 @@ export const reactionKeys = {
   bookmark: {
     valueKey: 'user_bookmarks',
   },
+};
+export const eventKeys = {
+  startAt: 'start_at',
+};
+export const eventPostKeys = {
+  caption: 'caption',
 };
 export const reactions = {
   like: 'like',
