@@ -1,5 +1,6 @@
 import * as types from '../constants/actionTypes';
 import { handlePostReactionInPosts, determineResult } from '../../helpers/utils';
+import { reactions } from '../../helpers/defaults';
 
 const initialState = {
   posts: [],
@@ -59,13 +60,13 @@ const eventPost = (state = initialState, action) => {
     case types.LIKE_POST:
       return {
         ...state,
-        posts: handlePostReactionInPosts('like',
+        posts: handlePostReactionInPosts(reactions.like,
           state.posts, action.postId, action.like),
       };
     case types.DISLIKE_POST:
       return {
         ...state,
-        posts: handlePostReactionInPosts('dislike',
+        posts: handlePostReactionInPosts(reactions.dislike,
           state.posts, action.postId, action.dislike),
       };
     case types.GET_EVENT_POSTS:
@@ -92,6 +93,12 @@ const eventPost = (state = initialState, action) => {
         success: false,
         isLoading: false,
         error: { ...initialState.error, message: action.error },
+      };
+    case types.BOOKMARK_POST:
+      return {
+        ...state,
+        posts: handlePostReactionInPosts(reactions.bookmark,
+          state.posts, action.postId, action.bookmark),
       };
     default:
       return state;

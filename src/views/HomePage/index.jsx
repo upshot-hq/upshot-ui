@@ -14,7 +14,7 @@ import GeneralSearchBar from '../../components/GeneralSearchBar/index';
 
 const HomePage = ({
   eventsPosts, getPinnedEventsPosts, isEventsPostsLoading, pagination,
-  likePost, dislikePost, match,
+  likePost, dislikePost, match, bookmarkPost,
 }) => {
   const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
   const isInitialMount = useRef(true);
@@ -41,6 +41,10 @@ const HomePage = ({
 
   const handleDisLike = (postId, dislike) => {
     dislikePost(postId, dislike);
+  };
+
+  const handleBookmark = (postId, bookmark) => {
+    bookmarkPost(postId, bookmark);
   };
 
   const renderFetchMoreTrigger = () => (
@@ -93,6 +97,7 @@ const HomePage = ({
                 caption={post.caption}
                 handleLike={handleLike}
                 handleDisLike={handleDisLike}
+                handleBookmark={handleBookmark}
 							/>
 						))}
 						{isEventsPostsLoading && <div className="content__loader">
@@ -114,6 +119,7 @@ HomePage.propTypes = {
   pagination: PropTypes.object.isRequired,
   likePost: PropTypes.func.isRequired,
   dislikePost: PropTypes.func.isRequired,
+  bookmarkPost: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ eventPost }) => ({
@@ -127,6 +133,7 @@ const mapDispatchToProps = {
   getPinnedEventsPosts: eventPostActions.getPinnedEventsPosts,
   likePost: eventPostActions.likePost,
   dislikePost: eventPostActions.dislikePost,
+  bookmarkPost: eventPostActions.bookmarkPost,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

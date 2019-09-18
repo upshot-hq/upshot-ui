@@ -16,16 +16,17 @@ import { reactions } from '../../helpers/defaults';
 const debounceTime = 1000;
 
 const PostCard = ({
-  post: reduxPost, handleLike, handleDisLike,
+  post: reduxPost, handleLike, handleDisLike, handleBookmark,
 }) => {
-  const [isBookmarked, setBookmark] = useState(false);
   const [post, setPost] = useState(reduxPost);
   const debounceLike = useRef(() => {});
   const debounceDisLike = useRef(() => {});
+  const debounceBookmark = useRef(() => {});
   useEffect(() => {
     debounceLike.current = debounce(handleLike, debounceTime);
     debounceDisLike.current = debounce(handleDisLike, debounceTime);
-  }, [handleLike, handleDisLike]);
+    debounceBookmark.current = debounce(handleBookmark, debounceTime);
+  }, [handleLike, handleDisLike, handleBookmark]);
 
   const toggleLike = (postId) => {
     const like = !post.user_likes;
@@ -39,8 +40,10 @@ const PostCard = ({
     debounceDisLike.current(postId, dislike);
   };
 
-  const handleBookmark = () => {
-    setBookmark(!isBookmarked);
+  const toggleBookmark = (postId) => {
+    const bookmark = !post.user_bookmarks;
+    setPost(handlePostReaction(reactions.bookmark, post, bookmark));
+    debounceBookmark.current(postId, bookmark);
   };
 
   const formatDate = (date) => {
@@ -75,8 +78,10 @@ const PostCard = ({
           </div>
         </div>
         <div className="icon">
-          {!isBookmarked && <img src={Bookmark} onClick={handleBookmark} alt="bookmark" />}
-          {isBookmarked && <img src={SolidBookmark} onClick={handleBookmark} alt="bookmark" />}
+          {!post.user_bookmarks
+            && <img src={Bookmark} onClick={() => toggleBookmark(post.id)} alt="bookmark" />}
+          {post.user_bookmarks
+            && <img src={SolidBookmark} onClick={() => toggleBookmark(post.id)} alt="bookmark" />}
 
         </div>
       </div>
@@ -103,14 +108,17 @@ PostCard.propTypes = {
     user_dislikes: PropTypes.bool,
     total_likes: PropTypes.string,
     total_dislikes: PropTypes.string,
+    user_bookmarks: PropTypes.bool,
   }),
   handleLike: PropTypes.func,
   handleDisLike: PropTypes.func,
+  handleBookmark: PropTypes.func,
 };
 
 PostCard.defaultProps = {
   handleLike: () => {},
   handleDisLike: () => {},
+  handleBookmark: () => {},
 };
 
 export default PostCard;
