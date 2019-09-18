@@ -23,7 +23,7 @@ const ExplorePage = (props) => {
     isLoading, content, errorMessage,
     fetchExploreContent, pagination,
     likePost, dislikePost,
-    match, pinEvent,
+    match, pinEvent, bookmarkPost,
   } = props;
   const [currentView, setCurrentView] = useState(allTab);
   const [isNewTab, setIsNewTab] = useState(true);
@@ -71,6 +71,10 @@ const ExplorePage = (props) => {
 
   const handlePin = (eventId, pin) => {
     pinEvent(eventId, pin);
+  };
+
+  const handleBookmark = (postId, bookmark) => {
+    bookmarkPost(postId, bookmark);
   };
 
   const renderTopBar = () => (
@@ -137,7 +141,8 @@ const ExplorePage = (props) => {
               post={resource}
               key={index}
               handleLike={handleLike}
-              handleDisLike={handleDisLike} />;
+              handleDisLike={handleDisLike}
+              handleBookmark={handleBookmark} />;
 				  }
 
 				  return null;
@@ -189,6 +194,7 @@ ExplorePage.propTypes = {
   likePost: PropTypes.func.isRequired,
   dislikePost: PropTypes.func.isRequired,
   pinEvent: PropTypes.func.isRequired,
+  bookmarkPost: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ explore }) => ({
@@ -203,6 +209,7 @@ const actionCreators = {
   likePost: eventPostActions.likePost,
   dislikePost: eventPostActions.dislikePost,
   pinEvent: eventActions.pinEvent,
+  bookmarkPost: eventPostActions.bookmarkPost,
 };
 
 export default connect(mapStateToProps, actionCreators)(ExplorePage);

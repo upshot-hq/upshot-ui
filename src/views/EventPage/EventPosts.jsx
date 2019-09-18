@@ -19,6 +19,7 @@ export const EventPosts = (props) => {
     eventId, getEventPosts, isIntersected,
     handleLike, handleDisLike, eventCompetitions,
     competitionFilter, handleCompetitionFilter,
+    handleBookmark,
   } = props;
   const isInitialMount = useRef(true);
 
@@ -75,6 +76,7 @@ export const EventPosts = (props) => {
         key={index}
         handleLike={handleLike}
         handleDisLike={handleDisLike}
+        handleBookmark={handleBookmark}
         />)}
     </div>
   );
@@ -118,6 +120,7 @@ EventPosts.propTypes = {
   eventCompetitions: PropTypes.array.isRequired,
   handleCompetitionFilter: PropTypes.func.isRequired,
   competitionFilter: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  handleBookmark: PropTypes.func.isRequired,
 };
 
 EventPosts.defaultProps = {

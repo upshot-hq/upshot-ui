@@ -25,6 +25,7 @@ export const EventPage = (props) => {
     getEvent, eventIsLoading, getEventPosts,
     pagination, postIsLoading, postsErrorMessage,
     postsSuccessStatus, pinEvent, likePost, dislikePost,
+    bookmarkPost,
   } = props;
 
   const [currentView, setCurrentView] = useState(detailsTab);
@@ -70,6 +71,10 @@ export const EventPage = (props) => {
     setCurrentPostsCompetitionFilter(competitionId);
   };
 
+  const handleBookmark = (postId, bookmark) => {
+    bookmarkPost(postId, bookmark);
+  };
+
   const renderEventCard = (eventItem) => (
   <EventCard event={eventItem} handlePin={handlePin} />
   );
@@ -93,6 +98,7 @@ export const EventPage = (props) => {
           handleDisLike={handleDisLike}
           competitionFilter={currentPostsCompetitionFilter}
           handleCompetitionFilter={handleCompetitionFilter}
+          handleBookmark={handleBookmark}
         />
       }
 		</Fragment>
@@ -169,6 +175,7 @@ EventPage.propTypes = {
   pinEvent: PropTypes.func.isRequired,
   likePost: PropTypes.func.isRequired,
   dislikePost: PropTypes.func.isRequired,
+  bookmarkPost: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ event, eventPost }) => ({
@@ -187,6 +194,7 @@ const actionCreators = {
   pinEvent: eventActions.pinEvent,
   likePost: eventPostActions.likePost,
   dislikePost: eventPostActions.dislikePost,
+  bookmarkPost: eventPostActions.bookmarkPost,
 };
 
 export default connect(mapStateToProps, actionCreators)(EventPage);

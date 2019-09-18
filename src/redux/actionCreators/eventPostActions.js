@@ -87,3 +87,9 @@ export const getEventPostsFailure = (error) => ({
   type: types.GET_EVENT_POSTS_FAILURE,
   error,
 });
+
+export const bookmarkPost = (postId, bookmark) => ({
+  type: types.BOOKMARK_POST,
+  postId,
+  bookmark,
+});

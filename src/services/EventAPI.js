@@ -40,6 +40,12 @@ class EventAPI {
     const pinString = (pin) ? 'true' : 'false';
     return axios.post(`${baseUrl}/events/${eventId}/pins`, { pin: pinString });
   }
+
+  static bookmarkPost({ postId, bookmark }) {
+    const bookmarkString = (bookmark) ? 'true' : 'false';
+    return axios
+      .post(`${baseUrl}/events/posts/${postId}/bookmarks`, { bookmark: bookmarkString });
+  }
 }
 
 export default EventAPI;

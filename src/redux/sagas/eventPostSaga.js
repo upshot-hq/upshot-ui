@@ -15,6 +15,8 @@ import {
   getEventPosts,
   getEventPostsSuccess,
   getEventPostsFailure,
+  bookmarkPost,
+
 } from '../actionCreators/eventPostActions';
 
 export function* watchPostToEventSagaAsync() {
@@ -93,5 +95,18 @@ export function* getEventPostsSagaAsync(action) {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(getEventPostsFailure(errorMessage));
+  }
+}
+
+export function* watchBookmarkPostSagaAsync() {
+  yield takeLatest(bookmarkPost('', '').type, bookmarkPostSagaAsync);
+}
+
+export function* bookmarkPostSagaAsync(action) {
+  try {
+    yield call(EventAPI.bookmarkPost, action);
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    notifyError(errorMessage);
   }
 }
