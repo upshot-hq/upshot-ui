@@ -40,7 +40,7 @@
             .image {
               width: rem(72px);
               height: rem(72px);
-              border: 1px solid $secondary-color-3;
+              border: rem(1px) solid $secondary-color-3;
               border-radius: 50%;
               background-color: $gray-1;
               background-size: cover;
@@ -200,79 +200,139 @@
     height: 63%;
     overflow-y: scroll;
     overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    -ms-overflow-style: none;
     -ms-overflow-style: none;
     &::-webkit-scrollbar {
-        width: 0 !important
+      width: rem(2px) !important
     }
-    .dummy-card {
-      margin: auto;
-      margin-top: rem(20px);
-      margin-bottom: rem(20px);
-      height: 60%;
+    &::-webkit-scrollbar-thumb {
+      background-color: $gray-1;
+    }
+    &-container {
       width: 90%;
-      background-color: $primary-color;
-      border-radius: rem(5px);
+      margin: auto;
+      height: 95%;
+    }
+    
+  }
+  &__events {
+    width: 100%;
+    margin: auto;
+    &-message {
+      width: 100%;
+      height: rem(160px);
+      margin: rem(5px 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .text {
+        font-family: $primary-font;
+        font-size: rem(20px);
+        text-align: center;
+        font-weight: normal;
+        color: $gray-1;
+        text-transform: lowercase;
+        word-break: break-word;
+        &::first-letter {
+          text-transform: uppercase;
+        }
+      }
+    }
+    &-loader-container {
+      width: 100%;
+      margin: rem(10px 0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &-loader {
+      &>.up-loader {
+        width: rem(20px);
+        height: rem(20px);
+      }
+    }
+  }
+  &__loader-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &--loader {
+      &>.up-loader {
+        height: rem(30px);
+        width: rem(30px);
+      }
+    }
+  }
+  .fetch-more {
+    height: rem(40px);
+    margin-top: rem(20px);
+    width: 90%;
+    visibility: hidden;
+  }
+
+  .profile__form {
+    font-family: $primary-font;
+    width: rem(600px);
+    height: 100%;
+    background-color: $white;
+    padding: rem(30px);
+    overflow: hidden;
+    &-header {
+      width: 86%;
+      height: 10%;
+      margin: auto;
+      .title {
+        font-family: $primary-font;
+        color: $primary-color;
+        text-transform: capitalize;
+        font-weight: 700;
+        font-size: rem(22px);
+      }
+    }
+    &-content {
+      width: 86%;
+      height: auto;
+      background-color: $white;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      overflow: hidden;
+      .form-input {
+        width: 100%;
+        margin: rem(20px 0px);
+        .title {
+          text-transform: capitalize;
+          font-family: $primary-font;
+          color: $primary-color;
+          font-size: rem(14px);
+          display: none;
+        }
+        .text-input {
+          width: 100%;
+          height: rem(30px);
+          border: rem(0px);
+          border-bottom: rem(1px) solid $gray-1;
+          border-radius: rem(0px);
+          outline: none;
+          font-family: $primary-font;
+          font-size: rem(14px);
+          color: $primary-color;
+          padding: rem(2px 4px);
+          &.textarea {
+            height: rem(60px);
+          }
+          &:focus {
+            border-color: $primary-color;
+          }
+        }
+      }
     }
   }
 }
 
-.profile__form {
-  font-family: $primary-font;
-  width: rem(600px);
-  height: 100%;
-  background-color: $white;
-  padding: rem(30px);
-  overflow: hidden;
-  &-header {
-    width: 86%;
-    height: 10%;
-    margin: auto;
-    .title {
-      font-family: $primary-font;
-      color: $primary-color;
-      text-transform: capitalize;
-      font-weight: 700;
-      font-size: rem(22px);
-    }
-  }
-  &-content {
-    width: 86%;
-    height: auto;
-    background-color: $white;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    overflow: hidden;
-    .form-input {
-      width: 100%;
-      margin: rem(20px 0px);
-      .title {
-        text-transform: capitalize;
-        font-family: $primary-font;
-        color: $primary-color;
-        font-size: rem(14px);
-        display: none;
-      }
-      .text-input {
-        width: 100%;
-        height: rem(30px);
-        border: rem(0px);
-        border-bottom: rem(1px) solid $gray-1;
-        border-radius: rem(0px);
-        outline: none;
-        font-family: $primary-font;
-        font-size: rem(14px);
-        color: $primary-color;
-        padding: rem(2px 4px);
-        &.textarea {
-          height: rem(60px);
-        }
-        &:focus {
-          border-color: $primary-color;
-        }
-      }
-    }
-  }
-}

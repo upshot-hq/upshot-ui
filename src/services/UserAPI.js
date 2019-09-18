@@ -10,6 +10,10 @@ class UserAPI {
   static updateUserProfile(userData) {
     return axios.put(`${baseUrl}/users/auth`, userData);
   }
+
+  static getUserEvents({ limit, offset }) {
+    return axios.get(`${baseUrl}/users/events?limit=${limit}&offset=${offset}`);
+  }
 }
 
 export default UserAPI;

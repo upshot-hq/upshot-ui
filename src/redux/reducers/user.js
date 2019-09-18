@@ -1,13 +1,21 @@
 import * as types from '../constants/actionTypes';
+import { defaultFetchLimit, defaultOffset } from '../../helpers/defaults';
+import { handleRemoveUserEvent } from '../../helpers/utils';
 
 const initialState = {
   user: {},
+  events: [],
   errors: {
     message: '',
-    errors: [],
+    errors: {},
   },
   updateSuccess: false,
   isLoading: false,
+  pagination: {
+    limit: defaultFetchLimit,
+    offset: defaultOffset,
+    totalCount: 0,
+  },
 };
 
 const user = (state = initialState, action) => {
@@ -44,6 +52,27 @@ const user = (state = initialState, action) => {
         isLoading: false,
         updateSuccess: false,
         errors: action.error,
+      };
+    case types.GET_USER_EVENTS:
+      return { ...state, isLoading: true };
+    case types.GET_USER_EVENTS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        events: [...state.events, ...action.responseData.events],
+        pagination: action.responseData.pagination,
+        errors: initialState.errors,
+      };
+    case types.GET_USER_EVENTS_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        errors: action.error,
+      };
+    case types.REMOVE_USER_EVENT:
+      return {
+        ...state,
+        ...handleRemoveUserEvent(state, action),
       };
     default:
       return state;

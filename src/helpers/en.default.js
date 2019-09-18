@@ -76,7 +76,18 @@ export default {
       hashtags: 'hashtags',
     },
     posts: {
-      noPosts: 'no posts yet!',
+      noPosts: 'no post yet!',
+    },
+  },
+  profilePage: {
+    notFound: 'page not found :(',
+    tabs: {
+      eventsTab: 'events',
+      postsTab: 'posts',
+      bookmarksTab: 'bookmarks',
+    },
+    events: {
+      noEvents: 'no events found. brew up some events :)',
     },
   },
   homepage: {
