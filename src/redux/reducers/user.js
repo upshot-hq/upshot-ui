@@ -14,7 +14,7 @@ const initialState = {
   pagination: {
     limit: defaultFetchLimit,
     offset: defaultOffset,
-    totalCount: 6,
+    totalCount: 0,
   },
 };
 

@@ -40,7 +40,7 @@
             .image {
               width: rem(72px);
               height: rem(72px);
-              border: 1px solid $secondary-color-3;
+              border: rem(1px) solid $secondary-color-3;
               border-radius: 50%;
               background-color: $gray-1;
               background-size: cover;
@@ -224,7 +224,7 @@
     margin: auto;
     &-message {
       width: 100%;
-      height: 160px;
+      height: rem(160px);
       margin: rem(5px 0);
       display: flex;
       align-items: center;
@@ -272,7 +272,6 @@
     margin-top: rem(20px);
     width: 90%;
     visibility: hidden;
-    border: 1px solid;
   }
 
   .profile__form {
