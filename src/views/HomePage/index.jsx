@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import FontAwesome from 'react-fontawesome';
 
 import Layout from '../../components/Layout';
 import PostCard from '../../components/PostCard';
@@ -53,15 +52,7 @@ const HomePage = ({
 
   const renderSearchBar = () => (
 		<div className="searchbar">
-			<div className="icon back-btn">
-			  <FontAwesome name="arrow-left" />
-			</div>
-			<div className="bar">
-        <GeneralSearchBar />
-			</div>
-			<div className="icon options-btn">
-				<FontAwesome name="ellipsis-h" />
-			</div>
+      <GeneralSearchBar showBackBtn={false} />
 		</div>
   );
 
