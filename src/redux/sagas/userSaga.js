@@ -15,6 +15,9 @@ import {
   getUserEvents,
   getUserEventsSuccess,
   getUserEventsFailure,
+  getUserPosts,
+  getUserPostsSuccess,
+  getUserPostsFailure,
 } from '../actionCreators/userActions';
 import { jwtKey } from '../../helpers/defaults';
 
@@ -63,6 +66,23 @@ export function* getUserEventsSagaAsync(action) {
     const errorMessage = apiErrorHandler(error);
     yield put(getUserEventsFailure({
       errors: error.response.data.error,
+      message: errorMessage,
+    }));
+  }
+}
+
+export function* watchGetUserPostsSagaAsync() {
+  yield takeLatest(getUserPosts({}).type, getUserPostsSagaAsync);
+}
+
+export function* getUserPostsSagaAsync(action) {
+  try {
+    const response = yield call(UserAPI.getUserPosts, action.postQueries);
+    yield put(getUserPostsSuccess(response.data));
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(getUserPostsFailure({
+      errors: error.response.data.error || {},
       message: errorMessage,
     }));
   }

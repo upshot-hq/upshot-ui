@@ -13,7 +13,9 @@ import UserProfileForm from '../../components/UserProfileForm/index';
 import Tabs from '../../components/Tabs';
 import * as userActions from '../../redux/actionCreators/userActions';
 import * as eventActions from '../../redux/actionCreators/eventActions';
+import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
 import Events from './Events';
+import Posts from './Posts';
 import { useIntersect } from '../../helpers/hooksUtils';
 import Loader from '../../components/Loader/index';
 
@@ -22,8 +24,10 @@ export const ProfilePage = (props) => {
   const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
   const {
     user: { userData }, profileUpdateSuccess, match,
-    pinEvent, events, isLoading,
-    pagination, getUserEvents, removeUserEvent,
+    likePost, dislikePost, bookmarkPost, posts,
+    pinEvent, events, isLoading, getUserPosts,
+    eventsPagination, postsPagination, getUserEvents,
+    removeUserEvent,
   } = props;
   const { eventsTab, postsTab, bookmarksTab } = lang.profilePage.tabs;
   const [currentView, setCurrentView] = useState(eventsTab);
@@ -64,6 +68,18 @@ export const ProfilePage = (props) => {
     if (!pin) {
       removeUserEvent(userData.id, eventId);
     }
+  };
+
+  const handleLike = (postId, like) => {
+    likePost(postId, like);
+  };
+
+  const handleDisLike = (postId, dislike) => {
+    dislikePost(postId, dislike);
+  };
+
+  const handleBookmark = (postId, bookmark) => {
+    bookmarkPost(postId, bookmark);
   };
 
   const renderFetchMoreTrigger = () => (
@@ -130,14 +146,24 @@ export const ProfilePage = (props) => {
 
   const renderContent = () => (
 		<Fragment>
-      {(currentView === eventsTab)
-        && <Events
+      {(currentView === eventsTab) && <Events
 				handlePin={handlePin}
 				events={events}
 				isLoading={isLoading}
-				pagination={pagination}
+				pagination={eventsPagination}
 				IsEventView={(currentView === eventsTab)}
 				getUserEvents={getUserEvents}
+				isIntersected={isIntersected}
+			/>}
+			{(currentView === postsTab) && <Posts
+				handleBookmark={handleBookmark}
+				handleDisLike={handleDisLike}
+				handleLike={handleLike}
+				getUserPosts={getUserPosts}
+				posts={posts}
+				isLoading={isLoading}
+				pagination={postsPagination}
+				IsPostView={(currentView === postsTab)}
 				isIntersected={isIntersected}
 			/>}
 		</Fragment>
@@ -161,8 +187,12 @@ export const ProfilePage = (props) => {
 					<div className="profilepage__content">
 						<div className="profilepage__content-container">
 							{renderContent()}
-							{!!events.length && isLoading && renderFetchMoreLoader()}
-          		{!!events.length && renderFetchMoreTrigger()}
+              {(!!events.length && currentView === eventsTab) && isLoading
+                  && renderFetchMoreLoader()}
+              {(!!posts.length && currentView === postsTab) && isLoading
+                  && renderFetchMoreLoader()}
+          		{(!!events.length && currentView === eventsTab) && renderFetchMoreTrigger()}
+          		{(!!posts.length && currentView === postsTab) && renderFetchMoreTrigger()}
 						</div>
 					</div>
 				</div>
@@ -179,25 +209,37 @@ ProfilePage.propTypes = {
   user: PropTypes.object.isRequired,
   profileUpdateSuccess: PropTypes.bool.isRequired,
   events: PropTypes.array.isRequired,
-  pagination: PropTypes.object.isRequired,
+  posts: PropTypes.array.isRequired,
+  eventsPagination: PropTypes.object.isRequired,
+  postsPagination: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
   getUserEvents: PropTypes.func.isRequired,
+  getUserPosts: PropTypes.func.isRequired,
   removeUserEvent: PropTypes.func.isRequired,
   pinEvent: PropTypes.func.isRequired,
+  likePost: PropTypes.func.isRequired,
+  dislikePost: PropTypes.func.isRequired,
+  bookmarkPost: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ auth }) => ({
   user: auth.user,
   profileUpdateSuccess: auth.updateSuccess,
   events: auth.events,
-  pagination: auth.pagination,
+  posts: auth.posts,
+  eventsPagination: auth.eventsPagination,
+  postsPagination: auth.postsPagination,
   isLoading: auth.isLoading,
 });
 
 const actionCreators = {
   getUserEvents: userActions.getUserEvents,
+  getUserPosts: userActions.getUserPosts,
   removeUserEvent: userActions.removeUserEvent,
   pinEvent: eventActions.pinEvent,
+  likePost: eventPostActions.likePost,
+  dislikePost: eventPostActions.dislikePost,
+  bookmarkPost: eventPostActions.bookmarkPost,
 };
 
 export default connect(mapStateToProps, actionCreators)(ProfilePage);

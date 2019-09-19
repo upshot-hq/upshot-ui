@@ -89,6 +89,9 @@ export default {
     events: {
       noEvents: 'no events found. brew up some events :)',
     },
+    posts: {
+      noPosts: 'no posts yet! :(',
+    },
   },
   homepage: {
     noPosts: 'No Posts to show. Try exploring...',
