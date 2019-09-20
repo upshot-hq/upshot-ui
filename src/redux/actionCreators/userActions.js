@@ -50,6 +50,21 @@ export const getUserEventsFailure = (error) => ({
   error,
 });
 
+export const getUserPosts = ({ limit = defaultFetchLimit, offset = defaultOffset }) => ({
+  type: types.GET_USER_POSTS,
+  postQueries: { limit, offset },
+});
+
+export const getUserPostsSuccess = (responseData) => ({
+  type: types.GET_USER_POSTS_SUCCESS,
+  responseData,
+});
+
+export const getUserPostsFailure = (error) => ({
+  type: types.GET_EVENT_POSTS_FAILURE,
+  error,
+});
+
 export const removeUserEvent = (userId, eventId) => ({
   type: types.REMOVE_USER_EVENT,
   userId,

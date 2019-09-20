@@ -152,7 +152,16 @@ const EventCard = (props) => {
 };
 
 EventCard.propTypes = {
-  event: PropTypes.object.isRequired,
+  event: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    competitions: PropTypes.array.isRequired,
+    start_at: PropTypes.string.isRequired,
+    end_at: PropTypes.string.isRequired,
+    user_pins: PropTypes.bool.isRequired,
+    total_posts: PropTypes.number.isRequired,
+    total_pins: PropTypes.number.isRequired,
+  }).isRequired,
   handlePin: PropTypes.func.isRequired,
 };
 

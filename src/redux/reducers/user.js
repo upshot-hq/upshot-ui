@@ -5,13 +5,19 @@ import { handleRemoveUserEvent } from '../../helpers/utils';
 const initialState = {
   user: {},
   events: [],
+  posts: [],
   errors: {
     message: '',
     errors: {},
   },
   updateSuccess: false,
   isLoading: false,
-  pagination: {
+  eventsPagination: {
+    limit: defaultFetchLimit,
+    offset: defaultOffset,
+    totalCount: 0,
+  },
+  postsPagination: {
     limit: defaultFetchLimit,
     offset: defaultOffset,
     totalCount: 0,
@@ -60,10 +66,26 @@ const user = (state = initialState, action) => {
         ...state,
         isLoading: false,
         events: [...state.events, ...action.responseData.events],
-        pagination: action.responseData.pagination,
+        eventsPagination: action.responseData.pagination,
         errors: initialState.errors,
       };
     case types.GET_USER_EVENTS_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        errors: action.error,
+      };
+    case types.GET_USER_POSTS:
+      return { ...state, isLoading: true };
+    case types.GET_USER_POSTS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        posts: [...state.posts, ...action.responseData.posts],
+        postsPagination: action.responseData.pagination,
+        errors: initialState.errors,
+      };
+    case types.GET_USER_POSTS_FAILURE:
       return {
         ...state,
         isLoading: false,
