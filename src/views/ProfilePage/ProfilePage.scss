@@ -130,7 +130,7 @@
         .stat {
           height: auto;
           max-height: 30%;
-          width: 60%;
+          max-width: 40%;
           padding-top: rem(15px);
           display: flex;
           align-items: flex-start;
@@ -146,6 +146,12 @@
             align-items: center;
             justify-content: space-evenly;
             overflow: hidden;
+            &__stats-loader {
+              &>.up-loader {
+                width: rem(10px);
+                height: rem(10px);
+              }
+            }
             .text {
               font-family: $primary-font;
               text-transform: capitalize;
@@ -154,7 +160,8 @@
               overflow: hidden;
               white-space: nowrap;
               flex-grow: 1;
-              width: 30%;
+              min-width: 30%;
+              max-width: 50%;
               text-align: center;
               .count {
                 font-weight: bold;
@@ -267,6 +274,18 @@
       }
     }
   }
+  &__full-loader-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &--loader {
+      &>.up-loader {
+        height: rem(30px);
+        width: rem(30px);
+      }
+    }
+  }
   .fetch-more {
     height: rem(40px);
     margin-top: rem(20px);
@@ -274,4 +293,3 @@
     visibility: hidden;
   }
 }
-

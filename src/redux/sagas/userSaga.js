@@ -1,10 +1,9 @@
 
 import { put, takeLatest, call } from 'redux-saga/effects';
 
-import { getUserDetails, apiErrorHandler, history } from '../../helpers/utils';
+import { getUserDetails, apiErrorHandler } from '../../helpers/utils';
 import { notifyError } from '../../helpers/notify';
 import UserAPI from '../../services/UserAPI';
-
 import {
   authenticateUser,
   authenticateUserSuccess,
@@ -18,8 +17,10 @@ import {
   getUserPosts,
   getUserPostsSuccess,
   getUserPostsFailure,
+  getUserInfo,
+  getUserInfoSuccess,
+  getUserInfoFailure,
 } from '../actionCreators/userActions';
-import { jwtKey } from '../../helpers/defaults';
 
 export function* watchAuthenticateUserSagaAsync() {
   yield takeLatest(authenticateUser().type, authenticateUserSagaAsync);
@@ -30,10 +31,15 @@ export function* authenticateUserSagaAsync(action) {
     const response = yield call(UserAPI.authenticateUser, action.userData);
     const userData = yield getUserDetails(response.data.token);
     yield put(authenticateUserSuccess(userData));
-    history.push('/home');
+    // eslint-disable-next-line
+    window.location.replace('/home');
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
-    yield put(authenticateUserFailure(errorMessage));
+    yield put(authenticateUserFailure({
+      errors: error.response.data.error || {},
+      message: errorMessage,
+    }));
+    notifyError(errorMessage);
   }
 }
 
@@ -44,12 +50,13 @@ export function* watchUpdateUserProfileSagaAsync() {
 export function* updateUserProfileSagaAsync(action) {
   try {
     const response = yield call(UserAPI.updateUserProfile, action.userData);
-    const userData = yield getUserDetails(response.data.token);
-    localStorage.setItem(jwtKey, response.data.token);
-    yield put(updateUserProfileSuccess(userData));
+    yield put(updateUserProfileSuccess(response.data));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
-    yield put(updateUserProfileFailure(errorMessage));
+    yield put(updateUserProfileFailure({
+      errors: error.response.data.error || {},
+      message: errorMessage,
+    }));
     notifyError(errorMessage);
   }
 }
@@ -65,7 +72,24 @@ export function* getUserEventsSagaAsync(action) {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(getUserEventsFailure({
-      errors: error.response.data.error,
+      errors: error.response.data.error || {},
+      message: errorMessage,
+    }));
+  }
+}
+
+export function* watchGetUserInfoSagaAsync() {
+  yield takeLatest(getUserInfo().type, getUserInfoSagaAsync);
+}
+
+export function* getUserInfoSagaAsync() {
+  try {
+    const response = yield call(UserAPI.getUserInfo);
+    yield put(getUserInfoSuccess(response.data));
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(getUserInfoFailure({
+      errors: error.response.data.error || {},
       message: errorMessage,
     }));
   }

@@ -65,6 +65,20 @@ export const getUserPostsFailure = (error) => ({
   error,
 });
 
+export const getUserInfo = () => ({
+  type: types.GET_USER_INFO,
+});
+
+export const getUserInfoSuccess = (responseData) => ({
+  type: types.GET_USER_INFO_SUCCESS,
+  responseData,
+});
+
+export const getUserInfoFailure = (error) => ({
+  type: types.GET_USER_INFO_FAILURE,
+  error,
+});
+
 export const removeUserEvent = (userId, eventId) => ({
   type: types.REMOVE_USER_EVENT,
   userId,

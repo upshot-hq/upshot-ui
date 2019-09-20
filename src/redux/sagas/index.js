@@ -24,6 +24,7 @@ function* rootSaga() {
     searchSaga.watchSearchSagaAsync(),
     userSaga.watchAuthenticateUserSagaAsync(),
     userSaga.watchGetUserEventsSagaAsync(),
+    userSaga.watchGetUserInfoSagaAsync(),
     userSaga.watchGetUserPostsSagaAsync(),
     userSaga.watchUpdateUserProfileSagaAsync(),
   ]);

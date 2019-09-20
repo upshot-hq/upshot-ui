@@ -6,12 +6,15 @@ const initialState = {
   user: {},
   events: [],
   posts: [],
+  stats: { events: 0, posts: 0 },
   errors: {
     message: '',
     errors: {},
   },
+  userInfoError: '',
   updateSuccess: false,
   isLoading: false,
+  userInfoIsLoading: false,
   eventsPagination: {
     limit: defaultFetchLimit,
     offset: defaultOffset,
@@ -49,7 +52,13 @@ const user = (state = initialState, action) => {
         ...state,
         isLoading: false,
         updateSuccess: true,
-        user: action.updatedData,
+        user: {
+          ...state.user,
+          userData: {
+            ...state.user.userData,
+            ...action.updatedData.user,
+          },
+        },
         errors: initialState.errors,
       };
     case types.UPDATE_USER_PROFILE_FAILURE:
@@ -95,6 +104,28 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         ...handleRemoveUserEvent(state, action),
+      };
+    case types.GET_USER_INFO:
+      return { ...state, userInfoIsLoading: true };
+    case types.GET_USER_INFO_SUCCESS:
+      return {
+        ...state,
+        stats: { ...state.stats, ...action.responseData.user.stats },
+        user: {
+          ...state.user,
+          userData: {
+            ...state.user.userData,
+            ...action.responseData.user,
+          },
+        },
+        userInfoIsLoading: false,
+        userInfoError: initialState.userInfoError,
+      };
+    case types.GET_USER_INFO_FAILURE:
+      return {
+        ...state,
+        userInfoIsLoading: false,
+        userInfoError: action.error,
       };
     default:
       return state;
