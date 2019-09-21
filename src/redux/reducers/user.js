@@ -6,7 +6,7 @@ const initialState = {
   user: {},
   events: [],
   posts: [],
-  stats: { events: 0, posts: 0 },
+  stats: { totalUserEvents: 0, totalUserPosts: 0 },
   errors: {
     message: '',
     errors: {},

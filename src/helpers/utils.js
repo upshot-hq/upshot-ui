@@ -297,7 +297,7 @@ export const handleRemoveUserEvent = (state, action) => {
 
   if (events.length < state.events.length) {
     pagination.totalCount -= 1;
-    stats.events -= 1;
+    stats.totalUserEvents -= 1;
   }
 
   return { events, pagination, stats };

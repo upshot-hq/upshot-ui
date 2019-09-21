@@ -136,8 +136,8 @@ export const ProfilePage = (props) => {
   };
 
   const renderStatCard = () => {
-    const eventStats = modifyCounts(stats.events);
-    const postsStats = modifyCounts(stats.posts);
+    const eventStats = modifyCounts(stats.totalUserEvents);
+    const postsStats = modifyCounts(stats.totalUserPosts);
 
     return	(
 				<div className="stat">
@@ -246,8 +246,8 @@ ProfilePage.propTypes = {
   bookmarkPost: PropTypes.func.isRequired,
   getUserInfo: PropTypes.func.isRequired,
   stats: PropTypes.shape({
-    events: PropTypes.number.isRequired,
-    posts: PropTypes.number.isRequired,
+    totalUserEvents: PropTypes.number.isRequired,
+    totalUserPosts: PropTypes.number.isRequired,
   }).isRequired,
 };
 
