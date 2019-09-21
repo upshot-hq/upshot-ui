@@ -64,7 +64,7 @@ export const AuthPage = (props) => {
                 </div>
                 <div className="msg">
                     <p>Making Events</p>
-                    <p>Engaging, Fun and Enjoyable</p>
+                    <p>Engaging, Fun and Enjoyable.</p>
                 </div>
                 <div className="auth-btn">
                     {renderGoogleSigninBtn()}

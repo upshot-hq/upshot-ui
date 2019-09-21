@@ -18,6 +18,10 @@ class UserAPI {
   static getUserPosts({ limit, offset }) {
     return axios.get(`${baseUrl}/users/events/posts?limit=${limit}&offset=${offset}`);
   }
+
+  static getUserInfo() {
+    return axios.get(`${baseUrl}/users`);
+  }
 }
 
 export default UserAPI;

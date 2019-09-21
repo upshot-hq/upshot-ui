@@ -290,12 +290,15 @@ export const modifyCounts = (count) => {
 
 export const handleRemoveUserEvent = (state, action) => {
   const { userId, eventId } = action;
-  const { pagination } = state;
+  const { pagination, stats } = state;
   const events = state.events.filter(
     (event) => (event.id !== eventId || (event.id === eventId && event.user_id === userId)),
   );
 
-  if (events.length < state.events.length) pagination.totalCount -= 1;
+  if (events.length < state.events.length) {
+    pagination.totalCount -= 1;
+    stats.totalUserEvents -= 1;
+  }
 
-  return { events, pagination };
+  return { events, pagination, stats };
 };

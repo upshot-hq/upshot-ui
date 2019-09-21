@@ -8,7 +8,7 @@ import './ProfilePage.scss';
 import Layout from '../../components/Layout';
 import Modal from '../../components/Modal/index';
 import lang from '../../helpers/en.default';
-import { addStylesToHashTags } from '../../helpers/utils';
+import { addStylesToHashTags, modifyCounts } from '../../helpers/utils';
 import UserProfileForm from '../../components/UserProfileForm/index';
 import Tabs from '../../components/Tabs';
 import * as userActions from '../../redux/actionCreators/userActions';
@@ -27,7 +27,7 @@ export const ProfilePage = (props) => {
     likePost, dislikePost, bookmarkPost, posts,
     pinEvent, events, isLoading, getUserPosts,
     eventsPagination, postsPagination, getUserEvents,
-    removeUserEvent,
+    removeUserEvent, stats, userInfoIsLoading, getUserInfo,
   } = props;
   const { eventsTab, postsTab, bookmarksTab } = lang.profilePage.tabs;
   const [currentView, setCurrentView] = useState(eventsTab);
@@ -36,11 +36,12 @@ export const ProfilePage = (props) => {
 
   useEffect(() => {
     if (isInitialMount.current) {
+      getUserInfo();
       isInitialMount.current = false;
     } else if (profileUpdateSuccess) {
       setShowModal(false);
     }
-  }, [profileUpdateSuccess]);
+  }, [profileUpdateSuccess, getUserInfo]);
 
   const tabItems = [
     {
@@ -92,6 +93,12 @@ export const ProfilePage = (props) => {
 		</div>
   );
 
+  const renderLoader = () => (
+		<div className="profilepage__full-loader-container">
+			<Loader containerClassName="profilepage__full-loader-container--loader" />
+		</div>
+  );
+
   const renderProfileCard = () => {
     const imageStyle = {
       backgroundImage: `url(${userData.imageUrl})`,
@@ -120,7 +127,7 @@ export const ProfilePage = (props) => {
 						<div className="description"
 							// eslint-disable-next-line
 							dangerouslySetInnerHTML={
-								{ __html: addStylesToHashTags(userData.description) }
+								{ __html: addStylesToHashTags(userData.description || '') }
 							}
 						/>
 					</div>
@@ -128,21 +135,28 @@ export const ProfilePage = (props) => {
     );
   };
 
-  const renderStatCard = () => (
-			<div className="stat">
-				<div className="content">
-					<div className="text events">
-						<span className="count">72</span> events
-					</div>
-					<div className="text posts">
-						<span className="count">500</span> posts
-					</div>
-					<div className="text likes">
-						<span className="count">1873</span> likes
+  const renderStatCard = () => {
+    const eventStats = modifyCounts(stats.totalUserEvents);
+    const postsStats = modifyCounts(stats.totalUserPosts);
+
+    return	(
+				<div className="stat">
+					<div className="content">
+					{userInfoIsLoading
+					  ? <Loader containerClassName="content__stats-loader" />
+					  :	<Fragment>
+							<div className="text events">
+								<span className="count">{eventStats}</span> events
+							</div>
+							<div className="text posts">
+								<span className="count">{postsStats}</span> posts
+							</div>
+						</Fragment>
+					}
 					</div>
 				</div>
-			</div>
-  );
+    );
+  };
 
   const renderContent = () => (
 		<Fragment>
@@ -169,32 +183,41 @@ export const ProfilePage = (props) => {
 		</Fragment>
   );
 
+  const renderView = () => (
+    <Fragment>
+      <div className="profilepage__header">
+        <div className="profilepage__header-top">
+          <div className="profilepage__header-top__content">
+            {renderProfileCard()}
+            {renderStatCard()}
+          </div>
+        </div>
+        <div className="profilepage__header-bottom">
+          <Tabs navItems={tabItems} activeTitle={currentView} />
+        </div>
+      </div>
+      <div className="profilepage__content">
+        <div className="profilepage__content-container">
+          {renderContent()}
+          {(!!events.length && currentView === eventsTab) && isLoading
+              && renderFetchMoreLoader()}
+          {(!!posts.length && currentView === postsTab) && isLoading
+              && renderFetchMoreLoader()}
+          {(!!events.length && currentView === eventsTab) && renderFetchMoreTrigger()}
+          {(!!posts.length && currentView === postsTab) && renderFetchMoreTrigger()}
+        </div>
+      </div>
+    </Fragment>
+  );
+
   return (
 		<Fragment>
 			<Layout centerContainerStyles={{ paddingTop: 0 }} match={match}>
 				<div className="profilepage">
-					<div className="profilepage__header">
-						<div className="profilepage__header-top">
-							<div className="profilepage__header-top__content">
-								{renderProfileCard()}
-								{renderStatCard()}
-							</div>
-						</div>
-						<div className="profilepage__header-bottom">
-							<Tabs navItems={tabItems} activeTitle={currentView} />
-						</div>
-					</div>
-					<div className="profilepage__content">
-						<div className="profilepage__content-container">
-							{renderContent()}
-              {(!!events.length && currentView === eventsTab) && isLoading
-                  && renderFetchMoreLoader()}
-              {(!!posts.length && currentView === postsTab) && isLoading
-                  && renderFetchMoreLoader()}
-          		{(!!events.length && currentView === eventsTab) && renderFetchMoreTrigger()}
-          		{(!!posts.length && currentView === postsTab) && renderFetchMoreTrigger()}
-						</div>
-					</div>
+          {userInfoIsLoading
+            ? renderLoader()
+            : renderView()
+          }
 				</div>
 			</Layout>
 			<Modal isModalVisible={showModal} handleModalClose={handleModalClose}>
@@ -213,6 +236,7 @@ ProfilePage.propTypes = {
   eventsPagination: PropTypes.object.isRequired,
   postsPagination: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  userInfoIsLoading: PropTypes.bool.isRequired,
   getUserEvents: PropTypes.func.isRequired,
   getUserPosts: PropTypes.func.isRequired,
   removeUserEvent: PropTypes.func.isRequired,
@@ -220,6 +244,11 @@ ProfilePage.propTypes = {
   likePost: PropTypes.func.isRequired,
   dislikePost: PropTypes.func.isRequired,
   bookmarkPost: PropTypes.func.isRequired,
+  getUserInfo: PropTypes.func.isRequired,
+  stats: PropTypes.shape({
+    totalUserEvents: PropTypes.number.isRequired,
+    totalUserPosts: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = ({ auth }) => ({
@@ -230,11 +259,14 @@ const mapStateToProps = ({ auth }) => ({
   eventsPagination: auth.eventsPagination,
   postsPagination: auth.postsPagination,
   isLoading: auth.isLoading,
+  userInfoIsLoading: auth.userInfoIsLoading,
+  stats: auth.stats,
 });
 
 const actionCreators = {
   getUserEvents: userActions.getUserEvents,
   getUserPosts: userActions.getUserPosts,
+  getUserInfo: userActions.getUserInfo,
   removeUserEvent: userActions.removeUserEvent,
   pinEvent: eventActions.pinEvent,
   likePost: eventPostActions.likePost,
