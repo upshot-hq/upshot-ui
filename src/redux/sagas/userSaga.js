@@ -20,6 +20,9 @@ import {
   getUserInfo,
   getUserInfoSuccess,
   getUserInfoFailure,
+  getUserBookmarks,
+  getUserBookmarksSuccess,
+  getUserBookmarksFailure,
 } from '../actionCreators/userActions';
 
 export function* watchAuthenticateUserSagaAsync() {
@@ -109,5 +112,20 @@ export function* getUserPostsSagaAsync(action) {
       errors: error.response.data.error || {},
       message: errorMessage,
     }));
+  }
+}
+
+export function* watchGetUserBookmarksSagaAsync() {
+  yield takeLatest(getUserBookmarks({}).type, getUserBookmarksSagaAsync);
+}
+
+export function* getUserBookmarksSagaAsync(action) {
+  try {
+    const response = yield call(UserAPI.getUserBookmarks, action);
+    yield put(getUserBookmarksSuccess(response.data));
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(getUserBookmarksFailure());
+    notifyError(errorMessage);
   }
 }

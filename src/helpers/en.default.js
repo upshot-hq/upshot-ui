@@ -92,6 +92,9 @@ export default {
     posts: {
       noPosts: 'no posts yet! :(',
     },
+    bookmarks: {
+      noBookmarks: 'no bookmarked posts yet!',
+    },
   },
   homepage: {
     noPosts: 'No Posts to show. Try exploring...',
