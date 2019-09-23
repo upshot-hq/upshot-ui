@@ -1,5 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import bcrypt from 'bcryptjs';
+import SimpleCrypto from 'simple-crypto-js';
 import { createBrowserHistory } from 'history';
 
 import {
@@ -11,6 +12,11 @@ import lang from './en.default';
 
 const { allTab, eventsTab, postsTab } = lang.explorePage.tabs;
 
+/**
+ * Encrypts or decrypts plain texts and cipher texts respectively
+ */
+export const simpleCrypto = new SimpleCrypto(process.env.REACT_APP_AUTH_SECRET);
+
 export const isExpired = (expiredTimeInSec) => {
   const now = new Date();
   const nowInSec = Math.floor(now.getTime() * 0.001); // Convert date to sec
@@ -19,7 +25,8 @@ export const isExpired = (expiredTimeInSec) => {
 
 export const getUserDetails = (tokn) => {
   const token = tokn || localStorage.getItem(jwtKey);
-  const userData = token ? jwtDecode(token) : null;
+  const decryptedToken = token ? simpleCrypto.decrypt(token) : null;
+  const userData = decryptedToken ? jwtDecode(decryptedToken) : null;
   const isAuthenticated = !!(userData && !isExpired(userData.exp));
 
   if (tokn && isAuthenticated) {
