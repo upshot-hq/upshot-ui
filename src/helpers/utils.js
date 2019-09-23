@@ -302,3 +302,16 @@ export const handleRemoveUserEvent = (state, action) => {
 
   return { events, pagination, stats };
 };
+
+export const handleRemoveUserBookmark = (state, action) => {
+  const { postId } = action;
+  const { bookmarks: stateBookmarks, bookmarksPagination } = state;
+  const bookmarks = stateBookmarks
+    .filter((bookmark) => (bookmark.id !== postId));
+
+  if (bookmarks.length < stateBookmarks.length) {
+    bookmarksPagination.totalCount -= 1;
+  }
+
+  return { bookmarks, bookmarksPagination };
+};
