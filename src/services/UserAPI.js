@@ -22,6 +22,10 @@ class UserAPI {
   static getUserInfo() {
     return axios.get(`${baseUrl}/users`);
   }
+
+  static getUserBookmarks({ limit, offset }) {
+    return axios.get(`${baseUrl}/users/bookmarks?limit=${limit}&offset=${offset}`);
+  }
 }
 
 export default UserAPI;

@@ -1,12 +1,15 @@
 import * as types from '../constants/actionTypes';
 import { defaultFetchLimit, defaultOffset } from '../../helpers/defaults';
-import { handleRemoveUserEvent } from '../../helpers/utils';
+import {
+  handleRemoveUserEvent, handleRemoveUserBookmark,
+} from '../../helpers/utils';
 
 const initialState = {
   user: {},
   events: [],
   posts: [],
   stats: { totalUserEvents: 0, totalUserPosts: 0 },
+  bookmarks: [],
   errors: {
     message: '',
     errors: {},
@@ -15,12 +18,23 @@ const initialState = {
   updateSuccess: false,
   isLoading: false,
   userInfoIsLoading: false,
+  bookmarksIsLoading: false,
   eventsPagination: {
     limit: defaultFetchLimit,
     offset: defaultOffset,
     totalCount: 0,
   },
   postsPagination: {
+    limit: defaultFetchLimit,
+    offset: defaultOffset,
+    totalCount: 0,
+  },
+  pagination: {
+    limit: defaultFetchLimit,
+    offset: defaultOffset,
+    totalCount: 0,
+  },
+  bookmarksPagination: {
     limit: defaultFetchLimit,
     offset: defaultOffset,
     totalCount: 0,
@@ -126,6 +140,28 @@ const user = (state = initialState, action) => {
         ...state,
         userInfoIsLoading: false,
         userInfoError: action.error,
+      };
+    case types.GET_USER_BOOKMARKS:
+      return {
+        ...state,
+        bookmarksIsLoading: true,
+      };
+    case types.GET_USER_BOOKMARKS_SUCCESS:
+      return {
+        ...state,
+        bookmarks: [...state.bookmarks, ...action.bookmarks],
+        bookmarksIsLoading: false,
+        bookmarksPagination: action.pagination,
+      };
+    case types.GET_USER_BOOKMARKS_FAILURE:
+      return {
+        ...state,
+        bookmarksIsLoading: false,
+      };
+    case types.REMOVE_USER_BOOKMARK:
+      return {
+        ...state,
+        ...handleRemoveUserBookmark(state, action),
       };
     default:
       return state;

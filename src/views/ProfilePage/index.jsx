@@ -16,6 +16,7 @@ import * as eventActions from '../../redux/actionCreators/eventActions';
 import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
 import Events from './Events';
 import Posts from './Posts';
+import Bookmarks from './Bookmarks';
 import { useIntersect } from '../../helpers/hooksUtils';
 import Loader from '../../components/Loader/index';
 
@@ -28,6 +29,8 @@ export const ProfilePage = (props) => {
     pinEvent, events, isLoading, getUserPosts,
     eventsPagination, postsPagination, getUserEvents,
     removeUserEvent, stats, userInfoIsLoading, getUserInfo,
+    getUserBookmarks, bookmarks, bookmarksIsLoading,
+    bookmarksPagination, removeUserBookmark,
   } = props;
   const { eventsTab, postsTab, bookmarksTab } = lang.profilePage.tabs;
   const [currentView, setCurrentView] = useState(eventsTab);
@@ -81,6 +84,9 @@ export const ProfilePage = (props) => {
 
   const handleBookmark = (postId, bookmark) => {
     bookmarkPost(postId, bookmark);
+    if (!bookmark && (currentView === bookmarksTab)) {
+      removeUserBookmark(postId);
+    }
   };
 
   const renderFetchMoreTrigger = () => (
@@ -180,6 +186,17 @@ export const ProfilePage = (props) => {
 				IsPostView={(currentView === postsTab)}
 				isIntersected={isIntersected}
 			/>}
+			{(currentView === bookmarksTab) && <Bookmarks
+				handleBookmark={handleBookmark}
+				handleDisLike={handleDisLike}
+				handleLike={handleLike}
+				getUserBookmarks={getUserBookmarks}
+				bookmarks={bookmarks}
+				isLoading={bookmarksIsLoading}
+				pagination={bookmarksPagination}
+				IsBookmarkView={(currentView === bookmarksTab)}
+				isIntersected={isIntersected}
+			/>}
 		</Fragment>
   );
 
@@ -203,8 +220,11 @@ export const ProfilePage = (props) => {
               && renderFetchMoreLoader()}
           {(!!posts.length && currentView === postsTab) && isLoading
               && renderFetchMoreLoader()}
+          {(!!bookmarks.length && currentView === bookmarksTab) && bookmarksIsLoading
+              && renderFetchMoreLoader()}
           {(!!events.length && currentView === eventsTab) && renderFetchMoreTrigger()}
           {(!!posts.length && currentView === postsTab) && renderFetchMoreTrigger()}
+          {(!!bookmarks.length && currentView === bookmarksTab) && renderFetchMoreTrigger()}
         </div>
       </div>
     </Fragment>
@@ -233,18 +253,23 @@ ProfilePage.propTypes = {
   profileUpdateSuccess: PropTypes.bool.isRequired,
   events: PropTypes.array.isRequired,
   posts: PropTypes.array.isRequired,
+  bookmarks: PropTypes.array.isRequired,
   eventsPagination: PropTypes.object.isRequired,
   postsPagination: PropTypes.object.isRequired,
+  bookmarksPagination: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
   userInfoIsLoading: PropTypes.bool.isRequired,
+  bookmarksIsLoading: PropTypes.bool.isRequired,
   getUserEvents: PropTypes.func.isRequired,
   getUserPosts: PropTypes.func.isRequired,
   removeUserEvent: PropTypes.func.isRequired,
+  removeUserBookmark: PropTypes.func.isRequired,
   pinEvent: PropTypes.func.isRequired,
   likePost: PropTypes.func.isRequired,
   dislikePost: PropTypes.func.isRequired,
   bookmarkPost: PropTypes.func.isRequired,
   getUserInfo: PropTypes.func.isRequired,
+  getUserBookmarks: PropTypes.func.isRequired,
   stats: PropTypes.shape({
     totalUserEvents: PropTypes.number.isRequired,
     totalUserPosts: PropTypes.number.isRequired,
@@ -256,10 +281,13 @@ const mapStateToProps = ({ auth }) => ({
   profileUpdateSuccess: auth.updateSuccess,
   events: auth.events,
   posts: auth.posts,
+  bookmarks: auth.bookmarks,
   eventsPagination: auth.eventsPagination,
   postsPagination: auth.postsPagination,
+  bookmarksPagination: auth.bookmarksPagination,
   isLoading: auth.isLoading,
   userInfoIsLoading: auth.userInfoIsLoading,
+  bookmarksIsLoading: auth.bookmarksIsLoading,
   stats: auth.stats,
 });
 
@@ -267,7 +295,9 @@ const actionCreators = {
   getUserEvents: userActions.getUserEvents,
   getUserPosts: userActions.getUserPosts,
   getUserInfo: userActions.getUserInfo,
+  getUserBookmarks: userActions.getUserBookmarks,
   removeUserEvent: userActions.removeUserEvent,
+  removeUserBookmark: userActions.removeUserBookmark,
   pinEvent: eventActions.pinEvent,
   likePost: eventPostActions.likePost,
   dislikePost: eventPostActions.dislikePost,

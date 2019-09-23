@@ -84,3 +84,24 @@ export const removeUserEvent = (userId, eventId) => ({
   userId,
   eventId,
 });
+
+export const getUserBookmarks = ({ limit = defaultFetchLimit, offset = defaultOffset }) => ({
+  type: types.GET_USER_BOOKMARKS,
+  limit,
+  offset,
+});
+
+export const getUserBookmarksSuccess = ({ posts, pagination }) => ({
+  type: types.GET_USER_BOOKMARKS_SUCCESS,
+  bookmarks: posts,
+  pagination,
+});
+
+export const getUserBookmarksFailure = () => ({
+  type: types.GET_USER_BOOKMARKS_FAILURE,
+});
+
+export const removeUserBookmark = (postId) => ({
+  type: types.REMOVE_USER_BOOKMARK,
+  postId,
+});
