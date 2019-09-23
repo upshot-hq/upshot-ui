@@ -21,14 +21,20 @@
     font-family: $primary-font;
     font-size: rem(14px);
     font-weight: 700;
-    background-image: linear-gradient($primary-color,$primary-color);
+    background-image: linear-gradient($secondary-color, $secondary-color);
     background-size: 100% 0%;
     background-repeat:no-repeat;
     background-position: bottom;
     transition: all 0.2s ease-in-out;
+    &:hover {
+      color: $white !important;
+      background-size: 100% 100%;
+      border: none;
+    }
     &:active {
-      background-color: $secondary-color;
-      border: rem(1px) solid $secondary-color;
+      background-image: linear-gradient($primary-color, $primary-color);
+      background-size: 100% 100%;
+      border: none;
       color: $white;
     }
     &:disabled {
@@ -39,10 +45,12 @@
         border-color: $gray-1;
         border-top-color: $white;
       }
+      &:hover {
+        background-size: 100% 0%;
+        border-color: $gray-1 !important;
+        border: rem(1px) solid $gray-1;
+        color: $gray-1 !important;
+      }
     }
-  }
-  &>button:hover {
-    color: $white;
-    background-size: 100% 100%;
   }
 }
