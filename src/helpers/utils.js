@@ -26,7 +26,7 @@ export const isExpired = (expiredTimeInSec) => {
 export const getUserDetails = (tokn) => {
   const token = tokn || localStorage.getItem(jwtKey);
   const decryptedToken = token ? simpleCrypto.decrypt(token) : null;
-  const userData = token ? jwtDecode(decryptedToken) : null;
+  const userData = decryptedToken ? jwtDecode(decryptedToken) : null;
   const isAuthenticated = !!(userData && !isExpired(userData.exp));
 
   if (tokn && isAuthenticated) {

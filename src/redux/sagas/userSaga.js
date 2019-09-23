@@ -39,7 +39,7 @@ export function* authenticateUserSagaAsync(action) {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(authenticateUserFailure({
-      errors: error.response.data.error || {},
+      errors: error.response && error.response.data ? error.response.data.error : {},
       message: errorMessage,
     }));
     notifyError(errorMessage);
