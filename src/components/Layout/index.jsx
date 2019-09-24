@@ -103,6 +103,11 @@ const Layout = (props) => {
         </div>
         <div className="layout__content-rightside" style={rightContainerStyles}>
           <div className="content" />
+          <div className="footer">
+            <div className="footer-text">
+              &#xa9; 2019 upshot, inc.
+            </div>
+          </div>
         </div>
       </div>
       <Fab onClickFunction={renderCreateEventModal} />
