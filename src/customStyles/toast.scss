@@ -58,6 +58,7 @@
   right: 0.3em;
   cursor: pointer;
 }
+
 /*Additional properties for button version
  iOS requires the button element instead of an anchor tag.
  If you want the anchor version, it requires `href="#"`.*/
@@ -215,6 +216,7 @@ button.toast-close-button {
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
   filter: alpha(opacity=40);
 }
+
 /*Responsive Design*/
 @media all and (max-width: 240px) {
   #toast-container > div {
@@ -233,6 +235,7 @@ button.toast-close-button {
     right: 0.2em;
   }
 }
+
 @media all and (min-width: 241px) and (max-width: 480px) {
   #toast-container > div {
     padding: rem(8px 8px 8px 50px);
@@ -250,6 +253,7 @@ button.toast-close-button {
     right: 0.2em;
   }
 }
+
 @media all and (min-width: 481px) and (max-width: 768px) {
   #toast-container > div {
     padding: rem(15px 15px 15px 50px);
@@ -259,4 +263,3 @@ button.toast-close-button {
     padding: rem(15px 50px 15px 15px);
   }
 }
-
