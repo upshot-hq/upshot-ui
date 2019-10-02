@@ -12,6 +12,9 @@ export const defaultOffset = 0;
 export const increment = 'increment';
 export const decrement = 'decrement';
 export const rearrangedString = 'rearranged';
+export const newNotificationEvent = 'new_notification';
+export const unread = 'unread';
+export const read = 'read';
 export const reactionKeys = {
   like: {
     valueKey: 'user_likes',

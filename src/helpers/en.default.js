@@ -22,8 +22,8 @@ export default {
       },
     },
     notification: {
-      title: 'notification',
-      link: '/',
+      title: 'notifications',
+      link: '/notifications',
       icon: {
         name: 'bell',
         size: '2x',
@@ -109,5 +109,8 @@ export default {
       started: 'started',
       ended: 'ended',
     },
+  },
+  notificationsPage: {
+    noNotifications: 'no notifications at the moment',
   },
 };

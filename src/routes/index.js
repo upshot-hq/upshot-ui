@@ -10,6 +10,7 @@ import { getUserDetails } from '../helpers/utils';
 import ExplorePage from '../views/ExplorePage/index';
 import EventPage from '../views/EventPage/index';
 import SearchPage from '../views/SearchPage/index.jsx';
+import NotificationsPage from '../views/NotificationsPage/index.jsx';
 
 const Routes = () => (
     <Switch>
@@ -41,6 +42,11 @@ const Routes = () => (
             path="/events/:eventId"
             exact
             component={authenticateView(EventPage)}
+        />
+        <Route
+            path="/notifications"
+            exact
+            component={authenticateView(NotificationsPage)}
         />
         <Route
             path="/search"
