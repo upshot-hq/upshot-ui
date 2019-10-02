@@ -7,6 +7,7 @@ import search from './search';
 import eventPost from './eventPost';
 import event from './event';
 import explore from './explore';
+import winner from './winner';
 
 const appReducers = combineReducers({
 // please arrange in alphabetical order
@@ -17,6 +18,7 @@ const appReducers = combineReducers({
   explore,
   router: routerReducer,
   search,
+  winner,
 });
 
 
