@@ -1,6 +1,5 @@
 import * as types from '../constants/actionTypes';
 
-// eslint-disable-next-line
 export const handleNewNotification = (data, userId = 0) => ({
   type: types.NEW_NOTIFICATION,
   data,
