@@ -7,6 +7,7 @@ import search from './search';
 import eventPost from './eventPost';
 import event from './event';
 import explore from './explore';
+import notification from './notification';
 
 const appReducers = combineReducers({
 // please arrange in alphabetical order
@@ -15,6 +16,7 @@ const appReducers = combineReducers({
   event,
   eventPost,
   explore,
+  notification,
   router: routerReducer,
   search,
 });

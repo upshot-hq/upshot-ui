@@ -1,0 +1,84 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+#notification-card {
+  position: relative;
+  border-radius: rem(5px);
+  min-height: rem(55px);
+  max-height: rem(180px);
+  width: 100%;
+  overflow: hidden;
+  margin: rem(10px 0);
+  box-shadow: rem(0 0 5px) $black-3;
+  font-family: $primary-font;
+  display: flex;
+  padding: rem(7px 0);
+  .unread-tag {
+    position: absolute;
+    top: -0.3px;
+    left: 0px;
+    height: 100%;
+    width: rem(5px);
+    border-radius: rem(5px 0 0 5px);
+    background-color: $red;
+  }
+  .notification-card {
+    &__content {
+      height: 100%;
+      max-height: 170px;
+      width: 92%;
+      margin: auto;
+      height: 80%;
+      overflow: hidden;
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 30%;
+        border: none;
+        .title {
+          font-family: $primary-font;
+          font-weight: bold;
+          letter-spacing: rem(0.5px);
+          font-size: rem(14px);
+          text-transform: capitalize;
+          text-decoration: none;
+          color: $primary-color;
+          word-break: break-word;
+          word-wrap: break-word;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          width: 70%;
+        }
+        .time {
+          font-family: $primary-font;
+          font-weight: normal;
+          letter-spacing: rem(0.5px);
+          font-size: rem(10px);
+          text-transform: lowercase;
+          text-decoration: none;
+          color: $primary-color;
+          word-break: break-word;
+          word-wrap: break-word;
+          text-overflow: ellipsis;
+          text-align: right;
+          overflow: hidden;
+          white-space: nowrap;
+          width: 28%;
+        }
+      }
+      &>.text {
+        font-family: $primary-font;
+        font-weight: normal;
+        letter-spacing: rem(0.5px);
+        font-size: rem(12px);
+        text-decoration: none;
+        color: $primary-color;
+        word-break: break-word;
+        word-wrap: break-word;
+      }
+    }
+  }
+}
