@@ -37,7 +37,7 @@ NotificationCard.propTypes = {
     status: PropTypes.string.isRequired,
     message: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
-    senderId: PropTypes.number.isRequired,
+    sender_id: PropTypes.number.isRequired,
   }).isRequired,
 };
 

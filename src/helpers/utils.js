@@ -328,7 +328,7 @@ export const handleNotificationsUpdate = (state, action) => {
   const { notificationData: newNotification, userId } = action;
 
   if (newNotification.status && typeof newNotification.status === 'string'
-      && newNotification.senderId !== userId
+      && newNotification.sender_id !== userId
       && newNotification.status.toLowerCase() === unread.toLowerCase()) {
     unreadNotificationsCount += 1;
   }
