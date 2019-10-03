@@ -331,8 +331,8 @@ export const handleNotificationsUpdate = (state, action) => {
       && newNotification.sender_id !== userId
       && newNotification.status.toLowerCase() === unread.toLowerCase()) {
     unreadNotificationsCount += 1;
+    notifications = [newNotification, ...notifications];
   }
-  notifications = [newNotification, ...notifications];
 
   return { unreadNotificationsCount, notifications };
 };
