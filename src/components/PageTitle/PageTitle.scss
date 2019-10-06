@@ -1,0 +1,49 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+#us-page-title {
+  &.page-title {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &.rearranged {
+      justify-content: space-evenly !important;
+    }
+    &>.back-btn {
+      color: $primary-color;
+      flex-basis: 10%;
+      display: flex;
+      justify-content: center;
+      height: 50%;
+      align-items: center;
+      &.rearranged {
+        flex-basis: 3% !important;
+      }
+      &>span {
+        font-size: rem(18px);
+        cursor: pointer;
+      }
+      &:hover {
+        color: $secondary-color;
+      }
+    }
+    &>.title {
+      flex-basis: 89%;
+      height: rem(30px);
+      border-radius: rem(5px);
+      font-family: $primary-font;
+      font-size: rem(22px);
+      font-weight: 600;
+      color: $primary-color;
+      background-color: $white;
+      text-transform: capitalize;
+      display: flex;
+      &.rearranged {
+        flex-basis: 87% !important;
+      }
+    }
+  }
+}

@@ -6,7 +6,7 @@ import { createBrowserHistory } from 'history';
 import {
   jwtKey, hashTagPrefix, handlePrefix,
   saltRounds, reactionKeys, countSuffixes,
-  increment, decrement, reactions,
+  increment, decrement, reactions, unread,
 } from './defaults';
 import lang from './en.default';
 
@@ -340,4 +340,18 @@ export const beautifyPosition = (position) => {
   default:
     return `${positionString}th`;
   }
+};
+
+export const handleNotificationsUpdate = (state, action) => {
+  let { unreadNotificationsCount, notifications } = state;
+  const { notificationData: newNotification, userId } = action;
+
+  if (newNotification.status && typeof newNotification.status === 'string'
+      && newNotification.sender_id !== userId
+      && newNotification.status.toLowerCase() === unread.toLowerCase()) {
+    unreadNotificationsCount += 1;
+    notifications = [newNotification, ...notifications];
+  }
+
+  return { unreadNotificationsCount, notifications };
 };

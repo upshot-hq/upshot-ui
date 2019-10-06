@@ -7,6 +7,7 @@ import * as eventPostSaga from './eventPostSaga';
 import * as eventSaga from './eventSaga';
 import * as exploreSaga from './exploreSaga';
 import * as winnerSaga from './winnerSaga';
+import * as notificationSaga from './notificationSaga';
 
 function* rootSaga() {
   yield all([
@@ -22,6 +23,7 @@ function* rootSaga() {
     eventSaga.watchGetEventSagaAsync(),
     eventSaga.watchPinEventSagaAsync(),
     exploreSaga.watchFetchExploreSagaAsync(),
+    notificationSaga.watchNewNotifcationSagaAsync(),
     searchSaga.watchSearchSagaAsync(),
     userSaga.watchAuthenticateUserSagaAsync(),
     userSaga.watchGetUserBookmarksSagaAsync(),

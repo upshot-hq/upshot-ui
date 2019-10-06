@@ -1,5 +1,9 @@
-import React, { useState, Children, createContext } from 'react';
+import React, {
+  useState, Children, useRef,
+  createContext, useEffect, Fragment,
+} from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 
 import './Layout.scss';
@@ -10,6 +14,9 @@ import Modal from '../../components/Modal/index';
 import CreateEvent from '../CreateEvent';
 import PostToEvent from '../PostToEvent';
 import { history } from '../../helpers/utils';
+import * as notificationActions from '../../redux/actionCreators/notificationActions';
+import SocketHandler from '../../helpers/SocketHandler';
+import { newNotificationEvent } from '../../helpers/defaults';
 
 
 export const LayoutContext = createContext({
@@ -24,9 +31,12 @@ const Layout = (props) => {
   const [showPostToEventModal, setShowPostToEventModal] = useState(false);
   const [event, setEvent] = useState(null);
   const [showPostToEventSearchBar, setShowPostToEventSearchBar] = useState(true);
+  const notificationEngine = useRef(null);
   const {
     children, leftContainerStyles, match: { path },
     centerContainerStyles, rightContainerStyles,
+    handleNewNotification, unreadNotificationsCount,
+    userId,
   } = props;
 
   const logoStyles = {
@@ -37,12 +47,29 @@ const Layout = (props) => {
     margin: 0,
   };
 
+  useEffect(() => {
+    if (!notificationEngine.current) {
+      notificationEngine.current = new SocketHandler(userId);
+      notificationEngine.current.listen(newNotificationEvent, handleNewNotification);
+    }
+  }, [handleNewNotification, userId]);
+
   const handleEventModalClose = () => {
     setShowCreateEventModal(false);
   };
 
   const handlePostToEventModalClose = () => {
     setShowPostToEventModal(false);
+  };
+
+  const renderNotificationCount = (navItemTitle) => {
+    const { notification: { title: notificationTitle } } = lang.layoutSideNav;
+    return (
+      <Fragment>
+        {(!!unreadNotificationsCount && navItemTitle === notificationTitle)
+          && <div className="notification-count">{unreadNotificationsCount}</div>}
+      </Fragment>
+    );
   };
 
   const renderSideNavItem = (navItem, index) => {
@@ -53,6 +80,7 @@ const Layout = (props) => {
     return (
       <div key={index} className={navItemClassName} onClick={() => history.push(link)}>
         <div className="icon">
+          {renderNotificationCount(title)}
           <FontAwesome
             key={index}
             name={icon.name}
@@ -148,10 +176,24 @@ Layout.propTypes = {
   leftContainerStyles: PropTypes.object,
   centerContainerStyles: PropTypes.object,
   rightContainerStyles: PropTypes.object,
+  unreadNotificationsCount: PropTypes.number,
+  userId: PropTypes.number,
+  handleNewNotification: PropTypes.func.isRequired,
 };
 
 Layout.defaultProps = {
   children: null,
+  unreadNotificationsCount: 0,
+  userId: 0,
 };
 
-export default Layout;
+const mapStateToProps = ({ notification, auth }) => ({
+  unreadNotificationsCount: notification.unreadNotificationsCount,
+  userId: auth.user.userData.id,
+});
+
+const mapDispatchToProps = {
+  handleNewNotification: notificationActions.handleNewNotification,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);
