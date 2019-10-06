@@ -1,0 +1,18 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+.eventwinners {
+    .winner-loader {
+        display: flex;
+        justify-content: center;
+    }
+    .competition {
+        margin-top: rem(30px);
+        margin-bottom: rem(30px);
+    }
+    .buttonContainer {
+        display: flex;
+        justify-content: flex-end;
+    }
+}

@@ -52,20 +52,20 @@ export const apiErrorHandler = (error) => {
      * requests like GET to the server
      */
     switch (error.response.status) {
-      case 500:
-        errorMessage = lang.serverErrorMessage;
-        break;
-      case 422:
-        validationErrors = error.response.data.errors
-          .map((err) => err.msg || err.message)
-          .join(', ');
-        errorMessage = `${validationErrors}`;
-        break;
-      case 400:
-        errorMessage = error.response.data.message || error.response.statusText;
-        break;
-      default:
-        errorMessage = error.response.data.error || error.response.data.message;
+    case 500:
+      errorMessage = lang.serverErrorMessage;
+      break;
+    case 422:
+      validationErrors = error.response.data.errors
+        .map((err) => err.msg || err.message)
+        .join(', ');
+      errorMessage = `${validationErrors}`;
+      break;
+    case 400:
+      errorMessage = error.response.data.message || error.response.statusText;
+      break;
+    default:
+      errorMessage = error.response.data.error || error.response.data.message;
     }
   } else {
     //  if server is down, client won't get a response
@@ -321,4 +321,23 @@ export const handleRemoveUserBookmark = (state, action) => {
   }
 
   return { bookmarks, bookmarksPagination };
+};
+
+/**
+ * method to beautify a position e.g: converts 1 to 1st or 23 to 23rd
+ * @param {string} position
+ * @return {string} beautifiedPosition
+ */
+export const beautifyPosition = (position) => {
+  const positionString = `${position}`;
+  switch (positionString.charAt(positionString.length - 1)) {
+  case '1':
+    return `${positionString}st`;
+  case '2':
+    return `${positionString}nd`;
+  case '3':
+    return `${positionString}rd`;
+  default:
+    return `${positionString}th`;
+  }
 };

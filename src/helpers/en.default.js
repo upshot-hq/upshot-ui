@@ -67,7 +67,7 @@ export default {
     tabs: {
       detailsTab: 'details',
       postsTab: 'posts',
-      analyticsTab: 'analytics',
+      winnersTab: 'winners',
     },
     details: {
       about: 'about this event',
@@ -109,5 +109,8 @@ export default {
       started: 'started',
       ended: 'ended',
     },
+  },
+  winnersPage: {
+    noWinner: 'No Winner!',
   },
 };
