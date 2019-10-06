@@ -28,10 +28,10 @@ export const EventPage = (props) => {
     pagination, postIsLoading, postsErrorMessage,
     postsSuccessStatus, pinEvent, likePost, dislikePost,
     bookmarkPost, winners, winnerIsLoading, generateWinners,
-    getWinners, getWinnerIsLoading,
+    getWinners, getWinnerIsLoading, user,
   } = props;
 
-  const [currentView, setCurrentView] = useState(winnersTab);
+  const [currentView, setCurrentView] = useState(detailsTab);
   const isInitialMount = useRef(true);
   const tabItems = [
     {
@@ -112,7 +112,9 @@ export const EventPage = (props) => {
       }
       {(currentView === winnersTab)
         && <EventWinners
+          event={event}
           winners={winners}
+          user={user}
           isLoading={winnerIsLoading}
           getWinnerIsLoading={getWinnerIsLoading}
           handleGenerateWinners={handleGenerateWinners}
@@ -181,6 +183,7 @@ export const EventPage = (props) => {
 EventPage.propTypes = {
   match: PropTypes.object.isRequired,
   event: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   posts: PropTypes.array.isRequired,
   winners: PropTypes.array.isRequired,
   pagination: PropTypes.object.isRequired,
@@ -200,10 +203,13 @@ EventPage.propTypes = {
   getWinners: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ event, eventPost, winner }) => ({
+const mapStateToProps = ({
+  event, eventPost, winner, auth,
+}) => ({
   event: event.event,
   posts: eventPost.posts,
   winners: winner.winners,
+  user: auth.user,
   eventIsLoading: event.isLoadingEvent,
   postIsLoading: eventPost.isLoading,
   winnerIsLoading: winner.isLoading,

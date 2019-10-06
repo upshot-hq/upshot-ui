@@ -6,9 +6,9 @@ import lang from '../../helpers/en.default';
 import './WinnersSection.scss';
 
 const WinnersSection = ({
-  isOpen, winnersSection,
+  winnersSection,
 }) => (
-  <Accordion isOpen={isOpen} title={winnersSection.competition_name}>
+  <Accordion title={winnersSection.competition_name}>
     <div id="winners-section">
       <div className="winners">
         {(winnersSection.winners.length === 0) && <div className="no-winners">
@@ -21,7 +21,6 @@ const WinnersSection = ({
 );
 
 WinnersSection.propTypes = {
-  isOpen: PropTypes.bool,
   winnersSection: PropTypes.object.isRequired,
 };
 

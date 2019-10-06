@@ -78,6 +78,7 @@ export default {
     posts: {
       noPosts: 'no post yet!',
     },
+    eventOngoing: 'The event is ongoing, check back when it\'s done...',
   },
   profilePage: {
     notFound: 'page not found :(',

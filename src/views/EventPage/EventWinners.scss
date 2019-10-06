@@ -15,4 +15,14 @@
         display: flex;
         justify-content: flex-end;
     }
+    &__ongoing {
+        font-family: $primary-font;
+        font-size: rem(20px);
+        text-align: center;
+        font-weight: normal;
+        color: $gray-1;
+        text-transform: lowercase;
+        word-break: break-word;
+        margin-top: rem(20px);
+    }
 }

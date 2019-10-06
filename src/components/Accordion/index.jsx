@@ -36,7 +36,7 @@ Accordion.propTypes = {
 
 Accordion.defaultProps = {
   children: null,
-  isOpen: false,
+  isOpen: true,
   title: '',
 };
 
