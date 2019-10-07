@@ -6,6 +6,7 @@ import * as searchSaga from './searchSaga';
 import * as eventPostSaga from './eventPostSaga';
 import * as eventSaga from './eventSaga';
 import * as exploreSaga from './exploreSaga';
+import * as winnerSaga from './winnerSaga';
 import * as notificationSaga from './notificationSaga';
 
 function* rootSaga() {
@@ -30,6 +31,8 @@ function* rootSaga() {
     userSaga.watchGetUserInfoSagaAsync(),
     userSaga.watchGetUserPostsSagaAsync(),
     userSaga.watchUpdateUserProfileSagaAsync(),
+    winnerSaga.watchGenerateWinnersSagaAsync(),
+    winnerSaga.watchGetWinnersSagaAsync(),
   ]);
 }
 

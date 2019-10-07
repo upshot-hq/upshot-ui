@@ -67,7 +67,7 @@ export default {
     tabs: {
       detailsTab: 'details',
       postsTab: 'posts',
-      analyticsTab: 'analytics',
+      winnersTab: 'winners',
     },
     details: {
       about: 'about this event',
@@ -78,6 +78,7 @@ export default {
     posts: {
       noPosts: 'no post yet!',
     },
+    eventOngoing: 'The event is ongoing, check back when it\'s done...',
   },
   profilePage: {
     notFound: 'page not found :(',
@@ -109,6 +110,9 @@ export default {
       started: 'started',
       ended: 'ended',
     },
+  },
+  winnersPage: {
+    noWinner: 'No Winner!',
   },
   notificationsPage: {
     noNotifications: 'no notifications at the moment',

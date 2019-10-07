@@ -10,7 +10,7 @@ import Heart from '../../assets/icons/heart.svg';
 import SolidHeart from '../../assets/icons/solid-heart.svg';
 import Bookmark from '../../assets/icons/bookmark.svg';
 import SolidBookmark from '../../assets/icons/solid-bookmark.svg';
-import { handlePostReaction } from '../../helpers/utils';
+import { handlePostReaction, modifyCounts } from '../../helpers/utils';
 import { reactions } from '../../helpers/defaults';
 
 const debounceTime = 1000;
@@ -22,6 +22,9 @@ const PostCard = ({
   const debounceLike = useRef(() => {});
   const debounceDisLike = useRef(() => {});
   const debounceBookmark = useRef(() => {});
+  const totalLikes = modifyCounts(post.total_likes);
+  const totalDisLikes = modifyCounts(post.total_dislikes);
+
   useEffect(() => {
     debounceLike.current = debounce(handleLike, debounceTime);
     debounceDisLike.current = debounce(handleDisLike, debounceTime);
@@ -65,16 +68,16 @@ const PostCard = ({
             {post.user_likes
               && <img src={SolidHeart} onClick={() => toggleLike(post.id)} alt="like" />}
             {(post.total_likes > 0)
-              && <div className="count">{post.total_likes}</div>}
+              && <div className="count">{totalLikes}</div>}
           </div>
           <div className="icon">
             {!post.user_dislikes
               && <img src={HeartBreak}
-              onClick={() => toggleDisLike(post.id)} alt="dislike" />}
+                onClick={() => toggleDisLike(post.id)} alt="dislike" />}
             {post.user_dislikes
               && <img src={SolidHeartBreak}
-              onClick={() => toggleDisLike(post.id)} alt="dislike" />}
-            {(post.total_dislikes > 0) && <div className="count">{post.total_dislikes}</div>}
+                onClick={() => toggleDisLike(post.id)} alt="dislike" />}
+            {(post.total_dislikes > 0) && <div className="count">{totalDisLikes}</div>}
           </div>
         </div>
         <div className="icon">

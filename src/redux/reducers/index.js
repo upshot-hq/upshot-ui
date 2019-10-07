@@ -7,6 +7,7 @@ import search from './search';
 import eventPost from './eventPost';
 import event from './event';
 import explore from './explore';
+import winner from './winner';
 import notification from './notification';
 
 const appReducers = combineReducers({
@@ -19,6 +20,7 @@ const appReducers = combineReducers({
   notification,
   router: routerReducer,
   search,
+  winner,
 });
 
 

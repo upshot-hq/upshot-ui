@@ -17,11 +17,11 @@ const Button = (props) => {
 
   return (
     <div className="up-button">
-				<button type={buttonType} className="button" style={customStyles}
-          onClick={handleClick} disabled={disabled}
-        >
-          {showLoader ? <Loader customStyles={loaderStyles} /> : title}
-        </button>
+      <button type={buttonType} className="button" style={customStyles}
+        onClick={handleClick} disabled={disabled}
+      >
+        {showLoader ? <Loader customStyles={loaderStyles} /> : title}
+      </button>
     </div>
   );
 };

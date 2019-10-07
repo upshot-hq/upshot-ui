@@ -20,6 +20,7 @@ module.exports = {
   "rules": {
     "import/no-unresolved": "off",
     "import/extensions": "off",
+    "indent": ["error", 2],
     "quotes": 1,
     "no-console": 1,
     "no-debugger": 1,
