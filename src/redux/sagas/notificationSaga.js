@@ -1,10 +1,12 @@
 
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, call } from 'redux-saga/effects';
 
 import { apiErrorHandler } from '../../helpers/utils';
+import NotificationAPI from '../../services/NotificationAPI';
 import {
   handleNewNotification, handleNewNotificationSuccess,
-  handleNewNotificationFailure,
+  handleNewNotificationFailure, getNotifications,
+  getNotificationsSuccess, getNotificationsFailure,
 } from '../actionCreators/notificationActions';
 
 export function* watchNewNotifcationSagaAsync() {
@@ -17,5 +19,19 @@ export function* handleNewNotificationSagaAsync(action) {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     handleNewNotificationFailure(errorMessage);
+  }
+}
+
+export function* watchGetNotificationsSagaAsync() {
+  yield takeLatest(getNotifications({}).type, getNotificationsSagaAsync);
+}
+
+export function* getNotificationsSagaAsync(action) {
+  try {
+    const response = yield call(NotificationAPI.getNotifications, action.notificationQueries);
+    yield put(getNotificationsSuccess(response.data));
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(getNotificationsFailure(errorMessage));
   }
 }

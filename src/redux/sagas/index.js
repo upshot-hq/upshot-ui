@@ -23,6 +23,7 @@ function* rootSaga() {
     eventSaga.watchGetEventSagaAsync(),
     eventSaga.watchPinEventSagaAsync(),
     exploreSaga.watchFetchExploreSagaAsync(),
+    notificationSaga.watchGetNotificationsSagaAsync(),
     notificationSaga.watchNewNotifcationSagaAsync(),
     searchSaga.watchSearchSagaAsync(),
     userSaga.watchAuthenticateUserSagaAsync(),

@@ -115,6 +115,6 @@ export default {
     noWinner: 'No Winner!',
   },
   notificationsPage: {
-    noNotifications: 'no notifications at the moment',
+    noNotifications: 'no notifications at the moment.',
   },
 };
