@@ -1,5 +1,6 @@
 import * as types from '../constants/actionTypes';
 import { handleNotificationsUpdate } from '../../helpers/utils';
+import { failedToFetch, defaultFetchLimit, defaultOffset } from '../../helpers/defaults';
 
 const initialState = {
   notifications: [],
@@ -11,19 +12,42 @@ const initialState = {
     errors: [],
   },
   isLoading: false,
+  pagination: {
+    limit: defaultFetchLimit,
+    offset: defaultOffset,
+    totalCount: 0,
+  },
 };
 
 const notification = (state = initialState, action) => {
   switch (action.type) {
-    case types.NEW_NOTIFICATION_SUCCESS:
-      return {
-        ...state,
-        success: false,
-        isLoading: false,
-        ...handleNotificationsUpdate(state, action),
-      };
-    default:
-      return state;
+  case types.NEW_NOTIFICATION_SUCCESS:
+    return {
+      ...state,
+      success: false,
+      isLoading: false,
+      ...handleNotificationsUpdate(state, action),
+    };
+  case types.GET_NOTIFICATIONS:
+    return { ...state, isLoading: true };
+  case types.GET_NOTIFICATIONS_SUCCESS:
+    return {
+      ...state,
+      notifications: [...state.notifications, ...action.notificationsData.notifications],
+      pagination: action.notificationsData.pagination,
+      isLoading: false,
+      errors: initialState.errors,
+    };
+  case types.GET_NOTIFICATIONS_FAILURE:
+    return {
+      ...state,
+      isLoading: false,
+      errors: {
+        message: action.errorMessage || failedToFetch,
+      },
+    };
+  default:
+    return state;
   }
 };
 

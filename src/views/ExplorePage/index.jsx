@@ -77,9 +77,9 @@ const ExplorePage = (props) => {
   };
 
   const renderTopBar = () => (
-		<div className="topbar">
+    <div className="topbar">
       <GeneralSearchBar />
-		</div>
+    </div>
   );
 
   const TabsItems = [
@@ -107,17 +107,17 @@ const ExplorePage = (props) => {
   ];
 
   const renderError = (message) => (
-		<div className="explore-page__error">
-			<div className="explore-page__error-content">
-				{message}
-			</div>
-		</div>
+    <div className="explore-page__error">
+      <div className="explore-page__error-content">
+        {message}
+      </div>
+    </div>
   );
 
   const renderContent = () => (
-		<div className="content-container">
-			{
-				content.map((resource, index) => {
+    <div className="content-container">
+      {
+        content.map((resource, index) => {
 				  const isEvent = ('start_at' in resource);
 				  const isEventPost = ('caption' in resource);
 				  if (isEvent) {
@@ -137,9 +137,9 @@ const ExplorePage = (props) => {
 				  }
 
 				  return null;
-				})
-			}
-		</div>
+        })
+      }
+    </div>
   );
 
   const renderFetchMoreTrigger = () => (
@@ -147,31 +147,31 @@ const ExplorePage = (props) => {
   );
 
   return (
-		<Layout match={match}>
-			<div className="explore-page" id="explore-page">
-				<div className="header">
-					<div className="top">
-						{renderTopBar()}
-					</div>
-					<div className="bottom">
+    <Layout match={match}>
+      <div className="explore-page" id="explore-page">
+        <div className="header">
+          <div className="top">
+            {renderTopBar()}
+          </div>
+          <div className="bottom">
             <Tabs
               navItems={TabsItems}
               activeTitle={currentView}
               navItemStyles={{ alignItems: 'flex-start' }}
             />
-					</div>
-				</div>
-				<div className="content">
+          </div>
+        </div>
+        <div className="content">
           {renderContent()}
-					{isLoading && <Loader containerClassName="explore-page__loader" />}
-					{!isLoading && !!errorMessage && renderError(lang.failedToFetch)}
-					{!isLoading && !errorMessage
+          {isLoading && <Loader containerClassName="explore-page__loader" />}
+          {!isLoading && !!errorMessage && renderError(lang.failedToFetch)}
+          {!isLoading && !errorMessage
 						&& !content.length && renderError(lang.explorePage.noContent)
           }
           {renderFetchMoreTrigger()}
-				</div>
-			</div>
-		</Layout>
+        </div>
+      </div>
+    </Layout>
   );
 };
 
