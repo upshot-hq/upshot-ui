@@ -9,6 +9,10 @@ class NotificationAPI {
   }) {
     return axios.get(`${baseUrl}/notifications?limit=${limit}&offset=${offset}&readAll=${readAll}`);
   }
+
+  static updateNotificationStatus({ id, status }) {
+    return axios.patch(`${baseUrl}/notifications/${id}/status`, { status });
+  }
 }
 
 export default NotificationAPI;

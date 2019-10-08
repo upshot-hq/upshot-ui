@@ -16,6 +16,7 @@ const NotificationsPage = (props) => {
   const {
     notifications, match, isLoading,
     pagination, getNotifications, errorMessage,
+    updateNotificationStatus,
   } = props;
   const isInitialMount = useRef(true);
 
@@ -62,7 +63,10 @@ const NotificationsPage = (props) => {
     <div className="notifications-container">
       {
         notifications.map((notification, index) => (
-          <NotificationCard key={index} notification={notification} />))
+          <NotificationCard
+            key={index} notification={notification}
+            handleNotificationStatusUpdate={updateNotificationStatus}
+          />))
       }
     </div>
   );
@@ -93,6 +97,7 @@ NotificationsPage.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string.isRequired,
   getNotifications: PropTypes.func.isRequired,
+  updateNotificationStatus: PropTypes.func.isRequired,
   pagination: PropTypes.shape({
     limit: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired,
@@ -109,6 +114,7 @@ const mapStateToProps = ({ notification }) => ({
 
 const actionCreators = {
   getNotifications: notificationActions.getNotifications,
+  updateNotificationStatus: notificationActions.updateNotificationStatus,
 };
 
 export default connect(mapStateToProps, actionCreators)(NotificationsPage);
