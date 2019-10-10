@@ -23,7 +23,7 @@ const NotificationsPage = (props) => {
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
-      if (!notifications.length) getNotifications({});
+      getNotifications({ isNewFetch: true });
     } else if (!isLoading) {
       const { limit, offset, totalCount } = pagination;
       const fetchMoreNotification = () => {

@@ -2,6 +2,9 @@
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
 
+a {
+    text-decoration: none;
+}
 #notification-card {
   position: relative;
   border-radius: rem(5px);

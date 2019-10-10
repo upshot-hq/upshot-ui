@@ -10,6 +10,14 @@ class NotificationAPI {
     return axios.get(`${baseUrl}/notifications?limit=${limit}&offset=${offset}&readAll=${readAll}`);
   }
 
+  static getNotificationRecipient(notificationId) {
+    return axios.get(`${baseUrl}/notifications/${notificationId}/recipient`);
+  }
+
+  static getUnreadNotificationCount() {
+    return axios.get(`${baseUrl}/notifications/count`);
+  }
+
   static updateNotificationStatus({ id, status }) {
     return axios.patch(`${baseUrl}/notifications/${id}/status`, { status });
   }

@@ -24,6 +24,7 @@ function* rootSaga() {
     eventSaga.watchPinEventSagaAsync(),
     exploreSaga.watchFetchExploreSagaAsync(),
     notificationSaga.watchGetNotificationsSagaAsync(),
+    notificationSaga.watchGetUnreadNotificationCountSagaAsync(),
     notificationSaga.watchNewNotifcationSagaAsync(),
     notificationSaga.watchUpdateNotificationStatusSagaAsync(),
     searchSaga.watchSearchSagaAsync(),

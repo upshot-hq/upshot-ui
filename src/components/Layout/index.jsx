@@ -36,7 +36,7 @@ const Layout = (props) => {
     children, leftContainerStyles, match: { path },
     centerContainerStyles, rightContainerStyles,
     handleNewNotification, unreadNotificationsCount,
-    userId,
+    userId, getUnreadNotificationCount,
   } = props;
 
   const logoStyles = {
@@ -53,6 +53,10 @@ const Layout = (props) => {
       notificationEngine.current.listen(newNotificationEvent, handleNewNotification);
     }
   }, [handleNewNotification, userId]);
+
+  useEffect(() => {
+    getUnreadNotificationCount();
+  }, [getUnreadNotificationCount]);
 
   const handleEventModalClose = () => {
     setShowCreateEventModal(false);
@@ -179,6 +183,7 @@ Layout.propTypes = {
   unreadNotificationsCount: PropTypes.number,
   userId: PropTypes.number,
   handleNewNotification: PropTypes.func.isRequired,
+  getUnreadNotificationCount: PropTypes.func.isRequired,
 };
 
 Layout.defaultProps = {
@@ -194,6 +199,7 @@ const mapStateToProps = ({ notification, auth }) => ({
 
 const mapDispatchToProps = {
   handleNewNotification: notificationActions.handleNewNotification,
+  getUnreadNotificationCount: notificationActions.getUnreadNotificationCount,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

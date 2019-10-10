@@ -344,16 +344,30 @@ export const beautifyPosition = (position) => {
 
 export const handleNotificationsUpdate = (state, action) => {
   let { unreadNotificationsCount, notifications } = state;
-  const { notificationData: newNotification, userId } = action;
+  const { notificationData: newNotification } = action;
 
   if (newNotification.status && typeof newNotification.status === 'string'
-      && newNotification.sender_id !== userId
       && newNotification.status.toLowerCase() === unread.toLowerCase()) {
     unreadNotificationsCount += 1;
     notifications = [newNotification, ...notifications];
   }
 
   return { unreadNotificationsCount, notifications };
+};
+
+/**
+ * method to retrieve query value from url query parameters using a key
+ * @param {string} queryKey 
+ * @param {string} queryString 
+ * @returns {string} queryValue
+ */
+export const getUrlQueryValue = (queryKey, queryString) => {
+  const regex = new RegExp(`${queryKey}=([^&]*)`);
+  const queryValue =
+      regex.exec(queryString) === null
+        ? ''
+        : regex.exec(queryString)[0].split('=')[1];
+    return queryValue;
 };
 
 export const handleNotificationStatusUpdate = (state, action) => {
