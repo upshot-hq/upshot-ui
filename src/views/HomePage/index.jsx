@@ -51,54 +51,45 @@ const HomePage = ({
   );
 
   const renderSearchBar = () => (
-		<div className="searchbar">
+    <div className="searchbar">
       <GeneralSearchBar showBackBtn={false} />
-		</div>
+    </div>
   );
 
   return (
-		<Layout match={match}>
-			<div className="homepage" id="homepage">
-				<div className="header">
-					<div className="top">
-						{renderSearchBar()}
-					</div>
-					<div className="bottom">
-						<div className="nav__items">
-							<div key={1} className="nav__items-item">Top</div>
-							<div key={2} className="nav__items-item">latest</div>
-							<div key={3} className="nav__items-item">people</div>
-							<div key={4} className="nav__items-item">photos</div>
-							<div key={5} className="nav__items-item">videos</div>
-						</div>
-					</div>
-				</div>
-          {(!isEventsPostsLoading && !eventsPosts.length) && <div className="no-content">
-            <p>{lang.homepage.noPosts}</p>
-          </div>}
-				<div className="content">
-					<div className="content-container">
-						{(eventsPosts.length > 0) && eventsPosts.map((post, i) => (
-							<PostCard
-								key={i}
-								post={post}
-								competition={post.competitions_name}
-								imageUrl={post.picture_url}
-								username={post.user_username}
+    <Layout match={match}>
+      <div className="homepage" id="homepage">
+        <div className="header">
+          <div className="top">
+            {renderSearchBar()}
+          </div>
+        </div>
+        {(!isEventsPostsLoading && !eventsPosts.length) && <div className="no-content">
+          <p>{lang.homepage.noPosts}</p>
+        </div>}
+        <div className="content">
+          <div className="content-container">
+            {(eventsPosts.length > 0) && eventsPosts.map((post, i) => (
+              <PostCard
+                key={i}
+                post={post}
+                competition={post.competitions_name}
+                imageUrl={post.picture_url}
+                username={post.user_username}
                 caption={post.caption}
                 handleLike={handleLike}
                 handleDisLike={handleDisLike}
                 handleBookmark={handleBookmark}
-							/>
-						))}
-						{isEventsPostsLoading && <div className="content__loader">
-							<Loader containerClassName="loader-container" />
+              />
+            ))}
+            {isEventsPostsLoading && <div className="content__loader">
+              <Loader containerClassName="loader-container" />
             </div>}
             {renderFetchMoreTrigger()}
-					</div>
-				</div>
-			</div>
-		</Layout>
+          </div>
+        </div>
+      </div>
+    </Layout>
   );
 };
 
