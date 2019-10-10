@@ -16,6 +16,7 @@ export const newNotificationEvent = 'new_notification';
 export const unread = 'unread';
 export const read = 'read';
 export const failedToFetch = 'failed to fetch';
+export const tabUrlQueryKey = 'tab';
 export const reactionKeys = {
   like: {
     valueKey: 'user_likes',
@@ -74,4 +75,12 @@ export const countSuffixes = {
 export const booleanStrings = {
   true: 'true',
   false: 'false',
+};
+
+export const dbResourceToPageMapping = {
+  events: '/events',
+};
+
+export const notificationClassToTabMapping = {
+  winners: 'winners',
 };

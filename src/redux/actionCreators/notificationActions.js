@@ -20,16 +20,34 @@ export const handleNewNotificationFailure = (errorMessage) => ({
 
 export const getNotifications = ({
   limit = defaultFetchLimit, offset = defaultOffset, readAll = booleanStrings.true,
+  isNewFetch = false,
 }) => ({
   type: types.GET_NOTIFICATIONS,
   notificationQueries: { limit, offset, readAll },
+  isNewFetch,
 });
 
-export const getNotificationsSuccess = (responseData) => ({
+export const getNotificationsSuccess = (responseData, isNewFetch) => ({
   type: types.GET_NOTIFICATIONS_SUCCESS,
   notificationsData: responseData,
+  isNewFetch,
 });
+
 export const getNotificationsFailure = (errorMessage) => ({
   type: types.GET_NOTIFICATIONS_FAILURE,
+  errorMessage,
+});
+
+export const getUnreadNotificationCount = () => ({
+  type: types.GET_UNREAD_NOTIFICATION_COUNT,
+});
+
+export const getUnreadNotificationCountSuccess = (responseData) => ({
+  type: types.GET_UNREAD_NOTIFICATION_COUNT_SUCCESS,
+  count: responseData.notificationCount,
+});
+
+export const getUnreadNotificationCountFailure = (errorMessage) => ({
+  type: types.GET_UNREAD_NOTIFICATION_COUNT_FAILURE,
   errorMessage,
 });

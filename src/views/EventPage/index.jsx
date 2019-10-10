@@ -17,6 +17,8 @@ import EventDetails from './EventDetails';
 import EventPosts from './EventPosts';
 import EventWinners from './EventWinners';
 import { useIntersect } from '../../helpers/hooksUtils';
+import { getUrlQueryValue } from '../../helpers/utils';
+import { tabUrlQueryKey } from '../../helpers/defaults';
 
 export const EventPage = (props) => {
   const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
@@ -31,7 +33,26 @@ export const EventPage = (props) => {
     getWinners, getWinnerIsLoading, user,
   } = props;
 
-  const [currentView, setCurrentView] = useState(detailsTab);
+  const getTabToView = () => {
+    const urlQuery = window.location.search; // eslint-disable-line
+    const tab = getUrlQueryValue(tabUrlQueryKey, urlQuery);
+    let tabToView = '';
+    switch (tab) {
+    case postsTab:
+      tabToView = postsTab;
+      break;
+    case winnersTab:
+      tabToView = winnersTab;
+      break;
+    default:
+      tabToView = detailsTab;
+      break;
+    }
+
+    return tabToView;
+  };
+
+  const [currentView, setCurrentView] = useState(getTabToView());
   const isInitialMount = useRef(true);
   const tabItems = [
     {

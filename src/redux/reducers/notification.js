@@ -33,7 +33,9 @@ const notification = (state = initialState, action) => {
   case types.GET_NOTIFICATIONS_SUCCESS:
     return {
       ...state,
-      notifications: [...state.notifications, ...action.notificationsData.notifications],
+      notifications: (action.isNewFetch)
+        ? action.notificationsData.notifications
+        : [...state.notifications, ...action.notificationsData.notifications],
       pagination: action.notificationsData.pagination,
       isLoading: false,
       errors: initialState.errors,
@@ -42,6 +44,18 @@ const notification = (state = initialState, action) => {
     return {
       ...state,
       isLoading: false,
+      errors: {
+        message: action.errorMessage || failedToFetch,
+      },
+    };
+  case types.GET_UNREAD_NOTIFICATION_COUNT_SUCCESS:
+    return {
+      ...state,
+      unreadNotificationsCount: Number.parseInt(action.count, 10),
+    };
+  case types.GET_UNREAD_NOTIFICATION_COUNT_FAILURE:
+    return {
+      ...state,
       errors: {
         message: action.errorMessage || failedToFetch,
       },
