@@ -17,6 +17,7 @@ a {
   font-family: $primary-font;
   display: flex;
   padding: rem(7px 0);
+  cursor: pointer;
   .unread-tag {
     position: absolute;
     top: rem(-0.3px);

@@ -6,7 +6,7 @@ import { createBrowserHistory } from 'history';
 import {
   jwtKey, hashTagPrefix, handlePrefix,
   saltRounds, reactionKeys, countSuffixes,
-  increment, decrement, reactions, unread,
+  increment, decrement, reactions, unread, read,
 } from './defaults';
 import lang from './en.default';
 
@@ -368,4 +368,23 @@ export const getUrlQueryValue = (queryKey, queryString) => {
         ? ''
         : regex.exec(queryString)[0].split('=')[1];
     return queryValue;
+};
+
+export const handleNotificationStatusUpdate = (state, action) => {
+  // eslint-disable-next-line
+  let { notifications, unreadNotificationsCount } = state;
+  const { notificationData: { notification: updatedNotification } } = action;
+
+  for (let i = 0; i < notifications.length; i += 1) {
+    if (notifications[i].id === updatedNotification.id) {
+      notifications[i] = updatedNotification;
+
+      if (unreadNotificationsCount > 0 && updatedNotification.status === read) {
+        unreadNotificationsCount -= 1;
+      }
+      break;
+    }
+  }
+
+  return { unreadNotificationsCount, notifications };
 };

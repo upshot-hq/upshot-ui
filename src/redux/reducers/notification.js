@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import { handleNotificationsUpdate } from '../../helpers/utils';
+import { handleNotificationsUpdate, handleNotificationStatusUpdate } from '../../helpers/utils';
 import { failedToFetch, defaultFetchLimit, defaultOffset } from '../../helpers/defaults';
 
 const initialState = {
@@ -24,7 +24,7 @@ const notification = (state = initialState, action) => {
   case types.NEW_NOTIFICATION_SUCCESS:
     return {
       ...state,
-      success: false,
+      success: true,
       isLoading: false,
       ...handleNotificationsUpdate(state, action),
     };
@@ -33,6 +33,7 @@ const notification = (state = initialState, action) => {
   case types.GET_NOTIFICATIONS_SUCCESS:
     return {
       ...state,
+      success: true,
       notifications: (action.isNewFetch)
         ? action.notificationsData.notifications
         : [...state.notifications, ...action.notificationsData.notifications],
@@ -59,6 +60,13 @@ const notification = (state = initialState, action) => {
       errors: {
         message: action.errorMessage || failedToFetch,
       },
+    };
+  case types.UPDATE_NOTIFICATION_STATUS_SUCCESS:
+    return {
+      ...state,
+      success: true,
+      isLoading: false,
+      ...handleNotificationStatusUpdate(state, action),
     };
   default:
     return state;

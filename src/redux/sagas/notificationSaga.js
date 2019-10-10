@@ -9,6 +9,8 @@ import {
   getNotificationsSuccess, getNotificationsFailure,
   getUnreadNotificationCount, getUnreadNotificationCountFailure,
   getUnreadNotificationCountSuccess,
+  updateNotificationStatus, updateNotificationStatusSuccess,
+  updateNotificationStatusFailure,
 } from '../actionCreators/notificationActions';
 
 export function* watchNewNotifcationSagaAsync() {
@@ -54,5 +56,19 @@ export function* getUnreadNotificationCountSagaAsync() {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(getUnreadNotificationCountFailure(errorMessage));
+  }
+}
+
+export function* watchUpdateNotificationStatusSagaAsync() {
+  yield takeLatest(updateNotificationStatus({}).type, updateNotificationStatusSagaAsync);
+}
+
+export function* updateNotificationStatusSagaAsync(action) {
+  try {
+    const response = yield call(NotificationAPI.updateNotificationStatus, action.data);
+    yield put(updateNotificationStatusSuccess(response.data));
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(updateNotificationStatusFailure(errorMessage));
   }
 }

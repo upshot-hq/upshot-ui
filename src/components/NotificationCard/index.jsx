@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 import './NotificationCard.scss';
 import {
-  unread, dbResourceToPageMapping, notificationClassToTabMapping,
+  unread, read, dbResourceToPageMapping, notificationClassToTabMapping,
 } from '../../helpers/defaults';
 
 const NotificationCard = (props) => {
-  const { notification } = props;
+  const { notification: reduxNotification, handleNotificationStatusUpdate } = props;
+  const [notification, setNotification] = useState(reduxNotification);
+
+
+  const handleClick = () => {
+    handleNotificationStatusUpdate({
+      id: notification.id,
+      status: read,
+    });
+    setNotification({ ...notification, status: read });
+  };
 
   const generateRedirectLink = () => {
     const {
@@ -44,7 +54,7 @@ const NotificationCard = (props) => {
 
   return (
     <Link to={generateRedirectLink()}>
-      <div id="notification-card" className="notification-card">
+      <div id="notification-card" className="notification-card" onClick={handleClick}>
         {notification.status === unread && <div className="unread-tag" />}
         {renderContent()}
       </div>
@@ -54,6 +64,7 @@ const NotificationCard = (props) => {
 
 NotificationCard.propTypes = {
   notification: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     message: PropTypes.string.isRequired,
@@ -63,6 +74,7 @@ NotificationCard.propTypes = {
     resource_id: PropTypes.number,
     notification_class: PropTypes.string,
   }).isRequired,
+  handleNotificationStatusUpdate: PropTypes.func.isRequired,
 };
 
 export default NotificationCard;

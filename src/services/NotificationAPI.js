@@ -17,6 +17,10 @@ class NotificationAPI {
   static getUnreadNotificationCount() {
     return axios.get(`${baseUrl}/notifications/count`);
   }
+
+  static updateNotificationStatus({ id, status }) {
+    return axios.patch(`${baseUrl}/notifications/${id}/status`, { status });
+  }
 }
 
 export default NotificationAPI;

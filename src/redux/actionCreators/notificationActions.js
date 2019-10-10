@@ -1,5 +1,8 @@
 import * as types from '../constants/actionTypes';
-import { defaultFetchLimit, defaultOffset, booleanStrings } from '../../helpers/defaults';
+import {
+  defaultFetchLimit, defaultOffset,
+  booleanStrings, read,
+} from '../../helpers/defaults';
 
 export const handleNewNotification = (data, userId = 0) => ({
   type: types.NEW_NOTIFICATION,
@@ -49,5 +52,19 @@ export const getUnreadNotificationCountSuccess = (responseData) => ({
 
 export const getUnreadNotificationCountFailure = (errorMessage) => ({
   type: types.GET_UNREAD_NOTIFICATION_COUNT_FAILURE,
+});
+
+export const updateNotificationStatus = ({ id, status = read }) => ({
+  type: types.UPDATE_NOTIFICATION_STATUS,
+  data: { id, status },
+});
+
+export const updateNotificationStatusSuccess = (responseData) => ({
+  type: types.UPDATE_NOTIFICATION_STATUS_SUCCESS,
+  notificationData: responseData,
+});
+
+export const updateNotificationStatusFailure = (errorMessage) => ({
+  type: types.UPDATE_NOTIFICATION_STATUS_FAILURE,
   errorMessage,
 });
