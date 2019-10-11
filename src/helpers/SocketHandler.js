@@ -1,15 +1,24 @@
 import connectSocket from 'socket.io-client';
 
 class SocketHandler {
-  constructor(userId = 0) {
-    this.socket = connectSocket(process.env.REACT_APP_SOCKET_URL);
-    this.currentUserId = userId;
+  socket = null;
+
+  isListening = false;
+
+  static init(userId = 0) {
+    if (!this.socket) {
+      this.socket = connectSocket(process.env.REACT_APP_SOCKET_URL);
+      this.currentUserId = userId;
+    }
   }
 
-  listen(eventName, callbackFunction) {
-    this.socket.on(eventName, (data) => {
-      callbackFunction(data, this.currentUserId);
-    });
+  static listen(eventName, callbackFunction) {
+    if (!this.isListening) {
+      this.socket.on(eventName, (data) => {
+        callbackFunction(data, this.currentUserId);
+      });
+      this.isListening = true;
+    }
   }
 }
 
