@@ -49,8 +49,9 @@ const Layout = (props) => {
 
   useEffect(() => {
     if (!notificationEngine.current) {
-      notificationEngine.current = new SocketHandler(userId);
-      notificationEngine.current.listen(newNotificationEvent, handleNewNotification);
+      notificationEngine.current = true;
+      SocketHandler.init(userId);
+      SocketHandler.listen(newNotificationEvent, handleNewNotification);
     }
   }, [handleNewNotification, userId]);
 

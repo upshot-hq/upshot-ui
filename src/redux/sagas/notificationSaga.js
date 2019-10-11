@@ -1,5 +1,7 @@
 
-import { put, takeLatest, call } from 'redux-saga/effects';
+import {
+  put, takeLatest, call, takeEvery,
+} from 'redux-saga/effects';
 
 import { apiErrorHandler } from '../../helpers/utils';
 import NotificationAPI from '../../services/NotificationAPI';
@@ -14,7 +16,7 @@ import {
 } from '../actionCreators/notificationActions';
 
 export function* watchNewNotifcationSagaAsync() {
-  yield takeLatest(handleNewNotification().type, handleNewNotificationSagaAsync);
+  yield takeEvery(handleNewNotification().type, handleNewNotificationSagaAsync);
 }
 
 export function* handleNewNotificationSagaAsync(action) {
