@@ -11,9 +11,9 @@ const Textarea = ({
 
   return (
     <div className="form-input">
-      <div className="title">description</div>
-      <textarea type="text" name="description"
-        id="description" className="text-input textarea"
+      <div className="title">{name}</div>
+      <textarea type="text" name={name}
+        id={name} className="text-input textarea"
         placeholder={newPlaceholder}
         maxLength={maxLength}
         onChange={onChange}

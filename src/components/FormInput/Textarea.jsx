@@ -9,11 +9,11 @@ const Textarea = ({
   const newPlaceholder = (required) ? `${placeholder} *` : placeholder;
 
   return (
-  <div className="form-input">
-    <ReactQuill value={value} onChange={onChange} placeholder={newPlaceholder} style={styles} />
-    {!error && <span className="info">{info}</span>}
-    {error && <span className="error" id={`${name}-error`}>{error}</span>}
-  </div>
+    <div className="form-input">
+      <ReactQuill value={value} onChange={onChange} placeholder={newPlaceholder} style={styles} />
+      {!error && <span className="info">{info}</span>}
+      {error && <span className="error" id={`${name}-error`}>{error}</span>}
+    </div>
   );
 };
 

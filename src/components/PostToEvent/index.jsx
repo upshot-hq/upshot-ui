@@ -1,4 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+  useState, useEffect,
+  useRef, Fragment,
+} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -14,6 +17,8 @@ import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
 import { createFormData } from '../../helpers/utils';
 import { searchScopes } from '../../helpers/defaults';
 
+const BEST_CAPTION_ID = 2;
+
 const PostToEvent = (props) => {
   const { event, showSearchBar } = props;
   const [selectedCompetition, setSelectedCompetition] = useState('');
@@ -21,6 +26,8 @@ const PostToEvent = (props) => {
   const [eventCompetitions, setEventCompetitions] = useState([]);
   const [imageFile, setImageFile] = useState('');
   const [caption, setCaption] = useState('');
+  const [topCaption, setTopCaption] = useState('');
+  const [bottomCaption, setBottomCaption] = useState('');
   const [disableFormBtn, setDisableFormBtn] = useState(true);
   const isInitialMount = useRef(true);
   const {
@@ -80,8 +87,14 @@ const PostToEvent = (props) => {
   };
 
   const handleCaptionChange = (eventObject) => {
-    const { value } = eventObject.target;
-    setCaption(value);
+    const { value, name } = eventObject.currentTarget;
+    if (name === 'topCaption') {
+      setTopCaption(value);
+    } else if (name === 'bottomCaption') {
+      setBottomCaption(value);
+    } else {
+      setCaption(value);
+    }
   };
 
   const handleFormSubmit = () => {
@@ -102,10 +115,49 @@ const PostToEvent = (props) => {
     }
   };
 
+  const renderCaptionInputs = () => (
+    <Fragment>
+      {selectedCompetition !== BEST_CAPTION_ID.toString()
+        && <CustomTextarea
+          placeholder={lang.postToEvent.captionPlaceholder}
+          styles={{ fontWeight: '600' }}
+          name="caption"
+          onChange={handleCaptionChange}
+          value={caption}
+          error=""
+        />
+      }
+      {selectedCompetition === BEST_CAPTION_ID.toString()
+        && <Fragment>
+          <CustomTextarea
+            placeholder={lang.postToEvent.captionPlaceholder}
+            styles={{ fontWeight: '600', height: '40px' }}
+            name="topCaption"
+            onChange={handleCaptionChange}
+            value={topCaption}
+            maxLength={98}
+            error=""
+          />
+          <CustomTextarea
+            placeholder={lang.postToEvent.captionPlaceholder}
+            styles={{ fontWeight: '600', height: '40px' }}
+            name="bottomCaption"
+            onChange={handleCaptionChange}
+            value={bottomCaption}
+            maxLength={98}
+            error=""
+          />
+        </Fragment>
+      }
+    </Fragment>
+  );
+
   const renderPostToEventForm = () => {
     const dropdownInfo = selectedEvent
       ? lang.postToEvent.competitionDropdownInfo : lang.postToEvent.eventSearchInfo;
 
+    const isBestCaption = selectedCompetition === BEST_CAPTION_ID.toString();
+    console.log(selectedCompetition, 'isBestCaption', isBestCaption);
     return (
       <div className="form-content">
         {showSearchBar
@@ -121,12 +173,12 @@ const PostToEvent = (props) => {
         }
         {selectedEvent
           && <div className="event">
-              <Capsule
-                title={selectedEvent.hashtag}
-                id={selectedEvent.id}
-                handleClose={handleRemoveSelectedEvent}
-                showCloseBtn={showEventRemoveBtn}
-              />
+            <Capsule
+              title={selectedEvent.hashtag}
+              id={selectedEvent.id}
+              handleClose={handleRemoveSelectedEvent}
+              showCloseBtn={showEventRemoveBtn}
+            />
           </div>
         }
         <div className="competitions">
@@ -154,18 +206,12 @@ const PostToEvent = (props) => {
             }}
             inputStyles={{ height: '100%' }}
             iconStyles={{ top: '43%', left: '43%' }}
+            imageFileAsSvg={isBestCaption}
+            topCaptionText={topCaption}
+            bottomCaptionText={bottomCaption}
           />
         </div>
-        <div className="caption">
-          <CustomTextarea
-            placeholder={lang.postToEvent.captionPlaceholder}
-            styles={{ fontWeight: '600' }}
-            name="caption"
-            onChange={handleCaptionChange}
-            value={caption}
-            error=""
-          />
-        </div>
+        <div className="caption">{renderCaptionInputs()}</div>
         <div className="form-button">
           <Button
             handleClick={handleFormSubmit}

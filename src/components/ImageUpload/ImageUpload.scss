@@ -32,6 +32,41 @@
       color: $white;
       cursor: pointer;
     }
+    .topCaptionText {
+      position: absolute;
+      top: 1%;
+      width: 97%;
+      max-height: rem(44px);
+      margin-left: 1%;
+      text-align: center;
+      font-family: $caption-font;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      word-wrap: break-all;
+      font-family: $caption-font;
+      font-size: rem(19px);
+      text-transform: uppercase;
+      color: $white;
+      user-select: none;
+    }
+    .bottomCaptionText {
+      position: absolute;
+      top: 78%;
+      width: 97%;
+      max-height: rem(44px);
+      margin-left: 1%;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      word-wrap: break-all;
+      font-family: $caption-font;
+      font-size: rem(19px);
+      text-transform: uppercase;
+      color: $white;
+      user-select: none;
+    }
   }
   .error {
     font-family: $primary-font;

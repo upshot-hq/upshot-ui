@@ -31,8 +31,8 @@ const Image = ({ imageUrl }) => {
       </div>}
       {(loadingStatus !== loadingStatusValues.failed)
       && <img onLoad={handleImageLoaded} onError={handleImageLoadError}
-      className={`image ${(loadingStatus === loadingStatusValues.success) ? '' : 'hidden'}`}
-      src={imageUrl} alt="loaded" />}
+        className={`image ${(loadingStatus === loadingStatusValues.success) ? '' : 'hidden'}`}
+        src={imageUrl} alt="loaded" />}
     </div>
   );
 };
