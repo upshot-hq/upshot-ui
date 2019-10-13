@@ -4,21 +4,21 @@
 * Mixins to help target various screen sizes
 */
 @mixin apply-to($screen) {
-    @if $screen == phone {
-        @media only screen and (max-width: $breakpoint-phone) {
-			  @content;
-		  }
+  @if $screen == phone {
+      @media only screen and (max-width: $breakpoint-phone) {
+        @content;
     }
+  }
 
-    @else if $screen == tablet {
-        @media only screen and (max-width: $breakpoint-tablet) {
-			  @content;
-		  }
+  @else if $screen == tablet {
+      @media only screen and (max-width: $breakpoint-tablet) {
+        @content;
     }
+  }
 
-    @else if $screen == desktop {
-        @media only screen and (max-width: $breakpoint-desktop) {
-			  @content;
-		  }
+  @else if $screen == desktop {
+      @media only screen and (max-width: $breakpoint-desktop) {
+        @content;
     }
+  }
 }
