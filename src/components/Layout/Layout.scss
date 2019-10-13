@@ -15,133 +15,135 @@
     overflow: hidden;
     .layout__content {
       &-leftside {
-        flex-basis: 25%;
-        padding-top: 2%;
-        .content {
-          height: 100%;
-          padding-left: 30%;
-          padding-right: rem(10px);
-          .layout__logo {
-            height: 6%;
-            display: flex;
-            align-items: flex-start;
-            justify-content: flex-start;
-            margin-left: rem(15px);
-          }
-          .side__nav {
-            height: 80%;
-            &-items {
-              margin-top: 20%;
-              .nav-item {
-                width: 100%;
-                cursor: pointer;
-                display: flex;
-                margin-bottom: rem(22px);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                white-space: nowrap; 
-                overflow: hidden;
-                text-overflow: ellipsis;
-                &:hover, &.active {
-                  color: $secondary-color;
-                  .icon, .title {
-                    color: $secondary-color;
-                  }
-                }
-                .icon {
-                  width: 100%;
-                  flex-basis: 30%;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  font-weight: bold;
-                  font-size: rem(25px);
-                  font-family: $primary-font;
-                  color: $primary-color;
-                  position: relative;
-                  .notification-count {
-                    border-radius: 50%;
-                    font-size: rem(12px);
-                    color: $white;
-                    font-family: $primary-font;
-                    background-color: $red;
-                    min-width: rem(20px);
-                    max-width: rem(30px);
-                    height: rem(20px);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    position: absolute;
-                    top: rem(-1px);
-                    left: rem(30px);
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
-                  }
-                }
-                .title {
-                  width: 100%;
-                  height: 100%;
-                  text-transform: capitalize;
-                  font-weight: 700;
-                  font-size: rem(22px);
-                  font-family: $primary-font;
-                  color: $primary-color;
-                  &:hover {
-                    color: $secondary-color;
-                  }
-                }
-              }
-            }
-          }
-        }
+        display: none;
       }
       &-center {
         height: 100%;
         border: rem(1px) solid $gray-3;
         border-top: 0;
         border-bottom: 0;
-        flex-basis: 40%;
+        flex-basis: 100%;
         overflow-x: hidden;
         &::-webkit-scrollbar { 
           display: none; 
         }
       }
       &-rightside {
-        padding-top: 2%;
-        flex-basis: 35%;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        -ms-overflow-style: none;
-        &::-webkit-scrollbar {
-            width: 0 !important
-        }
-        .content {
-          margin: auto 10px;
-          height: 60%;
-          width: 70%;
-          background-color: $primary-color;
-          border-radius: rem(5px);
-        }
+        display: none;
       }
     }
   }
 }
 
-// target from tablet downwards
-@include apply-to(tablet) {
+// target from tablet-large upwards
+@include apply-to(tablet-large) {
   .layout {
     &-container {
       .layout__content {
         &-leftside {
-          display: none;
+          display: block;
+          flex-basis: 25%;
+          padding-top: 2%;
+          .content {
+            height: 100%;
+            padding-left: 30%;
+            padding-right: rem(10px);
+            .layout__logo {
+              height: 6%;
+              display: flex;
+              align-items: flex-start;
+              justify-content: flex-start;
+              margin-left: rem(15px);
+            }
+            .side__nav {
+              height: 80%;
+              &-items {
+                margin-top: 20%;
+                .nav-item {
+                  width: 100%;
+                  cursor: pointer;
+                  display: flex;
+                  margin-bottom: rem(22px);
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  white-space: nowrap; 
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  &:hover, &.active {
+                    color: $secondary-color;
+                    .icon, .title {
+                      color: $secondary-color;
+                    }
+                  }
+                  .icon {
+                    width: 100%;
+                    flex-basis: 30%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-weight: bold;
+                    font-size: rem(25px);
+                    font-family: $primary-font;
+                    color: $primary-color;
+                    position: relative;
+                    .notification-count {
+                      border-radius: 50%;
+                      font-size: rem(12px);
+                      color: $white;
+                      font-family: $primary-font;
+                      background-color: $red;
+                      min-width: rem(20px);
+                      max-width: rem(30px);
+                      height: rem(20px);
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      position: absolute;
+                      top: rem(-1px);
+                      left: rem(30px);
+                      text-overflow: ellipsis;
+                      overflow: hidden;
+                      white-space: nowrap;
+                    }
+                  }
+                  .title {
+                    width: 100%;
+                    height: 100%;
+                    text-transform: capitalize;
+                    font-weight: 700;
+                    font-size: rem(22px);
+                    font-family: $primary-font;
+                    color: $primary-color;
+                    &:hover {
+                      color: $secondary-color;
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
         &-rightside {
-          display: none;
+          display: block;
+          padding-top: 2%;
+          flex-basis: 35%;
+          overflow-y: scroll;
+          overflow-x: hidden;
+          -ms-overflow-style: none;
+          &::-webkit-scrollbar {
+              width: 0 !important
+          }
+          .content {
+            margin: auto 10px;
+            height: 60%;
+            width: 70%;
+            background-color: $primary-color;
+            border-radius: rem(5px);
+          }
         }
         &-center {
-          flex-basis: 100%;
+          flex-basis: 40%;
         }
       }
     }
