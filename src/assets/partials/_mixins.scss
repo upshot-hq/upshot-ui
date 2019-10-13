@@ -11,13 +11,19 @@
   }
 
   @else if $screen == tablet {
-    @media only screen and (max-width: $breakpoint-tablet) {
+    @media only screen and (min-width: $breakpoint-tablet) {
+      @content;
+    }
+  }
+
+  @else if $screen == tablet-large {
+    @media only screen and (min-width: $breakpoint-tablet-large) {
       @content;
     }
   }
 
   @else if $screen == desktop {
-    @media only screen and (max-width: $breakpoint-desktop) {
+    @media only screen and (min-width: $breakpoint-desktop) {
       @content;
     }
   }
