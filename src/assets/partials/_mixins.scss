@@ -6,19 +6,19 @@
 @mixin apply-to($screen) {
     @if $screen == phone {
         @media only screen and (max-width: $breakpoint-phone) {
-			@content;
-		}
+			  @content;
+		  }
     }
 
     @else if $screen == tablet {
         @media only screen and (max-width: $breakpoint-tablet) {
-			@content;
-		}
+			  @content;
+		  }
     }
 
     @else if $screen == desktop {
         @media only screen and (max-width: $breakpoint-desktop) {
-			@content;
-		}
+			  @content;
+		  }
     }
 }
