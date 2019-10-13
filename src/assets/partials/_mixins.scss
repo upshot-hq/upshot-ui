@@ -5,7 +5,7 @@
 */
 @mixin apply-to($screen) {
   @if $screen == phone {
-    @media only screen and (min-width: $breakpoint-phone) {
+    @media only screen and (max-width: $breakpoint-phone) {
       @content;
     }
   }
