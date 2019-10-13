@@ -149,3 +149,22 @@
     }
   }
 }
+
+// target from tablet downwards
+@include apply-to(tablet) {
+  .layout {
+    &-container {
+      .layout__content {
+        &-leftside {
+          display: none;
+        }
+        &-rightside {
+          display: none;
+        }
+        &-center {
+          flex-basis: 100%;
+        }
+      }
+    }
+  }
+}
