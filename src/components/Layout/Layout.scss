@@ -1,6 +1,7 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 .layout {
   display: flex;
@@ -126,4 +127,23 @@
       }
     }
   }
+}
+
+// target from tablet downwards
+@include apply-to(tablet) {
+    .layout {
+        &-container {
+            .layout__content {
+                &-leftside {
+                    display: none;
+                }
+                &-rightside {
+                    display: none;
+                }
+                &-center {
+                    flex-basis: 100%;
+                }
+            }
+        }
+    }
 }
