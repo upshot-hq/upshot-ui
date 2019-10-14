@@ -60,6 +60,8 @@ const PostToEvent = (props) => {
       HIGH = 'high';
     } else {
       setIsBestCaptionCompetition(false);
+      setTopCaption('');
+      setBottomCaption('');
       HIGH = '';
     }
   }, [selectedCompetitionId]);
