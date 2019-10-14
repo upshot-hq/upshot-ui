@@ -1,4 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+  useState, useEffect,
+  useRef, Fragment,
+} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -12,15 +15,21 @@ import SearchBar from '../SearchBar';
 import ImageUpload from '../ImageUpload/index';
 import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
 import { createFormData } from '../../helpers/utils';
-import { searchScopes } from '../../helpers/defaults';
+import { searchScopes, maxBestCaptionLength } from '../../helpers/defaults';
+
+const BEST_CAPTION_ID = process.env.REACT_APP_BEST_CAPTION_COMPETITION_ID;
+let HIGH = '';
 
 const PostToEvent = (props) => {
   const { event, showSearchBar } = props;
-  const [selectedCompetition, setSelectedCompetition] = useState('');
+  const [selectedCompetitionId, setSelectedCompetitionId] = useState('');
   const [selectedEvent, setSelectedEvent] = useState(event || null);
   const [eventCompetitions, setEventCompetitions] = useState([]);
+  const [isBestCaptionCompetition, setIsBestCaptionCompetition] = useState(false);
   const [imageFile, setImageFile] = useState('');
   const [caption, setCaption] = useState('');
+  const [topCaption, setTopCaption] = useState('');
+  const [bottomCaption, setBottomCaption] = useState('');
   const [disableFormBtn, setDisableFormBtn] = useState(true);
   const isInitialMount = useRef(true);
   const {
@@ -46,13 +55,33 @@ const PostToEvent = (props) => {
   }, [selectedEvent]);
 
   useEffect(() => {
+    if (selectedCompetitionId === BEST_CAPTION_ID.toString()) {
+      setIsBestCaptionCompetition(true);
+      HIGH = 'high';
+    } else {
+      setIsBestCaptionCompetition(false);
+      setTopCaption('');
+      setBottomCaption('');
+      HIGH = '';
+    }
+  }, [selectedCompetitionId]);
+
+  useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
     } else {
-      const disableBtn = !selectedEvent || !selectedCompetition || !imageFile || isPostingToEvent;
+      let disableBtn = !selectedEvent || !selectedCompetitionId || !imageFile || isPostingToEvent;
+
+      if (isBestCaptionCompetition && !disableBtn) {
+        disableBtn = !topCaption.trim() && !bottomCaption.trim();
+      }
+
       setDisableFormBtn(disableBtn);
     }
-  }, [selectedEvent, selectedCompetition, imageFile, isPostingToEvent]);
+  }, [selectedEvent, selectedCompetitionId, topCaption,
+    imageFile, isPostingToEvent, bottomCaption,
+    isBestCaptionCompetition,
+  ]);
 
   const getSearchResultTitleAndValue = (resultItem) => {
     const titleAndValue = { title: '', value: '', type: '' };
@@ -72,7 +101,7 @@ const PostToEvent = (props) => {
 
   const handleDropdownSelect = (eventObject) => {
     const { value } = eventObject.target;
-    setSelectedCompetition(value);
+    setSelectedCompetitionId(value);
   };
 
   const handleImageChange = (image) => {
@@ -80,8 +109,14 @@ const PostToEvent = (props) => {
   };
 
   const handleCaptionChange = (eventObject) => {
-    const { value } = eventObject.target;
-    setCaption(value);
+    const { value, name } = eventObject.currentTarget;
+    if (name === 'topCaption') {
+      setTopCaption(value);
+    } else if (name === 'bottomCaption') {
+      setBottomCaption(value);
+    } else {
+      setCaption(value);
+    }
   };
 
   const handleFormSubmit = () => {
@@ -89,7 +124,9 @@ const PostToEvent = (props) => {
       const payload = createFormData({
         caption,
         image: imageFile,
-        competitionId: selectedCompetition,
+        competitionId: selectedCompetitionId,
+        topCaption,
+        bottomCaption,
       });
 
       postToEvent(selectedEvent.id, payload);
@@ -99,8 +136,47 @@ const PostToEvent = (props) => {
   const handleRemoveSelectedEvent = (eventId) => {
     if (selectedEvent && selectedEvent.id === eventId) {
       setSelectedEvent(null);
+      setEventCompetitions([]);
+      setSelectedCompetitionId('');
+      setTopCaption('');
+      setBottomCaption('');
     }
   };
+
+  const renderCaptionInputs = () => (
+    <Fragment>
+      {isBestCaptionCompetition
+        && <Fragment>
+          <CustomTextarea
+            placeholder={lang.postToEvent.topCaptionPlaceholder}
+            styles={{ fontWeight: '600', height: '40px' }}
+            name="topCaption"
+            onChange={handleCaptionChange}
+            value={topCaption}
+            maxLength={maxBestCaptionLength}
+            error=""
+          />
+          <CustomTextarea
+            placeholder={lang.postToEvent.bottomCaptionPlaceholder}
+            styles={{ fontWeight: '600', height: '40px' }}
+            name="bottomCaption"
+            onChange={handleCaptionChange}
+            value={bottomCaption}
+            maxLength={maxBestCaptionLength}
+            error=""
+          />
+        </Fragment>
+      }
+      <CustomTextarea
+        placeholder={lang.postToEvent.captionPlaceholder}
+        styles={{ fontWeight: '600' }}
+        name="caption"
+        onChange={handleCaptionChange}
+        value={caption}
+        error=""
+      />
+    </Fragment>
+  );
 
   const renderPostToEventForm = () => {
     const dropdownInfo = selectedEvent
@@ -121,12 +197,12 @@ const PostToEvent = (props) => {
         }
         {selectedEvent
           && <div className="event">
-              <Capsule
-                title={selectedEvent.hashtag}
-                id={selectedEvent.id}
-                handleClose={handleRemoveSelectedEvent}
-                showCloseBtn={showEventRemoveBtn}
-              />
+            <Capsule
+              title={selectedEvent.hashtag}
+              id={selectedEvent.id}
+              handleClose={handleRemoveSelectedEvent}
+              showCloseBtn={showEventRemoveBtn}
+            />
           </div>
         }
         <div className="competitions">
@@ -135,7 +211,7 @@ const PostToEvent = (props) => {
             options={eventCompetitions}
             optionsTitleProperty="name"
             optionsValueProperty="id"
-            value={selectedCompetition}
+            value={selectedCompetitionId}
             error=""
             info={dropdownInfo}
             onChange={handleDropdownSelect}
@@ -154,18 +230,11 @@ const PostToEvent = (props) => {
             }}
             inputStyles={{ height: '100%' }}
             iconStyles={{ top: '43%', left: '43%' }}
+            topCaptionText={topCaption}
+            bottomCaptionText={bottomCaption}
           />
         </div>
-        <div className="caption">
-          <CustomTextarea
-            placeholder={lang.postToEvent.captionPlaceholder}
-            styles={{ fontWeight: '600' }}
-            name="caption"
-            onChange={handleCaptionChange}
-            value={caption}
-            error=""
-          />
-        </div>
+        <div className="caption">{renderCaptionInputs()}</div>
         <div className="form-button">
           <Button
             handleClick={handleFormSubmit}
@@ -181,7 +250,7 @@ const PostToEvent = (props) => {
 
   return (
     <div className="post-to-event" id="post-to-event">
-      <div className="post-to-event__container">
+      <div className={`post-to-event__container ${HIGH}`}>
         {renderPostToEventForm()}
       </div>
     </div>

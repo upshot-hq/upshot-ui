@@ -12,21 +12,22 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      &.high {
+        height: rem(750px);
+      }
       .form-content {
         background-color: $white;
         width: 80%;
-        height: 90%;
+        height: auto;
         overflow: hidden;
         .search {
           width: 100%;
-          height: 7%;
           display: flex;
           justify-content: center;
           align-items: center;
         }
         .event {
           width: auto;
-          height: 10%;
           display: flex;
           justify-content: flex-start;
           align-items: center;
@@ -38,24 +39,21 @@
           }
         }
         .competitions {
-          height: 10%;
           width: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
         }
         .post-image {
-          height: 40%;
           width: 100%;
           margin: rem(20px) 0;
         }
         .caption {
-          height: 15%;
           width: 100%;
           margin-top: rem(10px);
+          margin-bottom: rem(5px);
         }
         .form-button {
-          height: 10%;
           width: 100%;
         }
       }
