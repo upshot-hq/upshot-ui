@@ -9,6 +9,7 @@ const ImageUpload = (props) => {
   const {
     key, sizeLimit, isUploading, containerStyles, inputStyles,
     handleImageFileChange, containerBackgroundImage, iconStyles,
+    topCaptionText, bottomCaptionText,
   } = props;
 
   const [imageError, setImageError] = useState('');
@@ -32,7 +33,7 @@ const ImageUpload = (props) => {
       setImageError(`image size should not be more than ${sizeLimitInMb}mb`);
     } else {
       setImageError('');
-      const reader = new FileReader(); // eslint-disable-line
+      const reader = new FileReader();
       reader.addEventListener('load', () => {
         imageContainerRef.current.style.backgroundImage = `url("${reader.result}")`;
       }, false);
@@ -47,6 +48,10 @@ const ImageUpload = (props) => {
 
   const renderImage = () => (
     <div className="us-upload__image" ref={imageContainerRef} style={containerStyles}>
+      {!!topCaptionText
+        && <div className="topCaptionText">{topCaptionText}</div>
+      }
+
       <input type="file" name="picture-input" ref={imageInputRef}
         className="picture-input" accept="image/png, image/jpeg, image/jpg"
         onChange={handleFileChange} disabled={isUploading}
@@ -55,6 +60,10 @@ const ImageUpload = (props) => {
       <div className="icon" style={iconStyles}>
         <FontAwesome name="image" size="2x" />
       </div>
+
+      {!!bottomCaptionText
+        && <div className="bottomCaptionText">{bottomCaptionText}</div>
+      }
     </div>
   );
 
@@ -77,6 +86,8 @@ ImageUpload.propTypes = {
   containerStyles: PropTypes.object,
   inputStyles: PropTypes.object,
   iconStyles: PropTypes.object,
+  topCaptionText: PropTypes.string,
+  bottomCaptionText: PropTypes.string,
 };
 
 ImageUpload.defaultProps = {
@@ -84,6 +95,8 @@ ImageUpload.defaultProps = {
   sizeLimit: defaultImageSizeLimit,
   isUploading: false,
   containerBackgroundImage: '',
+  topCaptionText: '',
+  bottomCaptionText: '',
 };
 
 export default ImageUpload;

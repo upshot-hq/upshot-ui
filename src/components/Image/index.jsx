@@ -10,7 +10,11 @@ const loadingStatusValues = {
   success: 'success',
 };
 
-const Image = ({ imageUrl }) => {
+const BOTTOM_TEXT = 'bottom-text';
+const HIGH = 'high';
+const longTextLenght = 60;
+
+const Image = ({ imageUrl, topText, bottomText }) => {
   const [loadingStatus, setLoadingStatus] = useState(loadingStatusValues.loading);
   const handleImageLoadError = () => {
     setLoadingStatus(loadingStatusValues.failed);
@@ -19,8 +23,14 @@ const Image = ({ imageUrl }) => {
   const handleImageLoaded = () => {
     setLoadingStatus(loadingStatusValues.success);
   };
+
+  const bottomTextClass = bottomText.length < longTextLenght
+    ? `${BOTTOM_TEXT}` : `${BOTTOM_TEXT} ${HIGH}`;
+
   return (
     <div className="imageContainer">
+      {!!topText && loadingStatus === loadingStatusValues.success
+        && <div className="top-text">{topText}</div>}
       {(loadingStatus === loadingStatusValues.loading)
       && <div className={`image ${loadingStatus}`}>
         <Loader containerClassName="loader-container" />
@@ -31,14 +41,23 @@ const Image = ({ imageUrl }) => {
       </div>}
       {(loadingStatus !== loadingStatusValues.failed)
       && <img onLoad={handleImageLoaded} onError={handleImageLoadError}
-      className={`image ${(loadingStatus === loadingStatusValues.success) ? '' : 'hidden'}`}
-      src={imageUrl} alt="loaded" />}
+        className={`image ${(loadingStatus === loadingStatusValues.success) ? '' : 'hidden'}`}
+        src={imageUrl} alt="loaded" />}
+      {!!topText && loadingStatus !== loadingStatusValues.failed
+        && <div className={bottomTextClass}>{bottomText}</div>}
     </div>
   );
 };
 
 Image.propTypes = {
   imageUrl: PropTypes.string.isRequired,
+  topText: PropTypes.string,
+  bottomText: PropTypes.string,
+};
+
+Image.defaultProps = {
+  topText: '',
+  bottomText: '',
 };
 
 export default Image;

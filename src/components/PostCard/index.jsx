@@ -58,7 +58,11 @@ const PostCard = ({
     <div className="postcard">
       <div className="postcard__postImage">
         <div className="competition">{post.competitions_name}</div>
-        <Image imageUrl={post.picture_url} />
+        <Image
+          imageUrl={post.picture_url}
+          topText={post.top_caption}
+          bottomText={post.bottom_caption}
+        />
       </div>
       <div className="postcard__icons">
         <div className="leftside">
@@ -106,13 +110,15 @@ PostCard.propTypes = {
     picture_url: PropTypes.string.isRequired,
     user_username: PropTypes.string.isRequired,
     caption: PropTypes.string.isRequired,
+    top_caption: PropTypes.string,
+    bottom_caption: PropTypes.string,
     created_at: PropTypes.string.isRequired,
     user_likes: PropTypes.bool,
     user_dislikes: PropTypes.bool,
     total_likes: PropTypes.string,
     total_dislikes: PropTypes.string,
     user_bookmarks: PropTypes.bool,
-  }),
+  }).isRequired,
   handleLike: PropTypes.func,
   handleDisLike: PropTypes.func,
   handleBookmark: PropTypes.func,

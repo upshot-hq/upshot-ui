@@ -51,6 +51,8 @@ export default {
     competitionDropdownInfo: 'select a competition you would like to enter',
     eventSearchInfo: 'search and select an event',
     captionPlaceholder: 'enter caption',
+    topCaptionPlaceholder: 'enter top caption',
+    bottomCaptionPlaceholder: 'enter bottom caption',
     dropdownPlaceholder: 'select a competition',
     searchPlaceholder: 'search events',
   },

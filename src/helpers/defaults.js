@@ -9,6 +9,7 @@ export const profileDescriptionMaxLength = 140;
 export const defaultDebounceTime = 500;
 export const defaultFetchLimit = 10;
 export const defaultOffset = 0;
+export const maxBestCaptionLength = 98;
 export const increment = 'increment';
 export const decrement = 'decrement';
 export const rearrangedString = 'rearranged';

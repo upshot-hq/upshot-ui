@@ -30,14 +30,14 @@ const Modal = (props) => {
   };
 
   const renderModal = () => (
-		<div className="modal__container">
-			<div className="close-btn" onClick={onModalClose}>
-				<FontAwesome name="times" />
-			</div>
-			<div className="content">
+    <div className="modal__container">
+      <div className="close-btn" onClick={onModalClose}>
+        <FontAwesome name="times" />
+      </div>
+      <div className="content">
         {children}
       </div>
-		</div>
+    </div>
   );
 
   return (

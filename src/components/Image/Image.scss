@@ -1,7 +1,10 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 .imageContainer {
+  position: relative;
   .image {
     height: 100%;
     width: 100%;
@@ -35,5 +38,64 @@
     height: rem(250px);
     padding: rem(20px);
     background-color: $gray-7;
+  }
+  .top-text {
+    text-align: center;
+    position: absolute;
+    top: 1%;
+    width: 97%;
+    max-height: rem(44px);
+    margin-left: 1%;
+    text-align: center;
+    font-family: $caption-font;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    font-family: $caption-font;
+    font-size: rem(17px);
+    text-transform: uppercase;
+    color: $white;
+    -webkit-user-select: none; /* Safari 3.1+ */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none;
+  }
+
+  .bottom-text {
+    position: absolute;
+    top: 89%;
+    width: 97%;
+    max-height: rem(44px);
+    margin-left: 1%;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    font-family: $caption-font;
+    font-size: rem(17px);
+    text-transform: uppercase;
+    color: $white;
+    -webkit-user-select: none; /* Safari 3.1+ */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none;
+    &.high {
+      top: 79%;
+    }
+  }
+}
+
+@include apply-to(tablet-large) {
+  .imageContainer {
+    .top-text {
+      font-size: rem(19px);
+    }
+    .bottom-text {
+      font-size: rem(19px);
+      top: 92%;
+      &.high {
+        top: 86%;
+      }
+    }
   }
 }
