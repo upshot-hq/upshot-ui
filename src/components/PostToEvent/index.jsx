@@ -73,7 +73,7 @@ const PostToEvent = (props) => {
       let disableBtn = !selectedEvent || !selectedCompetitionId || !imageFile || isPostingToEvent;
 
       if (isBestCaptionCompetition && !disableBtn) {
-        disableBtn = !topCaption && !bottomCaption;
+        disableBtn = !topCaption.trim() && !bottomCaption.trim();
       }
 
       setDisableFormBtn(disableBtn);
