@@ -85,6 +85,17 @@
   }
 }
 
+@include apply-to(phone-small) {
+  .imageContainer {
+    .bottom-text {
+      top: 87%;
+      &.high {
+        top: 76%;
+      }
+    }
+  }
+}
+
 @include apply-to(tablet-large) {
   .imageContainer {
     .top-text {

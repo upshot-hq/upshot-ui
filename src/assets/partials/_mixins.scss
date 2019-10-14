@@ -4,6 +4,12 @@
 * Mixins to help target various screen sizes
 */
 @mixin apply-to($screen) {
+  @if $screen == phone-small {
+    @media only screen and (max-width: $breakpoint-phone-small) {
+      @content;
+    }
+  }
+
   @if $screen == phone {
     @media only screen and (max-width: $breakpoint-phone) {
       @content;

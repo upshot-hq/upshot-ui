@@ -12,7 +12,7 @@ const loadingStatusValues = {
 
 const BOTTOM_TEXT = 'bottom-text';
 const HIGH = 'high';
-const longTextLenght = 60;
+const longTextLength = 60;
 
 const Image = ({ imageUrl, topText, bottomText }) => {
   const [loadingStatus, setLoadingStatus] = useState(loadingStatusValues.loading);
@@ -24,7 +24,7 @@ const Image = ({ imageUrl, topText, bottomText }) => {
     setLoadingStatus(loadingStatusValues.success);
   };
 
-  const bottomTextClass = bottomText.length < longTextLenght
+  const bottomTextClass = bottomText.length < longTextLength
     ? `${BOTTOM_TEXT}` : `${BOTTOM_TEXT} ${HIGH}`;
 
   return (
@@ -43,7 +43,7 @@ const Image = ({ imageUrl, topText, bottomText }) => {
       && <img onLoad={handleImageLoaded} onError={handleImageLoadError}
         className={`image ${(loadingStatus === loadingStatusValues.success) ? '' : 'hidden'}`}
         src={imageUrl} alt="loaded" />}
-      {!!topText && loadingStatus !== loadingStatusValues.failed
+      {!!bottomText && loadingStatus === loadingStatusValues.success
         && <div className={bottomTextClass}>{bottomText}</div>}
     </div>
   );
