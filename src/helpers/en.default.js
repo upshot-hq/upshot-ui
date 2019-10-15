@@ -126,4 +126,11 @@ export default {
   notificationsPage: {
     noNotifications: 'no notifications at the moment.',
   },
+  notFoundPage: {
+    message: {
+      partOne: 'You seem to have lost your way... click ',
+      partTwo: 'here',
+      partThree: ' to go home!',
+    },
+  },
 };

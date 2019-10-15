@@ -13,48 +13,48 @@ import SearchPage from '../views/SearchPage/index.jsx';
 import NotificationsPage from '../views/NotificationsPage/index.jsx';
 
 const Routes = () => (
-    <Switch>
-        <Route
-            path={['/', '/signin', '/signup']}
-            exact
-            render={() => {
-              const { isAuthenticated } = getUserDetails();
-              if (!isAuthenticated) return <AuthPage />;
-              return <Redirect to="/home" />;
-            }}
-        />
-        <Route
-            path="/home"
-            exact
-            component={authenticateView(HomePage)}
-        />
-        <Route
-            path="/profile"
-            exact
-            component={authenticateView(ProfilePage)}
-        />
-        <Route
-            path="/explore"
-            exact
-            component={authenticateView(ExplorePage)}
-        />
-        <Route
-            path="/events/:eventId"
-            exact
-            component={authenticateView(EventPage)}
-        />
-        <Route
-            path="/notifications"
-            exact
-            component={authenticateView(NotificationsPage)}
-        />
-        <Route
-            path="/search"
-            exact
-            component={authenticateView(SearchPage)}
-        />
-        <Route component={NotFoundPage} />
-    </Switch>
+  <Switch>
+    <Route
+      path={['/', '/signin', '/signup']}
+      exact
+      render={() => {
+        const { isAuthenticated } = getUserDetails();
+        if (!isAuthenticated) return <AuthPage />;
+        return <Redirect to="/home" />;
+      }}
+    />
+    <Route
+      path="/home"
+      exact
+      component={authenticateView(HomePage)}
+    />
+    <Route
+      path="/profile"
+      exact
+      component={authenticateView(ProfilePage)}
+    />
+    <Route
+      path="/explore"
+      exact
+      component={authenticateView(ExplorePage)}
+    />
+    <Route
+      path="/events/:eventId"
+      exact
+      component={authenticateView(EventPage)}
+    />
+    <Route
+      path="/notifications"
+      exact
+      component={authenticateView(NotificationsPage)}
+    />
+    <Route
+      path="/search"
+      exact
+      component={authenticateView(SearchPage)}
+    />
+    <Route component={NotFoundPage} />
+  </Switch>
 );
 
 export default Routes;
