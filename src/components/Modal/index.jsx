@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
+import { Close } from '@material-ui/icons';
 
 import './Modal.scss';
 import PromptModal from '../PromptModal';
@@ -32,7 +32,7 @@ const Modal = (props) => {
   const renderModal = () => (
     <div className="modal__container">
       <div className="close-btn" onClick={onModalClose}>
-        <FontAwesome name="times" />
+        <Close />
       </div>
       <div className="content">
         {children}
