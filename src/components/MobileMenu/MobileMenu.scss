@@ -131,6 +131,7 @@
               }
             }
             .create-event-btn  {
+              margin-top: rem(20px);
               width: 80%;
               height: rem(40px);
               padding: rem(10px);
@@ -148,16 +149,17 @@
 }
 
 @include apply-to(phone-small) {
-  .up-mobile-menu {
-    .mobile-menu__content {
-      width: 85%;
-      overflow: hidden;
+  .up-mobile-menu__overlay {
+    .up-mobile-menu {
+      &__close-btn {
+        &>svg {
+          font-size: rem(30px);
+        }
+      }
       .mobile-menu {
-        &__close-btn {
-          right: rem(80px);
-          &>svg {
-            font-size: rem(32px);
-          }
+        .mobile-menu__content {
+          width: 85%;
+          overflow: hidden;
         }
       }
     }
@@ -165,25 +167,31 @@
 }
 
 @include apply-to(tablet) {
-  .up-mobile-menu {
-    .mobile-menu__content {
-      width: 80%;
-      .mobile-menu {
-        &__logo {
-          .mobileLogo {
-            font-size: rem(40px);
+  .up-mobile-menu__overlay {
+    .up-mobile-menu {
+      &.fade-in {
+        height: 100%;
+        width: 60%;
+      }
+      .mobile-menu__content {
+        width: 80%;
+        .mobile-menu {
+          &__logo {
+            .mobileLogo {
+              font-size: rem(40px);
+            }
           }
-        }
-        &__nav {
-          &>.nav-items {
-            .nav-item {
-              .icon {
-                &>.iconSize {
+          &__nav {
+            &>.nav-items {
+              .nav-item {
+                .icon {
+                  &>.iconSize {
+                    font-size: rem(30px);
+                  }
+                }
+                .title {
                   font-size: rem(30px);
                 }
-              }
-              .title {
-                font-size: rem(30px);
               }
             }
           }
