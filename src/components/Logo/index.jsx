@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import lang from '../../helpers/en.default';
+import { Link } from 'react-router-dom';
 
 import './Logo.scss';
+import lang from '../../helpers/en.default';
 
 const Logo = (props) => (
-  <div className={`logo ${props.customClassName}`} style={props.customStyles}>
+  <Link to={lang.layoutSideNav.home.link}
+    className={`logo ${props.customClassName}`}
+    style={props.customStyles}
+  >
     {lang.appName}
-  </div>
+  </Link>
 );
 
 Logo.propTypes = {

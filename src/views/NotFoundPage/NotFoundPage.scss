@@ -1,13 +1,48 @@
+@import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 .not-found-page {
-    height: 100vh;
-    display: flex;
-    h3 {
-        margin: auto;
-    }
-    a {
-        color: $primary-color;
-    }
+	height: 100vh;
+	overflow: hidden;
+	.logo {
+		height: 10%;
+		width: 100%;
+		.not-found-page__logo {
+			font-size: rem(50px);
+		}
+	}
+	
+	.content {
+		margin: auto;
+		height: 80%;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		h3 {
+			width: 95%;
+			text-align: center;
+			font-family: $primary-font;
+			a {
+				color: $secondary-color;
+			}
+		}
+	}
+}
+
+@include apply-to(tablet) { 
+	.not-found-page {
+		.logo {
+			.not-found-page__logo {
+				font-size: rem(60px);
+			}
+		}
+		.content {
+			h3 {
+				width: 100%;
+			}
+		}
+	}
 }
