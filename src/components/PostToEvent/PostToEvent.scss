@@ -1,25 +1,31 @@
 @import "~sass-rem";
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 #post-to-event {
+  height: 100%;
+  width: 100%;
   .post-to-event {
     &__container {
       background-color: $white;
-      height: rem(600px);
-      width: rem(533px);
-      border-radius: rem(5px);
+      height: 100%;
+      width: 100%;
+      border-radius: rem(0px);
       display: flex;
       justify-content: center;
       align-items: center;
+      overflow: scroll;
       &.high {
-        height: rem(750px);
+        height: 100%;
+        padding: rem(20px 0);
       }
       .form-content {
         background-color: $white;
-        width: 80%;
+        width: 90%;
         height: auto;
-        overflow: hidden;
+        overflow: scroll;
+        margin: rem(15px 0);
         .search {
           width: 100%;
           display: flex;
@@ -66,6 +72,51 @@
       &>.up-loader {
         height: rem(30px);
         width: rem(30px);
+      }
+    }
+  }
+}
+
+@include apply-to(phone-small) {
+  #post-to-event {
+    .post-to-event {
+      &__container {
+        &.high {
+          height: rem(750px);
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+@include apply-to(tablet) {
+  #post-to-event {
+    height: auto;
+    width: auto;
+    .post-to-event {
+      &__container {
+        height: rem(600px);
+        width: rem(600px);
+        border-radius: rem(5px);
+        &.high {
+          height: rem(750px);
+          padding: 0;
+        }
+        .form-content {
+          width: 80%;
+          margin: auto;
+        }
+      }
+    }
+  }
+}
+
+@include apply-to(tablet-large) {
+  #post-to-event {
+    .post-to-event {
+      &__container {
+        width: rem(533px);
       }
     }
   }
