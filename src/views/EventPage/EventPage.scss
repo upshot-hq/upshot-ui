@@ -1,7 +1,7 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
-
+@import '../../assets/partials/mixins';
 
 #eventpage {
   height: 100%;
@@ -215,7 +215,7 @@
       }
       
       &-container {
-        width: 90%;
+        width: 98%;
         height: 95%;
         margin: auto;
         .details-card {
@@ -261,10 +261,9 @@
               text-transform: capitalize;
             }
             .start, .end {
-              display: flex;
               margin: rem(5px 0);
               .title {
-                flex-basis: 10%;
+                margin-right: rem(5px);
               }
             }
             .capitalize {
@@ -349,5 +348,17 @@
     margin-top: rem(20px);
     width: 90%;
     visibility: hidden;
+  }
+}
+
+@include apply-to(tablet) {
+  #eventpage {
+    .eventpage {
+      &__content {
+        &-container {
+          width: 90%;
+        }
+      }
+    }
   }
 }
