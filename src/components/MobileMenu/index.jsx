@@ -9,30 +9,32 @@ import lang from '../../helpers/en.default';
 import { history } from '../../helpers/utils';
 import Logo from '../Logo/index';
 import Button from '../Button';
-import Modal from '../Modal';
 
 const FADE_IN = 'fade-in';
 
 const MobileMenu = (props) => {
   const {
-    match: { path }, unreadNotificationsCount, handleCreateEventBtnClick,
-    showMobileMenu, handleCloseMobileMenu,
+    match: { path }, unreadNotificationsCount,
+    handleCreateEventBtnClick, handleCloseMobileMenuModal,
   } = props;
   const [fadeIn, setFadeIn] = useState('');
   const isInitialMount = useRef(true);
 
   useEffect(() => {
     if (isInitialMount.current) {
-      isInitialMount.current = false;
-    }
-    if (fadeIn !== FADE_IN) {
       setFadeIn(FADE_IN);
+      isInitialMount.current = false;
     }
 
     return () => {
       setFadeIn('');
     };
   }, [setFadeIn, isInitialMount]);
+
+  const handleNavItemClick = (link) => {
+    handleCloseMobileMenuModal();
+    history.push(link);
+  };
 
   const renderNotificationCount = (navItemTitle) => {
     const { notification: { title: notificationTitle } } = lang.layoutSideNav;
@@ -50,7 +52,7 @@ const MobileMenu = (props) => {
       ? 'nav-item active' : 'nav-item';
 
     return (
-      <div key={index} className={navItemClassName} onClick={() => history.push(link)}>
+      <div key={index} className={navItemClassName} onClick={() => handleNavItemClick(link)}>
         <div className="icon">
           {renderNotificationCount(title)}
           <FontAwesome
@@ -93,14 +95,8 @@ const MobileMenu = (props) => {
   );
 
   return (
-    <div className="up-mobile-menu">
-      <Modal isModalVisible={showMobileMenu}
-        handleModalClose={handleCloseMobileMenu}
-        fullContentOnMobile>
-        <div className={`up-mobile-menu__container ${fadeIn}`}>
-          {renderContent()}
-        </div>
-      </Modal>
+    <div className={`up-mobile-menu ${fadeIn}`}>
+      {renderContent()}
     </div>
   );
 };
@@ -109,13 +105,11 @@ MobileMenu.propTypes = {
   match: PropTypes.object.isRequired,
   unreadNotificationsCount: PropTypes.number,
   handleCreateEventBtnClick: PropTypes.func.isRequired,
-  handleCloseMobileMenu: PropTypes.func.isRequired,
-  showMobileMenu: PropTypes.bool.isRequired,
+  handleCloseMobileMenuModal: PropTypes.func.isRequired,
 };
 
 MobileMenu.defaultProps = {
   unreadNotificationsCount: 0,
-  showMobileMenu: false,
 };
 
 export default MobileMenu;

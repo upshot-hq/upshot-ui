@@ -30,7 +30,7 @@ export const LayoutContext = createContext({
 const Layout = (props) => {
   const [showCreateEventModal, setShowCreateEventModal] = useState(false);
   const [showPostToEventModal, setShowPostToEventModal] = useState(false);
-  const [showMobileMenu, setShowMobileMenuModal] = useState(true);
+  const [showMobileMenuModal, setShowMobileMenuModal] = useState(false);
   const [event, setEvent] = useState(null);
   const [showPostToEventSearchBar, setShowPostToEventSearchBar] = useState(true);
   const notificationEngine = useRef(null);
@@ -80,7 +80,7 @@ const Layout = (props) => {
     setShowMobileMenuModal(true);
   };
 
-  const handleCloseMobileMenu = () => {
+  const handleCloseMobileMenuModal = () => {
     setShowMobileMenuModal(false);
   };
 
@@ -150,14 +150,14 @@ const Layout = (props) => {
       </div>
 
       <Fragment>
-        {!showMobileMenu && renderNotificationCount(
+        {!showMobileMenuModal && renderNotificationCount(
           lang.layoutSideNav.notification.title,
           'notification-count-mobile',
         )}
         <Fab
           onClickFunction={handleOpenMobileMenuModal}
           containerClassName="mobileMenuTrigger"
-          name={showMobileMenu ? 'times' : 'bars'}
+          name={showMobileMenuModal ? 'times' : 'bars'}
         />
       </Fragment>
 
@@ -171,12 +171,15 @@ const Layout = (props) => {
         containerClassName="createEventTrigger"
       />
 
-      <MobileMenu match={props.match}
-        showMobileMenu={showMobileMenu}
-        handleCloseMobileMenu={handleCloseMobileMenu}
-        handleCreateEventBtnClick={handleOpenCreateEventModalMobile}
-      />
-
+      <Modal isModalVisible={showMobileMenuModal}
+        handleModalClose={handleCloseMobileMenuModal}
+        fullContentOnMobile
+      >
+        <MobileMenu match={props.match}
+          handleCreateEventBtnClick={handleOpenCreateEventModalMobile}
+          handleCloseMobileMenuModal={handleCloseMobileMenuModal}
+        />
+      </Modal>
       <Modal showClosePrompt isModalVisible={showPostToEventModal}
         handleModalClose={handleClosePostToEventModal}
       >
