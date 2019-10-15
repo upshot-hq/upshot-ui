@@ -287,7 +287,7 @@
     &__header {
       &-top {
         &__content {
-          width: 60%;
+          width: 80%;
           .profile {
             .avatar {
               .image {
@@ -299,7 +299,7 @@
               .name {
                 .title {
                   .text {
-                    font-size: rem(14px);
+                    font-size: rem(16px);
                   }
                 }
               }
@@ -312,6 +312,53 @@
 }
 
 @include apply-to(tablet-large) {
+  .profilepage {
+    &__header {
+      height: 37%;
+      &-top {
+        &__content {
+          width: 90%;
+          .profile {
+            .avatar {
+              .image {
+                width: rem(72px);
+                height: rem(72px);
+              }
+            }
+            .details {
+              .name {
+                .title {
+                  .text {
+                    font-size: rem(16px);
+                  }
+                }
+              }
+            }
+          }
+          .stat {
+            max-width: 60%;
+            .content {
+              .text {
+                font-size: rem(12px);
+                .count {
+                  font-size: rem(12px);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    &__content {
+      height: 63%;
+      &-container {
+        width: 90%;
+      }
+    }
+  }
+}
+
+@include apply-to(tablet-desktop) {
   .profilepage {
     &__header {
       height: 37%;
