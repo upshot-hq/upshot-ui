@@ -82,22 +82,9 @@
                   justify-content: center;
                   align-items: center;
                   .btn {
-                    border: rem(1px) solid $secondary-color-3;
-                    border-radius: rem(5px);
-                    padding: rem(5px 10px);
-                    font-family: $primary-font;
-                    font-size: rem(11px);
-                    font-weight: normal;
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    text-transform: capitalize;
-                    cursor: pointer;
-                    outline: none;
-                    &:active {
-                      background-color: $secondary-color;
-                      color: $white;
-                    }
+                    width: rem(80px);
+                    height: rem(25px);
+                    font-size: rem(8px);
                   }
                 }
               }
