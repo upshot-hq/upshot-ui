@@ -1,6 +1,7 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 #event-card {
   border-radius: rem(5px);
@@ -31,7 +32,7 @@
             font-family: $primary-font;
             font-weight: bold;
             letter-spacing: rem(0.5px);
-            font-size: rem(18px);
+            font-size: rem(14px);
             text-transform: capitalize;
             text-decoration: none;
             color: $primary-color;
@@ -41,8 +42,8 @@
             color: $gray-7;
             cursor: pointer;
             &>img {
-              width: rem(25px);
-              height: rem(25px);
+              width: rem(20px);
+              height: rem(20px);
             }
             &.pinned {
               color: $red;
@@ -148,7 +149,7 @@
         align-items: center;
         overflow: hidden;
         .text {
-          font-size: rem(12px);
+          font-size: rem(11px);
           font-weight: 600;
           color: $primary-color;
           text-transform: capitalize;
@@ -173,6 +174,35 @@
           }
           &.ended {
             color: $red-2;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include apply-to(tablet-large) {
+  #event-card {
+    .event-card {
+      &__content {
+        &-event {
+          &-title {
+            &>.text {
+              font-size: rem(18px);
+            }
+            &>.icon {
+              &>img {
+                width: rem(25px);
+                height: rem(25px);
+              }
+            }
+          }
+        }
+      }
+      &__footer {
+        &-content {
+          .text {
+            font-size: rem(12px);
           }
         }
       }

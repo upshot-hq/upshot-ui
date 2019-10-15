@@ -1,6 +1,7 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 .postcard {
   margin: auto;
@@ -39,12 +40,12 @@
       margin-left: rem(10px);
       margin-right: rem(10px);
       img {
-        height: rem(24px);
-        width: rem(24px);
+        height: rem(20px);
+        width: rem(20px);
       }
       .count {
         text-align: center;
-        font-size: rem(12px);
+        font-size: rem(10px);
       }
     }
     .icon:hover {
@@ -55,20 +56,49 @@
     padding: 0 rem(15px) rem(15px) rem(15px);
     color: $primary-color;
     .username {
-      font-size: rem(14px);
+      font-size: rem(12px);
       font-weight: 700;
       text-transform: lowercase;
     }
     .text {
-      font-size: rem(14px);
+      font-size: rem(12px);
     }
   }
   &__date {
     padding: 0 rem(15px) rem(15px) rem(15px);
     .postdate {
-      font-size: rem(11px);
+      font-size: rem(10px);
       text-transform: uppercase;
       color: $gray-4;
+    }
+  }
+}
+
+@include apply-to(tablet-large) {
+  .postcard {
+    &__icons {
+      .icon {
+        img {
+          height: rem(24px);
+          width: rem(24px);
+        }
+        .count {
+          font-size: rem(12px);
+        }
+      }
+    }
+    &__caption {
+      .username {
+        font-size: rem(14px);
+      }
+      .text {
+        font-size: rem(14px);
+      }
+    }
+    &__date {
+      .postdate {
+        font-size: rem(11px);
+      }
     }
   }
 }

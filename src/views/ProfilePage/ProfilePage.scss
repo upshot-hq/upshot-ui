@@ -1,12 +1,13 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 .profilepage {
   height: 100%;
   &__header {
     width: 100%;
-    height: 37%;
+    height: 33%;
     overflow: hidden;
     border-bottom: rem(1px) solid $gray-3;
     &-top {
@@ -38,8 +39,8 @@
             justify-content: center;
             align-items: center;
             .image {
-              width: rem(72px);
-              height: rem(72px);
+              width: rem(50px);
+              height: rem(50px);
               border: rem(1px) solid $secondary-color-3;
               border-radius: 50%;
               background-color: $gray-1;
@@ -67,7 +68,7 @@
                 align-items: center;
                 justify-content: space-between;
                 .text {
-                  font-size: rem(16px);
+                  font-size: rem(12px);
                   text-transform: capitalize;
                   font-weight: bold;
                   flex-grow: 2;
@@ -81,27 +82,14 @@
                   justify-content: center;
                   align-items: center;
                   .btn {
-                    border: rem(1px) solid $secondary-color-3;
-                    border-radius: rem(5px);
-                    padding: rem(5px 10px);
-                    font-family: $primary-font;
-                    font-size: rem(11px);
-                    font-weight: normal;
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    text-transform: capitalize;
-                    cursor: pointer;
-                    outline: none;
-                    &:active {
-                      background-color: $secondary-color;
-                      color: $white;
-                    }
+                    width: rem(80px);
+                    height: rem(25px);
+                    font-size: rem(8px);
                   }
                 }
               }
               .handle {
-                font-size: rem(11px);
+                font-size: rem(10px);
                 font-weight: normal;
                 color: $secondary-color;
               }
@@ -130,7 +118,7 @@
         .stat {
           height: auto;
           max-height: 30%;
-          max-width: 40%;
+          max-width: rem(150px);
           padding-top: rem(15px);
           display: flex;
           align-items: flex-start;
@@ -155,7 +143,7 @@
             .text {
               font-family: $primary-font;
               text-transform: capitalize;
-              font-size: rem(14px);
+              font-size: rem(10px);
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: nowrap;
@@ -165,7 +153,7 @@
               text-align: center;
               .count {
                 font-weight: bold;
-                font-size: rem(15px);
+                font-size: rem(10px);
                 text-transform: capitalize;
               }
             }
@@ -189,7 +177,7 @@
           text-transform: capitalize;
           color: $primary-color;
           font-family: $primary-font;
-          font-size: rem(16px);
+          font-size: 10px;
           font-weight: bold;
           cursor: pointer;
           flex-grow: 1;
@@ -204,7 +192,7 @@
   }
   &__content {
     width: 100%;
-    height: 63%;
+    height: 67%;
     overflow-y: scroll;
     overflow-x: hidden;
     display: flex;
@@ -220,7 +208,7 @@
       background-color: $gray-1;
     }
     &-container {
-      width: 90%;
+      width: 98%;
       margin: auto;
       height: 95%;
     }
@@ -291,5 +279,128 @@
     margin-top: rem(20px);
     width: 90%;
     visibility: hidden;
+  }
+}
+
+@include apply-to(tablet) {
+  .profilepage {
+    &__header {
+      &-top {
+        &__content {
+          width: 80%;
+          .profile {
+            .avatar {
+              .image {
+                width: rem(72px);
+                height: rem(72px);
+              }
+            }
+            .details {
+              .name {
+                .title {
+                  .text {
+                    font-size: rem(16px);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include apply-to(tablet-large) {
+  .profilepage {
+    &__header {
+      height: 37%;
+      &-top {
+        &__content {
+          width: 90%;
+          .profile {
+            .avatar {
+              .image {
+                width: rem(72px);
+                height: rem(72px);
+              }
+            }
+            .details {
+              .name {
+                .title {
+                  .text {
+                    font-size: rem(16px);
+                  }
+                }
+              }
+            }
+          }
+          .stat {
+            max-width: 60%;
+            .content {
+              .text {
+                font-size: rem(12px);
+                .count {
+                  font-size: rem(12px);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    &__content {
+      height: 63%;
+      &-container {
+        width: 90%;
+      }
+    }
+  }
+}
+
+@include apply-to(desktop) {
+  .profilepage {
+    &__header {
+      height: 37%;
+      &-top {
+        &__content {
+          width: 80%;
+          .profile {
+            .avatar {
+              .image {
+                width: rem(72px);
+                height: rem(72px);
+              }
+            }
+            .details {
+              .name {
+                .title {
+                  .text {
+                    font-size: rem(16px);
+                  }
+                }
+              }
+            }
+          }
+          .stat {
+            max-width: 60%;
+            .content {
+              .text {
+                font-size: rem(14px);
+                .count {
+                  font-size: rem(15px);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    &__content {
+      height: 63%;
+      &-container {
+        width: 90%;
+      }
+    }
   }
 }
