@@ -33,6 +33,35 @@
       }
     }
   }
+  .notification-count-mobile {
+    border-radius: 50%;
+    font-size: rem(10px);
+    color: $white;
+    font-family: $primary-font;
+    background-color: $red;
+    min-width: rem(18px);
+    max-width: rem(30px);
+    height: rem(18px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: rem(75px);
+    right: rem(28px);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 2;
+  }
+  .mobileMenuTrigger {
+    display: flex;
+  }
+  .postToEventTrigger {
+    bottom: rem(120px);
+  }
+  .createEventTrigger {
+    display: none;
+  }
 }
 
 // target from tablet-large upwards
@@ -54,6 +83,13 @@
               align-items: flex-start;
               justify-content: flex-start;
               margin-left: rem(15px);
+              .layoutLogo {
+                font-size: rem(36px);
+                width: 100%;
+                margin: 0;
+                font-weight: bold;
+                text-align: left;
+              }
             }
             .side__nav {
               height: 80%;
@@ -62,7 +98,6 @@
                 .nav-item {
                   width: 100%;
                   cursor: pointer;
-                  display: flex;
                   margin-bottom: rem(22px);
                   display: flex;
                   justify-content: center;
@@ -87,6 +122,9 @@
                     font-family: $primary-font;
                     color: $primary-color;
                     position: relative;
+                    .iconSize {
+                      font-size: rem(25px);
+                    }
                     .notification-count {
                       border-radius: 50%;
                       font-size: rem(12px);
@@ -146,6 +184,18 @@
           flex-basis: 40%;
         }
       }
+    }
+    .notification-count-mobile {
+      display: none !important;
+    }
+    .mobileMenuTrigger {
+      display: none !important;
+    }
+    .postToEventTrigger {
+      bottom: rem(150px);
+    }
+    .createEventTrigger {
+      display: flex;
     }
   }
 }

@@ -37,41 +37,41 @@ export const AuthPage = (props) => {
 
   const renderBtn = (renderProps) => (
     <button className="us-btn" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-        <div className="icon">
-            <FontAwesome name="google" size="2x" />
-        </div>
-        <span className="text">Signin with google</span>
+      <div className="icon">
+        <FontAwesome name="google" size="2x" />
+      </div>
+      <span className="text">{lang.authPage.signupText}</span>
     </button>
   );
 
   const renderGoogleSigninBtn = () => (
     <GoogleLogin
-        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-        render={renderBtn}
-        buttonText="Login"
-        onSuccess={handleAuth}
-        onFailure={handleAuthFailure}
-        cookiePolicy={'single_host_origin'}
+      clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+      render={renderBtn}
+      buttonText="Login"
+      onSuccess={handleAuth}
+      onFailure={handleAuthFailure}
+      cookiePolicy={'single_host_origin'}
     />
   );
 
   return (
     <div className="authPage">
-        <div className="leftSide">
-            <div className="container">
-                <div className="logo">
-                    <h1 className="us-logo">{appName}</h1>
-                </div>
-                <div className="msg">
-                    <p>Making Events</p>
-                    <p>Engaging, Fun and Enjoyable.</p>
-                </div>
-                <div className="auth-btn">
-                    {renderGoogleSigninBtn()}
-                </div>
-            </div>
+      <div className="leftSide">
+        <div className="container">
+          <div className="logo">
+            <h1 className="us-logo">{appName}</h1>
+          </div>
+          <div className="msg">
+            <p>Making Events</p>
+            <p>Engaging, Fun and Enjoyable.</p>
+          </div>
+          <div className="auth-btn">
+            {renderGoogleSigninBtn()}
+          </div>
         </div>
-        <div className="rightSide" />
+      </div>
+      <div className="rightSide" />
     </div>
   );
 };

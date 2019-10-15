@@ -29,10 +29,13 @@
       color: $white;
       position: fixed;
       z-index: 4;
-      top: 0;
+      top: rem(5px);
       right: rem(25px);
       font-size: rem(35px);
       cursor: pointer;
+      &>svg {
+        font-size: rem(35px);
+      }
     }
   }
 }
