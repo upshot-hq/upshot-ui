@@ -158,7 +158,6 @@ const Layout = (props) => {
         <Fab
           onClickFunction={handleOpenMobileMenuModal}
           containerClassName="mobileMenuTrigger"
-          name={showMobileMenu ? 'times' : 'bars'}
         >
           {showMobileMenu
             ? <Close /> : <Dehaze />
@@ -180,6 +179,7 @@ const Layout = (props) => {
         handleCreateEventBtnClick={handleOpenCreateEventModalMobile}
         handleCloseMobileMenu={handleCloseMobileMenu}
         showMenu={showMobileMenu}
+        unreadNotificationsCount={unreadNotificationsCount}
       />
       <Modal showClosePrompt isModalVisible={showPostToEventModal}
         handleModalClose={handleClosePostToEventModal}
