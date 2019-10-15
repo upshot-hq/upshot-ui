@@ -5,6 +5,7 @@ import React, {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
+import { Close, Dehaze } from '@material-ui/icons';
 
 import './Layout.scss';
 import Logo from '../Logo';
@@ -30,7 +31,7 @@ export const LayoutContext = createContext({
 const Layout = (props) => {
   const [showCreateEventModal, setShowCreateEventModal] = useState(false);
   const [showPostToEventModal, setShowPostToEventModal] = useState(false);
-  const [showMobileMenuModal, setShowMobileMenuModal] = useState(false);
+  const [showMobileMenu, setShowMobileMenuModal] = useState(false);
   const [event, setEvent] = useState(null);
   const [showPostToEventSearchBar, setShowPostToEventSearchBar] = useState(true);
   const notificationEngine = useRef(null);
@@ -80,7 +81,7 @@ const Layout = (props) => {
     setShowMobileMenuModal(true);
   };
 
-  const handleCloseMobileMenuModal = () => {
+  const handleCloseMobileMenu = () => {
     setShowMobileMenuModal(false);
   };
 
@@ -150,15 +151,19 @@ const Layout = (props) => {
       </div>
 
       <Fragment>
-        {!showMobileMenuModal && renderNotificationCount(
+        {!showMobileMenu && renderNotificationCount(
           lang.layoutSideNav.notification.title,
           'notification-count-mobile',
         )}
         <Fab
           onClickFunction={handleOpenMobileMenuModal}
           containerClassName="mobileMenuTrigger"
-          name={showMobileMenuModal ? 'times' : 'bars'}
-        />
+          name={showMobileMenu ? 'times' : 'bars'}
+        >
+          {showMobileMenu
+            ? <Close /> : <Dehaze />
+          }
+        </Fab>
       </Fragment>
 
       <Fab
@@ -171,15 +176,11 @@ const Layout = (props) => {
         containerClassName="createEventTrigger"
       />
 
-      <Modal isModalVisible={showMobileMenuModal}
-        handleModalClose={handleCloseMobileMenuModal}
-        fullContentOnMobile
-      >
-        <MobileMenu match={props.match}
-          handleCreateEventBtnClick={handleOpenCreateEventModalMobile}
-          handleCloseMobileMenuModal={handleCloseMobileMenuModal}
-        />
-      </Modal>
+      <MobileMenu match={props.match}
+        handleCreateEventBtnClick={handleOpenCreateEventModalMobile}
+        handleCloseMobileMenu={handleCloseMobileMenu}
+        showMenu={showMobileMenu}
+      />
       <Modal showClosePrompt isModalVisible={showPostToEventModal}
         handleModalClose={handleClosePostToEventModal}
       >

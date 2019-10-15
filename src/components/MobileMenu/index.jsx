@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import { Close } from '@material-ui/icons';
 
 import './MobileMenu.scss';
 import lang from '../../helpers/en.default';
@@ -11,11 +12,12 @@ import Logo from '../Logo/index';
 import Button from '../Button';
 
 const FADE_IN = 'fade-in';
+const NAV_ITEM_CLICK_TIMEOUT = 300;
 
 const MobileMenu = (props) => {
   const {
-    match: { path }, unreadNotificationsCount,
-    handleCreateEventBtnClick, handleCloseMobileMenuModal,
+    match: { path }, unreadNotificationsCount, showMenu,
+    handleCreateEventBtnClick, handleCloseMobileMenu,
   } = props;
   const [fadeIn, setFadeIn] = useState('');
   const isInitialMount = useRef(true);
@@ -32,8 +34,11 @@ const MobileMenu = (props) => {
   }, [setFadeIn, isInitialMount]);
 
   const handleNavItemClick = (link) => {
-    handleCloseMobileMenuModal();
-    history.push(link);
+    handleCloseMobileMenu();
+    const timer = setTimeout(() => {
+      history.push(link);
+      clearTimeout(timer);
+    }, NAV_ITEM_CLICK_TIMEOUT);
   };
 
   const renderNotificationCount = (navItemTitle) => {
@@ -95,8 +100,13 @@ const MobileMenu = (props) => {
   );
 
   return (
-    <div className={`up-mobile-menu ${fadeIn}`}>
-      {renderContent()}
+    <div className={`up-mobile-menu__overlay ${showMenu ? fadeIn : ''}`}>
+      <div className={`up-mobile-menu ${showMenu ? fadeIn : ''}`}>
+        <div className="up-mobile-menu__close-btn" onClick={handleCloseMobileMenu}>
+          <Close />
+        </div>
+        {renderContent()}
+      </div>
     </div>
   );
 };
@@ -105,7 +115,8 @@ MobileMenu.propTypes = {
   match: PropTypes.object.isRequired,
   unreadNotificationsCount: PropTypes.number,
   handleCreateEventBtnClick: PropTypes.func.isRequired,
-  handleCloseMobileMenuModal: PropTypes.func.isRequired,
+  handleCloseMobileMenu: PropTypes.func.isRequired,
+  showMenu: PropTypes.bool.isRequired,
 };
 
 MobileMenu.defaultProps = {
