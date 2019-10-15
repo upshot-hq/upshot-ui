@@ -358,7 +358,7 @@
   }
 }
 
-@include apply-to(tablet-desktop) {
+@include apply-to(desktop) {
   .profilepage {
     &__header {
       height: 37%;
