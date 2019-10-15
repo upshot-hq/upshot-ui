@@ -12,9 +12,9 @@ const NotFoundPage = () => (
     </div>
     <div className="content">
       <h3>
-				You seem to have lost your way... click&nbsp;
-        <Link to={lang.layoutSideNav.home.link}>here</Link>&nbsp;
-				to go home!
+        {lang.notFoundPage.message.partOne}
+        <Link to={lang.layoutSideNav.home.link}>{lang.notFoundPage.message.partTwo}</Link>
+        {lang.notFoundPage.message.partThree}
       </h3>
     </div>
   </div>
