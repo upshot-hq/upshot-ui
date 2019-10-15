@@ -15,7 +15,7 @@
     overflow: hidden;
     .layout__content {
       &-leftside {
-        display: none !important;
+        display: none;
       }
       &-center {
         height: 100%;
@@ -29,7 +29,7 @@
         }
       }
       &-rightside {
-        display: none !important;
+        display: none;
       }
     }
   }
