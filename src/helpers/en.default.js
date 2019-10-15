@@ -1,4 +1,5 @@
 export default {
+  appName: 'Upshot',
   networkErrorMessage: 'Possible network error, please check your connection and try again',
   serverErrorMessage: 'Server error, try again',
   authenticatonErrorMessage: 'Authentication failed',
@@ -55,6 +56,12 @@ export default {
     bottomCaptionPlaceholder: 'enter bottom caption',
     dropdownPlaceholder: 'select a competition',
     searchPlaceholder: 'search events',
+  },
+  mobileMenu: {
+    creatEventText: 'create event',
+  },
+  authPage: {
+    signupText: 'Signin with google',
   },
   explorePage: {
     noContent: 'no content to explore :(',

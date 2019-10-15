@@ -6,7 +6,7 @@ import Loader from '../Loader';
 
 const Button = (props) => {
   const {
-    title, handleClick, disabled,
+    title, handleClick, disabled, customClassName,
     customStyles, buttonType, showLoader,
   } = props;
 
@@ -17,8 +17,8 @@ const Button = (props) => {
 
   return (
     <div className="up-button">
-      <button type={buttonType} className="button" style={customStyles}
-        onClick={handleClick} disabled={disabled}
+      <button type={buttonType} className={`button ${customClassName}`}
+        style={customStyles} onClick={handleClick} disabled={disabled}
       >
         {showLoader ? <Loader customStyles={loaderStyles} /> : title}
       </button>
@@ -30,6 +30,7 @@ Button.propTypes = {
   handleClick: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   customStyles: PropTypes.object,
+  customClassName: PropTypes.string,
   buttonType: PropTypes.string,
   disabled: PropTypes.bool,
   showLoader: PropTypes.bool,
@@ -38,6 +39,7 @@ Button.propTypes = {
 Button.defaultProps = {
   handleClick: () => {},
   buttonType: 'submit',
+  customClassName: '',
   disabled: false,
   showLoader: false,
 };

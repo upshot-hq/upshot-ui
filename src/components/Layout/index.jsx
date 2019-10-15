@@ -17,6 +17,7 @@ import { history } from '../../helpers/utils';
 import * as notificationActions from '../../redux/actionCreators/notificationActions';
 import SocketHandler from '../../helpers/SocketHandler';
 import { newNotificationEvent } from '../../helpers/defaults';
+import MobileMenu from '../MobileMenu';
 
 
 export const LayoutContext = createContext({
@@ -29,6 +30,7 @@ export const LayoutContext = createContext({
 const Layout = (props) => {
   const [showCreateEventModal, setShowCreateEventModal] = useState(false);
   const [showPostToEventModal, setShowPostToEventModal] = useState(false);
+  const [showMobileMenu, setShowMobileMenuModal] = useState(true);
   const [event, setEvent] = useState(null);
   const [showPostToEventSearchBar, setShowPostToEventSearchBar] = useState(true);
   const notificationEngine = useRef(null);
@@ -38,14 +40,6 @@ const Layout = (props) => {
     handleNewNotification, unreadNotificationsCount,
     userId, getUnreadNotificationCount,
   } = props;
-
-  const logoStyles = {
-    fontSize: '36px',
-    fontWeight: 'bold',
-    textAlign: 'left',
-    width: '100%',
-    margin: 0,
-  };
 
   useEffect(() => {
     if (!notificationEngine.current) {
@@ -59,20 +53,46 @@ const Layout = (props) => {
     getUnreadNotificationCount();
   }, [getUnreadNotificationCount]);
 
-  const handleEventModalClose = () => {
+  const handleOpenCreateEventModal = () => {
+    setShowCreateEventModal(true);
+  };
+
+  const handleOpenCreateEventModalMobile = () => {
+    setShowMobileMenuModal(false);
+    setShowCreateEventModal(true);
+  };
+
+  const handleCloseCreateEventModal = () => {
     setShowCreateEventModal(false);
   };
 
-  const handlePostToEventModalClose = () => {
+  const handleOpenPostToEventModal = () => {
+    setEvent(null);
+    setShowPostToEventSearchBar(true);
+    setShowPostToEventModal(true);
+  };
+
+  const handleClosePostToEventModal = () => {
     setShowPostToEventModal(false);
   };
 
-  const renderNotificationCount = (navItemTitle) => {
+  const handleOpenMobileMenuModal = () => {
+    setShowMobileMenuModal(true);
+  };
+
+  const handleCloseMobileMenu = () => {
+    setShowMobileMenuModal(false);
+  };
+
+  const renderNotificationCount = (navItemTitle, extraClassName = '') => {
     const { notification: { title: notificationTitle } } = lang.layoutSideNav;
     return (
       <Fragment>
         {(!!unreadNotificationsCount && navItemTitle === notificationTitle)
-          && <div className="notification-count">{unreadNotificationsCount}</div>}
+          && <div className={`notification-count ${extraClassName}`}>
+            {unreadNotificationsCount}
+          </div>
+        }
       </Fragment>
     );
   };
@@ -90,7 +110,7 @@ const Layout = (props) => {
             key={index}
             name={icon.name}
             size={icon.size}
-            style={{ fontSize: '25px' }}
+            className="iconSize"
           />
         </div>
         <div className="title">{title}</div>
@@ -108,23 +128,13 @@ const Layout = (props) => {
     );
   };
 
-  const renderCreateEventModal = () => {
-    setShowCreateEventModal(true);
-  };
-
-  const renderPostToEventModal = () => {
-    setEvent(null);
-    setShowPostToEventSearchBar(true);
-    setShowPostToEventModal(true);
-  };
-
   const renderLayout = () => (
     <div className="layout">
       <div className="layout-container">
         <div className="layout__content-leftside" style={leftContainerStyles}>
           <div className="content">
             <div className="layout__logo">
-              <Logo customStyles={logoStyles} />
+              <Logo customClassName="layoutLogo" />
             </div>
             <div className="side__nav">
               {renderSideNavItems()}
@@ -138,25 +148,48 @@ const Layout = (props) => {
           <div className="content" />
         </div>
       </div>
-      <Fab onClickFunction={renderCreateEventModal} />
+
+      <Fragment>
+        {!showMobileMenu && renderNotificationCount(
+          lang.layoutSideNav.notification.title,
+          'notification-count-mobile',
+        )}
+        <Fab
+          onClickFunction={handleOpenMobileMenuModal}
+          containerClassName="mobileMenuTrigger"
+          name={showMobileMenu ? 'times' : 'bars'}
+        />
+      </Fragment>
+
       <Fab
-        onClickFunction={renderPostToEventModal}
-        styles={{ bottom: '9.375rem' }}
+        onClickFunction={handleOpenPostToEventModal}
+        containerClassName="postToEventTrigger"
         name="camera"
       />
-      <Modal showClosePrompt isModalVisible={showCreateEventModal}
-        handleModalClose={handleEventModalClose}>
-        <CreateEvent handleModalClose={handleEventModalClose} />
-      </Modal>
+      <Fab
+        onClickFunction={handleOpenCreateEventModal}
+        containerClassName="createEventTrigger"
+      />
+
+      <MobileMenu match={props.match}
+        showMobileMenu={showMobileMenu}
+        handleCloseMobileMenu={handleCloseMobileMenu}
+        handleCreateEventBtnClick={handleOpenCreateEventModalMobile}
+      />
+
       <Modal showClosePrompt isModalVisible={showPostToEventModal}
-        handleModalClose={handlePostToEventModalClose}
+        handleModalClose={handleClosePostToEventModal}
       >
         <PostToEvent
-          handleModalClose={handlePostToEventModalClose}
+          handleModalClose={handleClosePostToEventModal}
           event={event}
           showSearchBar={showPostToEventSearchBar}
           showEventRemoveBtn={!event}
         />
+      </Modal>
+      <Modal showClosePrompt isModalVisible={showCreateEventModal}
+        handleModalClose={handleCloseCreateEventModal}>
+        <CreateEvent handleModalClose={handleCloseCreateEventModal} />
       </Modal>
     </div>
   );
