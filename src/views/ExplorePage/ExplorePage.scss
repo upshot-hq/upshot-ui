@@ -1,19 +1,20 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 #explore-page {
   &.explore-page {
+    overflow-y: hidden;
     &::-webkit-scrollbar { 
       display: none; 
     }
     height: 100%;
     .header {
       width: 100%;
-      height: 16%;
       border-bottom: rem(1px) solid $gray-3;
       .top {
-        height: 68%;
+        height: rem(80px);
         .topbar {
           display: flex;
           height: 100%;
@@ -23,7 +24,7 @@
         }
       }
       .bottom {
-        height: 32%;
+        height: rem(50px);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -31,7 +32,7 @@
     }
     .content {
       width: 100%;
-      height: 84%;
+      height: 100%;
       overflow-y: scroll;
       overflow-x: hidden;
       -ms-overflow-style: none;
@@ -42,7 +43,7 @@
         background-color: $gray-1;
       }
       &-container {
-        width: 90%;
+        width: 98%;
         margin: auto;
       }
     }
@@ -69,5 +70,20 @@
   .fetch-more {
     height: rem(10px);
     margin-bottom: rem(10px);
+  }
+  .no-display {
+    display: none;
+  }
+}
+
+@include apply-to(tablet) {
+  #explore-page {
+    &.explore-page {
+      .content {
+        &-container {
+          width: 90%;
+        }
+      }
+    }
   }
 }
