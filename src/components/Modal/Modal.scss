@@ -39,6 +39,14 @@
       &>svg {
         font-size: rem(30px);
       }
+      &:hover {
+        border-width: rem(1px);
+        border-radius: 50%;
+        background-color: $gray-1;
+      }
+      &:active {
+        background-color: $gray-2;
+      }
     }
   }
 }

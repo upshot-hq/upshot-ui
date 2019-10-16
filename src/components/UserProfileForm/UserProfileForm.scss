@@ -1,14 +1,16 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 .profile__form {
   font-family: $primary-font;
-  width: rem(600px);
+  width: 86vw;
   height: 100%;
   background-color: $white;
   padding: rem(30px);
   overflow: hidden;
+  margin: auto;
   &-header {
     width: 86%;
     height: 10%;
@@ -60,5 +62,11 @@
         }
       }
     }
+  }
+}
+
+@include apply-to(tablet) {
+  .profile__form {
+    width: rem(600px);
   }
 }
