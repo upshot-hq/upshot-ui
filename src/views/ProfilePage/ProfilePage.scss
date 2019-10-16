@@ -280,6 +280,9 @@
     width: 90%;
     visibility: hidden;
   }
+  &-modal-content {
+    overflow-x: hidden !important;
+  }
 }
 
 @include apply-to(tablet) {
@@ -307,6 +310,9 @@
           }
         }
       }
+    }
+    &-modal-content {
+      overflow-x: scroll !important;
     }
   }
 }

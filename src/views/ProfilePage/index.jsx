@@ -243,7 +243,11 @@ export const ProfilePage = (props) => {
           }
         </div>
       </Layout>
-      <Modal isModalVisible={showModal} handleModalClose={handleModalClose}>
+      <Modal
+        isModalVisible={showModal}
+        handleModalClose={handleModalClose}
+        customContentClass="profilepage-modal-content"
+      >
         <UserProfileForm />
       </Modal>
     </Fragment>

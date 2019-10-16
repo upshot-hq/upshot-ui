@@ -162,7 +162,7 @@ const UserProfileForm = (props) => {
           title="save"
           disabled={disableEditFormBtn}
           handleClick={handleSubmit}
-          showLoader={userIsLoading}s
+          showLoader={userIsLoading}
         />
       </div>
     </div>

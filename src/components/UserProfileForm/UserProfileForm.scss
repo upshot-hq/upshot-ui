@@ -13,14 +13,14 @@
   margin: auto;
   &-header {
     width: 86%;
-    height: 10%;
+    height: 5%;
     margin: auto;
     .title {
       font-family: $primary-font;
       color: $primary-color;
       text-transform: capitalize;
       font-weight: 700;
-      font-size: rem(22px);
+      font-size: rem(18px);
     }
   }
   &-content {
@@ -62,11 +62,27 @@
         }
       }
     }
+    .up-button > button {
+      width: rem(115px);
+      font-size: rem(12px);
+    }
   }
 }
 
 @include apply-to(tablet) {
   .profile__form {
     width: rem(600px);
+    &-header {
+      height: 10%;
+      .title {
+        font-size: rem(22px);
+      }
+    }
+    &-content {
+      .up-button > button {
+        width: rem(140px);
+        font-size: rem(14px);
+      }
+    }
   }
 }
