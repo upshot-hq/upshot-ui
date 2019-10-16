@@ -1,28 +1,30 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 .profile__form {
   font-family: $primary-font;
-  width: rem(600px);
+  width: 85vw;
   height: 100%;
   background-color: $white;
   padding: rem(30px);
   overflow: hidden;
+  margin: auto;
   &-header {
-    width: 86%;
-    height: 10%;
+    width: 100%;
+    height: 5%;
     margin: auto;
     .title {
       font-family: $primary-font;
       color: $primary-color;
       text-transform: capitalize;
       font-weight: 700;
-      font-size: rem(22px);
+      font-size: rem(18px);
     }
   }
   &-content {
-    width: 86%;
+    width: 100%;
     height: auto;
     background-color: $white;
     margin: auto;
@@ -58,6 +60,28 @@
         &:focus {
           border-color: $primary-color;
         }
+      }
+    }
+    .up-button > button {
+      width: rem(115px);
+      font-size: rem(12px);
+    }
+  }
+}
+
+@include apply-to(tablet) {
+  .profile__form {
+    width: rem(600px);
+    &-header {
+      height: 10%;
+      .title {
+        font-size: rem(22px);
+      }
+    }
+    &-content {
+      .up-button > button {
+        width: rem(140px);
+        font-size: rem(14px);
       }
     }
   }

@@ -280,6 +280,9 @@
     width: 90%;
     visibility: hidden;
   }
+  &-modal-content {
+    overflow-x: hidden !important;
+  }
 }
 
 @include apply-to(tablet) {
@@ -308,6 +311,9 @@
         }
       }
     }
+    &-modal-content {
+      overflow-x: scroll !important;
+    }
   }
 }
 
@@ -330,6 +336,11 @@
                 .title {
                   .text {
                     font-size: rem(16px);
+                  }
+                  .edit-btn {
+                    .btn {
+                      font-size: rem(10px);
+                    }
                   }
                 }
               }

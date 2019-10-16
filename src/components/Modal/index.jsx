@@ -8,7 +8,7 @@ import PromptModal from '../PromptModal';
 const Modal = (props) => {
   const {
     children, isModalVisible, handleModalClose,
-    showClosePrompt, promptMessage,
+    showClosePrompt, promptMessage, customContentClass,
   } = props;
   const [showPrompt, setShowPrompt] = useState(false);
 
@@ -34,7 +34,7 @@ const Modal = (props) => {
       <div className="close-btn" onClick={onModalClose}>
         <Close />
       </div>
-      <div className="content">
+      <div className={`content ${customContentClass}`}>
         {children}
       </div>
     </div>
@@ -61,6 +61,7 @@ Modal.propTypes = {
   children: PropTypes.node,
   showClosePrompt: PropTypes.bool,
   promptMessage: PropTypes.string,
+  customContentClass: PropTypes.string,
 };
 
 Modal.defaultProps = {
@@ -68,6 +69,7 @@ Modal.defaultProps = {
   isModalVisible: false,
   showClosePrompt: false,
   promptMessage: 'Are you sure you want to close this modal?',
+  customContentClass: '',
 };
 
 export default Modal;
