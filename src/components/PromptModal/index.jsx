@@ -20,10 +20,16 @@ const PromptModal = (props) => {
         </div>
         <div className="us-modal__prompt-actions">
           <div className="prompt-actions__btn">
-            <Button title="cancel" handleClick={handlePromptCancel} />
+            <Button
+              title="cancel" handleClick={handlePromptCancel}
+              customClassName="prompt-btn"
+            />
           </div>
           <div className="prompt-actions__btn">
-            <Button title="ok" handleClick={handlePromptOk} />
+            <Button
+              title="ok" handleClick={handlePromptOk}
+              customClassName="prompt-btn"
+            />
           </div>
         </div>
       </div>
