@@ -14,7 +14,7 @@
       border-radius: rem(0px);
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       overflow: scroll;
       &.high {
         height: 100%;
@@ -24,8 +24,10 @@
         background-color: $white;
         width: 90%;
         height: auto;
-        overflow: scroll;
-        margin: rem(15px 0);
+        overflow-x: hidden;
+        overflow-y: scroll;
+        margin: auto;
+        margin-top: rem(25px);
         .search {
           width: 100%;
           display: flex;
@@ -49,6 +51,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          margin-top: rem(5px);
         }
         .post-image {
           width: 100%;
@@ -106,6 +109,7 @@
         .form-content {
           width: 80%;
           margin: auto;
+          margin-top: auto;
         }
       }
     }
