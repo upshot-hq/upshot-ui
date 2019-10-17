@@ -192,7 +192,9 @@ const Layout = (props) => {
         />
       </Modal>
       <Modal showClosePrompt isModalVisible={showCreateEventModal}
-        handleModalClose={handleCloseCreateEventModal}>
+        handleModalClose={handleCloseCreateEventModal}
+        customContentClass="create-event-modal-content"
+      >
         <CreateEvent handleModalClose={handleCloseCreateEventModal} />
       </Modal>
     </div>

@@ -164,21 +164,21 @@ const CreateEvent = (props) => {
   };
 
   const renderGetStarted = () => (
-    <div>
+    <div className="create-event__container">
       <p className="create-event__title">Let's get started</p>
       <div className="create-event__form">
         <div className="create-event__form-input">
           <Textbox id="hashtag" value={inputs.hashtag || ''} name="hashtag"
-          title="hashtag" placeholder="#hashtag" type="text" onChange={handleChange}
-          info="the hashtag you'd like to use for the event"
-          error={inputs.errors.hashtag || ''} required />
+            title="hashtag" placeholder="#hashtag" type="text" onChange={handleChange}
+            info="the hashtag you'd like to use for the event"
+            error={inputs.errors.hashtag || ''} required />
         </div>
         <div className="create-event__form-input">
           {isCompetitionsLoading && <div><Loader message="loading competitions..." /> </div>}
           {!isCompetitionsLoading
           && <MultiSelector options={inputs.competitionList} selectedOptions={inputs.competitions}
-          handleSelect={handleSelect}
-          info="select competitions users can enter for" error={inputs.errors.competitions} />}
+            handleSelect={handleSelect}
+            info="select competitions users can enter for" error={inputs.errors.competitions} />}
         </div>
       </div>
       <Button title="continue"
@@ -191,20 +191,20 @@ const CreateEvent = (props) => {
   );
 
   const renderAlmostThere = () => (
-    <div>
+    <div className="create-event__container">
       <p className="create-event__title">Almost there, tell us more :)</p>
       <div className="create-event__form">
         <div className="create-event__form-input">
           <Textbox id="name" value={inputs.name || ''} name="name"
-          title="name" placeholder="event name" type="text" onChange={handleChange}
-          info="the name your event will be called"
-          error={inputs.errors.name || ''} required />
+            title="name" placeholder="event name" type="text" onChange={handleChange}
+            info="the name your event will be called"
+            error={inputs.errors.name || ''} required />
         </div>
         <div className="create-event__form-input">
           <Textarea name="about" value={inputs.about}
-          onChange={handleQuillChange} placeholder="about..."
-          info="give us more infomation about your event"
-          error={inputs.errors.about} required />
+            onChange={handleQuillChange} placeholder="about..."
+            info="give us more infomation about your event"
+            error={inputs.errors.about} required />
         </div>
       </div>
       <div className="buttons">
@@ -218,21 +218,21 @@ const CreateEvent = (props) => {
   );
 
   const renderLastThing = () => (
-    <div>
+    <div className="create-event__container">
       <p className="create-event__title">One last thing</p>
       <br/><br/>
       <div className="create-event__form">
         <div className="create-event__form-input">
           <DatePicker id="startDate" value={inputs.startDate} name="startDate"
-          title="startDate" placeholder="start date and time" onChange={handleChange}
-          info="select the date and time the event will start"
-          error={inputs.errors.startDate} required />
+            title="startDate" placeholder="start date and time" onChange={handleChange}
+            info="select the date and time the event will start"
+            error={inputs.errors.startDate} required />
         </div>
         <div className="create-event__form-input">
           <DatePicker id="endDate" value={inputs.endDate} name="endDate"
-          title="endDate" placeholder="end date and time" onChange={handleChange}
-          info="select the date and time the event will end"
-          error={inputs.errors.endDate} required />
+            title="endDate" placeholder="end date and time" onChange={handleChange}
+            info="select the date and time the event will end"
+            error={inputs.errors.endDate} required />
         </div>
       </div>
       <br/>
