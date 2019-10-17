@@ -80,7 +80,7 @@ const ExplorePage = (props) => {
 
   const renderTopBar = () => (
     <div className="topbar">
-      <GeneralSearchBar />
+      <GeneralSearchBar showOptionsBtn={false} />
     </div>
   );
 

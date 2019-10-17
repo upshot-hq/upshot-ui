@@ -53,7 +53,7 @@ const SearchBar = ({
   const renderSearchBar = () => (
     <div className="us-search__bar">
       <div className="us-search__bar-icon" style={iconStyle}>
-      <FontAwesome name="search" />
+        <FontAwesome name="search" />
       </div>
       <input type="text" name="search" style={inputStyle}
         className="us-search__bar-input" placeholder={placeholder}
@@ -85,16 +85,16 @@ const SearchBar = ({
           <div className="text">
             <span>{title}</span>
           </div>
-            {(type === resources.post) && <Capsule
-              title="post"
-              id={result.id}
-              showCloseBtn={false}
-              handleClose={() => handleRowClick(result, type)}
-              capsuleClassName="us-search__row-capsule"
-              textClassName="us-search__row-capsule-text"
-            />}
-          </div>
+          {(type === resources.post) && <Capsule
+            title="post"
+            id={result.id}
+            showCloseBtn={false}
+            handleClose={() => handleRowClick(result, type)}
+            capsuleClassName="us-search__row-capsule"
+            textClassName="us-search__row-capsule-text"
+          />}
         </div>
+      </div>
     );
   };
 
@@ -116,13 +116,13 @@ const SearchBar = ({
 
   const renderSearchResultContainer = () => (
     <div className="us-search__result">
-    {
-      searchIsLoading
-        ? <div className="row loading">
+      {
+        searchIsLoading
+          ? <div className="row loading">
             <Loader customStyles={{ width: '0.94rem', height: '0.94rem' }} />
           </div>
-        : renderContent()
-    }
+          : renderContent()
+      }
     </div>
   );
 

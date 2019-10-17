@@ -1,6 +1,6 @@
 import React, { Fragment, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
+import { ArrowBack, MoreHoriz } from '@material-ui/icons';
 
 import './GeneralSearchBar.scss';
 import SearchBar from '../SearchBar';
@@ -66,24 +66,24 @@ const GeneralSearchBar = (props) => {
   );
 
   const renderContent = () => (
-		<Fragment>
+    <Fragment>
       {showBackBtn && <div
-          className={`icon back-btn ${rearranged.current}`}
-          onClick={handleBackBtnClick}
-        >
-			    <FontAwesome name="arrow-left" />
-        </div>
+        className={`icon back-btn ${rearranged.current}`}
+        onClick={handleBackBtnClick}
+      >
+        <ArrowBack />
+      </div>
       }
-			<div className={`bar ${rearranged.current}`}>
+      <div className={`bar ${rearranged.current}`}>
         {renderSearchBar()}
-			</div>
+      </div>
       {showOptionsBtn && <div
-          className={`icon options-btn ${rearranged.current}`}
-        >
-          <FontAwesome name="ellipsis-h" />
-        </div>
+        className={`icon options-btn ${rearranged.current}`}
+      >
+        <MoreHoriz />
+      </div>
       }
-		</Fragment>
+    </Fragment>
   );
 
   return (

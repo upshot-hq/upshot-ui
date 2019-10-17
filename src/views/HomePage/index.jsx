@@ -52,7 +52,7 @@ const HomePage = ({
 
   const renderSearchBar = () => (
     <div className="searchbar">
-      <GeneralSearchBar showBackBtn={false} />
+      <GeneralSearchBar showBackBtn={false} showOptionsBtn={false} />
     </div>
   );
 
