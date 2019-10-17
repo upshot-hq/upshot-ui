@@ -32,6 +32,8 @@ export const EventPage = (props) => {
     bookmarkPost, winners, winnerIsLoading, generateWinners,
     getWinners, getWinnerIsLoading, user,
   } = props;
+  const scrollTop = useRef(0);
+  const [isSearchBarVisible, setSearchBarVisibility] = useState(true);
 
   const getTabToView = () => {
     const urlQuery = window.location.search; // eslint-disable-line
@@ -105,6 +107,16 @@ export const EventPage = (props) => {
     generateWinners(eventId);
   };
 
+  const handleScroll = (scrollEvent) => {
+    const { scrollTop: targetScrollTop } = scrollEvent.target;
+    if ((targetScrollTop > scrollTop.current) && isSearchBarVisible) {
+      setSearchBarVisibility(false);
+    } else if ((targetScrollTop < scrollTop.current) && !isSearchBarVisible) {
+      setSearchBarVisibility(true);
+    }
+    scrollTop.current = targetScrollTop;
+  };
+
   const renderEventCard = (eventItem) => (
     <EventCard event={eventItem} handlePin={handlePin} />
   );
@@ -157,7 +169,8 @@ export const EventPage = (props) => {
   const renderView = () => (
     <Fragment>
       <div className="eventpage__header">
-        <div className="eventpage__header-top">
+        <div className={isSearchBarVisible
+          ? 'eventpage__header-top' : 'eventpage__header-top no-display'}>
           <div className="eventpage__header-top__content">
             {renderEventCard(event)}
           </div>
@@ -166,7 +179,7 @@ export const EventPage = (props) => {
           <Tabs navItems={tabItems} activeTitle={currentView} />
         </div>
       </div>
-      <div className="eventpage__content">
+      <div className="eventpage__content" onScroll={handleScroll}>
         <div className="eventpage__content-container">
           {renderContent()}
           {!!posts.length && !postsSuccessStatus && renderFetchMoreLoader()}
