@@ -5,24 +5,27 @@
 
 .winnercard {
     border-radius: rem(5px);
-    height: rem(300px);
+    height: rem(auto);
     width: 100%;
     margin: rem(0px) auto;
     margin-top: rem(5px);
     &__image {
-        height: rem(200px);
+        height: auto;
         width: 100%;
         background-color: gray;
         border-radius: rem(5px);
         position: relative;
         overflow: hidden;
         .imageContainer {
-            height: 100%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             .image.loading {
-                height: 100% !important;
+                height: rem(200px) !important;
             }
             .notFoundContainer {
-                height: 100%;
+                height: rem(200px);
                 padding: 0;
             }
         }
@@ -76,9 +79,23 @@
 @include apply-to(tablet) {
     .winnercard {
         margin-top: rem(20px);
+        height: rem(300px);
         width: rem(214px);
         margin-right: rem(10px);
         margin-left: rem(10px);
+        &__image {
+            height: rem(200px);
+            .imageContainer {
+                height: 100%;
+                .image.loading {
+                    height: 100% !important;
+                }
+                .notFoundContainer {
+                    height: 100%;
+                    padding: 0;
+                }
+            }
+        }
     }
 }
 
