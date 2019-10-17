@@ -1,6 +1,7 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 #us-competition-filter {
   .us-competition-filter {
@@ -17,6 +18,7 @@
         align-items: center;
         color: $gray-1;
         border-right: rem(1px) solid $gray-1;
+        padding-right: rem(2px);
       }
       &>.competitions {
         display: flex;
@@ -49,6 +51,18 @@
               color: $white;
             }
           }
+        }
+      }
+    }
+  }
+}
+
+@include apply-to(tablet) {
+  #us-competition-filter {
+    .us-competition-filter {
+      &__content {
+        &>.icon {
+          padding-right: rem(0);
         }
       }
     }
