@@ -37,6 +37,8 @@ export const ProfilePage = (props) => {
   const [currentView, setCurrentView] = useState(eventsTab);
   const [showModal, setShowModal] = useState(false);
   const isInitialMount = useRef(true);
+  const scrollTop = useRef(0);
+  const [isSearchBarVisible, setSearchBarVisibility] = useState(true);
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -88,6 +90,16 @@ export const ProfilePage = (props) => {
     if (!bookmark && (currentView === bookmarksTab)) {
       removeUserBookmark(postId);
     }
+  };
+
+  const handleScroll = (event) => {
+    const { scrollTop: targetScrollTop } = event.target;
+    if ((targetScrollTop > scrollTop.current) && isSearchBarVisible) {
+      setSearchBarVisibility(false);
+    } else if ((targetScrollTop < scrollTop.current) && !isSearchBarVisible) {
+      setSearchBarVisibility(true);
+    }
+    scrollTop.current = targetScrollTop;
   };
 
   const renderFetchMoreTrigger = () => (
@@ -206,7 +218,8 @@ export const ProfilePage = (props) => {
   const renderView = () => (
     <Fragment>
       <div className="profilepage__header">
-        <div className="profilepage__header-top">
+        <div className={isSearchBarVisible
+          ? 'profilepage__header-top' : 'profilepage__header-top no-display'}>
           <div className="profilepage__header-top__content">
             {renderProfileCard()}
             {renderStatCard()}
@@ -216,7 +229,7 @@ export const ProfilePage = (props) => {
           <Tabs navItems={tabItems} activeTitle={currentView} />
         </div>
       </div>
-      <div className="profilepage__content">
+      <div className="profilepage__content" onScroll={handleScroll}>
         <div className="profilepage__content-container">
           {renderContent()}
           {(!!events.length && currentView === eventsTab) && isLoading
