@@ -7,13 +7,13 @@
     border-radius: rem(5px);
     height: rem(auto);
     width: 100%;
-    margin: rem(0px) auto;
+    margin: rem(20px) auto;
     margin-top: rem(5px);
     &__image {
         height: auto;
         width: 100%;
         background-color: gray;
-        border-radius: rem(5px);
+        border-radius: rem(5px 5px 0px 0px);
         position: relative;
         overflow: hidden;
         .imageContainer {
@@ -30,7 +30,6 @@
             }
         }
     }
-
     &__icons {
         display: flex;
         justify-content: space-between;
@@ -62,7 +61,8 @@
     &__caption {
         color: $primary-color;
         padding: 0 rem(5px) rem(5px) rem(5px);
-        height: rem(50px);
+        min-height: rem(25px);
+        max-height: rem(50px);
         text-overflow: ellipsis;
         overflow: hidden;
         .username {
@@ -76,6 +76,18 @@
     }
 }
 
+@include apply-to(phone) {
+  .winnercard {
+    border-radius: rem(5px);
+    background-color: $white;
+    box-shadow: rem(0 0 5px) $black-3;
+    overflow: hidden;
+    &__content {
+        padding: rem(5px);
+    }
+  }  
+}
+
 @include apply-to(tablet) {
     .winnercard {
         margin-top: rem(20px);
@@ -85,6 +97,7 @@
         margin-left: rem(10px);
         &__image {
             height: rem(200px);
+            border-radius: rem(5px);
             .imageContainer {
                 height: 100%;
                 .image.loading {
@@ -95,6 +108,11 @@
                     padding: 0;
                 }
             }
+        }
+        &__caption {
+            min-height: auto;
+            max-height: auto;
+            height: rem(50px);
         }
     }
 }
