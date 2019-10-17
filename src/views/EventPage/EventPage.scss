@@ -5,10 +5,11 @@
 
 #eventpage {
   height: 100%;
+  display: flex;
+  flex-direction: column;
   .eventpage {
     &__header {
       width: 100%;
-      overflow: hidden;
       border-bottom: rem(1px) solid $gray-3;
       &-top {
         background-color: $white;
@@ -345,6 +346,9 @@
     margin-top: rem(20px);
     width: 90%;
     visibility: hidden;
+  }
+  .no-display {
+    display: none;
   }
 }
 
