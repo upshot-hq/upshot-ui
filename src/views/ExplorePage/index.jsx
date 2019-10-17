@@ -27,6 +27,8 @@ const ExplorePage = (props) => {
   const [currentView, setCurrentView] = useState(allTab);
   const [isNewTab, setIsNewTab] = useState(true);
   const isInitialMount = useRef(true);
+  const scrollTop = useRef(0);
+  const [isSearchBarVisible, setSearchBarVisibility] = useState(true);
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -146,22 +148,31 @@ const ExplorePage = (props) => {
     <div className="fetch-more" ref={setNode} />
   );
 
+  const handleScroll = (event) => {
+    const { scrollTop: targetScrollTop } = event.target;
+    if ((targetScrollTop > scrollTop.current) && isSearchBarVisible) {
+      setSearchBarVisibility(false);
+    } else if ((targetScrollTop < scrollTop.current) && !isSearchBarVisible) {
+      setSearchBarVisibility(true);
+    }
+    scrollTop.current = targetScrollTop;
+  };
+
   return (
     <Layout match={match}>
       <div className="explore-page" id="explore-page">
         <div className="header">
-          <div className="top">
+          <div className={isSearchBarVisible ? 'top' : 'top no-display'}>
             {renderTopBar()}
           </div>
           <div className="bottom">
             <Tabs
               navItems={TabsItems}
               activeTitle={currentView}
-              navItemStyles={{ alignItems: 'flex-start' }}
             />
           </div>
         </div>
-        <div className="content">
+        <div className="content" onScroll={handleScroll}>
           {renderContent()}
           {isLoading && <Loader containerClassName="explore-page__loader" />}
           {!isLoading && !!errorMessage && renderError(lang.failedToFetch)}
