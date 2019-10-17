@@ -20,7 +20,6 @@
   .buttons {
     display: flex;
     align-items: center;
-
     .go-back {
       text-decoration: underline;
       font-size: rem(12px);
@@ -45,6 +44,10 @@
     &>div.create-event__container {
       width: 90%;
       height: 85%;
+      .up-button > button {
+        width: rem(115px);
+        font-size: rem(12px);
+      }
     }
     &__form {
       .text-input {
