@@ -20,6 +20,8 @@ import { useIntersect } from '../../helpers/hooksUtils';
 import { getUrlQueryValue } from '../../helpers/utils';
 import { tabUrlQueryKey } from '../../helpers/defaults';
 
+const defaultScrollTopValue = 100;
+
 export const EventPage = (props) => {
   const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
   const { detailsTab, postsTab, winnersTab } = lang.eventPage.tabs;
@@ -32,7 +34,6 @@ export const EventPage = (props) => {
     bookmarkPost, winners, winnerIsLoading, generateWinners,
     getWinners, getWinnerIsLoading, user,
   } = props;
-  const defaultScrollTopValue = 100;
   const scrollTop = useRef(defaultScrollTopValue);
   const [isSearchBarVisible, setSearchBarVisibility] = useState(true);
   const contentNode = useRef();
