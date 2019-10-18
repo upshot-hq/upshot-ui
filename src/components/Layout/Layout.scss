@@ -185,11 +185,28 @@
               width: 0 !important
           }
           .content {
-            margin: auto 10px;
+            margin: auto rem(10px);
             height: 60%;
             width: 70%;
             background-color: $primary-color;
             border-radius: rem(5px);
+          }
+          .footer {
+            width: 90%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            font-family: $primary-font;
+            overflow: hidden;
+            &-text {
+              margin: auto rem(10px);
+              margin-top: rem(5px);
+              font-size: rem(13px);
+              text-transform: capitalize;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            }
           }
         }
         &-center {
@@ -239,22 +256,6 @@
                 }
               }
             }
-          }
-        }
-        .footer {
-          margin: rem(10px);
-          width: 90%;
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-          font-family: $primary-font;
-          overflow: hidden;
-          &-text {
-            font-size: rem(13px);
-            text-transform: capitalize;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
           }
         }
       }

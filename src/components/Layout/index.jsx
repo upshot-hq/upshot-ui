@@ -149,7 +149,7 @@ const Layout = (props) => {
           <div className="content" />
           <div className="footer">
             <div className="footer-text">
-              &#xa9; 2019 upshot, inc.
+              &#xa9; {lang.footerText}
             </div>
           </div>
         </div>
