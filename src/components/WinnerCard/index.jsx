@@ -16,7 +16,7 @@ const WinnerCard = ({
       <div className="winnercard__image">
         <Image imageUrl={winner.post_picture_url} />
       </div>
-      <div>
+      <div className="winnercard__content">
         <div className="winnercard__icons">
           <div className="leftside">
             <span className="position">{beautifyPosition(winner.rank)}</span>

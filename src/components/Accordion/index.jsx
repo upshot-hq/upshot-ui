@@ -21,7 +21,7 @@ const Accordion = ({
         {isAccordionOpen
                 && <FontAwesome name="caret-up" className="icon" />}
       </div>
-      {isAccordionOpen && <div className="winners">
+      {isAccordionOpen && <div className="accordion__content">
         {children}
       </div>}
     </div>
