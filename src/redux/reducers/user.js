@@ -83,7 +83,13 @@ const user = (state = initialState, action) => {
       errors: action.error,
     };
   case types.GET_USER_EVENTS:
-    return { ...state, isLoading: true };
+    return {
+      ...state,
+      isLoading: true,
+      events: action.eventQueries.isNewFetch
+        ? initialState.events
+        : state.events,
+    };
   case types.GET_USER_EVENTS_SUCCESS:
     return {
       ...state,

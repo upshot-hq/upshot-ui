@@ -30,7 +30,7 @@ export const Events = (props) => {
   useEffect(() => {
     if (isInitialMount.current) {
       if (IsEventView) {
-        getUserEvents({});
+        getUserEvents({ isNewFetch: true });
       }
 
       isInitialMount.current = false;
@@ -54,23 +54,23 @@ export const Events = (props) => {
   );
 
   const renderLoader = () => (
-		<div className="profilepage__events-loader-container">
-			<Loader containerClassName="profilepage__events-loader" />
-		</div>
+    <div className="profilepage__events-loader-container">
+      <Loader containerClassName="profilepage__events-loader" />
+    </div>
   );
 
   const renderMessage = (message) => (
-		<div className="profilepage__events-message">
-			<div className="text">{message}</div>
-		</div>
+    <div className="profilepage__events-message">
+      <div className="text">{message}</div>
+    </div>
   );
 
   return (
-		<Fragment>
+    <Fragment>
       {!!events.length && renderEvents()}
       {!events.length && isLoading && renderLoader()}
       {!events.length && !isLoading && renderMessage(lang.profilePage.events.noEvents)}
-		</Fragment>
+    </Fragment>
   );
 };
 
