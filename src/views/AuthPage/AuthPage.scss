@@ -89,6 +89,7 @@
     outline: none;
     cursor: pointer;
     display: flex;
+    justify-content: center;
     padding: rem(0 10px);
     &:active {
         background-color: $secondary-color-1;
@@ -110,62 +111,65 @@
 }
 
 @include apply-to(tablet) {
-    .authPage {
-        display: flex;
-        height: 100%;
-        overflow: hidden;
-        font-family: $primary-font;
+  .authPage {
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    font-family: $primary-font;
+    background-color: $primary-color;
+    .leftSide {
+        background-image: none;
+        background-color: $white;
         background-color: $primary-color;
-        .leftSide {
-            background-image: none;
-            background-color: $white;
-            background-color: $primary-color;
-            flex-basis: 50%;
-            height: 100%;
+        flex-basis: 50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        .container {
+            width: 80%;
+            height: 80%;
+            margin: auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
             display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            .container {
-                width: 80%;
-                height: 80%;
-                margin: auto;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: flex;
-                flex-direction: column;
-                .logo {
-                    flex-basis: 25%;
-                    display: block;
-                    width: 100%;
-                    .us-logo {
-                        text-align: left;
-                    }
-                }
-                .msg {
+            flex-direction: column;
+            .logo {
+                flex-basis: 25%;
+                display: block;
+                width: 100%;
+                .us-logo {
                     text-align: left;
-                    flex-basis: 55%;
-                    font-size: rem(40px);
-                    font-family: $primary-font;
-                    color: $secondary-color;
-                    color: $white;
-                }
-                .auth-btn {
-                    flex-basis: 20%;
-                    margin: 0;
                 }
             }
+            .msg {
+                text-align: left;
+                flex-basis: 55%;
+                font-size: rem(40px);
+                font-family: $primary-font;
+                color: $secondary-color;
+                color: $white;
+            }
+            .auth-btn {
+                flex-basis: 20%;
+                margin: 0;
+            }
         }
-        .rightSide {
-            display: block;
-            flex-basis: 50%;
-            background-image: url("../../assets/04.jpg");
-            background-color: $white;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 100%;
-            clip-path: polygon(25% 0%, 100% 0, 100% 100%, 25% 100%, 0% 63%);
-        }
+    }
+    .rightSide {
+        display: block;
+        flex-basis: 50%;
+        background-image: url("../../assets/04.jpg");
+        background-color: $white;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100%;
+        clip-path: polygon(25% 0%, 100% 0, 100% 100%, 25% 100%, 0% 63%);
+    }
+  }
+    .us-btn {
+      width: rem(210px);
     }
 }
 
@@ -184,6 +188,9 @@
             flex-basis: 60%;            
         }
     }
+  .us-btn {
+    width: rem(230px);
+  }
 }
 
 @include apply-to(desktop) {
