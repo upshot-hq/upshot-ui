@@ -1,20 +1,35 @@
 @import "~sass-rem";
 @import '../../assets/partials/colors';
+@import '../../assets/partials/mixins';
 
 .fab-container {
   position: absolute;
   bottom: rem(50px);
-  right: rem(50px);
+  right: rem(30px);
   background-color: $primary-color;
   color: $white;
-  height: rem(60px);
-  width: rem(60px);
+  height: rem(45px);
+  width: rem(45px);
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+  .icon {
+    font-size: rem(20px);
+  }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
-.fab-container:hover {
-  cursor: pointer;
+@include apply-to(tablet-large) {
+  .fab-container {
+    bottom: rem(50px);
+    right: rem(50px);
+    height: rem(60px);
+    width: rem(60px);
+    .icon {
+      font-size: rem(25px);
+    }
+  }
 }

@@ -1,6 +1,7 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 #tabs {
   &::-webkit-scrollbar { 
@@ -20,12 +21,14 @@
     overflow-x: scroll;
     justify-content: flex-start;
     &-item {
+      display: flex;
+      justify-content: center;
       height: 60%;
       text-transform: capitalize;
       color: $primary-color;
       background-color: $white;
       font-family: $primary-font;
-      font-size: rem(16px);
+      font-size: rem(14px);
       font-weight: bold;
       cursor: pointer;
       flex-grow: 1;
@@ -46,6 +49,16 @@
     }
     &::-webkit-scrollbar { 
       display: none; 
+    }
+  }
+}
+
+@include apply-to(tablet-large) {
+  #tabs {
+    .tab__items {
+      &-item {
+        font-size: rem(16px);
+      }
     }
   }
 }

@@ -1,0 +1,26 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
+
+#winners-section {
+    margin-top: rem(10px);
+    .winners {
+        display: flex;
+        flex-direction: column;
+        .no-winners {
+            padding: rem(10px);
+            span {
+                font-size: rem(14px);
+            }
+        }
+    }
+}
+
+@include apply-to(tablet) {
+    #winners-section {
+        .winners {
+            flex-direction: row;
+        }
+    }  
+}

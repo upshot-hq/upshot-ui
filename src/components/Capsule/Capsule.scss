@@ -1,17 +1,16 @@
 @import "~sass-rem";
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 .us-capsule {
   position: relative;
   text-overflow: ellipsis;
-  overflow: hidden;
   max-width: rem(660px);
-  min-width: rem(80px);
   white-space: nowrap;
   background-color: $primary-color;
   color: $white;
-  font-size: rem(12px);
+  font-size: rem(10px);
   font-weight: 600;
   margin: rem(5px);
   margin-left: 0;
@@ -40,5 +39,11 @@
     &:hover {
       color: $gray-1;
     }
+  }
+}
+
+@include apply-to(tablet-large) {
+  .us-capsule {
+    font-size: rem(12px);
   }
 }

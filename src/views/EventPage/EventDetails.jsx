@@ -10,35 +10,35 @@ export const EventDetails = (props) => {
   const { event } = props;
 
   const renderAboutCard = () => (
-		<div className="details-card">
-			<div className="details-card__header">
-				<p className="text">{lang.eventPage.details.about}</p>
-			</div>
-			<div className="details-card__content">
-				<p className="text"
-					// eslint-disable-next-line
+    <div className="details-card">
+      <div className="details-card__header">
+        <p className="text">{lang.eventPage.details.about}</p>
+      </div>
+      <div className="details-card__content">
+        <p className="text"
+          // eslint-disable-next-line
 					dangerouslySetInnerHTML={
-						{ __html: addStylesToHashTags(event.about) }
-					}
-				/>
-			</div>
-		</div>
+            { __html: addStylesToHashTags(event.about) }
+          }
+        />
+      </div>
+    </div>
   );
 
   const renderHashtagCard = () => (
-		<div className="details-card">
-			<div className="details-card__header">
-				<p className="text">{details.hashtags}</p>
-			</div>
-			<div className="details-card__content">
-				<p className="text"
-					// eslint-disable-next-line
+    <div className="details-card">
+      <div className="details-card__header">
+        <p className="text">{details.hashtags}</p>
+      </div>
+      <div className="details-card__content">
+        <p className="text"
+          // eslint-disable-next-line
 					dangerouslySetInnerHTML={
-						{ __html: addStylesToHashTags(event.hashtag) }
-					}
-				/>
-			</div>
-		</div>
+            { __html: addStylesToHashTags(event.hashtag) }
+          }
+        />
+      </div>
+    </div>
   );
 
   const renderDateAndTimeCard = () => {
@@ -46,57 +46,57 @@ export const EventDetails = (props) => {
     const endAt = moment(event.end_at).format('LLLL');
 
     return (
-			<div className="details-card">
-				<div className="details-card__header">
-					<p className="text">{details.dateAndTime}</p>
-				</div>
-				<div className="details-card__content">
-					<div className="start">
-						<div className="text title">start:</div>
-						<div className="text">{startAt}</div>
-					</div>
-					<div className="end">
-						<div className="text title">end:</div>
-						<div className="text">{endAt}</div>
-					</div>
-				</div>
-			</div>
+      <div className="details-card">
+        <div className="details-card__header">
+          <p className="text">{details.dateAndTime}</p>
+        </div>
+        <div className="details-card__content">
+          <div className="start">
+            <span className="text title">start:</span>
+            <span className="text">{startAt}</span>
+          </div>
+          <div className="end">
+            <span className="text title">end:</span>
+            <span className="text">{endAt}</span>
+          </div>
+        </div>
+      </div>
     );
   };
 
   const renderContactCard = () => (
-		<div className="details-card">
-			<div className="details-card__header">
-				<p className="text">{details.contact}</p>
-			</div>
-			<div className="details-card__content">
-				<div className="start">
-					<div className="text title">name:</div>
-					<div className="text capitalize">
-						{`${event.user_firstname} ${event.user_lastname}`}
-					</div>
-				</div>
-				<div className="end">
-					<div className="text title">email:</div>
-					<div className="text">{event.user_email}</div>
-				</div>
-			</div>
-		</div>
+    <div className="details-card">
+      <div className="details-card__header">
+        <p className="text">{details.contact}</p>
+      </div>
+      <div className="details-card__content">
+        <div className="start">
+          <span className="text title">name:</span>
+          <span className="text capitalize">
+            {`${event.user_firstname} ${event.user_lastname}`}
+          </span>
+        </div>
+        <div className="end">
+          <span className="text title">email:</span>
+          <span className="text">{event.user_email}</span>
+        </div>
+      </div>
+    </div>
   );
 
   const renderDetailsCards = () => (
-		<Fragment>
-			{renderAboutCard()}
-			{renderHashtagCard()}
-			{renderDateAndTimeCard()}
-			{renderContactCard()}
-		</Fragment>
+    <Fragment>
+      {renderAboutCard()}
+      {renderHashtagCard()}
+      {renderDateAndTimeCard()}
+      {renderContactCard()}
+    </Fragment>
   );
 
   return (
-		<Fragment>
-			{renderDetailsCards()}
-		</Fragment>
+    <Fragment>
+      {renderDetailsCards()}
+    </Fragment>
   );
 };
 

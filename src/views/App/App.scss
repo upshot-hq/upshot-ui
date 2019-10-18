@@ -1,6 +1,7 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 * {    
   margin: 0;
@@ -26,7 +27,7 @@ code {
   overflow: hidden;
 }
 
-@media only screen and (min-width: $iPadPro) and (max-width: $desktop) {
+@include apply-to(desktop) {
   .App {
     height: rem(788px);
     max-height: rem(788px);

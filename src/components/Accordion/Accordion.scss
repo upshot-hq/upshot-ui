@@ -1,0 +1,16 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+
+.accordion {
+    margin-top: rem(10px);
+    width: 100%;
+    .title {
+        .caption {
+            margin-right: rem(10px);
+        }
+    }
+    .title:hover {
+        cursor: pointer;
+    }
+}

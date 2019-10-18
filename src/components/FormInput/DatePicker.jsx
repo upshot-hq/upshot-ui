@@ -6,7 +6,6 @@ import moment from 'moment';
 const DatePickerInput = ({
   name, value, title, onChange, info, error, required,
 }) => {
-
   const handleChange = (datetime) => {
     const dateFormat = 'YYYY-MM-DDTHH:mm:ss';
     const formattedDate = moment(datetime).format(dateFormat);
@@ -23,17 +22,17 @@ const DatePickerInput = ({
 
   return (
     <div className="form-input">
-					<div className="title">{title}</div>
-					<DateTimePicker
-          name={name}
-          value={new Date(value)}
-          className="date-picker"
-          onChange={handleChange}
-          required={required}
-          />
-          {!error && <span className="info">{info}</span>}
-          {error && <span className="error" id={`${name}-error`}>{error}</span>}
-				</div>
+      <div className="title">{title}</div>
+      <DateTimePicker
+        name={name}
+        value={new Date(value)}
+        className="date-picker"
+        onChange={handleChange}
+        required={required}
+      />
+      {!error && <span className="info">{info}</span>}
+      {error && <span className="error" id={`${name}-error`}>{error}</span>}
+    </div>
   );
 };
 

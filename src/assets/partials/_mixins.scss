@@ -1,0 +1,36 @@
+@import './_breakpoints.scss';
+
+/**
+* Mixins to help target various screen sizes
+*/
+@mixin apply-to($screen) {
+  @if $screen == phone-small {
+    @media only screen and (max-width: $breakpoint-phone-small) {
+      @content;
+    }
+  }
+
+  @if $screen == phone {
+    @media only screen and (max-width: $breakpoint-phone) {
+      @content;
+    }
+  }
+
+  @else if $screen == tablet {
+    @media only screen and (min-width: $breakpoint-tablet) {
+      @content;
+    }
+  }
+
+  @else if $screen == tablet-large {
+    @media only screen and (min-width: $breakpoint-tablet-large) {
+      @content;
+    }
+  }
+
+  @else if $screen == desktop {
+    @media only screen and (min-width: $breakpoint-desktop) {
+      @content;
+    }
+  }
+}

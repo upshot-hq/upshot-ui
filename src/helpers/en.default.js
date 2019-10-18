@@ -1,4 +1,5 @@
 export default {
+  appName: 'Upshot',
   networkErrorMessage: 'Possible network error, please check your connection and try again',
   serverErrorMessage: 'Server error, try again',
   authenticatonErrorMessage: 'Authentication failed',
@@ -22,8 +23,8 @@ export default {
       },
     },
     notification: {
-      title: 'notification',
-      link: '/',
+      title: 'notifications',
+      link: '/notifications',
       icon: {
         name: 'bell',
         size: '2x',
@@ -51,8 +52,16 @@ export default {
     competitionDropdownInfo: 'select a competition you would like to enter',
     eventSearchInfo: 'search and select an event',
     captionPlaceholder: 'enter caption',
+    topCaptionPlaceholder: 'enter top caption',
+    bottomCaptionPlaceholder: 'enter bottom caption',
     dropdownPlaceholder: 'select a competition',
     searchPlaceholder: 'search events',
+  },
+  mobileMenu: {
+    creatEventText: 'create event',
+  },
+  authPage: {
+    signupText: 'Signin with google',
   },
   explorePage: {
     noContent: 'no content to explore :(',
@@ -67,7 +76,7 @@ export default {
     tabs: {
       detailsTab: 'details',
       postsTab: 'posts',
-      analyticsTab: 'analytics',
+      winnersTab: 'winners',
     },
     details: {
       about: 'about this event',
@@ -78,6 +87,7 @@ export default {
     posts: {
       noPosts: 'no post yet!',
     },
+    eventOngoing: 'The event is ongoing, check back when it\'s done...',
   },
   profilePage: {
     notFound: 'page not found :(',
@@ -108,6 +118,19 @@ export default {
       upcoming: 'upcoming',
       started: 'started',
       ended: 'ended',
+    },
+  },
+  winnersPage: {
+    noWinner: 'No Winner!',
+  },
+  notificationsPage: {
+    noNotifications: 'no notifications at the moment.',
+  },
+  notFoundPage: {
+    message: {
+      partOne: 'You seem to have lost your way... click ',
+      partTwo: 'here',
+      partThree: ' to go home!',
     },
   },
 };

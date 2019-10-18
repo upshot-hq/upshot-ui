@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import './ProfilePage.scss';
 import Layout from '../../components/Layout';
 import Modal from '../../components/Modal/index';
+import Button from '../../components/Button';
 import lang from '../../helpers/en.default';
 import { addStylesToHashTags, modifyCounts } from '../../helpers/utils';
 import UserProfileForm from '../../components/UserProfileForm/index';
@@ -36,6 +37,8 @@ export const ProfilePage = (props) => {
   const [currentView, setCurrentView] = useState(eventsTab);
   const [showModal, setShowModal] = useState(false);
   const isInitialMount = useRef(true);
+  const scrollTop = useRef(0);
+  const [isSearchBarVisible, setSearchBarVisibility] = useState(true);
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -89,20 +92,30 @@ export const ProfilePage = (props) => {
     }
   };
 
+  const handleScroll = (event) => {
+    const { scrollTop: targetScrollTop } = event.target;
+    if ((targetScrollTop > scrollTop.current) && isSearchBarVisible) {
+      setSearchBarVisibility(false);
+    } else if ((targetScrollTop < scrollTop.current) && !isSearchBarVisible) {
+      setSearchBarVisibility(true);
+    }
+    scrollTop.current = targetScrollTop;
+  };
+
   const renderFetchMoreTrigger = () => (
     <div className="fetch-more" ref={setNode} />
   );
 
   const renderFetchMoreLoader = () => (
-		<div className="profilepage__loader-container">
-			<Loader containerClassName="profilepage__loader-container--loader" />
-		</div>
+    <div className="profilepage__loader-container">
+      <Loader containerClassName="profilepage__loader-container--loader" />
+    </div>
   );
 
   const renderLoader = () => (
-		<div className="profilepage__full-loader-container">
-			<Loader containerClassName="profilepage__full-loader-container--loader" />
-		</div>
+    <div className="profilepage__full-loader-container">
+      <Loader containerClassName="profilepage__full-loader-container--loader" />
+    </div>
   );
 
   const renderProfileCard = () => {
@@ -111,33 +124,35 @@ export const ProfilePage = (props) => {
     };
 
     return (
-				<div className="profile" key={userData.id}>
-					<div className="avatar">
-						<div className="image" style={imageStyle} />
-					</div>
+      <div className="profile" key={userData.id}>
+        <div className="avatar">
+          <div className="image" style={imageStyle} />
+        </div>
 
-					<div className="details">
-						<div className="name">
-							<div className="title">
-								<div className="text">
-									{`${userData.firstname} ${userData.lastname}`}
-								</div>
-								<div className="edit-btn">
-									<button className="btn" onClick={() => setShowModal(true)}>
-										edit profile
-									</button>
-								</div>
-							</div>
-							<p className="handle">{`@${userData.username}`}</p>
-						</div>
-						<div className="description"
-							// eslint-disable-next-line
+        <div className="details">
+          <div className="name">
+            <div className="title">
+              <div className="text">
+                {`${userData.firstname} ${userData.lastname}`}
+              </div>
+              <div className="edit-btn">
+                <Button
+                  customClassName="btn"
+                  title="edit profile"
+                  handleClick={() => setShowModal(true)}
+                />
+              </div>
+            </div>
+            <p className="handle">{`@${userData.username}`}</p>
+          </div>
+          <div className="description"
+            // eslint-disable-next-line
 							dangerouslySetInnerHTML={
-								{ __html: addStylesToHashTags(userData.description || '') }
-							}
-						/>
-					</div>
-				</div>
+              { __html: addStylesToHashTags(userData.description || '') }
+            }
+          />
+        </div>
+      </div>
     );
   };
 
@@ -146,64 +161,65 @@ export const ProfilePage = (props) => {
     const postsStats = modifyCounts(stats.totalUserPosts);
 
     return	(
-				<div className="stat">
-					<div className="content">
-					{userInfoIsLoading
+      <div className="stat">
+        <div className="content">
+          {userInfoIsLoading
 					  ? <Loader containerClassName="content__stats-loader" />
 					  :	<Fragment>
-							<div className="text events">
-								<span className="count">{eventStats}</span> events
-							</div>
-							<div className="text posts">
-								<span className="count">{postsStats}</span> posts
-							</div>
-						</Fragment>
-					}
-					</div>
-				</div>
+              <div className="text events">
+                <span className="count">{eventStats}</span> events
+              </div>
+              <div className="text posts">
+                <span className="count">{postsStats}</span> posts
+              </div>
+            </Fragment>
+          }
+        </div>
+      </div>
     );
   };
 
   const renderContent = () => (
-		<Fragment>
+    <Fragment>
       {(currentView === eventsTab) && <Events
-				handlePin={handlePin}
-				events={events}
-				isLoading={isLoading}
-				pagination={eventsPagination}
-				IsEventView={(currentView === eventsTab)}
-				getUserEvents={getUserEvents}
-				isIntersected={isIntersected}
-			/>}
-			{(currentView === postsTab) && <Posts
-				handleBookmark={handleBookmark}
-				handleDisLike={handleDisLike}
-				handleLike={handleLike}
-				getUserPosts={getUserPosts}
-				posts={posts}
-				isLoading={isLoading}
-				pagination={postsPagination}
-				IsPostView={(currentView === postsTab)}
-				isIntersected={isIntersected}
-			/>}
-			{(currentView === bookmarksTab) && <Bookmarks
-				handleBookmark={handleBookmark}
-				handleDisLike={handleDisLike}
-				handleLike={handleLike}
-				getUserBookmarks={getUserBookmarks}
-				bookmarks={bookmarks}
-				isLoading={bookmarksIsLoading}
-				pagination={bookmarksPagination}
-				IsBookmarkView={(currentView === bookmarksTab)}
-				isIntersected={isIntersected}
-			/>}
-		</Fragment>
+        handlePin={handlePin}
+        events={events}
+        isLoading={isLoading}
+        pagination={eventsPagination}
+        IsEventView={(currentView === eventsTab)}
+        getUserEvents={getUserEvents}
+        isIntersected={isIntersected}
+      />}
+      {(currentView === postsTab) && <Posts
+        handleBookmark={handleBookmark}
+        handleDisLike={handleDisLike}
+        handleLike={handleLike}
+        getUserPosts={getUserPosts}
+        posts={posts}
+        isLoading={isLoading}
+        pagination={postsPagination}
+        IsPostView={(currentView === postsTab)}
+        isIntersected={isIntersected}
+      />}
+      {(currentView === bookmarksTab) && <Bookmarks
+        handleBookmark={handleBookmark}
+        handleDisLike={handleDisLike}
+        handleLike={handleLike}
+        getUserBookmarks={getUserBookmarks}
+        bookmarks={bookmarks}
+        isLoading={bookmarksIsLoading}
+        pagination={bookmarksPagination}
+        IsBookmarkView={(currentView === bookmarksTab)}
+        isIntersected={isIntersected}
+      />}
+    </Fragment>
   );
 
   const renderView = () => (
     <Fragment>
       <div className="profilepage__header">
-        <div className="profilepage__header-top">
+        <div className={isSearchBarVisible
+          ? 'profilepage__header-top' : 'profilepage__header-top no-display'}>
           <div className="profilepage__header-top__content">
             {renderProfileCard()}
             {renderStatCard()}
@@ -213,7 +229,7 @@ export const ProfilePage = (props) => {
           <Tabs navItems={tabItems} activeTitle={currentView} />
         </div>
       </div>
-      <div className="profilepage__content">
+      <div className="profilepage__content" onScroll={handleScroll}>
         <div className="profilepage__content-container">
           {renderContent()}
           {(!!events.length && currentView === eventsTab) && isLoading
@@ -231,19 +247,23 @@ export const ProfilePage = (props) => {
   );
 
   return (
-		<Fragment>
-			<Layout centerContainerStyles={{ paddingTop: 0 }} match={match}>
-				<div className="profilepage">
+    <Fragment>
+      <Layout centerContainerStyles={{ paddingTop: 0 }} match={match}>
+        <div className="profilepage">
           {userInfoIsLoading
             ? renderLoader()
             : renderView()
           }
-				</div>
-			</Layout>
-			<Modal isModalVisible={showModal} handleModalClose={handleModalClose}>
-				<UserProfileForm />
-			</Modal>
-		</Fragment>
+        </div>
+      </Layout>
+      <Modal
+        isModalVisible={showModal}
+        handleModalClose={handleModalClose}
+        customContentClass="profilepage-modal-content"
+      >
+        <UserProfileForm />
+      </Modal>
+    </Fragment>
   );
 };
 

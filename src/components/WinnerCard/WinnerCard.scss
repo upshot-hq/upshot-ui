@@ -1,0 +1,138 @@
+@import '~sass-rem';
+@import '../../assets/partials/colors';
+@import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
+
+.winnercard {
+    border-radius: rem(5px);
+    height: rem(auto);
+    width: 100%;
+    margin: rem(20px) auto;
+    margin-top: rem(5px);
+    &__image {
+        height: auto;
+        width: 100%;
+        background-color: gray;
+        border-radius: rem(5px 5px 0px 0px);
+        position: relative;
+        overflow: hidden;
+        .imageContainer {
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .image.loading {
+                height: rem(200px) !important;
+            }
+            .notFoundContainer {
+                height: rem(200px);
+                padding: 0;
+            }
+        }
+    }
+    &__icons {
+        display: flex;
+        justify-content: space-between;
+        padding: rem(5px);
+        .leftside {
+            display: flex;
+            .position {
+                font-size: rem(14px);
+            }
+        }
+        .rightside {
+            display: flex;
+        }
+        .icon {
+            margin-left: rem(10px);
+            text-align: center;
+            img {
+                height: rem(16px);
+                width: rem(16px);
+            }
+            .count {
+                text-align: center;
+                font-size: rem(10px);
+                user-select: none;
+            }
+        }
+    }
+
+    &__caption {
+        color: $primary-color;
+        padding: 0 rem(5px) rem(5px) rem(5px);
+        min-height: rem(25px);
+        max-height: rem(50px);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        .username {
+            font-size: rem(12px);
+            font-weight: 700;
+            text-transform: lowercase;
+        }
+        .text {
+            font-size: rem(12px);
+        }
+    }
+}
+
+@include apply-to(phone) {
+  .winnercard {
+    border-radius: rem(5px);
+    background-color: $white;
+    box-shadow: rem(0 0 5px) $black-3;
+    overflow: hidden;
+    &__content {
+        padding: rem(5px);
+    }
+  }  
+}
+
+@include apply-to(tablet) {
+    .winnercard {
+        margin-top: rem(20px);
+        height: rem(300px);
+        width: rem(214px);
+        margin-right: rem(10px);
+        margin-left: rem(10px);
+        &__image {
+            height: rem(200px);
+            border-radius: rem(5px);
+            .imageContainer {
+                height: 100%;
+                .image.loading {
+                    height: 100% !important;
+                }
+                .notFoundContainer {
+                    height: 100%;
+                    padding: 0;
+                }
+            }
+        }
+        &__caption {
+            min-height: auto;
+            max-height: auto;
+            height: rem(50px);
+        }
+    }
+}
+
+@include apply-to(tablet-large) {
+    .winnercard {
+        width: rem(150px);
+        margin-right: rem(0px);
+        &:first-child {
+            margin-left: rem(3px);
+        }
+    }
+}
+
+@include apply-to(desktop) {
+    .winnercard {
+        width: rem(150px);
+        margin-right: rem(10px);
+        &:first-child {
+            margin-left: rem(10px);
+        }
+    }
+}

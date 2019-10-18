@@ -3,7 +3,8 @@ module.exports = {
     "node": true,
     "es6": true,
     "mocha": true,
-    "jest": true
+    "jest": true,
+    "browser": true
   },
   "extends": "airbnb-base",
   "parser": "babel-eslint",
@@ -20,6 +21,7 @@ module.exports = {
   "rules": {
     "import/no-unresolved": "off",
     "import/extensions": "off",
+    "indent": ["error", 2],
     "quotes": 1,
     "no-console": 1,
     "no-debugger": 1,

@@ -1,6 +1,7 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 #us-generalSearch {
   &.generalSearch {
@@ -20,12 +21,12 @@
     justify-content: center;
     height: 50%;
     align-items: center;
+    cursor: pointer;
     &.rearranged {
       flex-basis: 3% !important;
     }
     &>span {
       font-size: rem(18px);
-      cursor: pointer;
     }
     &:hover {
       color: $secondary-color;
@@ -38,7 +39,7 @@
     background-color: $gray-3;
     display: flex;
     &.rearranged {
-      flex-basis: 87% !important;
+      flex-basis: 82% !important;
     }
     .search-icon {
       flex-basis: 8%;
@@ -70,15 +71,28 @@
     justify-content: center;
     height: 50%;
     align-items: center;
+    cursor: pointer;
     &.rearranged {
       flex-basis: 3% !important;
     }
     &>span {
       font-size: rem(18px);
-      cursor: pointer;
     }
     &:hover {
       color: $secondary-color;
+    }
+  }
+}
+
+@include apply-to(tablet) {
+  #us-generalSearch {
+    &>.bar {
+      &.rearranged {
+        flex-basis: 87% !important;
+      }
+      .search-icon {
+        flex-basis: 8%;
+      }
     }
   }
 }
