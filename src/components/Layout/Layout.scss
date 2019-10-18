@@ -93,7 +93,7 @@
             .layout__logo {
               height: 6%;
               display: flex;
-              align-items: flex-start;
+              align-items: center;
               justify-content: flex-start;
               margin-left: rem(15px);
               .layoutLogo {
@@ -130,16 +130,16 @@
                     justify-content: center;
                     align-items: center;
                     font-weight: bold;
-                    font-size: rem(25px);
+                    font-size: rem(22px);
                     font-family: $primary-font;
                     color: $primary-color;
                     position: relative;
                     .iconSize {
-                      font-size: rem(25px);
+                      font-size: rem(22px);
                     }
                     .notification-count {
                       border-radius: 50%;
-                      font-size: rem(12px);
+                      font-size: rem(10px);
                       color: $white;
                       font-family: $primary-font;
                       background-color: $red;
@@ -162,7 +162,7 @@
                     height: 100%;
                     text-transform: capitalize;
                     font-weight: 700;
-                    font-size: rem(22px);
+                    font-size: rem(20px);
                     font-family: $primary-font;
                     color: $primary-color;
                     &:hover {
@@ -208,6 +208,40 @@
     }
     .createEventTrigger {
       display: flex;
+    }
+  }
+}
+
+@include apply-to(desktop) {
+  .layout {
+    &-container {
+      .layout__content {
+        &-leftside {
+          .content {
+            .layout__logo {
+              align-items: flex-start;
+            }
+            .side__nav {
+              &-items {
+                .nav-item {
+                  .icon {
+                    font-size: rem(25px);
+                    .iconSize {
+                      font-size: rem(25px);
+                    }
+                    .notification-count {
+                      font-size: rem(12px);
+                    }
+                  }
+                  .title {
+                    font-size: rem(22px);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

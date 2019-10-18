@@ -1,6 +1,7 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 .authPage {
     display: flex;
@@ -108,7 +109,7 @@
     }
 }
 
-@media screen and (min-width: $iPad) {
+@include apply-to(tablet) {
     .authPage {
         display: flex;
         height: 100%;
@@ -168,7 +169,7 @@
     }
 }
 
-@media screen and (min-width: $iPadPro) {
+@include apply-to(tablet-large) {
     .authPage {
         .leftSide {
             flex-basis: 40%;
@@ -185,7 +186,7 @@
     }
 }
 
-@media screen and (min-width: $laptop) {
+@include apply-to(desktop) {
     .authPage {
         .leftSide {
             flex-basis: 30%;
