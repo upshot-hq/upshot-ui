@@ -35,6 +35,7 @@ export const EventPage = (props) => {
   const defaultScrollTopValue = 100;
   const scrollTop = useRef(defaultScrollTopValue);
   const [isSearchBarVisible, setSearchBarVisibility] = useState(true);
+  const contentNode = useRef();
 
   const getTabToView = () => {
     const urlQuery = window.location.search;
@@ -57,6 +58,7 @@ export const EventPage = (props) => {
 
   const changeTab = (tab) => {
     scrollTop.current = defaultScrollTopValue;
+    contentNode.current.scrollTop = 0;
     setCurrentView(tab);
   };
 
@@ -116,6 +118,7 @@ export const EventPage = (props) => {
   const handleScroll = (scrollEvent) => {
     const { scrollTop: targetScrollTop } = scrollEvent.target;
     if ((currentView === postsTab) && (!posts.length || postIsLoading)) {
+      console.log('post no content');
       return;
     }
     if ((currentView === winnersTab) && (!winners.length || getWinnerIsLoading)) {
@@ -192,7 +195,7 @@ export const EventPage = (props) => {
           <Tabs navItems={tabItems} activeTitle={currentView} />
         </div>
       </div>
-      <div className="eventpage__content" onScroll={handleScroll}>
+      <div ref={contentNode} className="eventpage__content" onScroll={handleScroll}>
         <div className="eventpage__content-container">
           {renderContent()}
           {!!posts.length && !postsSuccessStatus && renderFetchMoreLoader()}
