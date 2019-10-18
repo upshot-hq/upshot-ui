@@ -5,7 +5,7 @@ export default {
   authenticatonErrorMessage: 'Authentication failed',
   failedToFetch: 'failed to fetch',
   defaultSearchPlaceholder: 'search upshot',
-  footerText: ' 2019 upshot, inc.',
+  footerText: '2019 upshot, inc.',
   layoutSideNav: {
     home: {
       title: 'home',
