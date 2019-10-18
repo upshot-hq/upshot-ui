@@ -147,6 +147,11 @@ const Layout = (props) => {
         </div>
         <div className="layout__content-rightside" style={rightContainerStyles}>
           <div className="content" />
+          <div className="footer">
+            <div className="footer-text">
+              &#xa9; {lang.footerText}
+            </div>
+          </div>
         </div>
       </div>
 
