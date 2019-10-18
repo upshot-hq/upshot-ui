@@ -357,17 +357,15 @@ export const handleNotificationsUpdate = (state, action) => {
 
 /**
  * method to retrieve query value from url query parameters using a key
- * @param {string} queryKey 
- * @param {string} queryString 
+ * @param {string} queryKey
+ * @param {string} queryString
  * @returns {string} queryValue
  */
 export const getUrlQueryValue = (queryKey, queryString) => {
   const regex = new RegExp(`${queryKey}=([^&]*)`);
-  const queryValue =
-      regex.exec(queryString) === null
-        ? ''
-        : regex.exec(queryString)[0].split('=')[1];
-    return queryValue;
+  const queryValue = regex.exec(queryString) === null
+    ? '' : regex.exec(queryString)[0].split('=')[1];
+  return queryValue;
 };
 
 export const handleNotificationStatusUpdate = (state, action) => {

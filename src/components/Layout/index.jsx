@@ -19,6 +19,7 @@ import * as notificationActions from '../../redux/actionCreators/notificationAct
 import SocketHandler from '../../helpers/SocketHandler';
 import { newNotificationEvent } from '../../helpers/defaults';
 import MobileMenu from '../MobileMenu';
+import Settings from '../Settings';
 
 
 export const LayoutContext = createContext({
@@ -31,6 +32,7 @@ export const LayoutContext = createContext({
 const Layout = (props) => {
   const [showCreateEventModal, setShowCreateEventModal] = useState(false);
   const [showPostToEventModal, setShowPostToEventModal] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showMobileMenu, setShowMobileMenuModal] = useState(false);
   const [event, setEvent] = useState(null);
   const [showPostToEventSearchBar, setShowPostToEventSearchBar] = useState(true);
@@ -61,6 +63,15 @@ const Layout = (props) => {
   const handleOpenCreateEventModalMobile = () => {
     setShowMobileMenuModal(false);
     setShowCreateEventModal(true);
+  };
+
+  const handleOpenSettingsModal = () => {
+    if (showMobileMenu) setShowMobileMenuModal(false);
+    setShowSettingsModal(true);
+  };
+
+  const handleCloseSettingsModal = () => {
+    setShowSettingsModal(false);
   };
 
   const handleCloseCreateEventModal = () => {
@@ -100,11 +111,15 @@ const Layout = (props) => {
 
   const renderSideNavItem = (navItem, index) => {
     const { title, icon, link } = lang.layoutSideNav[navItem];
-    const navItemClassName = (link.toLowerCase() === path.toLowerCase())
+    const isSettings = (title.toLowerCase() === lang.layoutSideNav.settings.title.toLowerCase());
+    const navItemClassName = ((isSettings && showSettingsModal)
+      || (link && link.toLowerCase() === path.toLowerCase()))
       ? 'nav-item active' : 'nav-item';
 
+    const handleClick = isSettings ? handleOpenSettingsModal : () => history.push(link);
+
     return (
-      <div key={index} className={navItemClassName} onClick={() => history.push(link)}>
+      <div key={index} className={navItemClassName} onClick={handleClick}>
         <div className="icon">
           {renderNotificationCount(title)}
           <FontAwesome
@@ -185,6 +200,8 @@ const Layout = (props) => {
         handleCloseMobileMenu={handleCloseMobileMenu}
         showMenu={showMobileMenu}
         unreadNotificationsCount={unreadNotificationsCount}
+        handleSettingsTabClick={handleOpenSettingsModal}
+        settingsModalIsVisible={showSettingsModal}
       />
       <Modal showClosePrompt isModalVisible={showPostToEventModal}
         handleModalClose={handleClosePostToEventModal}
@@ -201,6 +218,15 @@ const Layout = (props) => {
         customContentClass="create-event-modal-content"
       >
         <CreateEvent handleModalClose={handleCloseCreateEventModal} />
+      </Modal>
+
+      <Modal isModalVisible={showSettingsModal}
+        handleModalClose={handleCloseSettingsModal}
+        customContentClass="settings-modal-content"
+      >
+        <Settings
+          handleCloseSettings={handleCloseSettingsModal}
+        />
       </Modal>
     </div>
   );
