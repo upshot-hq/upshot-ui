@@ -1,6 +1,7 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 .us-search {
   position: relative;
@@ -13,7 +14,7 @@
     background-color: $gray-7;
     display: flex;
     &-icon {
-      flex-basis: 8%;
+      flex-basis: 10%;
       color: $white-1;
       display: flex;
       justify-content: center;
@@ -31,18 +32,21 @@
       border: none;
       outline: none;
       font-family: $primary-font;
-      font-size: rem(15px);
+      font-size: rem(13px);
       font-weight: 500;
       &::-webkit-input-placeholder { /* Edge */
         color: $white;
+        text-transform: capitalize;
       }
       
       &:-ms-input-placeholder { /* Internet Explorer 10-11 */
         color: $white;
+        text-transform: capitalize;
       }
       
       &::placeholder {
         color: $white;
+        text-transform: capitalize;
       }
     }
   }
@@ -67,7 +71,7 @@
       width: 100%;
       border-bottom: rem(1px) solid $gray-7;
       color: $primary-color;
-      font-size: rem(16px);
+      font-size: rem(14px);
       max-height: rem(50px);
       cursor: pointer;
       &:hover {
@@ -133,6 +137,34 @@
     &-text {
       &:hover {
         color: $white;
+      }
+    }
+  }
+}
+
+@include apply-to(tablet) {
+  .us-search {
+    &__bar {
+      &-icon {
+        flex-basis: 5%;
+      }
+      &-input {
+        font-size: rem(13px);
+      }
+    }
+    &__result {
+      .row {
+        font-size: rem(16px);
+      }
+    }
+  }
+}
+
+@include apply-to(tablet-large) {
+  .us-search {
+    &__bar {
+      &-icon {
+        flex-basis: 8%;
       }
     }
   }

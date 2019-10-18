@@ -36,7 +36,7 @@ export const EventPage = (props) => {
   const [isSearchBarVisible, setSearchBarVisibility] = useState(true);
 
   const getTabToView = () => {
-    const urlQuery = window.location.search; // eslint-disable-line
+    const urlQuery = window.location.search;
     const tab = getUrlQueryValue(tabUrlQueryKey, urlQuery);
     let tabToView = '';
     switch (tab) {
