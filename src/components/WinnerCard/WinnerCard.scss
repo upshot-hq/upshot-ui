@@ -120,5 +120,19 @@
 @include apply-to(tablet-large) {
     .winnercard {
         width: rem(150px);
+        margin-right: rem(0px);
+        &:first-child {
+            margin-left: rem(3px);
+        }
+    }
+}
+
+@include apply-to(desktop) {
+    .winnercard {
+        width: rem(150px);
+        margin-right: rem(10px);
+        &:first-child {
+            margin-left: rem(10px);
+        }
     }
 }
