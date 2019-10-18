@@ -77,6 +77,11 @@
               }
             }
           }
+          &-message {
+            .prompt-message__content {
+              padding: rem(14px);
+            }    
+          }
         }
       }
     }
