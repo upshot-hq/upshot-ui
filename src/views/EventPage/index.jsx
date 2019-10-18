@@ -32,8 +32,10 @@ export const EventPage = (props) => {
     bookmarkPost, winners, winnerIsLoading, generateWinners,
     getWinners, getWinnerIsLoading, user,
   } = props;
-  const scrollTop = useRef(0);
+  const defaultScrollTopValue = 100;
+  const scrollTop = useRef(defaultScrollTopValue);
   const [isSearchBarVisible, setSearchBarVisibility] = useState(true);
+  const contentNode = useRef();
 
   const getTabToView = () => {
     const urlQuery = window.location.search;
@@ -54,22 +56,28 @@ export const EventPage = (props) => {
     return tabToView;
   };
 
+  const changeTab = (tab) => {
+    scrollTop.current = defaultScrollTopValue;
+    contentNode.current.scrollTop = 0;
+    setCurrentView(tab);
+  };
+
   const [currentView, setCurrentView] = useState(getTabToView());
   const isInitialMount = useRef(true);
   const tabItems = [
     {
       title: detailsTab,
-      onClick: () => setCurrentView(detailsTab),
+      onClick: () => changeTab(detailsTab),
 
     },
     {
       title: postsTab,
-      onClick: () => setCurrentView(postsTab),
+      onClick: () => changeTab(postsTab),
 
     },
     {
       title: winnersTab,
-      onClick: () => setCurrentView(winnersTab),
+      onClick: () => changeTab(winnersTab),
     },
   ];
 
@@ -109,7 +117,15 @@ export const EventPage = (props) => {
 
   const handleScroll = (scrollEvent) => {
     const { scrollTop: targetScrollTop } = scrollEvent.target;
-    if ((targetScrollTop > scrollTop.current) && isSearchBarVisible) {
+    if ((currentView === postsTab) && (!posts.length || postIsLoading)) {
+      console.log('post no content');
+      return;
+    }
+    if ((currentView === winnersTab) && (!winners.length || getWinnerIsLoading)) {
+      return;
+    }
+    if ((targetScrollTop > scrollTop.current)
+      && (targetScrollTop > defaultScrollTopValue) && isSearchBarVisible) {
       setSearchBarVisibility(false);
     } else if ((targetScrollTop < scrollTop.current) && !isSearchBarVisible) {
       setSearchBarVisibility(true);
@@ -179,7 +195,7 @@ export const EventPage = (props) => {
           <Tabs navItems={tabItems} activeTitle={currentView} />
         </div>
       </div>
-      <div className="eventpage__content" onScroll={handleScroll}>
+      <div ref={contentNode} className="eventpage__content" onScroll={handleScroll}>
         <div className="eventpage__content-container">
           {renderContent()}
           {!!posts.length && !postsSuccessStatus && renderFetchMoreLoader()}
