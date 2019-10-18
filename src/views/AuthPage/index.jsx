@@ -40,7 +40,9 @@ export const AuthPage = (props) => {
       <div className="icon">
         <FontAwesome name="google" size="2x" />
       </div>
-      <span className="text">{lang.authPage.signupText}</span>
+      <div className="text">
+        <span>{lang.authPage.signupText}</span>
+      </div>
     </button>
   );
 

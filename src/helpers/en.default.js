@@ -41,7 +41,6 @@ export default {
     },
     settings: {
       title: 'settings',
-      link: '/',
       icon: {
         name: 'cog',
         size: '2x',
@@ -133,5 +132,9 @@ export default {
       partTwo: 'here',
       partThree: ' to go home!',
     },
+  },
+  settings: {
+    logoutText: 'log out',
+    cancelText: 'cancel',
   },
 };

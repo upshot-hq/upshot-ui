@@ -15,7 +15,7 @@ import NotificationsPage from '../views/NotificationsPage/index.jsx';
 const Routes = () => (
   <Switch>
     <Route
-      path={['/', '/signin', '/signup']}
+      path={['/', '/signin', '/signup', '/login']}
       exact
       render={() => {
         const { isAuthenticated } = getUserDetails();

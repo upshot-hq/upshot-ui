@@ -35,9 +35,11 @@ export const updateUserProfileFailure = (error) => ({
   error,
 });
 
-export const getUserEvents = ({ limit = defaultFetchLimit, offset = defaultOffset }) => ({
+export const getUserEvents = ({
+  limit = defaultFetchLimit, offset = defaultOffset, isNewFetch = false,
+}) => ({
   type: types.GET_USER_EVENTS,
-  eventQueries: { limit, offset },
+  eventQueries: { limit, offset, isNewFetch },
 });
 
 export const getUserEventsSuccess = (responseData) => ({

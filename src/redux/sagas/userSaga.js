@@ -34,7 +34,6 @@ export function* authenticateUserSagaAsync(action) {
     const response = yield call(UserAPI.authenticateUser, action.userData);
     const userData = yield getUserDetails(response.data.token);
     yield put(authenticateUserSuccess(userData));
-    // eslint-disable-next-line
     window.location.replace('/home');
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
