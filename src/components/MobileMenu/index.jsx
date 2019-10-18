@@ -18,6 +18,7 @@ const MobileMenu = (props) => {
   const {
     match: { path }, unreadNotificationsCount, showMenu,
     handleCreateEventBtnClick, handleCloseMobileMenu,
+    handleSettingsTabClick, settingsModalIsVisible,
   } = props;
   const [fadeIn, setFadeIn] = useState('');
   const isInitialMount = useRef(true);
@@ -53,11 +54,15 @@ const MobileMenu = (props) => {
 
   const renderSideNavItem = (navItem, index) => {
     const { title, icon, link } = lang.layoutSideNav[navItem];
-    const navItemClassName = (link.toLowerCase() === path.toLowerCase())
+    const isSettings = (title.toLowerCase() === lang.layoutSideNav.settings.title.toLowerCase());
+    const navItemClassName = ((isSettings && settingsModalIsVisible)
+      || (link && link.toLowerCase() === path.toLowerCase()))
       ? 'nav-item active' : 'nav-item';
 
+    const handleClick = isSettings ? handleSettingsTabClick : () => handleNavItemClick(link);
+
     return (
-      <div key={index} className={navItemClassName} onClick={() => handleNavItemClick(link)}>
+      <div key={index} className={navItemClassName} onClick={handleClick}>
         <div className="icon">
           {renderNotificationCount(title)}
           <FontAwesome
@@ -116,7 +121,9 @@ MobileMenu.propTypes = {
   unreadNotificationsCount: PropTypes.number,
   handleCreateEventBtnClick: PropTypes.func.isRequired,
   handleCloseMobileMenu: PropTypes.func.isRequired,
+  handleSettingsTabClick: PropTypes.func.isRequired,
   showMenu: PropTypes.bool.isRequired,
+  settingsModalIsVisible: PropTypes.bool.isRequired,
 };
 
 MobileMenu.defaultProps = {
