@@ -1,6 +1,6 @@
 import React, { Fragment, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
+import { ArrowBack } from '@material-ui/icons';
 
 import './PageTitle.scss';
 import { history } from '../../helpers/utils';
@@ -21,18 +21,18 @@ const PageTitle = (props) => {
   };
 
   const renderContent = () => (
-		<Fragment>
+    <Fragment>
       {showBackBtn && <div
-          className={`icon back-btn ${rearranged.current}`}
-          onClick={handleBackBtnClick}
-        >
-			    <FontAwesome name="arrow-left" />
-        </div>
+        className={`icon back-btn ${rearranged.current}`}
+        onClick={handleBackBtnClick}
+      >
+        <ArrowBack />
+      </div>
       }
-			<div className={`title ${rearranged.current}`}>
+      <div className={`title ${rearranged.current}`}>
         {title}
-			</div>
-		</Fragment>
+      </div>
+    </Fragment>
   );
 
   return (
