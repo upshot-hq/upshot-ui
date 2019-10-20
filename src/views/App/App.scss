@@ -34,3 +34,11 @@ code {
   }
 }
 
+@include apply-to(long-screen) {
+  .App {
+    max-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+

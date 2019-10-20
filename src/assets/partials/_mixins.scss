@@ -33,4 +33,9 @@
       @content;
     }
   }
+  @else if $screen == long-screen {
+    @media only screen and (min-height: $breakpoint-long-screen) {
+      @content;
+    }
+  }
 }
