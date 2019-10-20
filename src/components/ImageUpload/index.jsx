@@ -4,6 +4,9 @@ import FontAwesome from 'react-fontawesome';
 
 import './ImageUpload.scss';
 import { defaultImageSizeLimit } from '../../helpers/defaults';
+import lang from '../../helpers/en.default';
+
+const sizeLimitSearchValue = '$SIZELIMITINMB$';
 
 const ImageUpload = (props) => {
   const {
@@ -28,19 +31,17 @@ const ImageUpload = (props) => {
 
   const handleFileChange = () => {
     const imageFile = imageInputRef.current.files[0];
-    if (imageFile.size > sizeLimit) {
+    if (imageFile && (imageFile.size > sizeLimit)) {
       const sizeLimitInMb = sizeLimit / 1000000;
-      setImageError(`image size should not be more than ${sizeLimitInMb}mb`);
-    } else {
+      setImageError(lang.imageSizeLimitErrorMessage.replace(sizeLimitSearchValue, sizeLimitInMb));
+    } else if (imageFile) {
       setImageError('');
       const reader = new FileReader();
       reader.addEventListener('load', () => {
         imageContainerRef.current.style.backgroundImage = `url("${reader.result}")`;
       }, false);
 
-      if (imageFile) {
-        reader.readAsDataURL(imageFile);
-      }
+      reader.readAsDataURL(imageFile);
 
       handleImageFileChange(imageFile);
     }
