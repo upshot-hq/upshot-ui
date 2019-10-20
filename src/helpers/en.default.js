@@ -6,6 +6,7 @@ export default {
   failedToFetch: 'failed to fetch',
   defaultSearchPlaceholder: 'search upshot',
   footerText: '2019 upshot, inc.',
+  imageSizeLimitErrorMessage: 'image size should not be more than $SIZELIMITINMB$mb',
   layoutSideNav: {
     home: {
       title: 'home',
