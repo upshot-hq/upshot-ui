@@ -31,19 +31,17 @@ const ImageUpload = (props) => {
 
   const handleFileChange = () => {
     const imageFile = imageInputRef.current.files[0];
-    if (imageFile.size > sizeLimit) {
+    if (imageFile && (imageFile.size > sizeLimit)) {
       const sizeLimitInMb = sizeLimit / 1000000;
       setImageError(lang.imageSizeLimitErrorMessage.replace(sizeLimitSearchValue, sizeLimitInMb));
-    } else {
+    } else if (imageFile) {
       setImageError('');
       const reader = new FileReader();
       reader.addEventListener('load', () => {
         imageContainerRef.current.style.backgroundImage = `url("${reader.result}")`;
       }, false);
 
-      if (imageFile) {
-        reader.readAsDataURL(imageFile);
-      }
+      reader.readAsDataURL(imageFile);
 
       handleImageFileChange(imageFile);
     }
