@@ -12,6 +12,7 @@ export const EventWinners = ({
   event, user,
 }) => {
   const isEventDone = moment().isAfter(event.end_at);
+  const isEventStarted = moment().isAfter(event.start_at);
   const renderCompetitionWinners = (returnedWinnersSections) => (
     <div>
       {returnedWinnersSections
@@ -35,8 +36,16 @@ export const EventWinners = ({
 
   const renderEventOngoing = () => (
     <div className="eventwinners">
-      <div className="eventwinners__ongoing">
+      <div className="eventwinners__info">
         {lang.eventPage.eventOngoing}
+      </div>
+    </div>
+  );
+
+  const renderEventNotStarted = () => (
+    <div className="eventwinners">
+      <div className="eventwinners__info">
+        {lang.eventPage.eventNotStarted}
       </div>
     </div>
   );
@@ -64,7 +73,8 @@ export const EventWinners = ({
   return (
     <Fragment>
       {isEventDone && renderWinners()}
-      {!isEventDone && renderEventOngoing()}
+      {(!isEventStarted && !isEventDone) && renderEventNotStarted()}
+      {(isEventStarted && !isEventDone) && renderEventOngoing()}
     </Fragment>
   );
 };
