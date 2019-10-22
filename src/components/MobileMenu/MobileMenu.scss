@@ -20,7 +20,7 @@
   transition-duration: 300ms;
   z-index: 10;
   &.fade-in {
-    height: 100%;
+    height: 100vh;
     width: 100%;
   }
   .up-mobile-menu {
@@ -170,7 +170,7 @@
   .up-mobile-menu__overlay {
     .up-mobile-menu {
       &.fade-in {
-        height: 100%;
+        height: 100vh;
         width: 60%;
       }
       .mobile-menu__content {
