@@ -11,6 +11,10 @@
     &__header {
       width: 100%;
       border-bottom: rem(1px) solid $gray-3;
+      &-title {
+        height: rem(45px);
+        border-bottom: rem(1px) solid $gray-3;
+      }
       &-top {
         background-color: $white;
         width: 100%;
@@ -355,9 +359,26 @@
 @include apply-to(tablet) {
   #eventpage {
     .eventpage {
+      &__header {
+        &-title {
+          height: rem(50px);
+        }
+      }
       &__content {
         &-container {
           width: 90%;
+        }
+      }
+    }
+  }
+}
+
+@include apply-to(tablet-large) {
+  #eventpage {
+    .eventpage {
+      &__header {
+        &-title {
+          height: rem(60px);
         }
       }
     }

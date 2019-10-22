@@ -1,6 +1,7 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 #us-page-title {
   &.page-title {
@@ -9,6 +10,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    user-select: none;
+    overflow: hidden;
     &.rearranged {
       justify-content: space-evenly !important;
     }
@@ -17,12 +20,13 @@
       flex-basis: 10%;
       display: flex;
       justify-content: center;
-      height: 50%;
       align-items: center;
+      height: 100%;
+      cursor: pointer;
       &.rearranged {
         flex-basis: 3% !important;
       }
-      &>span {
+      &>svg {
         font-size: rem(18px);
         cursor: pointer;
       }
@@ -32,17 +36,37 @@
     }
     &>.title {
       flex-basis: 89%;
-      height: rem(30px);
+      height: 100%;
       border-radius: rem(5px);
       font-family: $primary-font;
-      font-size: rem(22px);
+      font-size: rem(16px);
       font-weight: 600;
       color: $primary-color;
       background-color: $white;
       text-transform: capitalize;
       display: flex;
+      align-items: center;
       &.rearranged {
         flex-basis: 87% !important;
+      }
+    }
+  }
+}
+
+@include apply-to(tablet) {
+  #us-page-title {
+    &.page-title {
+      &>.back-btn {
+        &>svg {
+          font-size: rem(20px);
+          cursor: pointer;
+        }
+      }
+      &>.title {
+        font-size: rem(18px);
+        &.rearranged {
+          flex-basis: 87% !important;
+        }
       }
     }
   }
