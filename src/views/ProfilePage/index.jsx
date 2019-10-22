@@ -221,7 +221,7 @@ export const ProfilePage = (props) => {
       <div className="profilepage__header">
         {isTopBarVisible
           && <div className="profilepage__header-title">
-            <PageTitle title={`${userData.firstname} ${userData.lastname}`} />
+            <PageTitle title={lang.profilePage.pageTitle} />
           </div>
         }
         <div className={isTopBarVisible

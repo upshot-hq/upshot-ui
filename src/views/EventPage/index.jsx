@@ -188,7 +188,7 @@ export const EventPage = (props) => {
       <div className="eventpage__header">
         {isTopBarVisible
           && <div className="eventpage__header-title">
-            <PageTitle title={event.name} />
+            <PageTitle title={lang.eventPage.pageTitle} />
           </div>
         }
         <div className={isTopBarVisible

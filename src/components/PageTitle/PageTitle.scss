@@ -11,6 +11,7 @@
     justify-content: space-between;
     align-items: center;
     user-select: none;
+    overflow: hidden;
     &.rearranged {
       justify-content: space-evenly !important;
     }
@@ -19,14 +20,14 @@
       flex-basis: 10%;
       display: flex;
       justify-content: center;
-      height: 50%;
       align-items: center;
+      height: 100%;
       cursor: pointer;
       &.rearranged {
         flex-basis: 3% !important;
       }
       &>svg {
-        font-size: rem(22px);
+        font-size: rem(18px);
         cursor: pointer;
       }
       &:hover {
@@ -35,16 +36,16 @@
     }
     &>.title {
       flex-basis: 89%;
-      height: rem(30px);
+      height: 100%;
       border-radius: rem(5px);
       font-family: $primary-font;
-      font-size: rem(18px);
+      font-size: rem(16px);
       font-weight: 600;
       color: $primary-color;
       background-color: $white;
       text-transform: capitalize;
       display: flex;
-      padding-top: rem(5px);
+      align-items: center;
       &.rearranged {
         flex-basis: 87% !important;
       }
@@ -57,13 +58,12 @@
     &.page-title {
       &>.back-btn {
         &>svg {
-          font-size: rem(24px);
+          font-size: rem(22px);
           cursor: pointer;
         }
       }
       &>.title {
-        font-size: rem(22px);
-        padding-top: 0;
+        font-size: rem(20px);
         &.rearranged {
           flex-basis: 87% !important;
         }
