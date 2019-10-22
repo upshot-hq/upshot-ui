@@ -19,6 +19,7 @@ import EventWinners from './EventWinners';
 import { useIntersect } from '../../helpers/hooksUtils';
 import { getUrlQueryValue } from '../../helpers/utils';
 import { tabUrlQueryKey } from '../../helpers/defaults';
+import PageTitle from '../../components/PageTitle';
 
 const defaultScrollTopValue = 100;
 
@@ -35,7 +36,7 @@ export const EventPage = (props) => {
     getWinners, getWinnerIsLoading, user,
   } = props;
   const scrollTop = useRef(defaultScrollTopValue);
-  const [isSearchBarVisible, setSearchBarVisibility] = useState(true);
+  const [isTopBarVisible, setTopBarVisibility] = useState(true);
   const contentNode = useRef();
 
   const getTabToView = () => {
@@ -119,17 +120,16 @@ export const EventPage = (props) => {
   const handleScroll = (scrollEvent) => {
     const { scrollTop: targetScrollTop } = scrollEvent.target;
     if ((currentView === postsTab) && (!posts.length || postIsLoading)) {
-      console.log('post no content');
       return;
     }
     if ((currentView === winnersTab) && (!winners.length || getWinnerIsLoading)) {
       return;
     }
     if ((targetScrollTop > scrollTop.current)
-      && (targetScrollTop > defaultScrollTopValue) && isSearchBarVisible) {
-      setSearchBarVisibility(false);
-    } else if ((targetScrollTop < scrollTop.current) && !isSearchBarVisible) {
-      setSearchBarVisibility(true);
+      && (targetScrollTop > defaultScrollTopValue) && isTopBarVisible) {
+      setTopBarVisibility(false);
+    } else if ((targetScrollTop < scrollTop.current) && !isTopBarVisible) {
+      setTopBarVisibility(true);
     }
     scrollTop.current = targetScrollTop;
   };
@@ -186,7 +186,12 @@ export const EventPage = (props) => {
   const renderView = () => (
     <Fragment>
       <div className="eventpage__header">
-        <div className={isSearchBarVisible
+        {isTopBarVisible
+          && <div className="eventpage__header-title">
+            <PageTitle title={event.name} />
+          </div>
+        }
+        <div className={isTopBarVisible
           ? 'eventpage__header-top' : 'eventpage__header-top no-display'}>
           <div className="eventpage__header-top__content">
             {renderEventCard(event)}

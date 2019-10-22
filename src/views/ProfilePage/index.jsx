@@ -20,6 +20,7 @@ import Posts from './Posts';
 import Bookmarks from './Bookmarks';
 import { useIntersect } from '../../helpers/hooksUtils';
 import Loader from '../../components/Loader/index';
+import PageTitle from '../../components/PageTitle/index';
 
 
 export const ProfilePage = (props) => {
@@ -38,7 +39,7 @@ export const ProfilePage = (props) => {
   const [showModal, setShowModal] = useState(false);
   const isInitialMount = useRef(true);
   const scrollTop = useRef(0);
-  const [isSearchBarVisible, setSearchBarVisibility] = useState(true);
+  const [isTopBarVisible, setTopBarVisibility] = useState(true);
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -94,10 +95,10 @@ export const ProfilePage = (props) => {
 
   const handleScroll = (event) => {
     const { scrollTop: targetScrollTop } = event.target;
-    if ((targetScrollTop > scrollTop.current) && isSearchBarVisible) {
-      setSearchBarVisibility(false);
-    } else if ((targetScrollTop < scrollTop.current) && !isSearchBarVisible) {
-      setSearchBarVisibility(true);
+    if ((targetScrollTop > scrollTop.current) && isTopBarVisible) {
+      setTopBarVisibility(false);
+    } else if ((targetScrollTop < scrollTop.current) && !isTopBarVisible) {
+      setTopBarVisibility(true);
     }
     scrollTop.current = targetScrollTop;
   };
@@ -218,7 +219,12 @@ export const ProfilePage = (props) => {
   const renderView = () => (
     <Fragment>
       <div className="profilepage__header">
-        <div className={isSearchBarVisible
+        {isTopBarVisible
+          && <div className="profilepage__header-title">
+            <PageTitle title={`${userData.firstname} ${userData.lastname}`} />
+          </div>
+        }
+        <div className={isTopBarVisible
           ? 'profilepage__header-top' : 'profilepage__header-top no-display'}>
           <div className="profilepage__header-top__content">
             {renderProfileCard()}
