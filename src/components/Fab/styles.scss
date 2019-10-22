@@ -3,9 +3,9 @@
 @import '../../assets/partials/mixins';
 
 .fab-container {
-  position: absolute;
-  bottom: rem(50px);
-  right: rem(30px);
+  position: fixed;
+  bottom: rem(30px);
+  right: rem(20px);
   background-color: $primary-color;
   color: $white;
   height: rem(45px);
