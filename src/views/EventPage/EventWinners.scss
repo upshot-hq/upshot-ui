@@ -1,28 +1,37 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 .eventwinners {
-    .winner-loader {
-        display: flex;
-        justify-content: center;
+  .winner-loader {
+    display: flex;
+    justify-content: center;
+  }
+  .competition {
+    margin-top: rem(30px);
+    margin-bottom: rem(30px);
+  }
+  .buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+  }
+  &__info {
+    font-family: $primary-font;
+    font-size: rem(16px);
+    text-align: center;
+    font-weight: normal;
+    color: $gray-1;
+    text-transform: lowercase;
+    word-break: break-word;
+    margin-top: rem(20px);
+  }
+}
+
+@include apply-to(tablet) {
+  .eventwinners {
+    &__info {
+      font-size: rem(20px);
     }
-    .competition {
-        margin-top: rem(30px);
-        margin-bottom: rem(30px);
-    }
-    .buttonContainer {
-        display: flex;
-        justify-content: flex-end;
-    }
-    &__ongoing {
-        font-family: $primary-font;
-        font-size: rem(20px);
-        text-align: center;
-        font-weight: normal;
-        color: $gray-1;
-        text-transform: lowercase;
-        word-break: break-word;
-        margin-top: rem(20px);
-    }
+  }
 }
