@@ -62,6 +62,14 @@
           .event-competitions__container {
             width: 100%;
             display: flex;
+            .us-capsule {
+              &__text {
+                cursor: default;
+              }
+              &__text:hover {
+                color: $white;
+              }
+            }
             &::-webkit-scrollbar { 
               display: none; 
             }
