@@ -58,12 +58,12 @@
     &.page-title {
       &>.back-btn {
         &>svg {
-          font-size: rem(22px);
+          font-size: rem(20px);
           cursor: pointer;
         }
       }
       &>.title {
-        font-size: rem(20px);
+        font-size: rem(18px);
         &.rearranged {
           flex-basis: 87% !important;
         }
