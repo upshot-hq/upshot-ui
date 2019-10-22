@@ -1,6 +1,7 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 #homepage {
   &.homepage {
@@ -28,7 +29,7 @@
       -ms-overflow-style: none;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       &::-webkit-scrollbar {
         width: rem(2px) !important
       }
@@ -80,8 +81,7 @@
       border-radius: rem(5px);
     }
     .content-container {
-      width: 90%;
-      margin: auto;
+      width: 98%;
     }
   }
   .no-content {
@@ -92,5 +92,15 @@
   }
   .fetch-more {
     height: rem(20px);
+  }
+}
+
+@include apply-to(tablet) {
+  #homepage {
+    .content {
+      .content-container {
+        width: 90%;
+      }
+    }
   }
 }

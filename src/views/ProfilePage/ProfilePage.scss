@@ -10,6 +10,10 @@
   &__header {
     width: 100%;
     border-bottom: rem(1px) solid $gray-3;
+    &-title {
+      height: rem(45px);
+      border-bottom: rem(1px) solid $gray-3;
+    }
     &-top {
       background-color: $primary-color-1;
       width: 100%;
@@ -289,6 +293,9 @@
 @include apply-to(tablet) {
   .profilepage {
     &__header {
+      &-title {
+        height: rem(50px);
+      }
       &-top {
         &__content {
           width: 80%;
@@ -321,6 +328,9 @@
 @include apply-to(tablet-large) {
   .profilepage {
     &__header {
+      &-title {
+        height: rem(60px);
+      }
       &-top {
         &__content {
           width: 90%;

@@ -73,6 +73,7 @@ export default {
     },
   },
   eventPage: {
+    pageTitle: 'event',
     notFound: 'page not found :(',
     tabs: {
       detailsTab: 'details',
@@ -92,6 +93,7 @@ export default {
     eventNotStarted: 'The event has not started.',
   },
   profilePage: {
+    pageTitle: 'profile',
     notFound: 'page not found :(',
     tabs: {
       eventsTab: 'events',
