@@ -89,8 +89,8 @@ export default {
     posts: {
       noPosts: 'no post yet!',
     },
-    eventOngoing: 'The event is ongoing, check back when it\'s done...',
-    eventNotStarted: 'The event has not started.',
+    eventOngoing: 'This event is ongoing, check back when it\'s done...',
+    eventNotStarted: 'This event has not started.',
   },
   profilePage: {
     pageTitle: 'profile',
