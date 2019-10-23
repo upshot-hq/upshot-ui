@@ -38,6 +38,7 @@ const CreateEvent = (props) => {
     handleModalClose,
   } = props;
   const [inputs, setInputs] = useState({
+    hashtag: '#',
     competitions: [],
     about: '',
     startDate: new Date(),
