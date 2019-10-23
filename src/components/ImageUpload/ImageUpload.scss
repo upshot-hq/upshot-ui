@@ -1,6 +1,7 @@
 @import '~sass-rem';
 @import '../../assets/partials/colors';
 @import '../../assets/partials/defaults';
+@import '../../assets/partials/mixins';
 
 .us-upload {
   &__image {
@@ -36,7 +37,7 @@
       position: absolute;
       top: 1%;
       width: 97%;
-      max-height: rem(44px);
+      max-height: rem(64px);
       margin-left: 1%;
       text-align: center;
       font-family: $caption-font;
@@ -45,7 +46,7 @@
       word-break: break-all;
       word-wrap: break-all;
       font-family: $caption-font;
-      font-size: rem(19px);
+      font-size: rem(16px);
       text-transform: uppercase;
       color: $white;
       -webkit-user-select: none; /* Safari 3.1+ */
@@ -55,9 +56,9 @@
     }
     .bottomCaptionText {
       position: absolute;
-      top: 78%;
+      bottom: rem(5px);
       width: 97%;
-      max-height: rem(44px);
+      max-height: rem(80px);
       margin-left: 1%;
       text-align: center;
       overflow: hidden;
@@ -65,7 +66,7 @@
       word-break: break-all;
       word-wrap: break-all;
       font-family: $caption-font;
-      font-size: rem(19px);
+      font-size: rem(16px);
       text-transform: uppercase;
       color: $white;
       -webkit-user-select: none; /* Safari 3.1+ */
@@ -79,5 +80,21 @@
     font-size: rem(12px);
     color: $red;
     margin: rem(4px) 0;
+  }
+}
+
+@include apply-to(tablet) {
+  .us-upload {
+    &__image {
+      .topCaptionText {
+        font-size: rem(19px);
+        max-height: rem(44px);
+      }
+      .bottomCaptionText {
+        max-height: rem(44px);
+        font-size: rem(19px);
+        bottom: rem(5px);
+      }
+    }
   }
 }

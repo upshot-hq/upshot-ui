@@ -53,7 +53,7 @@
     text-overflow: ellipsis;
     word-break: break-word;
     font-family: $caption-font;
-    font-size: rem(17px);
+    font-size: rem(16px);
     text-transform: uppercase;
     color: $white;
     -webkit-user-select: none; /* Safari 3.1+ */
@@ -64,7 +64,7 @@
 
   .bottom-text {
     position: absolute;
-    top: 89%;
+    bottom: rem(3px);
     width: 97%;
     max-height: rem(44px);
     margin-left: 1%;
@@ -73,7 +73,7 @@
     text-overflow: ellipsis;
     word-break: break-word;
     font-family: $caption-font;
-    font-size: rem(17px);
+    font-size: rem(16px);
     text-transform: uppercase;
     color: $white;
     -webkit-user-select: none; /* Safari 3.1+ */
@@ -81,32 +81,46 @@
     -ms-user-select: none; /* IE 10+ */
     user-select: none;
     &.high {
-      top: 79%;
+      bottom: rem(3px);
     }
   }
 }
 
 @include apply-to(phone-small) {
   .imageContainer {
+    .top-text {
+      bottom: rem(2px);
+    }
     .bottom-text {
-      top: 87%;
+      bottom: rem(2px);
       &.high {
-        top: 76%;
+        bottom: rem(2px);
       }
     }
   }
 }
 
-@include apply-to(tablet-large) {
+@include apply-to(phone) {
+  .imageContainer {
+    .top-text {
+      max-height: rem(64px);
+    }
+    .bottom-text {
+      max-height: rem(80px);
+    }
+  }
+}
+
+@include apply-to(tablet) {
   .imageContainer {
     .top-text {
       font-size: rem(19px);
     }
     .bottom-text {
       font-size: rem(19px);
-      top: 92%;
+      bottom: rem(5px);
       &.high {
-        top: 86%;
+        bottom: rem(5px);
       }
     }
   }

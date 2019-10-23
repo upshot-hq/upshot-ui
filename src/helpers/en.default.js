@@ -57,6 +57,7 @@ export default {
     bottomCaptionPlaceholder: 'enter bottom caption',
     dropdownPlaceholder: 'select a competition',
     searchPlaceholder: 'search events',
+    maxCaptionText: 'not more than $maxCaptionLength$ characters',
   },
   mobileMenu: {
     creatEventText: 'create event',
