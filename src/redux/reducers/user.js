@@ -147,6 +147,16 @@ const user = (state = initialState, action) => {
       userInfoIsLoading: false,
       userInfoError: action.error,
     };
+  case types.CREATE_EVENT_SUCCESS:
+    return {
+      ...state,
+      stats: { ...state.stats, totalUserEvents: state.stats.totalUserEvents + 1 },
+    };
+  case types.POST_TO_EVENT_SUCCESS:
+    return {
+      ...state,
+      stats: { ...state.stats, totalUserPosts: state.stats.totalUserPosts + 1 },
+    };
   case types.GET_USER_BOOKMARKS:
     return {
       ...state,
