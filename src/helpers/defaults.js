@@ -18,6 +18,7 @@ export const unread = 'unread';
 export const read = 'read';
 export const failedToFetch = 'failed to fetch';
 export const tabUrlQueryKey = 'tab';
+export const minimumScrollHeight = 1000; // minimum scroll height before hiding/showing topbar
 export const reactionKeys = {
   like: {
     valueKey: 'user_likes',

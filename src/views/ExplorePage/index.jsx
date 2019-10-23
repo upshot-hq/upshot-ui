@@ -14,6 +14,7 @@ import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
 import * as eventActions from '../../redux/actionCreators/eventActions';
 import { useIntersect } from '../../helpers/hooksUtils';
 import GeneralSearchBar from '../../components/GeneralSearchBar';
+import { minimumScrollHeight } from '../../helpers/defaults';
 
 const ExplorePage = (props) => {
   const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
@@ -149,7 +150,12 @@ const ExplorePage = (props) => {
   );
 
   const handleScroll = (event) => {
-    const { scrollTop: targetScrollTop } = event.target;
+    const { scrollTop: targetScrollTop, scrollHeight } = event.target;
+
+    if ((scrollHeight < minimumScrollHeight) || isIntersected) {
+      return;
+    }
+
     if ((targetScrollTop > scrollTop.current) && isSearchBarVisible) {
       setSearchBarVisibility(false);
     } else if ((targetScrollTop < scrollTop.current) && !isSearchBarVisible) {
