@@ -76,9 +76,15 @@ const validateLastThing = (values) => {
     errors.startDate = 'start date cannot be in the past';
   }
 
-  // end date must be ahead of today
-  if (values.endDate && (moment(values.endDate).isSameOrBefore(moment(), 'day'))) {
-    errors.endDate = 'end date must be after today';
+  const startDate = new Date(values.startDate).getTime();
+  const endDate = new Date(values.endDate).getTime();
+  const minuteDifference = (endDate - startDate) / 60000;
+  const noOfMinutesToCompare = 30;
+
+  // end date must be atleast 30mins ahead of the start date
+  if (values.endDate && minuteDifference < noOfMinutesToCompare) {
+    errors.endDate = `end date must be atleast 
+    ${noOfMinutesToCompare} minutes ahead of the start date`;
   }
 
   return {
