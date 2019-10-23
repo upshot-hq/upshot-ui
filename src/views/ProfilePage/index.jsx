@@ -21,6 +21,7 @@ import Bookmarks from './Bookmarks';
 import { useIntersect } from '../../helpers/hooksUtils';
 import Loader from '../../components/Loader/index';
 import PageTitle from '../../components/PageTitle/index';
+import { minimumScrollHeight } from '../../helpers/defaults';
 
 
 export const ProfilePage = (props) => {
@@ -94,7 +95,12 @@ export const ProfilePage = (props) => {
   };
 
   const handleScroll = (event) => {
-    const { scrollTop: targetScrollTop } = event.target;
+    const { scrollTop: targetScrollTop, scrollHeight } = event.target;
+
+    if ((scrollHeight < minimumScrollHeight) || isIntersected) {
+      return;
+    }
+
     if ((targetScrollTop > scrollTop.current) && isTopBarVisible) {
       setTopBarVisibility(false);
     } else if ((targetScrollTop < scrollTop.current) && !isTopBarVisible) {

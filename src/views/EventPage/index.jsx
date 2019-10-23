@@ -18,7 +18,7 @@ import EventPosts from './EventPosts';
 import EventWinners from './EventWinners';
 import { useIntersect } from '../../helpers/hooksUtils';
 import { getUrlQueryValue } from '../../helpers/utils';
-import { tabUrlQueryKey } from '../../helpers/defaults';
+import { tabUrlQueryKey, minimumScrollHeight } from '../../helpers/defaults';
 import PageTitle from '../../components/PageTitle';
 
 const defaultScrollTopValue = 100;
@@ -118,13 +118,19 @@ export const EventPage = (props) => {
   };
 
   const handleScroll = (scrollEvent) => {
-    const { scrollTop: targetScrollTop } = scrollEvent.target;
+    const { scrollTop: targetScrollTop, scrollHeight } = scrollEvent.target;
+    if ((scrollHeight < minimumScrollHeight) || isIntersected) {
+      return;
+    }
+
     if ((currentView === postsTab) && (!posts.length || postIsLoading)) {
       return;
     }
+
     if ((currentView === winnersTab) && (!winners.length || getWinnerIsLoading)) {
       return;
     }
+
     if ((targetScrollTop > scrollTop.current)
       && (targetScrollTop > defaultScrollTopValue) && isTopBarVisible) {
       setTopBarVisibility(false);
