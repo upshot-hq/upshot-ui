@@ -154,6 +154,8 @@ const PostToEvent = (props) => {
             onChange={handleCaptionChange}
             value={topCaption}
             maxLength={maxBestCaptionLength}
+            info={lang.postToEvent.maxCaptionText
+              .replace('$maxCaptionLength$', maxBestCaptionLength)}
             error=""
           />
           <CustomTextarea
@@ -163,6 +165,8 @@ const PostToEvent = (props) => {
             onChange={handleCaptionChange}
             value={bottomCaption}
             maxLength={maxBestCaptionLength}
+            info={lang.postToEvent.maxCaptionText
+              .replace('$maxCaptionLength$', maxBestCaptionLength)}
             error=""
           />
         </Fragment>
