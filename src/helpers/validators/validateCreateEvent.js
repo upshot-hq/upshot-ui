@@ -71,9 +71,9 @@ const validateLastThing = (values) => {
     errors.endDate = 'end date cannot be empty';
   }
 
-  // start date must be ahead of today
-  if (values.startDate && (moment(values.startDate).isSameOrBefore(moment(), 'day'))) {
-    errors.startDate = 'start date must be after today';
+  // start date must not be in the past
+  if (values.startDate && (moment(values.startDate).isBefore(moment(), 'day'))) {
+    errors.startDate = 'start date cannot be in the past';
   }
 
   // end date must be ahead of today
@@ -85,7 +85,7 @@ const validateLastThing = (values) => {
     isValid: isEmpty(errors),
     errors,
   };
-}
+};
 
 
 export {
