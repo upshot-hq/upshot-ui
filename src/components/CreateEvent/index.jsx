@@ -61,7 +61,8 @@ const CreateEvent = (props) => {
 
   useEffect(() => {
     // update error state if there's error from server
-    if (Object.keys(createEventError.errors).length && formSubmitted.current) {
+    if (Object.keys(createEventError.errors).length
+      && formSubmitted.current && !isEventLoading) {
       formSubmitted.current = false;
       const serverErrors = {
         ...createEventError.errors,
@@ -79,7 +80,7 @@ const CreateEvent = (props) => {
       }
     }
     if (!Object.keys(createEventError.errors).length
-      && formSubmitted.current && eventCreateSuccess) {
+      && formSubmitted.current && eventCreateSuccess && !isEventLoading) {
       handleModalClose();
       formSubmitted.current = false;
     }
@@ -243,11 +244,15 @@ const CreateEvent = (props) => {
       </span>
       <br/>
       <br/>
-      {isEventLoading && <div><Loader message="creating event..." /> </div>}
-      {!isEventLoading && <div className="buttons">
-        <Button title="finish" handleClick={() => (handleSubmit(pages.lastThing))} />
+      <div className="buttons">
+        <Button
+          title="finish"
+          handleClick={() => (handleSubmit(pages.lastThing))}
+          disabled={isEventLoading}
+          showLoader={isEventLoading}
+        />
         <span onClick={() => goBack(pages.almostThere)} className="go-back">go back</span>
-      </div>}
+      </div>
       <div className="progress-bar">
         <LastThingBar />
       </div>
