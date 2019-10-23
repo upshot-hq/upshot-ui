@@ -36,6 +36,7 @@ const CreateEvent = (props) => {
     createEvent,
     createEventError,
     handleModalClose,
+    eventCreateSuccess,
   } = props;
   const [inputs, setInputs] = useState({
     competitions: [],
@@ -77,11 +78,12 @@ const CreateEvent = (props) => {
         setCurrentPage(3);
       }
     }
-    if (!Object.keys(createEventError.errors).length && formSubmitted.current) {
+    if (!Object.keys(createEventError.errors).length
+      && formSubmitted.current && eventCreateSuccess) {
       handleModalClose();
       formSubmitted.current = false;
     }
-  }, [createEventError, handleModalClose, inputs]);
+  }, [createEventError, handleModalClose, inputs, eventCreateSuccess]);
 
   const handleChange = (event) => {
     event.persist();
@@ -274,6 +276,7 @@ CreateEvent.propTypes = {
   createEvent: PropTypes.func.isRequired,
   createEventError: PropTypes.object.isRequired,
   handleModalClose: PropTypes.func.isRequired,
+  eventCreateSuccess: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = ({ competition, event }) => ({
@@ -281,6 +284,7 @@ const mapStateToProps = ({ competition, event }) => ({
   competitions: competition.competitions,
   isEventLoading: event.isLoading,
   createEventError: event.errors,
+  eventCreateSuccess: event.success,
 });
 
 const mapDispatchToProps = {
