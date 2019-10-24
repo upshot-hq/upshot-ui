@@ -37,6 +37,7 @@ const CreateEvent = (props) => {
     createEvent,
     createEventError,
     handleModalClose,
+    eventCreateSuccess,
   } = props;
   const dateFormat = 'YYYY-MM-DDTHH:mm:ss';
   const [inputs, setInputs] = useState({
@@ -63,7 +64,8 @@ const CreateEvent = (props) => {
 
   useEffect(() => {
     // update error state if there's error from server
-    if (Object.keys(createEventError.errors).length && formSubmitted.current) {
+    if (Object.keys(createEventError.errors).length
+      && formSubmitted.current && !isEventLoading) {
       formSubmitted.current = false;
       const serverErrors = {
         ...createEventError.errors,
@@ -80,11 +82,12 @@ const CreateEvent = (props) => {
         setCurrentPage(3);
       }
     }
-    if (!Object.keys(createEventError.errors).length && formSubmitted.current) {
+    if (!Object.keys(createEventError.errors).length
+      && formSubmitted.current && eventCreateSuccess && !isEventLoading) {
       handleModalClose();
       formSubmitted.current = false;
     }
-  }, [createEventError, handleModalClose, inputs]);
+  }, [createEventError, handleModalClose, inputs, eventCreateSuccess, isEventLoading]);
 
   const handleChange = (event) => {
     event.persist();
@@ -244,11 +247,15 @@ const CreateEvent = (props) => {
       </span>
       <br/>
       <br/>
-      {isEventLoading && <div><Loader message="creating event..." /> </div>}
-      {!isEventLoading && <div className="buttons">
-        <Button title="finish" handleClick={() => (handleSubmit(pages.lastThing))} />
+      <div className="buttons">
+        <Button
+          title="finish"
+          handleClick={() => (handleSubmit(pages.lastThing))}
+          disabled={isEventLoading}
+          showLoader={isEventLoading}
+        />
         <span onClick={() => goBack(pages.almostThere)} className="go-back">go back</span>
-      </div>}
+      </div>
       <div className="progress-bar">
         <LastThingBar />
       </div>
@@ -277,6 +284,7 @@ CreateEvent.propTypes = {
   createEvent: PropTypes.func.isRequired,
   createEventError: PropTypes.object.isRequired,
   handleModalClose: PropTypes.func.isRequired,
+  eventCreateSuccess: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = ({ competition, event }) => ({
@@ -284,6 +292,7 @@ const mapStateToProps = ({ competition, event }) => ({
   competitions: competition.competitions,
   isEventLoading: event.isLoading,
   createEventError: event.errors,
+  eventCreateSuccess: event.success,
 });
 
 const mapDispatchToProps = {

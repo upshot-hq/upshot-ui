@@ -9,6 +9,7 @@ const initialState = {
   },
   isLoading: false,
   isLoadingEvent: false,
+  success: false,
 };
 
 const event = (state = initialState, action) => {
@@ -25,6 +26,7 @@ const event = (state = initialState, action) => {
         message: '',
         errors: {},
       },
+      success: true,
     };
 
   case types.CREATE_EVENT_FAILURE:
@@ -35,6 +37,7 @@ const event = (state = initialState, action) => {
         message: action.errorObject.message || 'An error occured',
         errors: action.errorObject.errors,
       },
+      success: false,
     };
 
   case types.GET_EVENT:
