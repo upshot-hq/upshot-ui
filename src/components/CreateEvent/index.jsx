@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import moment from 'moment';
 import {
   Textbox, MultiSelector, Textarea, DatePicker,
 } from '../FormInput';
@@ -37,12 +38,13 @@ const CreateEvent = (props) => {
     createEventError,
     handleModalClose,
   } = props;
+  const dateFormat = 'YYYY-MM-DDTHH:mm:ss';
   const [inputs, setInputs] = useState({
     hashtag: '#',
     competitions: [],
     about: '',
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate: moment(new Date()).format(dateFormat),
+    endDate: moment(new Date()).format(dateFormat),
     errors: {},
     competitionList: [],
   });
