@@ -6,7 +6,7 @@
 .us-capsule {
   position: relative;
   text-overflow: ellipsis;
-  max-width: rem(660px);
+  max-width: rem(200px);
   white-space: nowrap;
   background-color: $primary-color;
   color: $white;
@@ -19,8 +19,9 @@
   border: solid rem(1px) $primary-color;
   box-shadow: 0 rem(1px) 0 0 $primary-color-1;
   user-select: none;
+  display: flex;
+  align-items: center;
   &__text {
-    max-width: 92%;
     text-overflow: ellipsis;
     overflow: hidden;
     color: $white;
@@ -31,11 +32,9 @@
     }
   }
   &__close-btn {
-    position: absolute;
-    font-size: rem(15px);
+    font-size: rem(12px);
     color: $white;
-    top: rem(3px);
-    right: rem(7px);
+    margin-left: rem(5px);
     cursor: pointer;
     &:hover {
       color: $gray-1;
