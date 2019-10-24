@@ -27,18 +27,13 @@
     color: $white;
     cursor: pointer;
     font-family: $primary-font;
-    &:hover {
-      color: $gray-1;
-    }
+    cursor: default;
   }
   &__close-btn {
     font-size: rem(12px);
     color: $white;
     margin-left: rem(5px);
     cursor: pointer;
-    &:hover {
-      color: $gray-1;
-    }
   }
 }
 
