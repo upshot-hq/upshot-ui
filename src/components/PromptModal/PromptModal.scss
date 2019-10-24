@@ -57,6 +57,20 @@
             margin: 0 rem(5px);
             .prompt-btn {
               width: rem(100px);
+              &__ok {
+                background-image: linear-gradient($red, $red);
+                border-color: $red;
+                color: $red;
+                &:hover {
+                  background-image: linear-gradient($red, $red);
+                  background-size: 100% 100%;
+                  color: $white;
+                }
+                &:active {
+                  background-image: linear-gradient($red-2, $red-2);
+                  color: $white;
+                }
+              }
             }
           }
         }
