@@ -84,7 +84,7 @@ const CreateEvent = (props) => {
       handleModalClose();
       formSubmitted.current = false;
     }
-  }, [createEventError, handleModalClose, inputs, eventCreateSuccess]);
+  }, [createEventError, handleModalClose, inputs, eventCreateSuccess, isEventLoading]);
 
   const handleChange = (event) => {
     event.persist();
