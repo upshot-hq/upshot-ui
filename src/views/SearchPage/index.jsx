@@ -14,6 +14,7 @@ import * as searchActions from '../../redux/actionCreators/searchActions';
 import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
 import GeneralSearchBar from '../../components/GeneralSearchBar';
 import { searchScopes } from '../../helpers/defaults';
+import { isResourceEventPost, isResourceEvent } from '../../helpers/utils';
 
 const SearchPage = (props) => {
   const {
@@ -55,33 +56,33 @@ const SearchPage = (props) => {
   };
 
   const renderTopBar = () => (
-		<div className="topbar">
-			<div className="icon back-btn">
-			<FontAwesome name="arrow-left" />
-			</div>
-			<div className="bar">
+    <div className="topbar">
+      <div className="icon back-btn">
+        <FontAwesome name="arrow-left" />
+      </div>
+      <div className="bar">
         <GeneralSearchBar initialQuery={searchQuery} />
-			</div>
-			<div className="icon options-btn">
-				<FontAwesome name="ellipsis-h" />
-			</div>
-		</div>
+      </div>
+      <div className="icon options-btn">
+        <FontAwesome name="ellipsis-h" />
+      </div>
+    </div>
   );
 
   const renderError = (message) => (
-		<div className="search-page__error">
-			<div className="search-page__error-content">
-				{message}
-			</div>
-		</div>
+    <div className="search-page__error">
+      <div className="search-page__error-content">
+        {message}
+      </div>
+    </div>
   );
 
   const renderContent = () => (
-		<div className="content-container">
-			{
-				searchResult.map((resource, index) => {
-				  const isEvent = ('start_at' in resource);
-				  const isEventPost = ('caption' in resource);
+    <div className="content-container">
+      {
+        searchResult.map((resource, index) => {
+				  const isEvent = isResourceEvent(resource);
+				  const isEventPost = isResourceEventPost(resource);
 				  if (isEvent) {
 				    return <EventCard event={resource} key={index} />;
 				  }
@@ -96,33 +97,33 @@ const SearchPage = (props) => {
 				  }
 
 				  return null;
-				})
-			}
-		</div>
+        })
+      }
+    </div>
   );
 
   return (
-		<Layout match={match}>
-			<div className="search-page" id="search-page">
-				<div className="header">
-					<div className="top">
+    <Layout match={match}>
+      <div className="search-page" id="search-page">
+        <div className="header">
+          <div className="top">
             <div className="title">
               <span className="title-text">{lang.searchPage.pageTitle}</span>
             </div>
-						{renderTopBar()}
-					</div>
-				</div>
-				<div className="content">
+            {renderTopBar()}
+          </div>
+        </div>
+        <div className="content">
           {renderContent()}
           {searchQuery && isLoading && <Loader containerClassName="search-page__loader" />}
           {!searchQuery && renderError(lang.searchPage.noSearchQuery)}
           {searchQuery && !isLoading && !!errorMessage
               && renderError(lang.networkErrorMessage)}
-					{searchQuery && !isLoading && !errorMessage
+          {searchQuery && !isLoading && !errorMessage
 						&& !searchResult.length && renderError(lang.emptySearchResultMessage)}
-				</div>
-			</div>
-		</Layout>
+        </div>
+      </div>
+    </Layout>
   );
 };
 

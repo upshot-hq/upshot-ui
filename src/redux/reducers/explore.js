@@ -4,7 +4,7 @@ import {
 } from '../../helpers/defaults';
 import {
   handlesEventReactionInEvents,
-  handleEventsUpdateInUpcomingContent,
+  handleEventsUpdateInContent,
 } from '../../helpers/utils';
 
 const initialState = {
@@ -89,9 +89,7 @@ const explore = (state = initialState, action) => {
       ...state,
       upcoming: {
         ...state.upcoming,
-        content: [...state.upcoming.content, ...action.exploreData.content],
         isLoading: false,
-        pagination: action.exploreData.pagination,
         errors: {
           message: action.errorObject.message || failedToFetch,
           errors: action.errorObject.errors,
@@ -116,7 +114,7 @@ const explore = (state = initialState, action) => {
       ...state,
       upcoming: {
         ...state.upcoming,
-        content: handleEventsUpdateInUpcomingContent(state.upcoming.content, action.eventUpdate),
+        content: handleEventsUpdateInContent(state.upcoming.content, action.eventUpdate),
       },
     };
   default:

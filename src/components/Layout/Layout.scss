@@ -187,7 +187,7 @@
           .content {
             margin: auto rem(10px);
             max-height: 60%;
-            min-height: 20%;
+            min-height: 12%;
             width: 70%;
             background-color: $primary-color;
             border-radius: rem(5px);
@@ -211,7 +211,7 @@
             &-container {
               width: 95%;
               margin: auto;
-              overflow: scroll;
+              overflow: hidden;
               max-height: rem(400px);
               overflow-y: scroll;
               .message {
@@ -306,6 +306,11 @@
                 }
               }
             }
+          }
+        }
+        &-rightside {
+          .content {
+            min-height: 20%;
           }
         }
       }

@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import { handlesEventReactionInEvents } from '../../helpers/utils';
+import { handleEventReaction } from '../../helpers/utils';
 import { reactions } from '../../helpers/defaults';
 
 const initialState = {
@@ -66,9 +66,8 @@ const event = (state = initialState, action) => {
   case types.PIN_EVENT:
     return {
       ...state,
-      event: handlesEventReactionInEvents(
-        reactions.pin, [state.event], action.eventId, action.pin,
-      )[0],
+      event: action.eventId === state.event.id
+        ? handleEventReaction(reactions.pin, state.event, action.pin) : state.event,
     };
 
   default:

@@ -14,7 +14,7 @@ import Capsule from '../Capsule';
 import SearchBar from '../SearchBar';
 import ImageUpload from '../ImageUpload/index';
 import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
-import { createFormData } from '../../helpers/utils';
+import { createFormData, isResourceEvent } from '../../helpers/utils';
 import { searchScopes, maxBestCaptionLength } from '../../helpers/defaults';
 
 const BEST_CAPTION_ID = process.env.REACT_APP_BEST_CAPTION_COMPETITION_ID;
@@ -85,7 +85,7 @@ const PostToEvent = (props) => {
 
   const getSearchResultTitleAndValue = (resultItem) => {
     const titleAndValue = { title: '', value: '', type: '' };
-    const isEvent = ('start_at' in resultItem);
+    const isEvent = isResourceEvent(resultItem);
 
     if (isEvent) {
       titleAndValue.title = resultItem.hashtag;

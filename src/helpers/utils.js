@@ -110,21 +110,47 @@ export const hashData = async (data) => {
 };
 
 export const createFormData = (data) => {
-  const formData = new FormData(); // eslint-disable-line
+  const formData = new FormData();
   Object.keys(data).forEach((key) => formData.append(key, data[key]));
 
   return formData;
 };
 
+/**
+ * checks if resource is an event
+ * @param {object} resource
+ * @returns boolean
+ */
+export const isResourceEvent = (resource) => {
+  try {
+    return (eventKeys.startAt in resource);
+  } catch (error) {
+    return false;
+  }
+};
+
+/**
+ * checks if resource is an event's post
+ * @param {object} resource
+ * @returns boolean
+ */
+export const isResourceEventPost = (resource) => {
+  try {
+    return (eventPostKeys.eventId in resource);
+  } catch (error) {
+    return false;
+  }
+};
+
 export const filterExploredContent = (content, filter = allTab) => {
   // filter out events
   if (filter.toLowerCase() === eventsTab.toLowerCase()) {
-    return content.filter((resource) => ('start_at' in resource));
+    return content.filter((resource) => isResourceEvent(resource));
   }
 
   // filter out posts
   if (filter.toLowerCase() === postsTab.toLowerCase()) {
-    return content.filter((resource) => ('caption' in resource));
+    return content.filter((resource) => isResourceEventPost(resource));
   }
 
   return content;
@@ -214,7 +240,7 @@ export const handlePostReactionInPosts = (reaction, resources, postToReactId, re
   const newResources = [...resources];
   for (let i = 0; i < newResources.length; i += 1) {
     let resource = newResources[i];
-    const isPost = (eventPostKeys.eventId in resource);
+    const isPost = isResourceEventPost(resource);
     if (isPost && resource.id === postToReactId) {
       resource = handlePostReaction(reaction, resource, reactionType);
       newResources[i] = resource;
@@ -261,7 +287,7 @@ export const handlesEventReactionInEvents = (
   const newResources = [...resources];
   for (let i = 0; i < newResources.length; i += 1) {
     let resource = newResources[i];
-    const isEvent = (eventKeys.startAt in resource);
+    const isEvent = isResourceEvent(resource);
     if (isEvent && resource.id === eventToReactId) {
       resource = handleEventReaction(reaction, resource, reactionType);
       newResources[i] = resource;
@@ -404,16 +430,16 @@ export const handleNotificationStatusUpdate = (state, action) => {
 };
 
 /**
- * this update events in upcoming content
+ * this update events in content
  * @param {array} content
  * @param {object} updatedEvent
  * @returns {array} updated content
  */
-export const handleEventsUpdateInUpcomingContent = (content, updatedEvent) => {
+export const handleEventsUpdateInContent = (content, updatedEvent) => {
   const newContent = [...content];
   for (let i = 0; i < newContent.length; i += 1) {
     const resource = newContent[i];
-    const isEvent = (eventKeys.startAt in resource);
+    const isEvent = isResourceEvent(resource);
 
     if (isEvent && resource.id === updatedEvent.id) {
       newContent[i] = { ...resource, ...updatedEvent };

@@ -19,12 +19,10 @@ import * as notificationActions from '../../redux/actionCreators/notificationAct
 import * as exploreActions from '../../redux/actionCreators/exploreActions';
 import * as eventActions from '../../redux/actionCreators/eventActions';
 import SocketHandler from '../../helpers/SocketHandler';
-import { newNotificationEvent, eventKeys } from '../../helpers/defaults';
+import { newNotificationEvent } from '../../helpers/defaults';
 import MobileMenu from '../MobileMenu';
 import Settings from '../Settings';
-import EventCard from '../EventCard/index';
-import Loader from '../Loader';
-import { useIntersect } from '../../helpers/hooksUtils';
+import UpcomingContent from '../UpcomingContent';
 
 export const LayoutContext = createContext({
   setShowPostToEventModal: () => {},
@@ -34,10 +32,6 @@ export const LayoutContext = createContext({
 });
 
 const Layout = (props) => {
-  const contentContainerRef = useRef(null);
-  const [setNode, isIntersected] = useIntersect(
-    { root: contentContainerRef.current, threshold: 0.5 },
-  );
   const [showCreateEventModal, setShowCreateEventModal] = useState(false);
   const [showPostToEventModal, setShowPostToEventModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
@@ -45,7 +39,6 @@ const Layout = (props) => {
   const [event, setEvent] = useState(null);
   const [showPostToEventSearchBar, setShowPostToEventSearchBar] = useState(true);
   const notificationEngine = useRef(null);
-  const isInitialMount = useRef(true);
   const {
     children, leftContainerStyles, match: { path },
     centerContainerStyles, rightContainerStyles,
@@ -66,32 +59,6 @@ const Layout = (props) => {
   useEffect(() => {
     getUnreadNotificationCount();
   }, [getUnreadNotificationCount]);
-
-  useEffect(() => {
-    if (isInitialMount.current && !upcomingContent.length) {
-      isInitialMount.current = false;
-      fetchUpcomingExploreContent({});
-    }
-  }, [fetchUpcomingExploreContent, upcomingContent]);
-
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else if (!isLoadingUpcomingContent) {
-      const fetchMoreContent = () => {
-        const { limit, offset, totalCount } = upcomingContentPagination;
-        if (isIntersected && upcomingContent.length < totalCount) {
-          const nextOffset = Number(offset) + Number(limit);
-          fetchUpcomingExploreContent({ limit, offset: nextOffset });
-        }
-      };
-
-      fetchMoreContent();
-    }
-  }, [
-    upcomingContentPagination, isIntersected, upcomingContent,
-    fetchUpcomingExploreContent, isLoadingUpcomingContent,
-  ]);
 
   const handleOpenCreateEventModal = () => {
     setShowCreateEventModal(true);
@@ -132,46 +99,6 @@ const Layout = (props) => {
   const handleCloseMobileMenu = () => {
     setShowMobileMenuModal(false);
   };
-
-  const handlePin = (eventId, pin) => {
-    pinEvent(eventId, pin);
-  };
-
-  const renderMessage = (message) => (
-    <div className="message">{message}</div>
-  );
-
-  const renderFetchMoreTrigger = () => (
-    <div className="fetch-more" ref={setNode} />
-  );
-
-  const renderUpcomingContent = (content) => (
-    <div className="content-container" ref={contentContainerRef}>
-      {
-        content.map((resource, index) => {
-				  const isEvent = (eventKeys.startAt in resource);
-				  if (isEvent) {
-				    return <EventCard
-              event={resource}
-              key={index}
-              handlePin={handlePin}
-              showCompetitions={false}
-              smallCard
-            />;
-				  }
-
-				  return null;
-        })
-      }
-      {isLoadingUpcomingContent && <Loader containerClassName="rightside__loader" />}
-      {!isLoadingUpcomingContent && !!upcomingContentErrors
-        && renderMessage(lang.failedToFetch)}
-      {!isLoadingUpcomingContent && !upcomingContentErrors
-        && !content.length && renderMessage(lang.layout.rightSide.noUpcomingContent)
-      }
-      {renderFetchMoreTrigger()}
-    </div>
-  );
 
   const renderNotificationCount = (navItemTitle, extraClassName = '') => {
     const { notification: { title: notificationTitle } } = lang.layoutSideNav;
@@ -240,7 +167,16 @@ const Layout = (props) => {
         <div className="layout__content-rightside" style={rightContainerStyles}>
           <div className="content">
             <div className="content-header">{lang.layout.rightSide.title}</div>
-            {renderUpcomingContent(upcomingContent)}
+            <div className="content-container">
+              <UpcomingContent
+                content={upcomingContent}
+                contentErrors={upcomingContentErrors}
+                contentPagination={upcomingContentPagination}
+                isLoadingContent={isLoadingUpcomingContent}
+                fetchUpcomingContent={fetchUpcomingExploreContent}
+                pinEvent={pinEvent}
+              />
+            </div>
           </div>
           <div className="footer">
             <div className="footer-text">

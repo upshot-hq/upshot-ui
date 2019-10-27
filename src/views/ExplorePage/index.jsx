@@ -14,10 +14,8 @@ import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
 import * as eventActions from '../../redux/actionCreators/eventActions';
 import { useIntersect } from '../../helpers/hooksUtils';
 import GeneralSearchBar from '../../components/GeneralSearchBar';
-import {
-  minimumScrollHeight, eventKeys,
-  eventFilter, eventPostKeys,
-} from '../../helpers/defaults';
+import { isResourceEvent, isResourceEventPost } from '../../helpers/utils';
+import { minimumScrollHeight, eventFilter } from '../../helpers/defaults';
 
 const ExplorePage = (props) => {
   const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
@@ -148,8 +146,8 @@ const ExplorePage = (props) => {
     <div className="content-container">
       {
         content.map((resource, index) => {
-				  const isEvent = (eventKeys.startAt in resource);
-				  const isEventPost = (eventPostKeys.eventId in resource);
+				  const isEvent = isResourceEvent(resource);
+				  const isEventPost = isResourceEventPost(resource);
 				  if (isEvent) {
 				    return <EventCard
               event={resource}
