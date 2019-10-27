@@ -186,7 +186,6 @@
           }
           .content {
             margin: auto rem(10px);
-            max-height: 60%;
             min-height: 12%;
             width: 70%;
             background-color: $primary-color;
@@ -311,6 +310,9 @@
         &-rightside {
           .content {
             min-height: 20%;
+            &-container {
+              max-height: rem(590px);
+            }
           }
         }
       }

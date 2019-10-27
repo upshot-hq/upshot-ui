@@ -8,6 +8,7 @@
   height: 100%;
   margin: auto;
   overflow-y: scroll;
+  padding-top: rem(10px);
   .upcoming-content {
     &__message {
       color: $white;
