@@ -58,6 +58,10 @@
     .tab__items {
       &-item {
         font-size: rem(16px);
+        &.upcoming {
+          display: none !important;
+          visibility: hidden !important;
+        }
       }
     }
   }

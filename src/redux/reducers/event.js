@@ -1,4 +1,6 @@
 import * as types from '../constants/actionTypes';
+import { handlesEventReactionInEvents } from '../../helpers/utils';
+import { reactions } from '../../helpers/defaults';
 
 const initialState = {
   event: {},
@@ -60,6 +62,13 @@ const event = (state = initialState, action) => {
         message: action.errorObject.message || 'An error occured',
         errors: action.errorObject.errors || {},
       },
+    };
+  case types.PIN_EVENT:
+    return {
+      ...state,
+      event: handlesEventReactionInEvents(
+        reactions.pin, [state.event], action.eventId, action.pin,
+      )[0],
     };
 
   default:

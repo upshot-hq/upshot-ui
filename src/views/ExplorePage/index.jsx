@@ -14,11 +14,17 @@ import * as eventPostActions from '../../redux/actionCreators/eventPostActions';
 import * as eventActions from '../../redux/actionCreators/eventActions';
 import { useIntersect } from '../../helpers/hooksUtils';
 import GeneralSearchBar from '../../components/GeneralSearchBar';
-import { minimumScrollHeight } from '../../helpers/defaults';
+import {
+  minimumScrollHeight, eventKeys,
+  eventFilter, eventPostKeys,
+} from '../../helpers/defaults';
 
 const ExplorePage = (props) => {
   const [setNode, isIntersected] = useIntersect({ threshold: 0.5 });
-  const { allTab, eventsTab, postsTab } = lang.explorePage.tabs;
+  const {
+    allTab, eventsTab, postsTab, upcomingTab,
+  } = lang.explorePage.tabs;
+  const { upcoming, ongoing, ended } = eventFilter;
   const {
     isLoading, content, errorMessage,
     fetchExploreContent, pagination,
@@ -26,9 +32,11 @@ const ExplorePage = (props) => {
     match, pinEvent, bookmarkPost,
   } = props;
   const [currentView, setCurrentView] = useState(allTab);
+  const [currentViewFilter, setCurrentViewFilter] = useState(allTab);
   const [isNewTab, setIsNewTab] = useState(true);
   const isInitialMount = useRef(true);
   const scrollTop = useRef(0);
+  const eventFilters = useRef(`${ongoing},${ended}`);
   const [isSearchBarVisible, setSearchBarVisibility] = useState(true);
 
   useEffect(() => {
@@ -42,7 +50,8 @@ const ExplorePage = (props) => {
           fetchExploreContent({
             limit,
             offset: nextOffset,
-            filter: currentView,
+            filter: currentViewFilter,
+            eventFilter: eventFilters.current,
             isNewTab,
           });
         }
@@ -52,16 +61,20 @@ const ExplorePage = (props) => {
     }
   }, [
     pagination, isIntersected,
-    content, currentView, fetchExploreContent,
-    isNewTab, isLoading,
+    content, currentViewFilter, currentView,
+    fetchExploreContent, isNewTab, isLoading,
   ]);
 
   useEffect(() => {
     if (isNewTab) {
-      fetchExploreContent({ filter: currentView, isNewTab });
+      fetchExploreContent({
+        filter: currentViewFilter,
+        eventFilter: eventFilters.current,
+        isNewTab,
+      });
       setIsNewTab(false);
     }
-  }, [fetchExploreContent, currentView, isNewTab]);
+  }, [fetchExploreContent, currentViewFilter, currentView, isNewTab]);
 
   const handleLike = (postId, like) => {
     likePost(postId, like);
@@ -89,13 +102,26 @@ const ExplorePage = (props) => {
     {
       title: allTab,
       onClick: () => {
+        eventFilters.current = `${ongoing},${ended}`;
+        setCurrentViewFilter(allTab);
         setCurrentView(allTab);
+        setIsNewTab(true);
+      },
+    },
+    {
+      title: upcomingTab,
+      onClick: () => {
+        eventFilters.current = upcoming;
+        setCurrentViewFilter(eventsTab);
+        setCurrentView(upcomingTab);
         setIsNewTab(true);
       },
     },
     {
       title: eventsTab,
       onClick: () => {
+        eventFilters.current = `${ongoing},${ended}`;
+        setCurrentViewFilter(eventsTab);
         setCurrentView(eventsTab);
         setIsNewTab(true);
       },
@@ -103,6 +129,7 @@ const ExplorePage = (props) => {
     {
       title: postsTab,
       onClick: () => {
+        setCurrentViewFilter(postsTab);
         setCurrentView(postsTab);
         setIsNewTab(true);
       },
@@ -121,8 +148,8 @@ const ExplorePage = (props) => {
     <div className="content-container">
       {
         content.map((resource, index) => {
-				  const isEvent = ('start_at' in resource);
-				  const isEventPost = ('caption' in resource);
+				  const isEvent = (eventKeys.startAt in resource);
+				  const isEventPost = (eventPostKeys.eventId in resource);
 				  if (isEvent) {
 				    return <EventCard
               event={resource}

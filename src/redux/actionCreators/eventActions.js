@@ -25,6 +25,11 @@ export const getEventSuccess = (eventData) => ({
   eventData,
 });
 
+export const updateUpcomingEvent = (event) => ({
+  type: types.UPDATE_UPCOMING_EVENT,
+  eventUpdate: event,
+});
+
 export const getEventFailure = (errorObject) => ({
   type: types.GET_EVENT_FAILURE,
   errorObject,

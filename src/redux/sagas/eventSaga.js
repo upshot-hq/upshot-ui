@@ -1,4 +1,5 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
+import moment from 'moment';
 
 import { apiErrorHandler } from '../../helpers/utils';
 import EventAPI from '../../services/EventAPI';
@@ -12,6 +13,7 @@ import {
   getEventSuccess,
   getEventFailure,
   pinEvent,
+  updateUpcomingEvent,
 } from '../actionCreators/eventActions';
 
 export function* watchCreateEventSagaAsync() {
@@ -41,6 +43,13 @@ export function* getEventSagaAsync(action) {
   try {
     const response = yield call(EventAPI.getEvent, action.eventId);
     yield put(getEventSuccess(response.data));
+    const { event } = response.data;
+    const eventStartTime = moment(event.start_at);
+
+    // dispatch if event is upcoming
+    if (moment().isBefore(eventStartTime)) {
+      yield put(updateUpcomingEvent(event));
+    }
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(getEventFailure({ message: errorMessage }));

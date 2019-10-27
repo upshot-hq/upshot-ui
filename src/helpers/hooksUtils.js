@@ -32,7 +32,6 @@ export const useIntersect = (options) => {
   useEffect(() => {
     if (observer.current) observer.current.disconnect();
 
-    // eslint-disable-next-line
     observer.current = new IntersectionObserver(
       ([entry]) => setIsIntersected(entry.isIntersecting), options,
     );
@@ -45,4 +44,18 @@ export const useIntersect = (options) => {
   }, [node, setIsIntersected, options, isIntersected]);
 
   return [setNode, isIntersected];
+};
+
+/**
+ * this hooks helps save a value to be used later in the component live cycle
+ * @param {*} value - value to save
+ * @returns {*} the previously saved value
+ */
+export const usePrevious = (value) => {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  }, [value]);
+
+  return ref.current;
 };
