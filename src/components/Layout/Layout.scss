@@ -186,10 +186,58 @@
           }
           .content {
             margin: auto rem(10px);
-            height: 60%;
+            min-height: 12%;
             width: 70%;
             background-color: $primary-color;
             border-radius: rem(5px);
+            box-shadow: rem(0 0 5px) $black-3;
+            border: rem(1px) solid $gray-3;
+            overflow: hidden;
+            &-header {
+              font-size: rem(18px);
+              font-weight: bold;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding: rem(14px 0);
+              background-color: $primary-color;
+              text-transform: capitalize;
+              color: $white;
+              width: 100%;
+              border-radius: rem(5px 5px 0 0);
+              border-bottom: rem(1px) solid $gray-3;
+            }
+            &-container {
+              width: 95%;
+              margin: auto;
+              overflow: hidden;
+              max-height: rem(400px);
+              overflow-y: scroll;
+              .message {
+                color: $white;
+                width: 100%;
+                height: rem(48px);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: rem(14px);
+              }
+            }
+          }
+          .fetch-more {
+            height: rem(10px);
+            margin-bottom: rem(10px);
+          }
+          .rightside__loader {
+            display: flex;
+            justify-content: center;
+            &>.up-loader {
+              margin: rem(10px 0);
+              height: rem(12px);
+              width: rem(12px);
+              border: rem(3px) solid $white;
+              border-top: rem(3px) solid $primary-color;
+            }
           }
           .footer {
             width: 90%;
@@ -256,6 +304,14 @@
                   }
                 }
               }
+            }
+          }
+        }
+        &-rightside {
+          .content {
+            min-height: 20%;
+            &-container {
+              max-height: rem(590px);
             }
           }
         }

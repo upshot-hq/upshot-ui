@@ -16,11 +16,13 @@ import CreateEvent from '../CreateEvent';
 import PostToEvent from '../PostToEvent';
 import { history } from '../../helpers/utils';
 import * as notificationActions from '../../redux/actionCreators/notificationActions';
+import * as exploreActions from '../../redux/actionCreators/exploreActions';
+import * as eventActions from '../../redux/actionCreators/eventActions';
 import SocketHandler from '../../helpers/SocketHandler';
 import { newNotificationEvent } from '../../helpers/defaults';
 import MobileMenu from '../MobileMenu';
 import Settings from '../Settings';
-
+import UpcomingContent from '../UpcomingContent';
 
 export const LayoutContext = createContext({
   setShowPostToEventModal: () => {},
@@ -41,7 +43,9 @@ const Layout = (props) => {
     children, leftContainerStyles, match: { path },
     centerContainerStyles, rightContainerStyles,
     handleNewNotification, unreadNotificationsCount,
-    userId, getUnreadNotificationCount,
+    userId, getUnreadNotificationCount, fetchUpcomingExploreContent,
+    upcomingContent, pinEvent, isLoadingUpcomingContent,
+    upcomingContentErrors, upcomingContentPagination,
   } = props;
 
   useEffect(() => {
@@ -161,7 +165,19 @@ const Layout = (props) => {
           {Children.only(children)}
         </div>
         <div className="layout__content-rightside" style={rightContainerStyles}>
-          <div className="content" />
+          <div className="content">
+            <div className="content-header">{lang.layout.rightSide.title}</div>
+            <div className="content-container">
+              <UpcomingContent
+                content={upcomingContent}
+                contentErrors={upcomingContentErrors}
+                contentPagination={upcomingContentPagination}
+                isLoadingContent={isLoadingUpcomingContent}
+                fetchUpcomingContent={fetchUpcomingExploreContent}
+                pinEvent={pinEvent}
+              />
+            </div>
+          </div>
           <div className="footer">
             <div className="footer-text">
               &#xa9; {lang.footerText}
@@ -255,6 +271,12 @@ Layout.propTypes = {
   userId: PropTypes.number,
   handleNewNotification: PropTypes.func.isRequired,
   getUnreadNotificationCount: PropTypes.func.isRequired,
+  fetchUpcomingExploreContent: PropTypes.func.isRequired,
+  upcomingContent: PropTypes.array.isRequired,
+  isLoadingUpcomingContent: PropTypes.bool.isRequired,
+  upcomingContentPagination: PropTypes.object.isRequired,
+  upcomingContentErrors: PropTypes.string.isRequired,
+  pinEvent: PropTypes.func.isRequired,
 };
 
 Layout.defaultProps = {
@@ -263,14 +285,20 @@ Layout.defaultProps = {
   userId: 0,
 };
 
-const mapStateToProps = ({ notification, auth }) => ({
+const mapStateToProps = ({ notification, auth, explore }) => ({
   unreadNotificationsCount: notification.unreadNotificationsCount,
   userId: auth.user.userData.id,
+  upcomingContent: explore.upcoming.content,
+  isLoadingUpcomingContent: explore.upcoming.isLoading,
+  upcomingContentPagination: explore.upcoming.pagination,
+  upcomingContentErrors: explore.upcoming.errors.message,
 });
 
 const mapDispatchToProps = {
   handleNewNotification: notificationActions.handleNewNotification,
   getUnreadNotificationCount: notificationActions.getUnreadNotificationCount,
+  fetchUpcomingExploreContent: exploreActions.fetchUpcomingExploreContent,
+  pinEvent: eventActions.pinEvent,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

@@ -4,11 +4,8 @@ import { ArrowBack, MoreHoriz } from '@material-ui/icons';
 
 import './GeneralSearchBar.scss';
 import SearchBar from '../SearchBar';
-import { history } from '../../helpers/utils';
-import {
-  resources, searchScopes, eventKeys,
-  eventPostKeys, rearrangedString,
-} from '../../helpers/defaults';
+import { history, isResourceEvent, isResourceEventPost } from '../../helpers/utils';
+import { resources, searchScopes, rearrangedString } from '../../helpers/defaults';
 
 const GeneralSearchBar = (props) => {
   const { showBackBtn, showOptionsBtn, initialQuery } = props;
@@ -22,8 +19,8 @@ const GeneralSearchBar = (props) => {
 
   const getSearchResultTitleAndValue = (resultItem) => {
     const titleAndValue = { title: '', value: '', type: '' };
-    const isEvent = (eventKeys.startAt in resultItem);
-    const isEventPost = (eventPostKeys.caption in resultItem);
+    const isEvent = isResourceEvent(resultItem);
+    const isEventPost = isResourceEventPost(resultItem);
 
     if (isEvent) {
       titleAndValue.title = resultItem.hashtag;

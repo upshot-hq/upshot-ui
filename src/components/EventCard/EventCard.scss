@@ -12,6 +12,7 @@
   margin: rem(20px 0);
   box-shadow: rem(0 0 5px) $black-3;
   font-family: $primary-font;
+  background-color: $white;
   .event-card {
     &__content {
       height: 100%;
@@ -185,6 +186,52 @@
           }
         }
       }
+    }
+  }
+  &.event-card.small {
+    min-height: rem(80px);
+    height: rem(50px);
+    background-color: $primary-color-3;
+    .event-card {
+      &__content {
+        height: 70%;
+        &-event-title {
+          height: 50%;
+          margin: 0;
+          .text {
+            font-size: rem(14px);
+            color: $white;
+          }
+          .icon>img {
+            height: rem(15px);
+            width: rem(15px);
+            margin-top: rem(8px);
+          }
+        }
+        &-event-stats {
+          height: 50%;
+          .text {
+            font-size: rem(10px);
+            color: $white;
+          }
+          .count {
+            font-size: rem(10px);
+            color: $white;
+          }
+        }
+      }
+      &__footer {
+        height: 30%;
+        &-content {
+          .text { 
+            font-size: rem(10px);
+            color: $white;
+          }
+        }
+      }
+    }
+    &:first-child {
+      margin-top: rem(5px);
     }
   }
 }

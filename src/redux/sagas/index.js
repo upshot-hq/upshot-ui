@@ -12,9 +12,9 @@ import * as notificationSaga from './notificationSaga';
 function* rootSaga() {
   yield all([
     // please arrange in alphabetical order
+    competitionSaga.watchFetchCompetitionsSagaAsync(),
     eventPostSaga.watchBookmarkPostSagaAsync(),
     eventPostSaga.watchDislikePostEventSagaAsync(),
-    competitionSaga.watchFetchCompetitionsSagaAsync(),
     eventPostSaga.watchGetEventPostsSagaAsync(),
     eventPostSaga.watchGetPinnedEventsPostsSagaAsync(),
     eventPostSaga.watchLikePostEventSagaAsync(),
@@ -23,6 +23,7 @@ function* rootSaga() {
     eventSaga.watchGetEventSagaAsync(),
     eventSaga.watchPinEventSagaAsync(),
     exploreSaga.watchFetchExploreSagaAsync(),
+    exploreSaga.watchFetchUpcomingExploreSagaAsync(),
     notificationSaga.watchGetNotificationsSagaAsync(),
     notificationSaga.watchGetUnreadNotificationCountSagaAsync(),
     notificationSaga.watchNewNotifcationSagaAsync(),

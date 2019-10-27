@@ -7,6 +7,7 @@ import {
   jwtKey, hashTagPrefix, handlePrefix,
   saltRounds, reactionKeys, countSuffixes,
   increment, decrement, reactions, unread, read,
+  eventKeys, eventPostKeys,
 } from './defaults';
 import lang from './en.default';
 
@@ -24,21 +25,33 @@ export const isExpired = (expiredTimeInSec) => {
 };
 
 export const getUserDetails = (tokn) => {
-  const token = tokn || localStorage.getItem(jwtKey);
-  const decryptedToken = token ? simpleCrypto.decrypt(token) : null;
-  const userData = decryptedToken ? jwtDecode(decryptedToken) : null;
-  const isAuthenticated = !!(userData && !isExpired(userData.exp));
+  try {
+    const token = tokn || localStorage.getItem(jwtKey);
+    const decryptedToken = token ? simpleCrypto.decrypt(token) : null;
+    const userData = decryptedToken ? jwtDecode(decryptedToken) : null;
+    const isAuthenticated = !!(userData && !isExpired(userData.exp));
 
-  if (tokn && isAuthenticated) {
-    localStorage.setItem(jwtKey, tokn);
+    if (tokn && isAuthenticated) {
+      localStorage.setItem(jwtKey, tokn);
+    }
+
+    if (!isAuthenticated) {
+      localStorage.removeItem(jwtKey);
+    }
+
+    const data = {
+      isAuthenticated,
+      userData,
+    };
+
+    return data;
+  } catch (error) {
+    localStorage.removeItem(jwtKey);
+    return {
+      isAuthenticated: false,
+      userData: null,
+    };
   }
-
-  const data = {
-    isAuthenticated,
-    userData,
-  };
-
-  return data;
 };
 
 export const apiErrorHandler = (error) => {
@@ -97,21 +110,47 @@ export const hashData = async (data) => {
 };
 
 export const createFormData = (data) => {
-  const formData = new FormData(); // eslint-disable-line
+  const formData = new FormData();
   Object.keys(data).forEach((key) => formData.append(key, data[key]));
 
   return formData;
 };
 
+/**
+ * checks if resource is an event
+ * @param {object} resource
+ * @returns boolean
+ */
+export const isResourceEvent = (resource) => {
+  try {
+    return (eventKeys.startAt in resource);
+  } catch (error) {
+    return false;
+  }
+};
+
+/**
+ * checks if resource is an event's post
+ * @param {object} resource
+ * @returns boolean
+ */
+export const isResourceEventPost = (resource) => {
+  try {
+    return (eventPostKeys.eventId in resource);
+  } catch (error) {
+    return false;
+  }
+};
+
 export const filterExploredContent = (content, filter = allTab) => {
   // filter out events
   if (filter.toLowerCase() === eventsTab.toLowerCase()) {
-    return content.filter((resource) => ('start_at' in resource));
+    return content.filter((resource) => isResourceEvent(resource));
   }
 
   // filter out posts
   if (filter.toLowerCase() === postsTab.toLowerCase()) {
-    return content.filter((resource) => ('caption' in resource));
+    return content.filter((resource) => isResourceEventPost(resource));
   }
 
   return content;
@@ -192,23 +231,24 @@ export const handlePostReaction = (reaction, post, reactionType) => {
 /**
  * method to handle reacting (like/dislike) on a specific post in an array of posts
  * @param {string} reaction (like/dislike/bookmark)
- * @param {array} posts
+ * @param {array} resources
  * @param {integer} postToReactId
  * @param {bool} reactionType
  * @returns {array}
  */
-export const handlePostReactionInPosts = (reaction, posts, postToReactId, reactionType) => {
-  const newPostList = [...posts];
-  for (let i = 0; i < newPostList.length; i += 1) {
-    let post = newPostList[i];
-    if (post.id === postToReactId) {
-      post = handlePostReaction(reaction, post, reactionType);
-      newPostList[i] = post;
+export const handlePostReactionInPosts = (reaction, resources, postToReactId, reactionType) => {
+  const newResources = [...resources];
+  for (let i = 0; i < newResources.length; i += 1) {
+    let resource = newResources[i];
+    const isPost = isResourceEventPost(resource);
+    if (isPost && resource.id === postToReactId) {
+      resource = handlePostReaction(reaction, resource, reactionType);
+      newResources[i] = resource;
       break;
     }
   }
 
-  return newPostList;
+  return newResources;
 };
 
 /**
@@ -236,24 +276,26 @@ export const handleEventReaction = (reaction, event, reactionType) => {
 /**
  * method to handle reaction on a specific event in an array of events
  * @param {string} reaction (pin)
- * @param {object} event
+ * @param {array} resources
+ * @param {integer} eventToReactId
  * @param {bool} reactionType
  * @returns {object}
  */
 export const handlesEventReactionInEvents = (
-  reaction, events, eventToReactId, reactionType,
+  reaction, resources, eventToReactId, reactionType,
 ) => {
-  const newEvents = [...events];
-  for (let i = 0; i < newEvents.length; i += 1) {
-    let event = newEvents[i];
-    if (event.event_id === eventToReactId) {
-      event = handleEventReaction(reaction, event, reactionType);
-      newEvents[i] = event;
+  const newResources = [...resources];
+  for (let i = 0; i < newResources.length; i += 1) {
+    let resource = newResources[i];
+    const isEvent = isResourceEvent(resource);
+    if (isEvent && resource.id === eventToReactId) {
+      resource = handleEventReaction(reaction, resource, reactionType);
+      newResources[i] = resource;
       break;
     }
   }
 
-  return newEvents;
+  return newResources;
 };
 
 /**
@@ -385,4 +427,25 @@ export const handleNotificationStatusUpdate = (state, action) => {
   }
 
   return { unreadNotificationsCount, notifications };
+};
+
+/**
+ * this update events in content
+ * @param {array} content
+ * @param {object} updatedEvent
+ * @returns {array} updated content
+ */
+export const handleEventsUpdateInContent = (content, updatedEvent) => {
+  const newContent = [...content];
+  for (let i = 0; i < newContent.length; i += 1) {
+    const resource = newContent[i];
+    const isEvent = isResourceEvent(resource);
+
+    if (isEvent && resource.id === updatedEvent.id) {
+      newContent[i] = { ...resource, ...updatedEvent };
+      break;
+    }
+  }
+
+  return newContent;
 };

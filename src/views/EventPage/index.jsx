@@ -16,7 +16,7 @@ import * as winnerActions from '../../redux/actionCreators/winnerActions';
 import EventDetails from './EventDetails';
 import EventPosts from './EventPosts';
 import EventWinners from './EventWinners';
-import { useIntersect } from '../../helpers/hooksUtils';
+import { useIntersect, usePrevious } from '../../helpers/hooksUtils';
 import { getUrlQueryValue } from '../../helpers/utils';
 import { tabUrlQueryKey, minimumScrollHeight } from '../../helpers/defaults';
 import PageTitle from '../../components/PageTitle';
@@ -28,7 +28,7 @@ export const EventPage = (props) => {
   const { detailsTab, postsTab, winnersTab } = lang.eventPage.tabs;
   const [currentPostsCompetitionFilter, setCurrentPostsCompetitionFilter] = useState('');
   const {
-    match: { params }, event, posts,
+    match: { params }, location: { pathname }, event, posts,
     getEvent, eventIsLoading, getEventPosts,
     pagination, postIsLoading, postsErrorMessage,
     postsSuccessStatus, pinEvent, likePost, dislikePost,
@@ -38,6 +38,7 @@ export const EventPage = (props) => {
   const scrollTop = useRef(defaultScrollTopValue);
   const [isTopBarVisible, setTopBarVisibility] = useState(true);
   const contentNode = useRef();
+  const previousLocation = usePrevious(pathname);
 
   const getTabToView = () => {
     const urlQuery = window.location.search;
@@ -91,6 +92,16 @@ export const EventPage = (props) => {
       isInitialMount.current = false;
     }
   }, [params, getEvent, getWinners]);
+
+  useEffect(() => {
+    if (!isInitialMount.current && previousLocation && pathname
+      && previousLocation !== pathname
+    ) {
+      const { eventId } = params;
+      getEvent(eventId);
+      getWinners(eventId);
+    }
+  }, [params, previousLocation, pathname, getEvent, getWinners]);
 
   const handlePin = (eventId, pin) => {
     pinEvent(eventId, pin);
@@ -244,6 +255,7 @@ export const EventPage = (props) => {
 
 EventPage.propTypes = {
   match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
   event: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   posts: PropTypes.array.isRequired,

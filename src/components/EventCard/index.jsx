@@ -17,6 +17,7 @@ import { LayoutContext } from '../Layout/index';
 import lang from '../../helpers/en.default';
 
 const debounceTime = 1000;
+const SMALL_CARD_CLASS = 'small';
 
 const EventCard = (props) => {
   const { event: reduxEvent, handlePin } = props;
@@ -26,6 +27,10 @@ const EventCard = (props) => {
   useEffect(() => {
     debouncePin.current = debounce(handlePin, debounceTime);
   }, [handlePin]);
+
+  useEffect(() => {
+    setEvent(reduxEvent);
+  }, [reduxEvent]);
 
   const togglePinned = (eventId) => {
     const userPin = !event.user_pins;
@@ -47,15 +52,15 @@ const EventCard = (props) => {
   };
 
   const renderCompetition = (competition) => (
-      <Fragment key={competition.id}>
-        <Capsule
-          title={competition.name}
-          id={competition.id}
-          handleClose={() => {}}
-          showCloseBtn={false}
-          textStyle={{ maxWidth: '100%' }}
-        />
-      </Fragment>
+    <Fragment key={competition.id}>
+      <Capsule
+        title={competition.name}
+        id={competition.id}
+        handleClose={() => {}}
+        showCloseBtn={false}
+        textStyle={{ maxWidth: '100%' }}
+      />
+    </Fragment>
   );
 
   const renderCompetitions = (competitions) => (
@@ -127,10 +132,10 @@ const EventCard = (props) => {
 
     return (
       <div className={`event-card__footer ${label}`}>
-          <div className="event-card__footer-content">
-            <span className="text label">{label}:</span>
-            <span className={`text value ${label}`}>{value}</span>
-          </div>
+        <div className="event-card__footer-content">
+          <span className="text label">{label}:</span>
+          <span className={`text value ${label}`}>{value}</span>
+        </div>
       </div>
     );
   };
@@ -138,14 +143,16 @@ const EventCard = (props) => {
   return (
     <LayoutContext.Consumer>
       {({ setShowPostToEventModal, setEvent: setEventOnLayout, setShowPostToEventSearchBar }) => (
-          <div id="event-card" className="event-card">
-            <div className="event-card__content">
-              {renderTitle()}
-              {renderCompetitions(event.competitions)}
-              {renderStats(setShowPostToEventModal, setEventOnLayout, setShowPostToEventSearchBar)}
-            </div>
-            {renderFooter(event.start_at, event.end_at)}
+        <div id={'event-card'}
+          className={`event-card ${props.smallCard ? SMALL_CARD_CLASS : ''}`}
+        >
+          <div className="event-card__content">
+            {renderTitle()}
+            {props.showCompetitions && renderCompetitions(event.competitions)}
+            {renderStats(setShowPostToEventModal, setEventOnLayout, setShowPostToEventSearchBar)}
           </div>
+          {renderFooter(event.start_at, event.end_at)}
+        </div>
       )}
     </LayoutContext.Consumer>
   );
@@ -163,6 +170,13 @@ EventCard.propTypes = {
     total_pins: PropTypes.number.isRequired,
   }).isRequired,
   handlePin: PropTypes.func.isRequired,
+  showCompetitions: PropTypes.bool,
+  smallCard: PropTypes.bool,
+};
+
+EventCard.defaultProps = {
+  showCompetitions: true,
+  smallCard: false,
 };
 
 export default EventCard;

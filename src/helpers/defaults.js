@@ -40,6 +40,7 @@ export const eventKeys = {
 };
 export const eventPostKeys = {
   caption: 'caption',
+  eventId: 'event_id',
 };
 export const reactions = {
   like: 'like',
@@ -82,7 +83,11 @@ export const booleanStrings = {
 export const dbResourceToPageMapping = {
   events: '/events',
 };
-
 export const notificationClassToTabMapping = {
   winners: 'winners',
+};
+export const eventFilter = {
+  upcoming: 'upcoming',
+  ongoing: 'ongoing',
+  ended: 'ended',
 };

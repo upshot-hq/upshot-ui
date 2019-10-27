@@ -7,6 +7,12 @@ export default {
   defaultSearchPlaceholder: 'search upshot',
   footerText: '2019 upshot, inc.',
   imageSizeLimitErrorMessage: 'image size should not be more than $SIZELIMITINMB$mb',
+  layout: {
+    rightSide: {
+      title: 'upcoming events',
+      noUpcomingContent: 'no upcoming event :(',
+    },
+  },
   layoutSideNav: {
     home: {
       title: 'home',
@@ -71,6 +77,7 @@ export default {
       allTab: 'all',
       eventsTab: 'events',
       postsTab: 'posts',
+      upcomingTab: 'upcoming',
     },
   },
   eventPage: {

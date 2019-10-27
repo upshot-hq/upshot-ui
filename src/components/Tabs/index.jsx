@@ -8,7 +8,7 @@ const Tabs = (props) => {
 
   const renderTabItem = (navItem, index) => {
     const navItemClassName = navItem.title.toLowerCase() === activeTitle.toLowerCase()
-      ? 'tab__items-item active' : 'tab__items-item';
+      ? `tab__items-item ${navItem.title} active` : `tab__items-item ${navItem.title}`;
 
     return (
       <div key={index}
