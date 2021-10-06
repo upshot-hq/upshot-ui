@@ -90,6 +90,7 @@
     cursor: pointer;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: rem(0 10px);
     &:active {
         background-color: $secondary-color-1;
