@@ -26,7 +26,9 @@ export const AuthPage = (props) => {
       imageUrl,
     } = response.profileObj;
 
-    console.log({ firstname, lastname, email, imageUrl })
+    console.log({ 
+      firstname, lastname, email, imageUrl 
+    })
 
     authenticateUser({
       firstname,
